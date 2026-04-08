@@ -41,6 +41,16 @@
 | `context/` | 多 Agent 协作文档库的上下文快照。 |
 | `archive/tasks_history/` | 原仓库的历史任务归档与旧交付物快照。 |
 
-## 拆分说明
+## 仓库体系说明与访问场景
 
-本仓库来自对 `project-management-ai-secretary` 的拆分重构。原仓库中的前端原型、React/TS 代码与通用技能定义已分别迁移到独立仓库，以降低上下文污染并提升不同任务类型的检索效率。
+本仓库来自对原 `project-management-ai-secretary` 仓库的拆分重构。为了降低 AI Agent 读取上下文时的噪音污染，整个项目现已拆分为三个独立仓库。
+
+**作为 AI Agent，请根据你当前被分配的任务类型，选择读取对应的仓库：**
+
+| 仓库名称 | 职责边界与内容 | Agent 访问场景 |
+| --- | --- | --- |
+| **[ai-secretary-architecture](https://github.com/gdszyy/ai-secretary-architecture)**<br>*(本仓库)* | **核心架构文档库**<br>包含系统级设计、模块 SOP、数据结构设计与项目全局上下文。纯 Markdown，信噪比 ~100%。 | **首选仓库**。当执行「系统规划」、「架构评审」、「SOP 制定」、「流程升级」或「了解项目背景」等高阶任务时，必须读取此仓库。 |
+| **[xpbet-frontend-components](https://github.com/gdszyy/xpbet-frontend-components)** | **前端工程与组件库**<br>包含所有 UI 原型、设计规范、React/TS 代码库与数据可视化组件。 | 当执行「UI 开发」、「前端组件重构」、「页面还原」或「交互效果调整」等前端工程任务时，请读取此仓库。 |
+| **[manus-lark-skills](https://github.com/gdszyy/manus-lark-skills)** | **通用 Agent 技能库**<br>存放可跨项目复用的 Manus 技能定义与 Python 脚本（如 `lark-codesandbox`、`lark-md-import`），与业务逻辑完全解耦。 | 当执行「技能开发」、「Lark API 集成」或需要「引用现有通用技能」时，请读取此仓库。 |
+
+> **提示**: 原 `project-management-ai-secretary` 仓库现已降级为**历史归档库**，主要用于存放体积庞大的废弃测试数据（如海量 JSON）和过时的中间交付物。除非需要追溯极早期的原始数据，否则 Agent **无需读取**原仓库。
