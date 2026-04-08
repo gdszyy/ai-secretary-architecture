@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>XPBET APP — Protótipo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* =====================
+       Design Tokens
+    ===================== */
+    :root {
+      --primary-0: #E80104;
+      --primary-1: #FFF0F0;
+      --primary-2: #FFDDDD;
+      --primary-3: #FF9697;
+      --primary-4: #C70003;
+      --primary-5: #4F0001;
+      --ft-a: #F5F6F8;
+      --ft-b: #F0F2F5;
+      --ft-c: #E2E5EA;
+      --ft-d: #C5CBD6;
+      --ft-e: #99A4B7;
+      --ft-f: #6D7D98;
+      --ft-g: #495266;
+      --ft-h: #2A303C;
+      --win: #27A700;
+      --lost: #AF0507;
+      --favorite: #FF8800;
+      --bonus: #FFC31D;
+      --pending: #CEB665;
+      --void: #C4C4C4;
+      --safe-top: env(safe-area-inset-top, 44px);
+      --safe-bottom: env(safe-area-inset-bottom, 20px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #1a1a2e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* =====================
+       Language Switcher (outside frame)
+    ===================== */
+    .lang-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 1000;
+    }
+    .lang-btn {
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+    .lang-btn.active {
+      background: var(--primary-0);
+      color: white;
+      border-color: var(--primary-0);
+    }
+
+    /* =====================
+       Phone Frame
+    ===================== */
+    .phone-frame {
+      width: 390px;
+      height: 844px;
+      background: var(--ft-b);
+      border-radius: 44px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.15);
+    }
+
+    /* =====================
+       Screen / Pages
+    ===================== */
+    .screen {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background: var(--ft-b);
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--ft-b);
+      transition: transform 0.4s cubic-bezier(0.3, 0, 0.2, 1), opacity 0.4s;
+    }
+
+    .page.hidden { transform: translateX(100%); pointer-events: none; }
+    .page.slide-out { transform: translateX(-30%); opacity: 0.6; pointer-events: none; }
+
+    /* =====================
+       Status Bar
+    ===================== */
+    .status-bar {
+      height: 44px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    .status-bar .time { font-size: 15px; font-weight: 600; color: var(--ft-h); }
+    .status-bar .icons { display: flex; gap: 6px; align-items: center; }
+    .status-bar .icons svg { width: 16px; height: 16px; fill: var(--ft-h); }
+
+    /* =====================
+       Top Nav Bar
+    ===================== */
+    .nav-bar {
+      background: white;
+      border-bottom: 1px solid var(--ft-c);
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    .nav-bar-inner {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+    }
+    .nav-back {
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border-radius: 50%;
+      transition: background 0.15s ease-out;
+      margin-left: -8px;
+    }
+    .nav-back:active { background: var(--ft-b); }
+    .nav-back svg { width: 20px; height: 20px; stroke: var(--ft-h); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-title { font-size: 16px; font-weight: 600; color: var(--ft-h); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .nav-logo {
+      font-size: 20px; font-weight: 700; color: var(--primary-0);
+      letter-spacing: -0.5px;
+    }
+    .nav-action {
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border-radius: 50%;
+      transition: background 0.15s ease-out;
+    }
+    .nav-action:active { background: var(--ft-b); }
+    .nav-action svg { width: 22px; height: 22px; stroke: var(--ft-h); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* =====================
+       Sport Tabs (Sticky)
+    ===================== */
+    .sport-tabs {
+      background: white;
+      border-bottom: 1px solid var(--ft-c);
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 9;
+    }
+    .sport-tabs::-webkit-scrollbar { display: none; }
+    .sport-tabs-inner {
+      display: flex;
+      padding: 0 12px;
+      gap: 4px;
+      min-width: max-content;
+    }
+    .sport-tab {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      padding: 8px 12px 10px;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.15s ease-out;
+      min-width: 60px;
+    }
+    .sport-tab .tab-icon { font-size: 20px; }
+    /* i18n: tab-label uses leading-normal to handle diacritics */
+    .sport-tab .tab-label {
+      font-size: 10px; font-weight: 500; color: var(--ft-e);
+      white-space: nowrap; line-height: 1.4;
+    }
+    .sport-tab.active .tab-label { color: var(--primary-0); font-weight: 600; }
+    .sport-tab.active::after {
+      content: '';
+      position: absolute; bottom: 0; left: 12px; right: 12px;
+      height: 2px; background: var(--primary-0); border-radius: 2px 2px 0 0;
+    }
+
+    /* =====================
+       Scroll Content
+    ===================== */
+    .scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: none;
+      padding: 12px 16px;
+      padding-bottom: 140px;
+    }
+    .scroll-content::-webkit-scrollbar { display: none; }
+
+    /* =====================
+       Section Header
+    ===================== */
+    .section-header {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 8px; margin-top: 4px;
+    }
+    .section-header .league-icon {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--ft-c); display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+    }
+    /* i18n: league-name allows wrapping for long Portuguese/Spanish league names */
+    .section-header .league-name {
+      font-size: 12px; font-weight: 500; color: var(--ft-f); flex: 1;
+      line-height: 1.5;
+    }
+    .section-header .more-btn {
+      font-size: 11px; color: var(--primary-0); cursor: pointer;
+      padding: 4px 8px; border-radius: 12px;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .section-header .more-btn:active { background: var(--primary-1); }
+
+    /* =====================
+       Event Card
+    ===================== */
+    .event-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 1px rgba(46,46,46,0.08);
+      outline: 0.8px solid rgba(255,255,255,0.9);
+      margin-bottom: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s ease-out, box-shadow 0.15s;
+    }
+    .event-card:active { transform: scale(0.98); box-shadow: 0 0 0 rgba(46,46,46,0.04); }
+
+    .card-header {
+      background: rgba(46,46,46,0.05);
+      border-bottom: 0.6px solid rgba(46,46,46,0.08);
+      padding: 8px 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card-header .live-badge {
+      background: var(--primary-0); color: white;
+      font-size: 10px; font-weight: 600;
+      padding: 1px 6px; border-radius: 999px;
+      animation: pulse-badge 1.5s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    @keyframes pulse-badge {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .card-header .event-time { font-size: 11px; color: var(--ft-f); flex: 1; }
+    .card-header .event-score { font-size: 12px; font-weight: 700; color: var(--ft-h); }
+    .card-header .fav-btn {
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border-radius: 50%;
+      transition: background 0.15s;
+      margin: -8px -8px -8px 0;
+    }
+    .card-header .fav-btn:active { background: rgba(255,136,0,0.1); }
+    .card-header .fav-btn svg { width: 16px; height: 16px; stroke: var(--ft-d); fill: none; stroke-width: 1.8; }
+    .card-header .fav-btn.active svg { stroke: var(--favorite); fill: var(--favorite); }
+
+    .card-body { padding: 10px 12px 12px; }
+    .teams-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .team-info { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+    .team-logo {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--ft-b); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0;
+    }
+    /* i18n: team-name allows 2 lines for long Portuguese/Spanish team names */
+    .team-name {
+      font-size: 13px; font-weight: 500; color: var(--ft-h);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      line-height: 1.4;
+    }
+    .vs-score { font-size: 18px; font-weight: 700; color: var(--ft-h); text-align: center; min-width: 44px; flex-shrink: 0; }
+
+    /* Odds Row */
+    .odds-row {
+      display: flex; gap: 6px;
+    }
+    .odds-btn {
+      flex: 1; height: 48px;
+      background: var(--ft-a);
+      border: none; border-radius: 8px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+      cursor: pointer;
+      transition: background 0.15s ease-out, border 0.15s;
+      position: relative;
+      outline: 1px solid transparent;
+      min-width: 0;
+    }
+    .odds-btn:active { background: var(--ft-c); }
+    .odds-btn.selected {
+      background: var(--primary-1);
+      outline: 1px solid var(--primary-0);
+    }
+    .odds-btn.selected .odds-label { color: var(--primary-0); }
+    .odds-btn.selected .odds-value { color: var(--primary-0); }
+    /* i18n: odds-label truncates if translation is too long */
+    .odds-btn .odds-label {
+      font-size: 10px; color: var(--ft-f); font-weight: 400;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      max-width: 90%; line-height: 1.4;
+    }
+    .odds-btn .odds-value { font-size: 16px; font-weight: 700; color: var(--ft-h); }
+    .odds-btn .odds-trend {
+      position: absolute; top: 4px; right: 6px;
+      font-size: 9px; font-weight: 600;
+    }
+    .odds-btn .odds-trend.up { color: var(--win); }
+    .odds-btn .odds-trend.down { color: var(--lost); }
+
+    /* =====================
+       Tab Bar
+    ===================== */
+    .tab-bar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      border-top: 1px solid var(--ft-c);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      z-index: 20;
+    }
+    .tab-bar-inner {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .tab-item {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      cursor: pointer; padding: 4px 12px;
+      transition: color 0.15s; min-width: 48px;
+    }
+    .tab-item svg { width: 22px; height: 22px; stroke: var(--ft-e); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    /* i18n: tab label line-height for diacritics */
+    .tab-item span { font-size: 10px; color: var(--ft-e); font-weight: 500; line-height: 1.4; }
+    .tab-item.active svg { stroke: var(--primary-0); }
+    .tab-item.active span { color: var(--primary-0); font-weight: 600; }
+
+    /* =====================
+       BetBar
+    ===================== */
+    .bet-bar {
+      position: absolute;
+      bottom: 56px; left: 0; right: 0;
+      background: var(--ft-h);
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 10px;
+      z-index: 19;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s;
+    }
+    .bet-bar.hidden-bar { transform: translateY(100%); opacity: 0; pointer-events: none; }
+    .bet-selections {
+      flex: 1; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+    }
+    .bet-selections::-webkit-scrollbar { display: none; }
+    .bet-chip {
+      background: rgba(255,255,255,0.12);
+      color: white; font-size: 11px; font-weight: 500;
+      padding: 4px 8px; border-radius: 999px;
+      white-space: nowrap; display: flex; align-items: center; gap: 4px;
+    }
+    .remove-chip {
+      color: rgba(255,255,255,0.6); cursor: pointer; font-size: 10px;
+      width: 16px; height: 16px; display: flex; align-items: center; justify-content: center;
+    }
+    /* i18n: bet-bar-btn uses flex layout to accommodate longer translated text */
+    .bet-bar-btn {
+      background: var(--primary-0); color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px; font-weight: 600;
+      border: none; border-radius: 999px;
+      padding: 0 16px; height: 40px;
+      cursor: pointer; white-space: nowrap;
+      display: flex; align-items: center; gap: 6px;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+    .bet-bar-btn:active { background: var(--primary-4); }
+    .bet-count-badge {
+      background: white; color: var(--primary-0);
+      font-size: 11px; font-weight: 700;
+      width: 18px; height: 18px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* =====================
+       Betslip Sheet
+    ===================== */
+    .sheet-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0); z-index: 29;
+      pointer-events: none;
+      transition: background 0.3s;
+    }
+    .sheet-overlay.visible { background: rgba(0,0,0,0.4); pointer-events: all; }
+
+    .betslip-sheet {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      border-radius: 20px 20px 0 0;
+      z-index: 30;
+      max-height: 80%;
+      display: flex; flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .betslip-sheet.open { transform: translateY(0); }
+
+    .sheet-handle {
+      width: 36px; height: 4px;
+      background: var(--ft-c); border-radius: 2px;
+      margin: 12px auto 0;
+      flex-shrink: 0;
+    }
+    .sheet-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px 8px;
+      flex-shrink: 0;
+    }
+    /* i18n: sheet-title uses flex and wrapping for long translated strings */
+    .sheet-title {
+      font-size: 16px; font-weight: 700; color: var(--ft-h);
+      line-height: 1.4;
+    }
+    .sheet-close {
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border-radius: 50%;
+      transition: background 0.15s;
+      margin: -8px;
+    }
+    .sheet-close:active { background: var(--ft-b); }
+    .sheet-close svg { width: 20px; height: 20px; stroke: var(--ft-g); fill: none; stroke-width: 2; stroke-linecap: round; }
+
+    .sheet-tabs {
+      display: flex; border-bottom: 1px solid var(--ft-c);
+      flex-shrink: 0;
+    }
+    .sheet-tab {
+      flex: 1; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 500; color: var(--ft-e);
+      cursor: pointer; position: relative;
+      transition: color 0.15s;
+    }
+    .sheet-tab.active { color: var(--ft-h); font-weight: 700; }
+    .sheet-tab.active::after {
+      content: ''; position: absolute; bottom: 0; left: 20%; right: 20%;
+      height: 2px; background: var(--primary-0); border-radius: 2px 2px 0 0;
+    }
+
+    .sheet-scroll {
+      flex: 1; overflow-y: auto; scrollbar-width: none;
+    }
+    .sheet-scroll::-webkit-scrollbar { display: none; }
+
+    /* Bet Item */
+    .bet-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--ft-b);
+    }
+    .bet-item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+    /* i18n: event info allows wrapping */
+    .bet-item-event { font-size: 11px; color: var(--ft-e); line-height: 1.5; flex: 1; margin-right: 8px; }
+    .bet-item-remove {
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border-radius: 50%; margin: -12px -12px -12px 0;
+      transition: background 0.15s;
+    }
+    .bet-item-remove:active { background: var(--ft-b); }
+    .bet-item-remove svg { width: 16px; height: 16px; stroke: var(--ft-d); fill: none; stroke-width: 2; stroke-linecap: round; }
+    /* i18n: selection name allows wrapping for long translated team names */
+    .bet-item-selection {
+      font-size: 14px; font-weight: 600; color: var(--ft-h);
+      margin-bottom: 2px; line-height: 1.4;
+    }
+    .bet-item-market { font-size: 11px; color: var(--ft-f); margin-bottom: 8px; line-height: 1.4; }
+    .bet-item-odds-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .bet-item-odds { font-size: 18px; font-weight: 700; color: var(--primary-0); }
+    .bet-item-potential { font-size: 12px; color: var(--ft-f); text-align: right; line-height: 1.4; }
+    .bet-item-potential strong { color: var(--win); font-weight: 600; display: block; }
+
+    /* Amount Input */
+    .amount-row { margin-bottom: 8px; }
+    .amount-input-wrap {
+      display: flex; align-items: center;
+      background: var(--ft-a); border-radius: 8px;
+      border: 1px solid var(--ft-c);
+      height: 44px;
+      transition: border-color 0.15s;
+    }
+    .amount-input-wrap:focus-within { border-color: var(--primary-0); }
+    /* i18n: currency symbol shown dynamically */
+    .currency-symbol {
+      padding: 0 4px 0 12px;
+      font-size: 14px; font-weight: 600; color: var(--ft-g);
+      white-space: nowrap;
+    }
+    .amount-input {
+      flex: 1; background: transparent; border: none; outline: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px; font-weight: 600; color: var(--ft-h);
+      padding: 0 12px 0 0;
+    }
+    .amount-input::placeholder { color: var(--ft-d); }
+
+    /* Quick Chips */
+    .quick-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .quick-chip {
+      background: rgba(46,46,46,0.04);
+      border-radius: 8px; height: 32px;
+      padding: 0 12px;
+      font-size: 12px; font-weight: 500; color: var(--ft-g);
+      border: none; cursor: pointer;
+      transition: background 0.15s ease-out;
+    }
+    .quick-chip:active { background: rgba(46,46,46,0.09); }
+
+    /* Sheet Footer */
+    .sheet-footer {
+      padding: 12px 16px 4px;
+      border-top: 1px solid var(--ft-c);
+      flex-shrink: 0;
+    }
+    .total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    /* i18n: total-label wraps for long translated strings */
+    .total-label { font-size: 13px; color: var(--ft-f); line-height: 1.4; }
+    .total-value { font-size: 15px; font-weight: 700; color: var(--ft-h); white-space: nowrap; }
+    .total-win { font-size: 13px; color: var(--win); font-weight: 600; white-space: nowrap; }
+
+    /* i18n: place-btn uses flexible padding to accommodate longer translated text */
+    .place-btn {
+      width: 100%; height: 48px;
+      background: var(--primary-0); color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px; font-weight: 600;
+      border: none; border-radius: 999px; cursor: pointer;
+      box-shadow: 0 4px 8px rgba(255,150,151,1);
+      transition: background 0.15s ease-out, transform 0.15s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 0 24px;
+    }
+    .place-btn:active { background: var(--primary-4); transform: scale(0.98); }
+    .place-btn:disabled { background: var(--void); box-shadow: none; cursor: not-allowed; }
+
+    /* =====================
+       Detail Page
+    ===================== */
+    .match-hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      padding: 20px 16px;
+      flex-shrink: 0;
+    }
+    .match-league { font-size: 11px; color: rgba(255,255,255,0.6); margin-bottom: 12px; text-align: center; line-height: 1.5; }
+    .match-teams {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 8px;
+    }
+    .match-team { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; min-width: 0; }
+    .match-team-logo {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+    }
+    /* i18n: team name in hero allows 2 lines */
+    .match-team-name {
+      font-size: 13px; font-weight: 600; color: white;
+      text-align: center; line-height: 1.4;
+      overflow: hidden; text-overflow: ellipsis;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    }
+    .match-score-block { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; }
+    .match-score { font-size: 36px; font-weight: 700; color: white; letter-spacing: 4px; }
+    .match-status {
+      background: var(--primary-0); color: white;
+      font-size: 10px; font-weight: 600;
+      padding: 2px 8px; border-radius: 999px;
+      animation: pulse-badge 1.5s ease-in-out infinite;
+    }
+    .match-time { font-size: 12px; color: rgba(255,255,255,0.6); }
+
+    /* Market Tabs */
+    .market-tabs {
+      background: white;
+      border-bottom: 1px solid var(--ft-c);
+      overflow-x: auto; scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .market-tabs::-webkit-scrollbar { display: none; }
+    .market-tabs-inner { display: flex; padding: 0 12px; min-width: max-content; }
+    .market-tab {
+      padding: 12px 14px; cursor: pointer;
+      font-size: 13px; font-weight: 500; color: var(--ft-f);
+      position: relative; white-space: nowrap;
+      transition: color 0.15s;
+    }
+    .market-tab.active { color: var(--ft-h); font-weight: 700; }
+    .market-tab.active::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 14px; right: 14px;
+      height: 2px; background: var(--primary-0); border-radius: 2px 2px 0 0;
+    }
+
+    /* Market Section */
+    .market-section { margin-bottom: 16px; }
+    /* i18n: market-title allows wrapping */
+    .market-title {
+      font-size: 13px; font-weight: 600; color: var(--ft-g);
+      padding: 10px 0 8px; line-height: 1.5;
+    }
+    .market-odds-grid { display: flex; gap: 6px; }
+    .market-odds-grid.grid-2 .odds-btn { flex: 1; }
+
+    /* =====================
+       Pull-to-Refresh Indicator
+    ===================== */
+    .ptr-indicator {
+      display: flex; align-items: center; justify-content: center;
+      height: 0; overflow: hidden;
+      transition: height 0.3s;
+      color: var(--ft-e); font-size: 12px; gap: 6px;
+    }
+    .ptr-indicator.visible { height: 40px; }
+    .ptr-spinner {
+      width: 16px; height: 16px;
+      border: 2px solid var(--ft-c);
+      border-top-color: var(--primary-0);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* =====================
+       Toast
+    ===================== */
+    .toast {
+      position: absolute; top: 100px; left: 50%; transform: translateX(-50%) translateY(-20px);
+      background: rgba(42,48,60,0.92);
+      color: white; font-size: 13px; font-weight: 500;
+      padding: 10px 20px; border-radius: 999px;
+      white-space: nowrap; z-index: 50;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* =====================
+       Empty State
+    ===================== */
+    .empty-state {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; padding: 48px 24px;
+    }
+    .empty-icon { font-size: 48px; opacity: 0.4; }
+    /* i18n: empty-text allows wrapping */
+    .empty-text { font-size: 14px; color: var(--ft-e); text-align: center; line-height: 1.6; }
+    .empty-btn {
+      background: var(--primary-0); color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px; font-weight: 600;
+      padding: 10px 24px; border-radius: 999px; border: none; cursor: pointer;
+      box-shadow: 0 4px 8px rgba(255,150,151,0.6);
+      transition: background 0.15s;
+    }
+    .empty-btn:active { background: var(--primary-4); }
+
+    /* =====================
+       i18n Format Demo Banner
+    ===================== */
+    .format-demo {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      margin: 0 16px 12px;
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .format-demo-title {
+      font-size: 10px; font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .format-demo-row {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .format-demo-label { font-size: 11px; color: rgba(255,255,255,0.6); }
+    .format-demo-value { font-size: 12px; font-weight: 600; color: white; }
+
+    /* =====================
+       Responsive
+    ===================== */
+    .preview-label {
+      position: fixed; bottom: 20px; left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+      font-family: 'Poppins', sans-serif;
+      font-size: 11px; padding: 6px 16px; border-radius: 999px;
+      pointer-events: none;
+    }
+
+    @media (max-width: 500px) {
+      body { padding: 0; background: var(--ft-b); }
+      .phone-frame { width: 100%; height: 100vh; border-radius: 0; box-shadow: none; }
+      .preview-label { display: none; }
+      .lang-switcher { top: 8px; right: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Language Switcher -->
+<div class="lang-switcher">
+  <button class="lang-btn active" onclick="setLang('pt-BR')">🇧🇷 PT</button>
+  <button class="lang-btn" onclick="setLang('pt-PT')">🇵🇹 PT-PT</button>
+  <button class="lang-btn" onclick="setLang('es-ES')">🇪🇸 ES</button>
+  <button class="lang-btn" onclick="setLang('es-MX')">🇲🇽 ES-MX</button>
+</div>
+
+<div class="phone-frame">
+  <div class="screen" id="screen">
+
+    <!-- ==================== PAGE 1: HOME ==================== -->
+    <div class="page" id="page-home">
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons">
+          <svg viewBox="0 0 24 24"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="11" rx="2"/><path d="M22 11v4"/></svg>
+        </div>
+      </div>
+
+      <!-- Nav Bar -->
+      <div class="nav-bar">
+        <div class="nav-bar-inner">
+          <span class="nav-logo">XPBET</span>
+          <div style="flex:1"></div>
+          <div class="nav-action" onclick="showToast(i18n.search)">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </div>
+          <div class="nav-action" onclick="showToast(i18n.notifications)">
+            <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sport Tabs -->
+      <div class="sport-tabs">
+        <div class="sport-tabs-inner" id="sport-tabs-inner">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Pull-to-Refresh -->
+      <div class="ptr-indicator" id="ptr">
+        <div class="ptr-spinner"></div>
+        <span id="ptr-text">Atualizando...</span>
+      </div>
+
+      <!-- Scroll Content -->
+      <div class="scroll-content" id="home-scroll">
+
+        <!-- i18n Format Demo Banner -->
+        <div class="format-demo" id="format-demo">
+          <div class="format-demo-title" id="format-demo-title">Formato Regional</div>
+          <div class="format-demo-row">
+            <span class="format-demo-label" id="fmt-currency-label">Moeda</span>
+            <span class="format-demo-value" id="fmt-currency-value">R$ 1.234,56</span>
+          </div>
+          <div class="format-demo-row">
+            <span class="format-demo-label" id="fmt-date-label">Data</span>
+            <span class="format-demo-value" id="fmt-date-value">28/03/2026</span>
+          </div>
+          <div class="format-demo-row">
+            <span class="format-demo-label" id="fmt-time-label">Hora</span>
+            <span class="format-demo-value" id="fmt-time-value">20:45</span>
+          </div>
+        </div>
+
+        <!-- Section: Premier League -->
+        <div class="section-header">
+          <div class="league-icon">🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+          <span class="league-name" id="league1-name">Premier League Inglesa</span>
+          <span class="more-btn" id="league1-more">+12 jogos</span>
+        </div>
+
+        <!-- Event Card 1 (Live) -->
+        <div class="event-card" onclick="goToDetail('Arsenal vs Chelsea', 'Arsenal', 'Chelsea', '⚽', '🔵', '2', '1', true)">
+          <div class="card-header">
+            <span class="live-badge" id="live-badge-1">AO VIVO</span>
+            <span class="event-time" id="event-time-1">67º min</span>
+            <span class="event-score">2 - 1</span>
+            <div class="fav-btn" onclick="toggleFav(event, this)">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="teams-row">
+              <div class="team-info">
+                <div class="team-logo">⚽</div>
+                <span class="team-name">Arsenal</span>
+              </div>
+              <span class="vs-score">2 - 1</span>
+              <div class="team-info" style="flex-direction:row-reverse">
+                <div class="team-logo">🔵</div>
+                <span class="team-name" style="text-align:right">Chelsea</span>
+              </div>
+            </div>
+            <div class="odds-row">
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Arsenal Vence', '1.85')">
+                <span class="odds-label" id="home-win-label">Casa</span>
+                <span class="odds-value">1,85</span>
+                <span class="odds-trend up">↑</span>
+              </button>
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Empate', '3.40')">
+                <span class="odds-label" id="draw-label">Empate</span>
+                <span class="odds-value">3,40</span>
+              </button>
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Chelsea Vence', '4.20')">
+                <span class="odds-label" id="away-win-label">Fora</span>
+                <span class="odds-value">4,20</span>
+                <span class="odds-trend down">↓</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Card 2 (Upcoming) -->
+        <div class="event-card" onclick="goToDetail('Man City vs Liverpool', 'Manchester City', 'Liverpool', '🔵', '🔴', '0', '0', false)">
+          <div class="card-header">
+            <span class="event-time">Hoje 20:45</span>
+            <div class="fav-btn" onclick="toggleFav(event, this)">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="teams-row">
+              <div class="team-info">
+                <div class="team-logo">🔵</div>
+                <span class="team-name">Manchester City</span>
+              </div>
+              <span class="vs-score" style="font-size:13px;color:var(--ft-f)">VS</span>
+              <div class="team-info" style="flex-direction:row-reverse">
+                <div class="team-logo">🔴</div>
+                <span class="team-name" style="text-align:right">Liverpool</span>
+              </div>
+            </div>
+            <div class="odds-row">
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Man City Vence', '2.10')">
+                <span class="odds-label">Casa</span>
+                <span class="odds-value">2,10</span>
+              </button>
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Empate', '3.20')">
+                <span class="odds-label">Empate</span>
+                <span class="odds-value">3,20</span>
+              </button>
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Liverpool Vence', '3.50')">
+                <span class="odds-label">Fora</span>
+                <span class="odds-value">3,50</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: La Liga -->
+        <div class="section-header">
+          <div class="league-icon">🇪🇸</div>
+          <span class="league-name" id="league2-name">La Liga Espanhola</span>
+          <span class="more-btn" id="league2-more">+8 jogos</span>
+        </div>
+
+        <!-- Event Card 3 (Live) -->
+        <div class="event-card" onclick="goToDetail('Real Madrid vs Barcelona', 'Real Madrid', 'FC Barcelona', '⚪', '🔵', '1', '2', true)">
+          <div class="card-header">
+            <span class="live-badge">AO VIVO</span>
+            <span class="event-time">45º min</span>
+            <span class="event-score">1 - 2</span>
+            <div class="fav-btn active" onclick="toggleFav(event, this)">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="teams-row">
+              <div class="team-info">
+                <div class="team-logo">⚪</div>
+                <span class="team-name">Real Madrid</span>
+              </div>
+              <span class="vs-score">1 - 2</span>
+              <div class="team-info" style="flex-direction:row-reverse">
+                <div class="team-logo">🔵</div>
+                <span class="team-name" style="text-align:right">FC Barcelona</span>
+              </div>
+            </div>
+            <div class="odds-row">
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Real Madrid Vence', '2.55')">
+                <span class="odds-label">Casa</span>
+                <span class="odds-value">2,55</span>
+                <span class="odds-trend up">↑</span>
+              </button>
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Empate', '3.10')">
+                <span class="odds-label">Empate</span>
+                <span class="odds-value">3,10</span>
+              </button>
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Barcelona Vence', '2.80')">
+                <span class="odds-label">Fora</span>
+                <span class="odds-value">2,80</span>
+                <span class="odds-trend down">↓</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Card 4 -->
+        <div class="event-card" onclick="goToDetail('Atlético de Madrid vs Sevilla', 'Atlético de Madrid', 'Sevilla FC', '🔴', '🟠', '0', '0', false)">
+          <div class="card-header">
+            <span class="event-time">Amanhã 21:00</span>
+            <div class="fav-btn" onclick="toggleFav(event, this)">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="teams-row">
+              <div class="team-info">
+                <div class="team-logo">🔴</div>
+                <!-- i18n: long Spanish team name — uses ellipsis gracefully -->
+                <span class="team-name">Atlético de Madrid</span>
+              </div>
+              <span class="vs-score" style="font-size:13px;color:var(--ft-f)">VS</span>
+              <div class="team-info" style="flex-direction:row-reverse">
+                <div class="team-logo">🟠</div>
+                <span class="team-name" style="text-align:right">Sevilla FC</span>
+              </div>
+            </div>
+            <div class="odds-row">
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Atlético Vence', '1.95')">
+                <span class="odds-label">Casa</span>
+                <span class="odds-value">1,95</span>
+              </button>
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Empate', '3.30')">
+                <span class="odds-label">Empate</span>
+                <span class="odds-value">3,30</span>
+              </button>
+              <button class="odds-btn" onclick="selectOdds(event, this, 'Sevilla Vence', '3.90')">
+                <span class="odds-label">Fora</span>
+                <span class="odds-value">3,90</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /scroll-content -->
+
+      <!-- BetBar -->
+      <div class="bet-bar hidden-bar" id="bet-bar">
+        <div class="bet-selections" id="bet-selections"></div>
+        <button class="bet-bar-btn" onclick="openBetslip()">
+          <span id="betbar-label">Apostar</span>
+          <span class="bet-count-badge" id="bet-count">0</span>
+        </button>
+      </div>
+
+      <!-- Tab Bar -->
+      <div class="tab-bar">
+        <div class="tab-bar-inner" id="tab-bar-home">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </div><!-- /page-home -->
+
+
+    <!-- ==================== PAGE 2: DETAIL ==================== -->
+    <div class="page hidden" id="page-detail">
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <div class="icons">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:var(--ft-h)"><path d="M1 6l5.5 5.5L12 6l5.5 5.5L23 6"/></svg>
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:var(--ft-h)"><rect x="2" y="7" width="18" height="11" rx="2"/><path d="M22 11v4"/></svg>
+        </div>
+      </div>
+
+      <!-- Nav Bar -->
+      <div class="nav-bar">
+        <div class="nav-bar-inner">
+          <div class="nav-back" onclick="goBack()">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+          </div>
+          <span class="nav-title" id="detail-title">Detalhes</span>
+          <div class="nav-action" onclick="showToast(i18n.saved)">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="nav-action" onclick="showToast(i18n.share)">
+            <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Match Hero -->
+      <div class="match-hero">
+        <div class="match-league" id="detail-league">Premier League Inglesa</div>
+        <div class="match-teams">
+          <div class="match-team">
+            <div class="match-team-logo" id="detail-home-logo">⚽</div>
+            <div class="match-team-name" id="detail-home-name">Arsenal</div>
+          </div>
+          <div class="match-score-block">
+            <div class="match-score" id="detail-score">2 - 1</div>
+            <div class="match-status" id="detail-status">AO VIVO</div>
+            <div class="match-time" id="detail-time">67º min</div>
+          </div>
+          <div class="match-team">
+            <div class="match-team-logo" id="detail-away-logo">🔵</div>
+            <div class="match-team-name" id="detail-away-name">Chelsea</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Market Tabs -->
+      <div class="market-tabs">
+        <div class="market-tabs-inner" id="market-tabs-inner">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Scroll Content -->
+      <div class="scroll-content" style="padding-bottom:160px">
+
+        <!-- 1X2 -->
+        <div class="market-section">
+          <div class="market-title" id="market-1x2-title">Resultado Final (1X2)</div>
+          <div class="odds-row">
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Arsenal Vence', '1.85')">
+              <span class="odds-label" id="detail-home-label">Casa</span>
+              <span class="odds-value">1,85</span>
+              <span class="odds-trend up">↑</span>
+            </button>
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Empate', '3.40')">
+              <span class="odds-label" id="detail-draw-label">Empate</span>
+              <span class="odds-value">3,40</span>
+            </button>
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Chelsea Vence', '4.20')">
+              <span class="odds-label" id="detail-away-label">Fora</span>
+              <span class="odds-value">4,20</span>
+              <span class="odds-trend down">↓</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Double Chance -->
+        <div class="market-section">
+          <div class="market-title" id="market-dc-title">Dupla Chance</div>
+          <div class="odds-row">
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Casa ou Empate', '1.18')">
+              <span class="odds-label" id="dc-1-label">Casa/Emp</span>
+              <span class="odds-value">1,18</span>
+            </button>
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Casa ou Fora', '1.22')">
+              <span class="odds-label" id="dc-2-label">Casa/Fora</span>
+              <span class="odds-value">1,22</span>
+            </button>
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Empate ou Fora', '1.95')">
+              <span class="odds-label" id="dc-3-label">Emp/Fora</span>
+              <span class="odds-value">1,95</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- BTTS -->
+        <div class="market-section">
+          <div class="market-title" id="market-btts-title">Ambas Marcam</div>
+          <div class="odds-row market-odds-grid grid-2">
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Ambas Marcam - Sim', '1.72')">
+              <span class="odds-label" id="btts-yes-label">Sim</span>
+              <span class="odds-value">1,72</span>
+            </button>
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Ambas Marcam - Não', '2.05')">
+              <span class="odds-label" id="btts-no-label">Não</span>
+              <span class="odds-value">2,05</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Total Goals -->
+        <div class="market-section">
+          <div class="market-title" id="market-goals-title">Total de Gols</div>
+          <div class="odds-row" style="margin-bottom:6px">
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Mais de 0,5 gols', '1.08')">
+              <span class="odds-label">Mais 0,5</span>
+              <span class="odds-value">1,08</span>
+            </button>
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Menos de 0,5 gols', '7.50')">
+              <span class="odds-label">Menos 0,5</span>
+              <span class="odds-value">7,50</span>
+            </button>
+          </div>
+          <div class="odds-row" style="margin-bottom:6px">
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Mais de 2,5 gols', '1.65')">
+              <span class="odds-label">Mais 2,5</span>
+              <span class="odds-value">1,65</span>
+            </button>
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Menos de 2,5 gols', '2.20')">
+              <span class="odds-label">Menos 2,5</span>
+              <span class="odds-value">2,20</span>
+            </button>
+          </div>
+          <div class="odds-row">
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Mais de 3,5 gols', '2.40')">
+              <span class="odds-label">Mais 3,5</span>
+              <span class="odds-value">2,40</span>
+            </button>
+            <button class="odds-btn" onclick="selectOdds(event, this, 'Menos de 3,5 gols', '1.55')">
+              <span class="odds-label">Menos 3,5</span>
+              <span class="odds-value">1,55</span>
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /scroll-content -->
+
+      <!-- BetBar (detail page) -->
+      <div class="bet-bar hidden-bar" id="bet-bar-detail">
+        <div class="bet-selections" id="bet-selections-detail"></div>
+        <button class="bet-bar-btn" onclick="openBetslip()">
+          <span id="betbar-label-detail">Apostar</span>
+          <span class="bet-count-badge" id="bet-count-detail">0</span>
+        </button>
+      </div>
+
+      <!-- Tab Bar -->
+      <div class="tab-bar">
+        <div class="tab-bar-inner" id="tab-bar-detail">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </div><!-- /page-detail -->
+
+
+    <!-- ==================== BETSLIP SHEET ==================== -->
+    <div class="sheet-overlay" id="sheet-overlay" onclick="closeBetslip()"></div>
+
+    <div class="betslip-sheet" id="betslip-sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <span class="sheet-title" id="sheet-title-text">Boletim de Apostas <span id="sheet-count" style="font-size:13px;color:var(--ft-e);font-weight:500"></span></span>
+        <div class="sheet-close" onclick="closeBetslip()">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+      </div>
+      <div class="sheet-tabs">
+        <div class="sheet-tab active" id="sheet-tab-single">Simples</div>
+        <div class="sheet-tab" id="sheet-tab-combo" onclick="showToast(i18n.comboHint)">Múltipla</div>
+      </div>
+
+      <div class="sheet-scroll" id="sheet-scroll">
+        <div id="bet-items-container"></div>
+        <div class="empty-state" id="sheet-empty" style="display:none">
+          <div class="empty-icon">🎯</div>
+          <div class="empty-text" id="empty-text-msg">Nenhuma seleção<br>Escolha uma cota para começar</div>
+          <button class="empty-btn" onclick="closeBetslip()" id="empty-cta-btn">Ver jogos em destaque →</button>
+        </div>
+      </div>
+
+      <div class="sheet-footer" id="sheet-footer">
+        <div class="total-row">
+          <span class="total-label" id="total-stake-label">Total apostado</span>
+          <span class="total-value" id="total-stake">R$ 0,00</span>
+        </div>
+        <div class="total-row" style="margin-bottom:16px">
+          <span class="total-label" id="total-win-label">Ganho potencial</span>
+          <span class="total-win" id="total-win">R$ 0,00</span>
+        </div>
+        <button class="place-btn" id="place-btn" disabled onclick="placeBet()">
+          <span id="place-btn-text">Confirmar Aposta</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+  </div><!-- /screen -->
+</div><!-- /phone-frame -->
+
+<div class="preview-label" id="preview-label">XPBET APP — Clique em uma cota para começar</div>
+
+<script>
+  // =====================
+  // i18n Locale Definitions
+  // =====================
+  const locales = {
+    'pt-BR': {
+      lang: 'pt-BR',
+      htmlLang: 'pt-BR',
+      flag: '🇧🇷',
+      currency: 'BRL',
+      currencySymbol: 'R$',
+      // Number format: comma decimal, dot thousands (pt-BR)
+      decimalSep: ',',
+      thousandSep: '.',
+      dateFormat: 'DD/MM/AAAA',
+      timeFormat: '24h',
+      sports: ['Futebol', 'Basquete', 'Tênis', 'Futebol Americano', 'Hóquei', 'Beisebol'],
+      tabs: ['Início', 'Descobrir', 'Ao Vivo', 'Promoções', 'Minha Conta'],
+      search: 'Buscar',
+      notifications: 'Notificações',
+      saved: '⭐ Salvo',
+      share: 'Compartilhar',
+      betBarLabel: 'Apostar',
+      sheetTitle: 'Boletim de Apostas',
+      sheetSingle: 'Simples',
+      sheetCombo: 'Múltipla',
+      comboHint: 'Múltipla: selecione 2+ jogos',
+      totalStake: 'Total apostado',
+      totalWin: 'Ganho potencial',
+      placeBtn: 'Confirmar Aposta',
+      emptyText: 'Nenhuma seleção\nEscolha uma cota para começar',
+      emptyCta: 'Ver jogos em destaque →',
+      ptrText: 'Atualizando...',
+      refreshed: 'Dados atualizados',
+      betSuccess: '🎉 Aposta confirmada!',
+      league1: 'Premier League Inglesa',
+      league1More: '+12 jogos',
+      league2: 'La Liga Espanhola',
+      league2More: '+8 jogos',
+      liveLabel: 'AO VIVO',
+      marketTabs: ['Resultado', 'Handicap', 'Total de Gols', 'Intervalo', 'Escanteios', 'Chutes'],
+      market1x2: 'Resultado Final (1X2)',
+      marketDC: 'Dupla Chance',
+      marketBTTS: 'Ambas Marcam',
+      marketGoals: 'Total de Gols',
+      homeLabel: 'Casa',
+      drawLabel: 'Empate',
+      awayLabel: 'Fora',
+      dc1: 'Casa/Emp',
+      dc2: 'Casa/Fora',
+      dc3: 'Emp/Fora',
+      bttsYes: 'Sim',
+      bttsNo: 'Não',
+      formatDemoTitle: 'Formato Regional (pt-BR)',
+      fmtCurrencyLabel: 'Moeda',
+      fmtDateLabel: 'Data',
+      fmtTimeLabel: 'Hora',
+      eventInfo: 'Premier League Inglesa · Resultado',
+      marketLabel: 'Resultado Final · Tempo Normal',
+      potentialLabel: 'Ganho potencial',
+      amountPlaceholder: 'Valor da aposta',
+    },
+    'pt-PT': {
+      lang: 'pt-PT',
+      htmlLang: 'pt-PT',
+      flag: '🇵🇹',
+      currency: 'EUR',
+      currencySymbol: '€',
+      decimalSep: ',',
+      thousandSep: ' ',
+      dateFormat: 'DD/MM/AAAA',
+      timeFormat: '24h',
+      sports: ['Futebol', 'Basquetebol', 'Ténis', 'Futebol Americano', 'Hóquei', 'Basebol'],
+      tabs: ['Início', 'Descobrir', 'Em Direto', 'Promoções', 'A Minha Conta'],
+      search: 'Pesquisar',
+      notifications: 'Notificações',
+      saved: '⭐ Guardado',
+      share: 'Partilhar',
+      betBarLabel: 'Apostar',
+      sheetTitle: 'Boletim de Apostas',
+      sheetSingle: 'Simples',
+      sheetCombo: 'Múltipla',
+      comboHint: 'Múltipla: seleccione 2+ jogos',
+      totalStake: 'Total apostado',
+      totalWin: 'Ganho potencial',
+      placeBtn: 'Confirmar Aposta',
+      emptyText: 'Sem selecções\nEscolha uma quota para começar',
+      emptyCta: 'Ver jogos em destaque →',
+      ptrText: 'A actualizar...',
+      refreshed: 'Dados actualizados',
+      betSuccess: '🎉 Aposta confirmada!',
+      league1: 'Premier League Inglesa',
+      league1More: '+12 jogos',
+      league2: 'La Liga Espanhola',
+      league2More: '+8 jogos',
+      liveLabel: 'EM DIRETO',
+      marketTabs: ['Resultado', 'Handicap', 'Total de Golos', 'Intervalo', 'Cantos', 'Remates'],
+      market1x2: 'Resultado Final (1X2)',
+      marketDC: 'Dupla Hipótese',
+      marketBTTS: 'Ambas Marcam',
+      marketGoals: 'Total de Golos',
+      homeLabel: 'Casa',
+      drawLabel: 'Empate',
+      awayLabel: 'Fora',
+      dc1: 'Casa/Emp',
+      dc2: 'Casa/Fora',
+      dc3: 'Emp/Fora',
+      bttsYes: 'Sim',
+      bttsNo: 'Não',
+      formatDemoTitle: 'Formato Regional (pt-PT)',
+      fmtCurrencyLabel: 'Moeda',
+      fmtDateLabel: 'Data',
+      fmtTimeLabel: 'Hora',
+      eventInfo: 'Premier League Inglesa · Resultado',
+      marketLabel: 'Resultado Final · Tempo Normal',
+      potentialLabel: 'Ganho potencial',
+      amountPlaceholder: 'Valor da aposta',
+    },
+    'es-ES': {
+      lang: 'es-ES',
+      htmlLang: 'es',
+      flag: '🇪🇸',
+      currency: 'EUR',
+      currencySymbol: '€',
+      decimalSep: ',',
+      thousandSep: '.',
+      dateFormat: 'DD/MM/AAAA',
+      timeFormat: '24h',
+      sports: ['Fútbol', 'Baloncesto', 'Tenis', 'Fútbol Americano', 'Hockey', 'Béisbol'],
+      tabs: ['Inicio', 'Descubrir', 'En Vivo', 'Promociones', 'Mi Cuenta'],
+      search: 'Buscar',
+      notifications: 'Notificaciones',
+      saved: '⭐ Guardado',
+      share: 'Compartir',
+      betBarLabel: 'Apostar',
+      sheetTitle: 'Boleto de Apuestas',
+      sheetSingle: 'Simple',
+      sheetCombo: 'Combinada',
+      comboHint: 'Combinada: selecciona 2+ partidos',
+      totalStake: 'Total apostado',
+      totalWin: 'Ganancia potencial',
+      placeBtn: 'Confirmar Apuesta',
+      emptyText: 'Sin selecciones\nElige una cuota para empezar',
+      emptyCta: 'Ver partidos destacados →',
+      ptrText: 'Actualizando...',
+      refreshed: 'Datos actualizados',
+      betSuccess: '🎉 ¡Apuesta confirmada!',
+      league1: 'Premier League Inglesa',
+      league1More: '+12 partidos',
+      league2: 'La Liga Española',
+      league2More: '+8 partidos',
+      liveLabel: 'EN VIVO',
+      marketTabs: ['Resultado', 'Hándicap', 'Total de Goles', 'Primer Tiempo', 'Córners', 'Tiros'],
+      market1x2: 'Resultado Final (1X2)',
+      marketDC: 'Doble Oportunidad',
+      marketBTTS: 'Ambos Marcan',
+      marketGoals: 'Total de Goles',
+      homeLabel: 'Local',
+      drawLabel: 'Empate',
+      awayLabel: 'Visitante',
+      dc1: 'Local/Emp',
+      dc2: 'Local/Vis',
+      dc3: 'Emp/Vis',
+      bttsYes: 'Sí',
+      bttsNo: 'No',
+      formatDemoTitle: 'Formato Regional (es-ES)',
+      fmtCurrencyLabel: 'Moneda',
+      fmtDateLabel: 'Fecha',
+      fmtTimeLabel: 'Hora',
+      eventInfo: 'Premier League Inglesa · Resultado',
+      marketLabel: 'Resultado Final · Tiempo Completo',
+      potentialLabel: 'Ganancia potencial',
+      amountPlaceholder: 'Importe de la apuesta',
+    },
+    'es-MX': {
+      lang: 'es-MX',
+      htmlLang: 'es-MX',
+      flag: '🇲🇽',
+      currency: 'MXN',
+      currencySymbol: '$',
+      decimalSep: '.',
+      thousandSep: ',',
+      dateFormat: 'DD/MM/AAAA',
+      timeFormat: '24h',
+      sports: ['Fútbol', 'Básquetbol', 'Tenis', 'Fútbol Americano', 'Hockey', 'Béisbol'],
+      tabs: ['Inicio', 'Descubrir', 'En Vivo', 'Promociones', 'Mi Cuenta'],
+      search: 'Buscar',
+      notifications: 'Notificaciones',
+      saved: '⭐ Guardado',
+      share: 'Compartir',
+      betBarLabel: 'Apostar',
+      sheetTitle: 'Boleto de Apuestas',
+      sheetSingle: 'Simple',
+      sheetCombo: 'Combinada',
+      comboHint: 'Combinada: selecciona 2+ partidos',
+      totalStake: 'Total apostado',
+      totalWin: 'Ganancia potencial',
+      placeBtn: 'Confirmar Apuesta',
+      emptyText: 'Sin selecciones\nElige una cuota para empezar',
+      emptyCta: 'Ver partidos destacados →',
+      ptrText: 'Actualizando...',
+      refreshed: 'Datos actualizados',
+      betSuccess: '🎉 ¡Apuesta confirmada!',
+      league1: 'Premier League Inglesa',
+      league1More: '+12 partidos',
+      league2: 'La Liga Española',
+      league2More: '+8 partidos',
+      liveLabel: 'EN VIVO',
+      marketTabs: ['Resultado', 'Hándicap', 'Total de Goles', 'Primer Tiempo', 'Córners', 'Tiros'],
+      market1x2: 'Resultado Final (1X2)',
+      marketDC: 'Doble Oportunidad',
+      marketBTTS: 'Ambos Anotan',
+      marketGoals: 'Total de Goles',
+      homeLabel: 'Local',
+      drawLabel: 'Empate',
+      awayLabel: 'Visitante',
+      dc1: 'Local/Emp',
+      dc2: 'Local/Vis',
+      dc3: 'Emp/Vis',
+      bttsYes: 'Sí',
+      bttsNo: 'No',
+      formatDemoTitle: 'Formato Regional (es-MX)',
+      fmtCurrencyLabel: 'Moneda',
+      fmtDateLabel: 'Fecha',
+      fmtTimeLabel: 'Hora',
+      eventInfo: 'Premier League Inglesa · Resultado',
+      marketLabel: 'Resultado Final · Tiempo Completo',
+      potentialLabel: 'Ganancia potencial',
+      amountPlaceholder: 'Monto de la apuesta',
+    }
+  };
+
+  let currentLocale = 'pt-BR';
+  let i18n = locales[currentLocale];
+
+  // =====================
+  // Number & Currency Formatting (i18n §9.3)
+  // =====================
+  function formatCurrency(amount) {
+    const locale = i18n.lang;
+    const currency = i18n.currency;
+    try {
+      return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(amount);
+    } catch(e) {
+      // Fallback
+      return i18n.currencySymbol + ' ' + amount.toFixed(2).replace('.', i18n.decimalSep);
+    }
+  }
+
+  function formatDate(date) {
+    // All target locales use DD/MM/YYYY (i18n §9.4)
+    const d = date || new Date(2026, 2, 28);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  function formatTime(hours, minutes) {
+    // All target locales use 24h format (i18n §9.4)
+    return `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}`;
+  }
+
+  // =====================
+  // Language Switch
+  // =====================
+  function setLang(locale) {
+    currentLocale = locale;
+    i18n = locales[locale];
+
+    // Update html lang attribute
+    document.documentElement.lang = i18n.htmlLang;
+
+    // Update active button
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.includes(locale.split('-')[0].toUpperCase()) && btn.textContent.includes(i18n.flag));
+    });
+    // Simpler: match by onclick
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      const onclickAttr = btn.getAttribute('onclick') || '';
+      btn.classList.toggle('active', onclickAttr.includes(`'${locale}'`));
+    });
+
+    // Re-render all i18n strings
+    applyI18n();
+
+    // Show toast
+    showToast(`${i18n.flag} ${locale}`);
+  }
+
+  function applyI18n() {
+    // Sport tabs
+    const sportTabsInner = document.getElementById('sport-tabs-inner');
+    const sportIcons = ['⚽','🏀','🎾','🏈','🏒','⚾'];
+    sportTabsInner.innerHTML = i18n.sports.map((s, idx) =>
+      `<div class="sport-tab ${idx===0?'active':''}" onclick="setSportTab(this)">
+        <span class="tab-icon">${sportIcons[idx]}</span>
+        <span class="tab-label">${s}</span>
+      </div>`
+    ).join('');
+
+    // Tab bars
+    const tabIcons = [
+      '<svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+      '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>',
+      '<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
+    ];
+    ['tab-bar-home', 'tab-bar-detail'].forEach((id, pageIdx) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.innerHTML = i18n.tabs.map((t, idx) => {
+        const isActive = pageIdx === 0 ? idx === 0 : idx === 2;
+        const onclick = pageIdx === 0
+          ? (idx === 0 ? 'setTab(this)' : `setTab(this)`)
+          : (idx === 0 ? 'goBack()' : `showToast('${t}')`);
+        return `<div class="tab-item ${isActive?'active':''}" onclick="${onclick}">
+          ${tabIcons[idx]}
+          <span>${t}</span>
+        </div>`;
+      }).join('');
+    });
+
+    // Market tabs
+    const marketTabsInner = document.getElementById('market-tabs-inner');
+    if (marketTabsInner) {
+      marketTabsInner.innerHTML = i18n.marketTabs.map((t, idx) =>
+        `<div class="market-tab ${idx===0?'active':''}" onclick="setMarketTab(this)">${t}</div>`
+      ).join('');
+    }
+
+    // BetBar labels
+    ['betbar-label', 'betbar-label-detail'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = i18n.betBarLabel;
+    });
+
+    // Sheet
+    document.getElementById('sheet-title-text').innerHTML = `${i18n.sheetTitle} <span id="sheet-count" style="font-size:13px;color:var(--ft-e);font-weight:500"></span>`;
+    document.getElementById('sheet-tab-single').textContent = i18n.sheetSingle;
+    document.getElementById('sheet-tab-combo').textContent = i18n.sheetCombo;
+    document.getElementById('total-stake-label').textContent = i18n.totalStake;
+    document.getElementById('total-win-label').textContent = i18n.totalWin;
+    document.getElementById('place-btn-text').textContent = i18n.placeBtn;
+    document.getElementById('empty-text-msg').innerHTML = i18n.emptyText.replace('\n', '<br>');
+    document.getElementById('empty-cta-btn').textContent = i18n.emptyCta;
+
+    // Leagues
+    document.getElementById('league1-name').textContent = i18n.league1;
+    document.getElementById('league1-more').textContent = i18n.league1More;
+    document.getElementById('league2-name').textContent = i18n.league2;
+    document.getElementById('league2-more').textContent = i18n.league2More;
+
+    // Live badges
+    document.querySelectorAll('.live-badge').forEach(el => el.textContent = i18n.liveLabel);
+    if (document.getElementById('detail-status')) {
+      document.getElementById('detail-status').textContent = i18n.liveLabel;
+    }
+
+    // Market titles
+    document.getElementById('market-1x2-title').textContent = i18n.market1x2;
+    document.getElementById('market-dc-title').textContent = i18n.marketDC;
+    document.getElementById('market-btts-title').textContent = i18n.marketBTTS;
+    document.getElementById('market-goals-title').textContent = i18n.marketGoals;
+
+    // Odds labels
+    ['home-win-label', 'detail-home-label'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = i18n.homeLabel;
+    });
+    ['draw-label', 'detail-draw-label'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = i18n.drawLabel;
+    });
+    ['away-win-label', 'detail-away-label'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = i18n.awayLabel;
+    });
+    document.getElementById('dc-1-label').textContent = i18n.dc1;
+    document.getElementById('dc-2-label').textContent = i18n.dc2;
+    document.getElementById('dc-3-label').textContent = i18n.dc3;
+    document.getElementById('btts-yes-label').textContent = i18n.bttsYes;
+    document.getElementById('btts-no-label').textContent = i18n.bttsNo;
+
+    // PTR text
+    document.getElementById('ptr-text').textContent = i18n.ptrText;
+
+    // Preview label
+    document.getElementById('preview-label').textContent = `XPBET APP — ${i18n.flag} ${i18n.lang}`;
+
+    // Format demo banner
+    document.getElementById('format-demo-title').textContent = i18n.formatDemoTitle;
+    document.getElementById('fmt-currency-label').textContent = i18n.fmtCurrencyLabel;
+    document.getElementById('fmt-date-label').textContent = i18n.fmtDateLabel;
+    document.getElementById('fmt-time-label').textContent = i18n.fmtTimeLabel;
+    document.getElementById('fmt-currency-value').textContent = formatCurrency(1234.56);
+    document.getElementById('fmt-date-value').textContent = formatDate(new Date(2026, 2, 28));
+    document.getElementById('fmt-time-value').textContent = formatTime(20, 45);
+
+    // Update totals display
+    updateTotals();
+    // Re-render betslip if open
+    updateBetslip();
+  }
+
+  // =====================
+  // State
+  // =====================
+  const state = {
+    selections: [],
+    currentPage: 'home'
+  };
+
+  // =====================
+  // Page Navigation
+  // =====================
+  function goToDetail(title, home, away, homeLogo, awayLogo, homeScore, awayScore, isLive) {
+    document.getElementById('detail-title').textContent = title;
+    document.getElementById('detail-home-name').textContent = home;
+    document.getElementById('detail-away-name').textContent = away;
+    document.getElementById('detail-home-logo').textContent = homeLogo;
+    document.getElementById('detail-away-logo').textContent = awayLogo;
+    document.getElementById('detail-score').textContent = `${homeScore} - ${awayScore}`;
+    document.getElementById('detail-status').textContent = isLive ? i18n.liveLabel : 'Em breve';
+    document.getElementById('detail-time').textContent = isLive ? '67º min' : 'Hoje 20:45';
+
+    const home_page = document.getElementById('page-home');
+    const detail_page = document.getElementById('page-detail');
+
+    home_page.classList.add('slide-out');
+    detail_page.classList.remove('hidden');
+    state.currentPage = 'detail';
+    syncBetBar();
+  }
+
+  function goBack() {
+    const home_page = document.getElementById('page-home');
+    const detail_page = document.getElementById('page-detail');
+
+    detail_page.classList.add('hidden');
+    home_page.classList.remove('slide-out');
+    state.currentPage = 'home';
+    syncBetBar();
+  }
+
+  // =====================
+  // Odds Selection
+  // =====================
+  function selectOdds(e, btn, label, odds) {
+    e.stopPropagation();
+    const isSelected = btn.classList.contains('selected');
+    if (isSelected) {
+      btn.classList.remove('selected');
+      state.selections = state.selections.filter(s => s.label !== label);
+    } else {
+      btn.classList.add('selected');
+      state.selections.push({ id: Date.now(), label, odds: parseFloat(odds), stake: '' });
+    }
+    syncBetBar();
+    updateBetslip();
+  }
+
+  // =====================
+  // BetBar Sync
+  // =====================
+  function syncBetBar() {
+    const bar = document.getElementById('bet-bar');
+    const barDetail = document.getElementById('bet-bar-detail');
+    const count = state.selections.length;
+
+    if (count > 0) {
+      bar.classList.remove('hidden-bar');
+      barDetail.classList.remove('hidden-bar');
+    } else {
+      bar.classList.add('hidden-bar');
+      barDetail.classList.add('hidden-bar');
+    }
+
+    document.getElementById('bet-count').textContent = count;
+    document.getElementById('bet-count-detail').textContent = count;
+
+    ['bet-selections', 'bet-selections-detail'].forEach(id => {
+      const container = document.getElementById(id);
+      container.innerHTML = state.selections.map(s =>
+        `<div class="bet-chip">
+          ${s.label} <span style="font-weight:400;opacity:0.8">@${s.odds.toFixed(2).replace('.', i18n.decimalSep)}</span>
+          <div class="remove-chip" onclick="removeSelection('${s.label}')">✕</div>
+        </div>`
+      ).join('');
+    });
+  }
+
+  function removeSelection(label) {
+    state.selections = state.selections.filter(s => s.label !== label);
+    document.querySelectorAll('.odds-btn.selected').forEach(btn => {
+      const valueEl = btn.querySelector('.odds-value');
+      if (valueEl) {
+        const exists = state.selections.some(s => s.label === label);
+        if (!exists) btn.classList.remove('selected');
+      }
+    });
+    syncBetBar();
+    updateBetslip();
+    if (state.selections.length === 0) closeBetslip();
+  }
+
+  // =====================
+  // Betslip Sheet
+  // =====================
+  function openBetslip() {
+    document.getElementById('sheet-overlay').classList.add('visible');
+    document.getElementById('betslip-sheet').classList.add('open');
+    updateBetslip();
+  }
+
+  function closeBetslip() {
+    document.getElementById('sheet-overlay').classList.remove('visible');
+    document.getElementById('betslip-sheet').classList.remove('open');
+  }
+
+  function updateBetslip() {
+    const container = document.getElementById('bet-items-container');
+    const empty = document.getElementById('sheet-empty');
+    const footer = document.getElementById('sheet-footer');
+    const countEl = document.getElementById('sheet-count');
+
+    if (!container) return;
+
+    countEl.textContent = state.selections.length > 0 ? `(${state.selections.length})` : '';
+
+    if (state.selections.length === 0) {
+      container.innerHTML = '';
+      empty.style.display = 'flex';
+      footer.style.display = 'none';
+      return;
+    }
+
+    empty.style.display = 'none';
+    footer.style.display = 'block';
+
+    container.innerHTML = state.selections.map((s, i) =>
+      `<div class="bet-item" id="bet-item-${i}">
+        <div class="bet-item-header">
+          <div class="bet-item-event">${i18n.eventInfo}</div>
+          <div class="bet-item-remove" onclick="removeBetItem(${i})">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </div>
+        </div>
+        <div class="bet-item-selection">${s.label}</div>
+        <div class="bet-item-market">${i18n.marketLabel}</div>
+        <div class="bet-item-odds-row">
+          <div class="bet-item-odds">${s.odds.toFixed(2).replace('.', i18n.decimalSep)}</div>
+          <div class="bet-item-potential">
+            ${i18n.potentialLabel}
+            <strong>${s.stake ? formatCurrency(parseFloat(s.stake) * s.odds) : '—'}</strong>
+          </div>
+        </div>
+        <div class="amount-row">
+          <div class="amount-input-wrap">
+            <span class="currency-symbol">${i18n.currencySymbol}</span>
+            <input class="amount-input" type="number" min="0" placeholder="${i18n.amountPlaceholder}"
+              value="${s.stake}"
+              oninput="updateStake(${i}, this.value)"
+              onkeydown="if(event.key==='Enter') document.getElementById('place-btn').click()" />
+          </div>
+        </div>
+        <div class="quick-chips">
+          <button class="quick-chip" onclick="addStake(${i}, 10)">+10</button>
+          <button class="quick-chip" onclick="addStake(${i}, 50)">+50</button>
+          <button class="quick-chip" onclick="addStake(${i}, 100)">+100</button>
+          <button class="quick-chip" onclick="addStake(${i}, 500)">+500</button>
+        </div>
+      </div>`
+    ).join('');
+
+    updateTotals();
+  }
+
+  function removeBetItem(index) {
+    const removed = state.selections.splice(index, 1)[0];
+    document.querySelectorAll('.odds-btn.selected').forEach(btn => {
+      const valueEl = btn.querySelector('.odds-value');
+      if (valueEl && parseFloat(valueEl.textContent.replace(i18n.decimalSep, '.')) === removed.odds) {
+        btn.classList.remove('selected');
+      }
+    });
+    syncBetBar();
+    updateBetslip();
+    if (state.selections.length === 0) closeBetslip();
+  }
+
+  function updateStake(index, value) {
+    state.selections[index].stake = value;
+    updateTotals();
+    const item = document.getElementById(`bet-item-${index}`);
+    if (item) {
+      const potential = item.querySelector('.bet-item-potential strong');
+      if (potential) {
+        const s = state.selections[index];
+        potential.textContent = s.stake ? formatCurrency(parseFloat(s.stake) * s.odds) : '—';
+      }
+    }
+  }
+
+  function addStake(index, amount) {
+    const current = parseFloat(state.selections[index].stake) || 0;
+    state.selections[index].stake = (current + amount).toString();
+    updateBetslip();
+  }
+
+  function updateTotals() {
+    let totalStake = 0;
+    let totalWin = 0;
+    state.selections.forEach(s => {
+      const stake = parseFloat(s.stake) || 0;
+      totalStake += stake;
+      totalWin += stake * s.odds;
+    });
+
+    // i18n §9.3: Use Intl.NumberFormat for currency display
+    document.getElementById('total-stake').textContent = formatCurrency(totalStake);
+    document.getElementById('total-win').textContent = formatCurrency(totalWin);
+
+    const placeBtn = document.getElementById('place-btn');
+    placeBtn.disabled = totalStake === 0;
+  }
+
+  function placeBet() {
+    const placeBtn = document.getElementById('place-btn');
+    if (placeBtn.disabled) return;
+
+    placeBtn.innerHTML = '<div style="width:20px;height:20px;border:2px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite"></div>';
+    placeBtn.disabled = true;
+
+    setTimeout(() => {
+      closeBetslip();
+      state.selections = [];
+      document.querySelectorAll('.odds-btn.selected').forEach(b => b.classList.remove('selected'));
+      syncBetBar();
+      showToast(i18n.betSuccess);
+      placeBtn.innerHTML = `<span id="place-btn-text">${i18n.placeBtn}</span>`;
+    }, 1500);
+  }
+
+  // =====================
+  // UI Helpers
+  // =====================
+  function setSportTab(el) {
+    document.querySelectorAll('.sport-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    showToast(el.querySelector('.tab-label').textContent);
+  }
+
+  function setTab(el) {
+    document.querySelectorAll('#page-home .tab-item').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function setMarketTab(el) {
+    document.querySelectorAll('.market-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    showToast(el.textContent);
+  }
+
+  function toggleFav(e, btn) {
+    e.stopPropagation();
+    btn.classList.toggle('active');
+    showToast(btn.classList.contains('active') ? i18n.saved : '✕');
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+
+  // =====================
+  // Pull-to-Refresh (simulated)
+  // =====================
+  let startY = 0, isPulling = false;
+  const scrollEl = document.getElementById('home-scroll');
+  const ptr = document.getElementById('ptr');
+
+  scrollEl.addEventListener('touchstart', e => {
+    if (scrollEl.scrollTop === 0) { startY = e.touches[0].clientY; isPulling = true; }
+  }, { passive: true });
+
+  scrollEl.addEventListener('touchmove', e => {
+    if (!isPulling) return;
+    if (e.touches[0].clientY - startY > 60) ptr.classList.add('visible');
+  }, { passive: true });
+
+  scrollEl.addEventListener('touchend', () => {
+    if (ptr.classList.contains('visible')) {
+      setTimeout(() => {
+        ptr.classList.remove('visible');
+        showToast(i18n.refreshed);
+      }, 1200);
+    }
+    isPulling = false;
+  });
+
+  // =====================
+  // Init
+  // =====================
+  applyI18n();
+</script>
+</body>
+</html>

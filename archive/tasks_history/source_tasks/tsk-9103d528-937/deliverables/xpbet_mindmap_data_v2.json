@@ -1,0 +1,2984 @@
+{
+  "id": "root",
+  "label": "XPBET 全球站",
+  "type": "root",
+  "style": {
+    "fill": "#001529",
+    "stroke": "#001529",
+    "lineWidth": 0
+  },
+  "_meta": {
+    "version": "1.1.0",
+    "syncedAt": "2026-03-26T04:16:57Z",
+    "categoryCount": 5,
+    "moduleCount": 21,
+    "featureCount": 113,
+    "unassignedFeatures": 1,
+    "source": "feishu-bitable",
+    "baseId": "CyDxbUQGGa3N2NsVanMjqdjxp6e",
+    "moduleTableId": "tblaDW4D2hQS2xCw",
+    "featureTableId": "tblLzX7wqGWFr9KP"
+  },
+  "children": [
+    {
+      "id": "cat_T0基础框架",
+      "label": "T0基础框架",
+      "type": "category",
+      "style": {
+        "fill": "#E6F7FF",
+        "stroke": "#91D5FF",
+        "lineWidth": 1
+      },
+      "data": {
+        "category": "T0基础框架"
+      },
+      "children": [
+        {
+          "id": "mod_recv7D8lYjnzJs",
+          "label": "用户系统",
+          "type": "module",
+          "style": {
+            "fill": "#1890FF",
+            "stroke": "#F5222D",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "开发中",
+            "priority": "P0-1月",
+            "owner": "Yark",
+            "description": "登录注册、KYC、用户信息编辑、用户自我封禁",
+            "category": "T0基础框架"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msMw1hD",
+              "label": "登录注册流程",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#F5222D",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P0-核心",
+                "stage": "1月SR验证",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "手机号+验证码、三方登录、referral",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/WLdFdU0emoh1K8xiYy9j4iPTpre",
+                "docText": "登入注册(Sing in/up)",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMNEvJ",
+              "label": "KYC流程",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P1-重要",
+                "stage": "1月SR验证",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "KYC对接/KYC正式账号申请/KYC第一个流程确定",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/PgEgdGleco9TddxCgmcjPqUSpEg",
+                "docText": "KYC前台",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMXEss",
+              "label": "用户自我封禁(Gambling Games)",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "用户主动封禁账户",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/EpzWdiGpVo6m8mxaM92j4L3gp7b",
+                "docText": "负责任博彩(Gambling Games)",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv8V69hxPImE",
+              "label": "KYC 流程优化 V1.1",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/CEVTdBQEFoom7fxhVP7j7u47pwh",
+                "docText": "[前台]KYC 流程优化 V1.1",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv8NU2NIQ7Iv",
+              "label": "用户配置(Account Setting)",
+              "type": "feature",
+              "style": {
+                "fill": "#13C2C2",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "测试中",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 0",
+                "owner": "Yark",
+                "description": "本功能用于提供平台用户一个统一的 个人化设置入口，用户可在平台中依自身偏好进行系统参数设定，包含 语系、币别、显示模式（白天／黑夜模式）、邀请码／奖励码输入、时区、盘口。\n透过此模块，用户可获得更符合个人使用习惯的操作体验，同时协助平台进行区域化、多币别及行销奖励的配置与管理。",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/wiki/M19QwUWNNikq1Kk7k4LjxpespRf",
+                "docText": "用户设定(Account Center Setting)",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMtnYd",
+              "label": "用户信息编辑",
+              "type": "feature",
+              "style": {
+                "fill": "#13C2C2",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "测试中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "头像/昵称编辑上传",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv8V4hBEt6bB",
+              "label": "Transaction 优化V1.1",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#D9D9D9",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "",
+                "stage": "",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYjz8UW",
+          "label": "财务系统",
+          "type": "module",
+          "style": {
+            "fill": "#1890FF",
+            "stroke": "#F5222D",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "开发中",
+            "priority": "P0-1月",
+            "owner": "Yark",
+            "description": "支付系统(含路由)、财务管理、钱包管理(含划转/币种/规则)",
+            "category": "T0基础框架"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msMtUnE",
+              "label": "支付路由",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#F5222D",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P0-核心",
+                "stage": "1月SR验证",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "开关/限额/路由规则配置",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/wiki/RgYGwl1naiZUtSkRTkVjbdAVpgd",
+                "docText": "充值/提款功能入口（Deposit/Withdraw）",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMQ7qN",
+              "label": "支付代收代付",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#F5222D",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P0-核心",
+                "stage": "1月SR验证",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "EPAY/STP/OPAY订单管理",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/wiki/QmCcw7JBNiIeE3kQqyvjUCBNpNb",
+                "docText": "充提商户配置(Merchant)",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv8NWvDvCc7t",
+              "label": "主钱包划转",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P1-重要",
+                "stage": "6月迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/AFsSdqWoVoZcZtxTCOdjcdyspSe",
+                "docText": "主钱包划转(Transfer)",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMRWFh",
+              "label": "Bonus 钱包划转",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "Bonus提现到Cash钱包",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/AFsSdqWoVoZcZtxTCOdjcdyspSe",
+                "docText": "主钱包划转(Transfer)",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMp6Yl",
+              "label": "钱包规则参数",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "Bonus流水/提现流水/流水倍数配置",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/wiki/XY9rww6xdiqOYkku7WSjj82Hp1d",
+                "docText": "平台系统管理(Setting)",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMLDQW",
+              "label": "币种钱包设置",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "多币种钱包配置",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/YfJ9dsMA2o9XUtx5qaGjbrIUpJg",
+                "docText": "币别配置(Currency)",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYj0tPU",
+          "label": "体育注单系统",
+          "type": "module",
+          "style": {
+            "fill": "#1890FF",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "开发中",
+            "priority": "P1-3月",
+            "owner": "VoidZ",
+            "description": "盘口展示(UOF/CTRL)、订单清结算、赔率管理、投注管理",
+            "category": "T0基础框架"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msMLm0W",
+              "label": "订单清结算",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#F5222D",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P0-核心",
+                "stage": "1月SR验证",
+                "iteration": "上线版本 V1.0",
+                "owner": "VoidZ",
+                "description": "UOF结算对接",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msM6gRi",
+              "label": "新版视觉（比赛卡片、详情页分组作为重点）",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#F5222D",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P0-核心",
+                "stage": "3月基础上线",
+                "iteration": "上线版本 V1.0",
+                "owner": "VoidZ",
+                "description": "卡片布局、交互动效、信息展示",
+                "docLink": "https://www.figma.com/design/bnINV7AJU1oB8MatpAkAIV/XPbot-web?node-id=0-1&t=7L8JlhcxRRO9NXwo-1",
+                "docText": "https://www.figma.com/design/bnINV7AJU1oB8MatpAkAIV/XPbot-web?node-id=0-1&t=7L8JlhcxRRO9NXwo-1",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv8JF3Wn5t91",
+              "label": "UOF数据呈现",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#F5222D",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P0-核心",
+                "stage": "",
+                "iteration": "上线版本 V1.0",
+                "owner": "VoidZ",
+                "description": "",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv8JF72Yjch8",
+              "label": "MTS注单单关/串关",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#F5222D",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P0-核心",
+                "stage": "",
+                "iteration": "上线版本 V1.0",
+                "owner": "VoidZ",
+                "description": "",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv8JFaKPtDCE",
+              "label": "赛果回滚冲正",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#F5222D",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P0-核心",
+                "stage": "",
+                "iteration": "上线版本 V1.0",
+                "owner": "VoidZ",
+                "description": "",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv8VbAPtQlDH",
+              "label": "盘口展示优化",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#F5222D",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P0-核心",
+                "stage": "",
+                "iteration": "上线版本 V1.0",
+                "owner": "VoidZ",
+                "description": "",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/wiki/EKliw3gWsinn1rkuKuhjbUYbprQ?from=from_copylink",
+                "docText": "盘口 展示优化",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMeoGe",
+              "label": "MTS高级投注",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 2 (2.24-3.9)",
+                "owner": "VoidZ",
+                "description": "Bet Builder、Sysbet、Outright",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先支持系统关基础投注，Bet Builder等高级功能后续迭代",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS727Rn",
+              "label": "CASHOUT",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 2 (2.24-3.9)",
+                "owner": "VoidZ",
+                "description": "提前结算功能",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先支持全额Cashout，部分Cashout后续迭代",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv9oOTkoOsxb",
+              "label": "手动投注取消 API 需求",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P1-重要",
+                "stage": "",
+                "iteration": "上线版本 V1.0",
+                "owner": "VoidZ",
+                "description": "",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/wiki/Fl2jwHCD0iYXgRkGdaejpfnfpHd?from=from_copylink",
+                "docText": "（临时插入需求）手动投注取消 API 需求文档",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMl663",
+              "label": "赔率抽水调整",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "MTS赔率抽水调整模版",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "由MTS负责，无需自研",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMeD4K",
+              "label": "三方赔率对接",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "其他三方赔率源对接",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMSDNZ",
+              "label": "投注栏迭代",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 2 (2.24-3.9)",
+                "owner": "VoidZ",
+                "description": "投注锁定、新选项添加、状态管理",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS73DBL",
+              "label": "Bet Builder",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "SR Bet Builder",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7JbwmAIAS9",
+              "label": "Head to Head数据对接",
+              "type": "feature",
+              "style": {
+                "fill": "#FFFFFF",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "关联TheSport的Head to Head历史对战数据，用于比赛详情页展示",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7JbxRxEdK5",
+              "label": "Icon数据对接",
+              "type": "feature",
+              "style": {
+                "fill": "#FFFFFF",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "关联TheSport的球队/联赛Icon图标数据，用于比赛列表和详情页展示",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYjm4Se",
+          "label": "客服系统",
+          "type": "module",
+          "style": {
+            "fill": "#FAAD14",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "规划中",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "C端客服、B端客服、FAQ、VIP客服、三方对接(Salesforce/Zendesk)",
+            "category": "T0基础框架"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msMjPKn",
+              "label": "站内信",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "主动给用户发站内信",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/RP8kdEVHEoxFPJxiXJ2j1Vabpbf",
+                "docText": "站内信(Notification)",
+                "simplifiedPlan": "简化版：先支持系统公告推送，个性化站内信后续迭代",
+                "prerequisites": "后台站内信管理"
+              }
+            },
+            {
+              "id": "feat_recv7D8msMrc4O",
+              "label": "C端客服入口",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "Salesforce/Zendesk/TG/Whatsapp对接",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/DiLydsC6koKwPQxPQJFjX41upNe",
+                "docText": "站内客服系统（Support）",
+                "simplifiedPlan": "",
+                "prerequisites": "后台客服配置"
+              }
+            },
+            {
+              "id": "feat_recv7D8msMcCsE",
+              "label": "FAQ管理",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 0",
+                "owner": "Yark",
+                "description": "FAQ编辑和展示",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMZ3SM",
+              "label": "VIP客服",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "VIP专属客服服务",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/JrJddX9JSoshhoxPqfnjGhmgp3g?previous_navigation_time=1768814434393",
+                "docText": "站内客服管理(Support)",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYj1QlT",
+          "label": "权限系统",
+          "type": "module",
+          "style": {
+            "fill": "#FAAD14",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "规划中",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "后台角色和权限管理",
+            "category": "T0基础框架"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msMb3dZ",
+              "label": "角色管理",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P3-次要",
+                "stage": "3月基础上线",
+                "iteration": "上线版本 V1.0",
+                "owner": "Yark",
+                "description": "后台角色配置（待确认-多平台同步设计）",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": "Chase 多租户"
+              }
+            },
+            {
+              "id": "feat_recv7D8msMe5LP",
+              "label": "权限管理",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "功能权限配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYj9Os7",
+          "label": "国别管理系统",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "国别设置、多语言、流程设置、功能开关、路由配置",
+            "category": "T0基础框架"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msMNHUY",
+              "label": "国别设置",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "国别基础配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMStDd",
+              "label": "多语言",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "多语言配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMxwB1",
+              "label": "流程设置",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "登录注册/KYC/钱包/支付提现流程配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMKFeC",
+              "label": "功能开关",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "部分功能开关配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYjrn4O",
+          "label": "风控系统",
+          "type": "module",
+          "style": {
+            "fill": "#FAAD14",
+            "stroke": "#1890FF",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "规划中",
+            "priority": "P2-6月",
+            "owner": "VoidZ",
+            "description": "订单风险管理(MTS)、标签用户风控、自创盘口、标签规则集",
+            "category": "T0基础框架"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msM7Uk8",
+              "label": "订单风险管理",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "VoidZ",
+                "description": "MTS订单接受/拒绝",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先支持基础MTS风控，高级风控策略后续迭代",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMg1MO",
+              "label": "标签用户风控",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 2 (2.24-3.9)",
+                "owner": "VoidZ",
+                "description": "订单金额/提现金额限制/盘口限制",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先支持基础限额，复杂规则后续迭代",
+                "prerequisites": "操盘手需求"
+              }
+            },
+            {
+              "id": "feat_recv7D8msMg8aV",
+              "label": "标签规则集",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 1 (1.22-2.14)",
+                "owner": "VoidZ",
+                "description": "标签宽表规则配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先硬编码基础规则，可配置规则引擎后续迭代",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msM5aGY",
+              "label": "赛事异常监控",
+              "type": "feature",
+              "style": {
+                "fill": "#52C41A",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "完成",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "上线版本 V1.0",
+                "owner": "VoidZ",
+                "description": "赛事取消、盘口异常、赔率异常告警",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msM2qYM",
+              "label": "自创盘口",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "自有盘口创建",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recva3yFf54OgZ",
+              "label": "发版维护",
+              "type": "feature",
+              "style": {
+                "fill": "#FFFFFF",
+                "stroke": "#D9D9D9",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "",
+                "priority": "",
+                "stage": "",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "为了规避发版导致的注单失败，应该设置一个维护时间，在维护期间无法再进行注单操作（但处于注单等待中的订单会正常进行）；等待一分钟再进行发版。",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYjBzwS",
+          "label": "Casino管理",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#1890FF",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P2-6月",
+            "owner": "VoidZ",
+            "description": "Casino游戏优先级、参数配置",
+            "category": "T0基础框架"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msMklFY",
+              "label": "Casino优先级",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "游戏优先级配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msM9MuJ",
+              "label": "Casino参数",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "游戏参数配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_T1营销框架-获客",
+      "label": "T1营销框架-获客",
+      "type": "category",
+      "style": {
+        "fill": "#F6FFED",
+        "stroke": "#B7EB8F",
+        "lineWidth": 1
+      },
+      "data": {
+        "category": "T1营销框架-获客"
+      },
+      "children": [
+        {
+          "id": "mod_recv7D8lYj0Iji",
+          "label": "分享系统",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "系统分享、三方分享(GA/FB/TT)、图片分享、网页分享、分享场景",
+            "category": "T1营销框架-获客"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msMoUAK",
+              "label": "系统分享",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "系统原生分享",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msM72cH",
+              "label": "三方分享",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "GA/FB/TT分享对接",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msM8ps9",
+              "label": "图片分享",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "图片生成分享",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMmBEu",
+              "label": "分享场景",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "盘口/单子/活动分享场景配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYj7WkE",
+          "label": "投手后台",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "数据查询、Pixel绑定、归因平台(Adjust/Appsflyer)",
+            "category": "T1营销框架-获客"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msMMxJl",
+              "label": "渠道数据查询",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "投手查看渠道用户数据",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msM6wCj",
+              "label": "Pixel绑定",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "投手进行Pixel绑定",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMBQWZ",
+              "label": "归因平台对接",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "Adjust/Appsflyer对接",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYjw8al",
+          "label": "代理系统",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "参数配置、活动周期、分享渠道、分享物料管理",
+            "category": "T1营销框架-获客"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msMhpgn",
+              "label": "代理参数配置",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "代理活动参数配置",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/LiYRdVnrEoPNRJxhKSTjrzoVpUg",
+                "docText": "代理管理(Agent Management)",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMI3zy",
+              "label": "活动周期",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "代理活动周期配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msM77fo",
+              "label": "分享渠道管理",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "分享渠道配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8msMfN3Y",
+              "label": "分享物料管理",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "分享图片设计管理",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYjSDud",
+          "label": "落地页系统",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "VoidZ",
+            "description": "注册落地页、绑定落地页",
+            "category": "T1营销框架-获客"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8mS7175s",
+              "label": "注册落地页",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "注册引导页",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7E1kD",
+              "label": "绑定落地页",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "绑定引导页",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_T1营销框架-运营",
+      "label": "T1营销框架-运营",
+      "type": "category",
+      "style": {
+        "fill": "#FFFBE6",
+        "stroke": "#FFE58F",
+        "lineWidth": 1
+      },
+      "data": {
+        "category": "T1营销框架-运营"
+      },
+      "children": [
+        {
+          "id": "mod_recv7D8lYj7D7t",
+          "label": "活动系统",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "VoidZ",
+            "description": "活动配置、体育活动规则(CASHOUT/Superodds/串关加赔/0-0退赔/Bet Builder)、营销入口",
+            "category": "T1营销框架-运营"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8mS7rV3h",
+              "label": "活动参数配置",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "VoidZ",
+                "description": "活动周期和参数配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7clGI",
+              "label": "活动模版",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "VoidZ",
+                "description": "新客存款/VIP等活动模版",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先支持2-3个核心活动模版，更多模版后续迭代",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7ySTR",
+              "label": "返水机制",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 2 (2.24-3.9)",
+                "owner": "VoidZ",
+                "description": "VIP返水配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先支持固定返水比例，动态返水规则后续迭代",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7TIA7",
+              "label": "Superodds",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "超级赔率活动",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7Ez6S",
+              "label": "串关加赔",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "串关加赔活动",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7HCd5",
+              "label": "0-0退赔",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "0-0退赔活动",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7741u",
+              "label": "营销入口配置",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "VoidZ",
+                "description": "活动入口配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYjt1TC",
+          "label": "礼券系统",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "Bonus/Freebet/Freespin创建、有效期管理、发放、余额、核销、批次管理",
+            "category": "T1营销框架-运营"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8mS7SsQU",
+              "label": "Bonus创建",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "Yark",
+                "description": "Bonus礼券创建",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先支持固定金额Bonus，百分比Bonus后续迭代",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7tkBN",
+              "label": "Freebet创建",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "Yark",
+                "description": "Freebet礼券创建",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先支持固定金额Freebet",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7TSeC",
+              "label": "礼券发放",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "Yark",
+                "description": "礼券发放功能",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7QBdb",
+              "label": "礼券核销",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "Yark",
+                "description": "礼券核销功能",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7X5Tt",
+              "label": "Freespin创建",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "Sprint 2 (2.24-3.9)",
+                "owner": "Yark",
+                "description": "Freespin礼券创建",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7U2ry",
+              "label": "有效期管理",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "Sprint 2 (2.24-3.9)",
+                "owner": "Yark",
+                "description": "礼券有效期配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7cWUs",
+              "label": "余额查询",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "Sprint 2 (2.24-3.9)",
+                "owner": "Yark",
+                "description": "礼券余额查询",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7hQ4b",
+              "label": "使用记录",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "Sprint 2 (2.24-3.9)",
+                "owner": "Yark",
+                "description": "礼券使用记录",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7S57P",
+              "label": "批次管理",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "Yark",
+                "description": "固定/支付百分比/剩余张数量/口令红包",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYjsnTL",
+          "label": "CRM系统",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "外部CRM对接(Optimove)、圈选用户、AB测试、触达(SMS/邮件/Push/站内信)",
+            "category": "T1营销框架-运营"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8msM4jb0",
+              "label": "用户打标签",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 1 (1.22-2.14)",
+                "owner": "Yark",
+                "description": "风控标签(Sharp/night owl/打水)、运营标签",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/GsxNdQ8Noo0bssxN5vqjP8nipad?previous_navigation_time=1770170613231",
+                "docText": "用户标签管理(UserTag)",
+                "simplifiedPlan": "",
+                "prerequisites": "运营部门提供 体系"
+              }
+            },
+            {
+              "id": "feat_recv8OcEtFJBon",
+              "label": "KYC前端兼容多国别配置",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P1-重要",
+                "stage": "3月基础上线",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/HCDOdfxZdoYVckxJ4mdjfN06pmg?previous_navigation_time=1768979709457",
+                "docText": "KYC 商户配置与前台验证",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7yb7v",
+              "label": "用户标签宽表",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "用户标签数据宽表",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先支持基础标签查看，复杂查询后续迭代",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7VtK7",
+              "label": "触达-站内信",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "站内信发送",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7b68G",
+              "label": "Optimove对接",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "Optimove外部CRM对接",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7vYpE",
+              "label": "其他CRM对接",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "术数/Customer IO/Firebase对接",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7mCDq",
+              "label": "用户圈选引擎",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "基于标签/前端行为的用户圈选",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7kIKk",
+              "label": "营销活动创建",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "选择客群/定义发放方式/发放内容",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7vcVz",
+              "label": "AB测试",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "实验组/对照组配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7F9Sh",
+              "label": "触达-SMS",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "短信发送(含路由)",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": "平台系统管理(Setting)"
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7gl6m",
+              "label": "触达-邮件",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "AWS SMTP邮件发送",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": "平台系统管理(Setting)"
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7dGwu",
+              "label": "触达-Push",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "App Push推送",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7bBPY",
+              "label": "触达-RCS",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "RCS消息发送",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYjrUFd",
+          "label": "首页推荐系统",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "卡片类型管理、卡片后台、模块排序算法",
+            "category": "T1营销框架-运营"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8mS7M1AV",
+              "label": "串关推荐卡片",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "串关推荐卡片类型",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：基于热门赛事的固定推荐，无需算法",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7nbmk",
+              "label": "中奖订单推荐",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "用户中奖订单推荐卡片",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：展示最近中奖订单，无需算法",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS74S03",
+              "label": "卡片管理后台",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "B端卡片管理",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "简化版：先支持基础卡片配置，复杂排序后续迭代",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7WsEi",
+              "label": "推荐算法",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "模块排序算法",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7hDfo",
+              "label": "个性化推荐",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "基于用户行为的个性化推荐",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYj53Rb",
+          "label": "内容管理",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "文章系统、公告、Banner管理",
+            "category": "T1营销框架-运营"
+          },
+          "children": [
+            {
+              "id": "feat_recvaex4RoB0We",
+              "label": "FAQ",
+              "type": "feature",
+              "style": {
+                "fill": "#1890FF",
+                "stroke": "#FA8C16",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "开发中",
+                "priority": "P1-重要",
+                "stage": "",
+                "iteration": "Sprint 1 (1.22-2.14)",
+                "owner": "Yark",
+                "description": "",
+                "docLink": "https://kjpp4yydjn38.jp.larksuite.com/docx/OAx8dQZPKosnwkxDsZXjoax0p0f",
+                "docText": "平台各类型问答(FAQ)",
+                "simplifiedPlan": "",
+                "prerequisites": "系统配置"
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7WwG2",
+              "label": "公告管理",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "Yark",
+                "description": "公告发布管理",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7MO1d",
+              "label": "Banner管理",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#1890FF",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P2-一般",
+                "stage": "3月基础上线",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "Yark",
+                "description": "Banner配置管理",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7LSNd",
+              "label": "文章系统",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "模版模式/代码模式",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_T1营销框架-数据分析",
+      "label": "T1营销框架-数据分析",
+      "type": "category",
+      "style": {
+        "fill": "#FFF7E6",
+        "stroke": "#FFD591",
+        "lineWidth": 1
+      },
+      "data": {
+        "category": "T1营销框架-数据分析"
+      },
+      "children": [
+        {
+          "id": "mod_recv7D8lYjQ7tq",
+          "label": "数据分析",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#FA8C16",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P1-3月",
+            "owner": "Yark",
+            "description": "Metabase(BI)、GA、Adjust/AF、Pixel(FB/TT)、标签算法",
+            "category": "T1营销框架-数据分析"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8mS7ooEK",
+              "label": "Metabase集成",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "服务端数据BI",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7IQsQ",
+              "label": "GA集成",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "前端数据分析",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS70QaZ",
+              "label": "Adjust/AF数据",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "归因平台数据分析",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7yCca",
+              "label": "Pixel数据",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "FB/TT Pixel数据分析",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7m5hy",
+              "label": "标签算法",
+              "type": "feature",
+              "style": {
+                "fill": "#FAAD14",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "规划中",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "风控/运营标签算法",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7IjXU",
+              "label": "业务报表",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "业务数据报表",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cat_T2商户管理",
+      "label": "T2商户管理",
+      "type": "category",
+      "style": {
+        "fill": "#F9F0FF",
+        "stroke": "#D3ADF7",
+        "lineWidth": 1
+      },
+      "data": {
+        "category": "T2商户管理"
+      },
+      "children": [
+        {
+          "id": "mod_recv7D8lYjECfM",
+          "label": "商户管理",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#1890FF",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P2-6月",
+            "owner": "Yark",
+            "description": "多租户系统、租户配置、租户信息、API接口",
+            "category": "T2商户管理"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8mS7ovch",
+              "label": "多租户系统",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "Sprint 3 (3.10-3.23)",
+                "owner": "Yark",
+                "description": "多租户架构支持",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7iypV",
+              "label": "租户参数配置",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "租户商务参数配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7o8zT",
+              "label": "租户信息",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "租户信息管理",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8mS7VZin",
+              "label": "API接口",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "对外API接口",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7D8lYjWZ2w",
+          "label": "C端包网",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#1890FF",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P2-6月",
+            "owner": "VoidZ",
+            "description": "包网方案、定制化",
+            "category": "T2商户管理"
+          },
+          "children": [
+            {
+              "id": "feat_recv7D8nfdRhGy",
+              "label": "包网方案",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "C端包网方案",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7D8nfdph5B",
+              "label": "定制化",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#8C8C8C",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "P3-次要",
+                "stage": "6月后续迭代",
+                "iteration": "待规划",
+                "owner": "VoidZ",
+                "description": "包网定制化配置",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "mod_recv7NEX7sexbK",
+          "label": "聊天室系统",
+          "type": "module",
+          "style": {
+            "fill": "#D9D9D9",
+            "stroke": "#1890FF",
+            "lineWidth": 2
+          },
+          "data": {
+            "status": "待规划",
+            "priority": "P2-6月",
+            "owner": "Yark",
+            "description": "",
+            "category": "T2商户管理"
+          },
+          "children": [
+            {
+              "id": "feat_recv7NG2RNU5KG",
+              "label": "聊天室建立",
+              "type": "feature",
+              "style": {
+                "fill": "#D9D9D9",
+                "stroke": "#D9D9D9",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "待规划",
+                "priority": "",
+                "stage": "6月迭代",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "可以让平台用户进行文字聊天",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7NG3RpPedi",
+              "label": "头像 / 昵称修改",
+              "type": "feature",
+              "style": {
+                "fill": "#FFFFFF",
+                "stroke": "#D9D9D9",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "",
+                "priority": "",
+                "stage": "",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7NG7P8nFYS",
+              "label": "分赛事群聊天",
+              "type": "feature",
+              "style": {
+                "fill": "#FFFFFF",
+                "stroke": "#D9D9D9",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "",
+                "priority": "",
+                "stage": "",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            },
+            {
+              "id": "feat_recv7NGaF2DRD0",
+              "label": "推单 / 晒单",
+              "type": "feature",
+              "style": {
+                "fill": "#FFFFFF",
+                "stroke": "#D9D9D9",
+                "lineWidth": 2
+              },
+              "data": {
+                "status": "",
+                "priority": "",
+                "stage": "",
+                "iteration": "待规划",
+                "owner": "Yark",
+                "description": "",
+                "docLink": "",
+                "docText": "",
+                "simplifiedPlan": "",
+                "prerequisites": ""
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
