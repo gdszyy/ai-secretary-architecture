@@ -1,23 +1,45 @@
 # ai-secretary-architecture
 
-**ai-secretary-architecture** 是 AI 秘书系统的核心架构与文档仓库，同时也是当前多 Agent 协作项目的文档库。该仓库承载系统级设计、模块 SOP、项目级上下文与拆分后的历史归档，目标是为后续的系统规划、架构评审、流程升级与交接提供高信噪比的知识基座。
+**ai-secretary-architecture** 是 AI 项目秘书系统的核心架构设计文档库，同时也是当前多 Agent 协作项目的文档库。该仓库承载系统级设计、模块 SOP、项目级上下文与拆分后的历史归档，目标是为后续的系统规划、架构评审、流程升级与交接提供高信噪比的知识基座。
 
-## 仓库结构
+> **⚠️ Agent 必读声明**
+> 本仓库为 AI 秘书系统的**核心架构与流程知识源**。Agent 在执行系统规划、架构设计或读取项目级上下文时，**应优先读取此仓库**。
+> `archive/tasks_history/` 为历史归档区，默认不属于 Agent 必读上下文，仅在需要追溯历史方案、核对来源或恢复旧交付物时再进入读取。
 
-| 路径 | 用途 |
+## 仓库结构与文档索引
+
+### 1. 系统级核心设计 (根目录)
+| 文档 | 路径 | 说明 |
+| --- | --- | --- |
+| **核心哲学** | [`CORE_PHILOSOPHY.md`](./CORE_PHILOSOPHY.md) | AI 秘书的愿景、角色定位与核心价值观 |
+| **实施方案** | [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) | 顶层实施路线图与四阶段落地计划 |
+| **Skill 架构** | [`SKILL_FEASIBILITY_REPORT.md`](./SKILL_FEASIBILITY_REPORT.md) | 将 AI 秘书打包为 Manus Skill 的架构设计 |
+| **全局 SOP** | [`SOP.md`](./SOP.md) | 项目经理与 AI 秘书交互的标准指令 |
+
+### 2. 模块架构设计 (docs/)
+| 模块 | 目录/文件 | 说明 |
+| --- | --- | --- |
+| **模块一：看板系统** | [`docs/module1_kanban/`](./docs/module1_kanban/) | 包含看板模块设计、流程图、Meegle 集成方案与模块 SOP |
+| **模块二：缓冲池** | [`docs/module2_buffer/`](./docs/module2_buffer/) | 包含 Buffer 模块设计、反积压机制与信息生命周期说明 |
+| **模块三：信息源** | [`docs/module3_info_sources/`](./docs/module3_info_sources/) | 包含信息源治理与主计划文档 |
+| **体系结构评估** | [`docs/architecture/`](./docs/architecture/) | 体系结构相关辅助文档，如仓库拆分评估报告 |
+
+### 3. 项目级上下文 (docs/)
+| 文档 | 路径 | 说明 |
+| --- | --- | --- |
+| **项目总览** | [`docs/project-overview.md`](./docs/project-overview.md) | 项目全局概览 |
+| **启动报告** | [`docs/project-kickoff.md`](./docs/project-kickoff.md) | 项目启动文档 |
+| **交接文档** | [`docs/handover.md`](./docs/handover.md) | Agent 间的项目交接说明 |
+| **派发任务** | [`docs/dispatched_tasks.md`](./docs/dispatched_tasks.md) | 派发任务记录 |
+| **Lark 文档规范** | [`docs/lark-doc-creation-spec.md`](./docs/lark-doc-creation-spec.md) | 飞书云文档创建规范 |
+| **技能索引** | [`docs/skill_index.md`](./docs/skill_index.md) | Agent 核心技能索引与使用指南 |
+
+### 4. 多 Agent 协作与归档
+| 目录 | 用途 |
 | --- | --- |
-| `CORE_PHILOSOPHY.md` `IMPLEMENTATION_PLAN.md` `SOP.md` | 系统级核心原则、实施计划与标准作业流程。 |
-| `docs/module1_kanban/` | 看板模块设计、流程图与模块 SOP。 |
-| `docs/module2_buffer/` | Buffer 模块设计、反积压机制与信息生命周期说明。 |
-| `docs/module3_info_sources/` | 信息源治理与主计划文档。 |
-| `docs/architecture/` | 体系结构相关辅助文档。 |
-| `docs/*.md` | 项目概览、启动记录、交接说明与拆分清单。 |
-| `archive/tasks_history/` | 历史任务归档与旧交付物快照。 |
-| `tasks/` `context/` | 多 Agent 协作文档库的任务成果与上下文沉淀。 |
-
-## 使用约定
-
-本仓库默认作为 **架构与流程知识源** 使用。对于一般架构任务，建议优先阅读根目录核心文档及 `docs/module*` 目录；`archive/tasks_history/` 为历史归档区，默认不属于 Agent 必读上下文，仅在需要追溯历史方案、核对来源或恢复旧交付物时再进入读取。
+| `tasks/` | 多 Agent 协作文档库的任务成果沉淀。 |
+| `context/` | 多 Agent 协作文档库的上下文快照。 |
+| `archive/tasks_history/` | 原仓库的历史任务归档与旧交付物快照。 |
 
 ## 拆分说明
 
