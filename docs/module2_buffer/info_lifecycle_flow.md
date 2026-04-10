@@ -11,10 +11,10 @@ flowchart TD
 
     %% 1. 接收阶段
     subgraph 接收阶段 [1. 接收阶段]
-        A1[Telegram 消息]:::source
-        A2[Lark 消息]:::source
-        A3[语音转文字]:::source
-        A4[文件上传/解析]:::source
+        A1[Lark 群聊/机器人]:::source
+        A2[飞书妙记/会议记录]:::source
+        A3[Meegle Webhook]:::source
+        A4[语音转文字/文件上传]:::source
         B[信息缓冲区入口 (API)]:::process
         A1 --> B
         A2 --> B
@@ -72,18 +72,15 @@ flowchart TD
         Q{意图与模块路由}:::decision
         P --> Q
         
-        R1[GitHub Issue (Bug/Feature/Progress)]:::storage
         R2[Lark 多维表格 (结构化数据)]:::storage
         R3[Meegle (任务分配)]:::storage
         R4[Lark 通知 (备忘提醒)]:::action
         
-        Q --> R1
         Q --> R2
         Q --> R3
         Q --> R4
         
         S[标记为 Status: archived]:::storage
-        R1 --> S
         R2 --> S
         R3 --> S
         R4 --> S

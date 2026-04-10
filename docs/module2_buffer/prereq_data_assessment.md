@@ -204,9 +204,8 @@
 | :--- | :--- | :--- | :--- | :--- |
 | **Meegle** | 研发状态的唯一事实源 (SSOT) | API Token、项目空间 ID、Webhook Secret、`Lark ↔ Meegle` 用户映射表 | **凭证缺失**。需在开发者后台生成长效 Token 并配置工作项变更 Webhook。 | 第一阶段 (Quick Win, 1周) |
 | **Lark Bot** | 核心沟通阵地，处理多对话混杂 | App ID/Secret、Verification Token、`im:message.group_msg` 敏感权限、目标群组 ID 白名单 | **待建立**。需申请企业自建应用及历史消息拉取权限，敏感权限审批周期较长。 | 第二阶段 (核心建设, 1-2周) |
-| **GitHub** | 代码落地的物理证据 | GitHub App 私钥、Webhook Secret、目标仓库列表 | **待建立**。已在使用 GitHub，需配置项目仓库的 Webhook 监听 Issues/PRs/Actions 事件。 | 第二阶段 (核心建设, 1周) |
 | **飞书妙记** | 决策层的核心会议记录来源 | Tenant Access Token、妙记 API 读取权限 | **待验证可行性**。需确认飞书开放平台是否开放相关 API，若无则需考虑 RPA 或手动导出方案。 | 第三阶段 (长期规划, 2-3周) |
-| **Telegram Bot** | 移动端碎片化备忘快捷入口 | Bot Token (来自 BotFather)、允许交互的 Chat ID 白名单 | **待建立**。需向 BotFather 申请 Token，配置 Webhook URL 指向缓冲区网关。 | 第一阶段 (Quick Win, 1-2周) |
+| **GitHub** | 代码层辅助参考（非主驱动） | Personal Access Token (PAT)，仓库只读权限 | **按需建立**。不作为看板状态的主要驱动来源，仅在需要时作为 Meegle 状态的辅助核验依据。 | 按需接入 |
 
 ### 5.1 接入建议与风险提示
 
@@ -214,7 +213,7 @@
 
 **幂等性基础设施**：在全面接入数据源前，必须先完成 SQLite/Redis 的去重表（`processed_messages`）建设，防止 Webhook 重试导致的缓冲池数据污染。
 
-**用户身份映射**：建立统一的 `Lark User ID ↔ Meegle user_key ↔ GitHub username` 三方映射表，是实现跨系统自动分配任务的关键前提。
+**用户身份映射**：建立统一的 `Lark User ID ↔ Meegle user_key` 双向映射表，是实现跨系统自动分配任务的关键前提。
 
 ---
 
@@ -223,7 +222,7 @@
 本报告完成了 Module2 信息缓冲池正常运行所需的四项前置数据设计，主要结论如下：
 
 1. **立即执行**：将 `project_context.json` 模板和模块关键词映射表录入系统配置中心，并优先启动 Lark Bot 敏感权限申请。
-2. **短期目标（1-2周）**：完成 Meegle Webhook 和 Telegram Bot 的接入（第一阶段），并推进 GitHub Webhook 配置。
+2. **短期目标（1-2周）**：完成 Meegle Webhook 接入与状态回传验证（第一阶段）。
 3. **中期目标（2-4周）**：完成 Lark Bot 接入，启用多对话分离算法，并根据新增意图类型（Risk Escalation、Decision Record、Status Check）更新 LLM Prompt 和状态机逻辑。
 4. **长期目标（5-8周）**：验证飞书妙记 API 可行性，完成会议纪要自动提取功能。
 
