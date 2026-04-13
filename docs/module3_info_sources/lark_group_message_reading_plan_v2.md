@@ -96,3 +96,42 @@
     *   实现主动追问的话术生成逻辑与引用（Quote）机制。
 3.  **缓冲池对接 (`ai-secretary-architecture`)**:
     *   调整 Buffer 的接收网关，支持接收批量打包的 `ThreadEvent`，而非单条散乱消息。
+
+## 5. 基础设施：后端依赖与数据存储方案
+
+针对 Skill-Driven 定时任务架构，基础设施和数据存储方案必须适应“周期性唤醒、批处理、状态暂存”的特点。
+
+### 5.1 是否需要后端能力？
+
+**结论：核心链路可以实现“无服务器化 (Serverless / Agent-Native)”，但追问闭环需要轻量级 Webhook 接收能力。**
+
+*   **定时拉取与拆解 (Fetch & Decompose)**：**完全不需要常驻后端**。可以依赖 Agent 调度平台（如 Manus 的定时任务能力，或 GitHub Actions 的 Cron Job）定期唤醒 `lark-group-monitor` Skill 执行拉取和 LLM 推理。
+*   **进度推入看板 (Sync)**：**不需要后端**。Skill 执行完毕后，直接调用 Lark Bitable API 或 Meegle API 写入结果即可。
+*   **追问闭环 (Inquire & Reply)**：**需要轻量级后端 (Webhook)**。当机器人主动 `@` 用户追问后，用户在群内的回复需要被系统实时捕获，这就要求有一个能够接收飞书 `im.message.receive_v1` 事件的 Webhook 服务。
+    *   *替代方案 (完全无后端)*：如果坚决不部署任何后端，可以让 Skill 在下一次定时唤醒时，再去拉取用户的回复。但这种方式会导致追问闭环的延迟过高（如用户秒回，但系统要等下一个小时才处理）。
+
+### 5.2 数据存储方案设计
+
+在 Skill-Driven 架构下，由于是无状态的脚本定时执行，必须引入持久化存储来记录“拉取游标”和“未完成的话题状态”。
+
+**方案一：Lark 多维表格 (Bitable) 作为轻量级数据库 (推荐)**
+
+为了极致的“免运维”和与飞书生态的深度融合，直接使用一个隐藏的 Lark 多维表格作为数据库。
+
+*   **表1：Cursor 表 (拉取游标)**
+    *   字段：`group_id`, `last_fetched_message_id`, `last_fetched_time`
+    *   作用：每次 Skill 启动时，先读取此表获取上次拉取的位置，避免重复拉取或漏拉。
+*   **表2：Pending Threads 表 (待补全话题池)**
+    *   字段：`thread_id`, `topic_summary`, `missing_fields`, `last_inquiry_time`, `status` (waiting_reply, completed, timeout)
+    *   作用：暂存那些被判定为“信息不足”且已发起追问的话题。当用户的回复到来（或下一次 Skill 扫描到回复）时，从这里提取上下文进行合并。
+
+**方案二：SQLite + S3 (适合自托管 Agent)**
+
+如果使用本地运行的 Agent 框架（如 `multi-agent-hub` 技能中提到的 Git 仓库持久化或本地 SQLite）：
+
+*   复用 `prereq_data_assessment.md` 中设计的 `processed_messages` SQLite 表进行去重。
+*   新增 `pending_threads` 表存储未闭环的上下文。
+*   由于 Agent 运行环境可能随时销毁，SQLite 文件需要在每次执行结束后同步到云端（如 S3 或提交到 Git 仓库的一个隐藏分支）以保持状态。
+
+**综合建议**：
+在 MVP 阶段，建议采用 **方案一（Lark Bitable）**。这不仅免去了数据库部署和维护成本，还方便项目经理随时“可视化”地查看系统正在追踪哪些未闭环的话题，甚至允许人工直接在表格里手动补全信息，从而触发后续的看板更新。
