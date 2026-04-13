@@ -292,20 +292,20 @@ def get_tenant_access_token() -> str:
     })
     return resp.json()["tenant_access_token"]
 
-def list_minutes(page_size: int = 20) -> list:
+def get_minute_meta(minute_token: str) -> dict:
     """
-    获取最近的妙记列表
-    注意：此 API 端点需在飞书开放平台确认是否已开放
+    获取单篇妙记的基础信息
+    注意：飞书妙记 API 没有列表接口，必须提供具体的 minute_token
+    minute_token 可从妙记 URL 末尾获取：https://xxx.feishu.cn/minutes/{minute_token}
     """
     token = get_tenant_access_token()
-    url = "https://open.feishu.cn/open-apis/minutes/v1/minutes"
+    url = f"https://open.feishu.cn/open-apis/minutes/v1/minutes/{minute_token}"
     headers = {"Authorization": f"Bearer {token}"}
-    params = {"page_size": page_size}
-    resp = requests.get(url, headers=headers, params=params)
-    if resp.status_code != 200:
-        print(f"[WARN] Minutes API not available: {resp.status_code} - {resp.text}")
-        return []
-    return resp.json().get("data", {}).get("minutes", [])
+    resp = requests.get(url, headers=headers, params={"user_id_type": "open_id"})
+    if resp.status_code != 200 or resp.json().get("code") != 0:
+        print(f"[WARN] Failed to get minute meta: {resp.text[:200]}")
+        return {}
+    return resp.json().get("data", {}).get("minute", {})
 
 def get_minute_transcript(minute_token: str) -> str:
     """
@@ -328,32 +328,44 @@ def get_minute_transcript(minute_token: str) -> str:
             lines.append(f"[{speaker}]: {words.strip()}")
     return "\n".join(lines)
 
-def process_new_minutes(whitelist_keywords: list = None):
+def process_minute_from_url(minutes_url: str, whitelist_keywords: list = None):
     """
-    定时轮询新妙记并推送到缓冲区
+    从妙记 URL 中提取 minute_token，拉取内容并推送到缓冲区
+    适用于 PM 在 Lark 群聊中 @机器人 并粘贴妙记链接的场景
+    :param minutes_url: 妙记完整 URL，如 https://xxx.feishu.cn/minutes/obcnq3b9jl72l83w4f14xxxx
     :param whitelist_keywords: 仅处理标题包含这些关键词的妙记（隐私保护）
     """
-    minutes = list_minutes()
-    for minute in minutes:
-        title = minute.get("topic", "")
-        minute_token = minute.get("minute_token", "")
+    import re
+    # 从 URL 中提取 minute_token
+    match = re.search(r'/minutes/([a-zA-Z0-9]+)', minutes_url)
+    if not match:
+        print(f"[ERROR] 无法从 URL 中提取 minute_token: {minutes_url}")
+        return
+    minute_token = match.group(1)
 
-        # 白名单过滤（隐私保护：只处理项目相关会议）
-        if whitelist_keywords:
-            if not any(kw in title for kw in whitelist_keywords):
-                print(f"[SKIP] 非白名单会议，跳过: {title}")
-                continue
+    # 获取妙记基础信息
+    meta = get_minute_meta(minute_token)
+    if not meta:
+        return
+    title = meta.get("title", "未知会议")
 
-        transcript = get_minute_transcript(minute_token)
-        if not transcript:
-            continue
+    # 白名单过滤（隐私保护：只处理项目相关会议）
+    if whitelist_keywords:
+        if not any(kw in title for kw in whitelist_keywords):
+            print(f"[SKIP] 非白名单会议，跳过: {title}")
+            return
 
-        # 推送到缓冲区
-        push_minutes_to_buffer(
-            minute_token=minute_token,
-            title=title,
-            transcript=transcript
-        )
+    transcript = get_minute_transcript(minute_token)
+    if not transcript:
+        print(f"[WARN] 妙记转录文本为空: {title}")
+        return
+
+    # 推送到缓冲区
+    push_minutes_to_buffer(
+        minute_token=minute_token,
+        title=title,
+        transcript=transcript
+    )
 
 def push_minutes_to_buffer(minute_token: str, title: str, transcript: str):
     """将妙记转录文本推送到信息缓冲区"""
