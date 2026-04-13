@@ -37,8 +37,8 @@
 
 | 接口名称 | HTTP 方法 | 正确路径 |
 | :--- | :--- | :--- |
-| 获取妙记基础信息 | `GET` | `https://open.feishu.cn/open-apis/minutes/v1/minutes/{minute_token}` |
-| 获取妙记文字记录 | `GET` | `https://open.feishu.cn/open-apis/minutes/v1/minutes/{minute_token}/transcript` |
+| 获取妙记基础信息 | `GET` | `https://open.larksuite.com/open-apis/minutes/v1/minutes/{minute_token}` |
+| 获取妙记文字记录 | `GET` | `https://open.larksuite.com/open-apis/minutes/v1/minutes/{minute_token}/transcript` |
 
 使用正确路径（含有效 `minute_token`）调用时，返回 `code=2091002, msg=resource not found`，这是因为测试用的 `minute_token` 是占位符，**并非权限错误**（权限错误码为 `2091005, permission deny`）。这证明 `minutes:minutes:readonly` 权限已实际生效。
 

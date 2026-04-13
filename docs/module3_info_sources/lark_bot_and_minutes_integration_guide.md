@@ -26,7 +26,7 @@
 
 ### 1.2 在飞书开放平台创建企业自建应用
 
-**Step 1**：访问 [飞书开放平台](https://open.feishu.cn/app)，使用企业管理员账号登录，点击"创建企业自建应用"。
+**Step 1**：访问 [Lark 开放平台](https://open.larksuite.com/app)，使用企业管理员账号登录，点击"创建企业自建应用"。
 
 **Step 2**：填写应用基本信息：
 - **应用名称**：`AI 项目秘书`
@@ -205,7 +205,7 @@ LARK_APP_SECRET = os.getenv("LARK_APP_SECRET")
 
 def get_tenant_access_token() -> str:
     """获取 Tenant Access Token"""
-    url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
+    url = "https://open.larksuite.com/open-apis/auth/v3/tenant_access_token/internal"
     resp = requests.post(url, json={
         "app_id": LARK_APP_ID,
         "app_secret": LARK_APP_SECRET
@@ -220,7 +220,7 @@ def pull_chat_history(chat_id: str, start_time: str, end_time: str):
     :param end_time:   结束时间戳（秒），如 "1712886400"
     """
     token = get_tenant_access_token()
-    url = "https://open.feishu.cn/open-apis/im/v1/messages"
+    url = "https://open.larksuite.com/open-apis/im/v1/messages"
     headers = {"Authorization": f"Bearer {token}"}
     params = {
         "container_id_type": "chat",
@@ -285,27 +285,27 @@ import os
 import requests
 
 def get_tenant_access_token() -> str:
-    url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
+    url = "https://open.larksuite.com/open-apis/auth/v3/tenant_access_token/internal"
     resp = requests.post(url, json={
         "app_id": os.getenv("LARK_APP_ID"),
         "app_secret": os.getenv("LARK_APP_SECRET")
     })
     return resp.json()["tenant_access_token"]
 
-def get_minute_meta(minute_token: str) -> dict:
+def list_minutes(page_size: int = 20) -> list:
     """
-    获取单篇妙记的基础信息
-    注意：飞书妙记 API 没有列表接口，必须提供具体的 minute_token
-    minute_token 可从妙记 URL 末尾获取：https://xxx.feishu.cn/minutes/{minute_token}
+    获取最近的妙记列表
+    注意：此 API 端点需在飞书开放平台确认是否已开放
     """
     token = get_tenant_access_token()
-    url = f"https://open.feishu.cn/open-apis/minutes/v1/minutes/{minute_token}"
+    url = f"https://open.larksuite.com/open-apis/minutes/v1/minutes/{minute_token}"
     headers = {"Authorization": f"Bearer {token}"}
-    resp = requests.get(url, headers=headers, params={"user_id_type": "open_id"})
-    if resp.status_code != 200 or resp.json().get("code") != 0:
-        print(f"[WARN] Failed to get minute meta: {resp.text[:200]}")
-        return {}
-    return resp.json().get("data", {}).get("minute", {})
+    params = {"page_size": page_size}
+    resp = requests.get(url, headers=headers, params=params)
+    if resp.status_code != 200:
+        print(f"[WARN] Minutes API not available: {resp.status_code} - {resp.text}")
+        return []
+    return resp.json().get("data", {}).get("minutes", [])
 
 def get_minute_transcript(minute_token: str) -> str:
     """
@@ -313,7 +313,7 @@ def get_minute_transcript(minute_token: str) -> str:
     :param minute_token: 妙记的唯一标识
     """
     token = get_tenant_access_token()
-    url = f"https://open.feishu.cn/open-apis/minutes/v1/minutes/{minute_token}/transcript"
+    url = f"https://open.larksuite.com/open-apis/minutes/v1/minutes/{minute_token}/transcript"
     headers = {"Authorization": f"Bearer {token}"}
     resp = requests.get(url, headers=headers)
     if resp.status_code != 200:
@@ -328,44 +328,32 @@ def get_minute_transcript(minute_token: str) -> str:
             lines.append(f"[{speaker}]: {words.strip()}")
     return "\n".join(lines)
 
-def process_minute_from_url(minutes_url: str, whitelist_keywords: list = None):
+def process_new_minutes(whitelist_keywords: list = None):
     """
-    从妙记 URL 中提取 minute_token，拉取内容并推送到缓冲区
-    适用于 PM 在 Lark 群聊中 @机器人 并粘贴妙记链接的场景
-    :param minutes_url: 妙记完整 URL，如 https://xxx.feishu.cn/minutes/obcnq3b9jl72l83w4f14xxxx
+    定时轮询新妙记并推送到缓冲区
     :param whitelist_keywords: 仅处理标题包含这些关键词的妙记（隐私保护）
     """
-    import re
-    # 从 URL 中提取 minute_token
-    match = re.search(r'/minutes/([a-zA-Z0-9]+)', minutes_url)
-    if not match:
-        print(f"[ERROR] 无法从 URL 中提取 minute_token: {minutes_url}")
-        return
-    minute_token = match.group(1)
+    minutes = list_minutes()
+    for minute in minutes:
+        title = minute.get("topic", "")
+        minute_token = minute.get("minute_token", "")
 
-    # 获取妙记基础信息
-    meta = get_minute_meta(minute_token)
-    if not meta:
-        return
-    title = meta.get("title", "未知会议")
+        # 白名单过滤（隐私保护：只处理项目相关会议）
+        if whitelist_keywords:
+            if not any(kw in title for kw in whitelist_keywords):
+                print(f"[SKIP] 非白名单会议，跳过: {title}")
+                continue
 
-    # 白名单过滤（隐私保护：只处理项目相关会议）
-    if whitelist_keywords:
-        if not any(kw in title for kw in whitelist_keywords):
-            print(f"[SKIP] 非白名单会议，跳过: {title}")
-            return
+        transcript = get_minute_transcript(minute_token)
+        if not transcript:
+            continue
 
-    transcript = get_minute_transcript(minute_token)
-    if not transcript:
-        print(f"[WARN] 妙记转录文本为空: {title}")
-        return
-
-    # 推送到缓冲区
-    push_minutes_to_buffer(
-        minute_token=minute_token,
-        title=title,
-        transcript=transcript
-    )
+        # 推送到缓冲区
+        push_minutes_to_buffer(
+            minute_token=minute_token,
+            title=title,
+            transcript=transcript
+        )
 
 def push_minutes_to_buffer(minute_token: str, title: str, transcript: str):
     """将妙记转录文本推送到信息缓冲区"""
