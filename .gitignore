@@ -11,3 +11,4 @@ venv/
 
 # macOS
 .DS_Store
+cold_start_*.json
