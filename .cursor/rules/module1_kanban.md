@@ -52,3 +52,34 @@ globs: ["docs/module1_kanban/**"]
 | `kanban_optimization_plan.md` | 看板优化方案与信息源架构 |
 | `ai_token_optimization.md` | AI Token 消耗优化策略 |
 | `prereq_data_assessment.md` | 前置数据评估报告 |
+| `dashboard_visualization_architecture.md` | 看板可视化数据链路架戶设计，包含 JSON Schema 定义 |
+
+## 6. 看板可视化数据链路（Dashboard Visualization Pipeline）
+
+看板可视化是看板模块的延伸层，将 Lark Bitable 和 Markdown 文档中的信息沉淀转化为结构化数据，驱动前端看板展示。
+
+### 6.1 数据流向
+
+```
+非结构化信息源（飞书群组周报、模块进度文档）
+        ↓ scripts/parse_to_dashboard_json.py
+data/dashboard_data.json（唯一数据契约）
+        ↓ git push 到 ai-secretary-architecture
+前端通过 GitHub Raw URL 读取，刷新即生效
+```
+
+### 6.2 前端项目位置
+
+- **仓库**：`gdszyy/xpbet-frontend-components`，路径 `kanban-v2/`
+- **技栈**：React 19 + TypeScript + Tailwind CSS 4 + Recharts
+- **数据源配置**：环境变量 `VITE_DATA_URL`，默认指向 GitHub Raw URL
+
+### 6.3 数据更新 SOP
+
+每周二执行以下步骤：
+
+1. 编辑 `scripts/inject_weekly_updates.py` 中的 `WEEKLY_UPDATES` 字典，填入本周各模块进展
+2. 运行 `python3 scripts/inject_weekly_updates.py`
+3. 运行 `python3 scripts/sync_bitable_docs.py`（同步 Bitable 文档链接）
+4. `git add data/dashboard_data.json && git commit -m "data: W{XX} weekly update" && git push`
+5. 前端刷新页面即可看到最新数据
