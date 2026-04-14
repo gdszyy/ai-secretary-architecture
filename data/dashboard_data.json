@@ -1,6 +1,38 @@
 {
   "last_updated": "2026-04-14T00:00:00Z",
   "project_name": "XP-BET 体育博彩产品及 sports-matcher-go 核心数据匹配服务",
+  "module_groups": [
+    {
+      "id": "grp_data_engine",
+      "name": "数据引擎",
+      "color": "#6366f1",
+      "desc": "数据接入、匹配算法、实时数据流"
+    },
+    {
+      "id": "grp_betting_core",
+      "name": "博彩核心",
+      "color": "#0ea5e9",
+      "desc": "体育投注、赔率管理、结算系统"
+    },
+    {
+      "id": "grp_user_finance",
+      "name": "用户与财务",
+      "color": "#10b981",
+      "desc": "用户系统、KYC、钱包、充提"
+    },
+    {
+      "id": "grp_operations",
+      "name": "运营与增长",
+      "color": "#f59e0b",
+      "desc": "活动平台、投放系统、Casino"
+    },
+    {
+      "id": "grp_platform",
+      "name": "平台基础",
+      "color": "#8b5cf6",
+      "desc": "UI/UX 设计、系统管理、站内信"
+    }
+  ],
   "kpi_metrics": {
     "health_score": {
       "value": 85,
@@ -60,7 +92,81 @@
   ],
   "modules": [
     {
+      "id": "mod_data_ingestion",
+      "group_id": "grp_data_engine",
+      "name": "数据接入层",
+      "priority": "P0",
+      "status": "in_progress",
+      "progress_percentage": 82,
+      "owner": "VoidZ",
+      "current_summary": "UOF 数据异常修复，SR/LSport 数据接入取得进展，与匹配引擎同步推进",
+      "next_milestone": "与匹配引擎优化同步，无独立待办",
+      "history_timeline": [
+        { "date": "2026-01-09", "event": "UOF 结算数据异常修复，赛事比分数据异常原因明确" },
+        { "date": "2026-04-03", "event": "SR→TS 匹配算法迭代，LSport 后端对接基本完成" }
+      ],
+      "risks": [],
+      "weekly_updates": [],
+      "features": [
+        {
+          "id": "feat_uof_integration",
+          "name": "UOF 数据接入",
+          "status": "completed",
+          "owner": "VoidZ",
+          "desc": "UOF 结算数据异常修复，赛事比分数据异常原因明确",
+          "workflow": {
+            "pre_review": {
+              "requirement_doc": "completed",
+              "ui_design": "na"
+            },
+            "post_review": {
+              "frontend_dev": "na",
+              "backend_dev": "completed"
+            }
+          },
+          "docs": []
+        },
+        {
+          "id": "feat_sr_data",
+          "name": "SR 数据接入",
+          "status": "in_progress",
+          "owner": "VoidZ",
+          "desc": "SR 数据接入与匹配引擎同步推进",
+          "workflow": {
+            "pre_review": {
+              "requirement_doc": "completed",
+              "ui_design": "na"
+            },
+            "post_review": {
+              "frontend_dev": "na",
+              "backend_dev": "in_progress"
+            }
+          },
+          "docs": []
+        },
+        {
+          "id": "feat_lsport_data",
+          "name": "LSport 数据接入",
+          "status": "in_progress",
+          "owner": "VoidZ",
+          "desc": "LSport 后端对接基本完成，数据接收正常",
+          "workflow": {
+            "pre_review": {
+              "requirement_doc": "completed",
+              "ui_design": "na"
+            },
+            "post_review": {
+              "frontend_dev": "na",
+              "backend_dev": "in_progress"
+            }
+          },
+          "docs": []
+        }
+      ]
+    },
+    {
       "id": "mod_sr_ts_matching",
+      "group_id": "grp_data_engine",
       "name": "SR→TS 匹配引擎",
       "priority": "P0",
       "status": "in_progress",
@@ -88,6 +194,10 @@
           "status": "completed",
           "owner": "VoidZ",
           "desc": "诊断并修复 UOF 结算数据异常、赛事比分数据异常",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -96,6 +206,10 @@
           "status": "completed",
           "owner": "VoidZ",
           "desc": "推进 SR sport testing Producer1/2 验收，完成最后步骤",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -104,6 +218,10 @@
           "status": "in_progress",
           "owner": "VoidZ",
           "desc": "采用时间、名称及四层兜底校验规则，热门联赛匹配度 95%+，常规 90%+",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "in_progress" }
+          },
           "docs": [
             { "title": "XP团队历史模块进度沉淀文档", "url": "https://github.com/gdszyy/ai-secretary-architecture/blob/main/archive/tasks_history/xp_team_history_progress_report.md" }
           ]
@@ -114,12 +232,17 @@
           "status": "in_progress",
           "owner": "VoidZ",
           "desc": "匹配结果交由操盘手和风控团队进行人工校验（足球+篮球）",
+          "workflow": {
+            "pre_review": { "requirement_doc": "in_progress", "ui_design": "na" },
+            "post_review": { "frontend_dev": "pending", "backend_dev": "pending" }
+          },
           "docs": []
         }
       ]
     },
     {
       "id": "mod_ls_ts_matching",
+      "group_id": "grp_data_engine",
       "name": "LS→TS 匹配引擎",
       "priority": "P0",
       "status": "in_progress",
@@ -144,6 +267,10 @@
           "status": "completed",
           "owner": "VoidZ",
           "desc": "接入 iLSport，搭建 MVP，解决账户配置问题",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -152,6 +279,10 @@
           "status": "completed",
           "owner": "VoidZ",
           "desc": "Trade 和 Defend 产品成功连接并接收消息，后端对接基本完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -160,6 +291,10 @@
           "status": "in_progress",
           "owner": "VoidZ",
           "desc": "开发前端监控消息配置及解析情况的功能",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "in_progress", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -168,12 +303,17 @@
           "status": "pending",
           "owner": "VoidZ",
           "desc": "验证 Defend 投注与结算逻辑",
+          "workflow": {
+            "pre_review": { "requirement_doc": "in_progress", "ui_design": "pending" },
+            "post_review": { "frontend_dev": "pending", "backend_dev": "pending" }
+          },
           "docs": []
         }
       ]
     },
     {
       "id": "mod_sports_betting_core",
+      "group_id": "grp_betting_core",
       "name": "体育博彩核心",
       "priority": "P0",
       "status": "in_progress",
@@ -201,6 +341,10 @@
           "status": "completed",
           "owner": "VoidZ",
           "desc": "MTS 基础投注功能验收通过，完成 end2end test",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -209,6 +353,10 @@
           "status": "completed",
           "owner": "VoidZ",
           "desc": "MTS 测试全部完成，申请 SR 生产账号",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -217,6 +365,10 @@
           "status": "in_progress",
           "owner": "VoidZ",
           "desc": "持续推进 Sportbook Testing，跟进赛前/滚球盘 checklist",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "in_progress", "backend_dev": "in_progress" }
+          },
           "docs": []
         },
         {
@@ -225,6 +377,10 @@
           "status": "completed",
           "owner": "VoidZ",
           "desc": "优化多项投注栏交互，新增 Bet on all 按钮，热门算法/赔率格式功能补齐",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -233,12 +389,175 @@
           "status": "pending",
           "owner": "VoidZ",
           "desc": "准备 cashout 文档，待开发",
+          "workflow": {
+            "pre_review": { "requirement_doc": "in_progress", "ui_design": "pending" },
+            "post_review": { "frontend_dev": "pending", "backend_dev": "pending" }
+          },
+          "docs": []
+        }
+      ]
+    },
+    {
+      "id": "mod_user_system",
+      "group_id": "grp_user_finance",
+      "name": "用户系统",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress_percentage": 90,
+      "owner": "Yark",
+      "current_summary": "KYC 优化/用户标签完成，全民代理功能整理完成，待后续开发",
+      "next_milestone": "全民代理功能后续开发",
+      "history_timeline": [
+        { "date": "2026-01-02", "event": "代理管理 PRD 与流程规划完成（100%）" },
+        { "date": "2026-01-23", "event": "KYC 优化 V1.1（多国别识别及流程优化）完成" },
+        { "date": "2026-02-06", "event": "用户标签（UserTag）PRD 完成（100%）" },
+        { "date": "2026-02-27", "event": "墨西哥身份与手机号验证完成" },
+        { "date": "2026-04-10", "event": "用户分享需求会议（全民代理模式），全民代理功能整理 50%" },
+        { "date": "2026-04-17", "event": "全民代理功能整理完成（100%）" }
+      ],
+      "risks": [],
+      "weekly_updates": [
+        { "week": "2026-14", "update": "全民代理功能整理 50%" }
+      ],
+      "features": [
+        {
+          "id": "feat_kyc_v11",
+          "name": "KYC 优化 V1.1",
+          "status": "completed",
+          "owner": "Yark",
+          "desc": "多国别识别及流程优化，墨西哥身份与手机号验证完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
+          "docs": []
+        },
+        {
+          "id": "feat_user_tag",
+          "name": "用户标签（UserTag）",
+          "status": "completed",
+          "owner": "Yark",
+          "desc": "用户标签功能 PRD 完成，收集操盘手用户风控标签",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
+          "docs": []
+        },
+        {
+          "id": "feat_agent_management",
+          "name": "代理管理",
+          "status": "completed",
+          "owner": "Yark",
+          "desc": "代理管理 PRD 与流程规划完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
+          "docs": []
+        },
+        {
+          "id": "feat_referral_agent",
+          "name": "全民代理",
+          "status": "in_progress",
+          "owner": "Yark",
+          "desc": "全民代理功能整理完成（100%），待后续开发",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "in_progress" },
+            "post_review": { "frontend_dev": "pending", "backend_dev": "pending" }
+          },
+          "docs": []
+        }
+      ]
+    },
+    {
+      "id": "mod_wallet_finance",
+      "group_id": "grp_user_finance",
+      "name": "钱包与财务",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress_percentage": 88,
+      "owner": "Yark",
+      "current_summary": "主钱包划转/充提流程优化/代付优化已完成，财务优化 V1.2（钱包冻结）进行中",
+      "next_milestone": "验证财务优化 V1.1 提款重送及 Transfer Order 功能",
+      "history_timeline": [
+        { "date": "2026-01-16", "event": "主钱包划转规划完成（100%），用户明细（钱包与注单明细）PRD 完成" },
+        { "date": "2026-02-27", "event": "充提流程优化 V1.1 完成（100%）" },
+        { "date": "2026-03-27", "event": "财务模块代付优化完成（100%）" },
+        { "date": "2026-04-10", "event": "财务优化 V1.2（加入钱包冻结行为）进行中；V1.1 待验证提款重送/Transfer Order" }
+      ],
+      "risks": [
+        { "level": "Low", "desc": "财务优化 V1.1 待验证提款重送及 Transfer Order 功能" }
+      ],
+      "weekly_updates": [
+        { "week": "2026-14", "update": "财务优化 V1.2 推进中，V1.1 待验证" }
+      ],
+      "features": [
+        {
+          "id": "feat_wallet_transfer",
+          "name": "主钱包划转",
+          "status": "completed",
+          "owner": "Yark",
+          "desc": "主钱包划转规划完成，用户账变记录及注单查询功能完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
+          "docs": []
+        },
+        {
+          "id": "feat_deposit_withdraw_v11",
+          "name": "充提流程优化 V1.1",
+          "status": "completed",
+          "owner": "Yark",
+          "desc": "充提流程优化 V1.1 完成（100%）",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
+          "docs": []
+        },
+        {
+          "id": "feat_payment_optimization",
+          "name": "代付优化",
+          "status": "completed",
+          "owner": "Yark",
+          "desc": "财务模块代付优化完成（100%）",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "completed" }
+          },
+          "docs": []
+        },
+        {
+          "id": "feat_finance_v12",
+          "name": "财务优化 V1.2",
+          "status": "in_progress",
+          "owner": "Yark",
+          "desc": "加入钱包冻结行为，进行中",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "in_progress" },
+            "post_review": { "frontend_dev": "pending", "backend_dev": "in_progress" }
+          },
+          "docs": []
+        },
+        {
+          "id": "feat_withdrawal_resend",
+          "name": "提款重送 / Transfer Order",
+          "status": "in_progress",
+          "owner": "Yark",
+          "desc": "财务优化 V1.1 待验证提款重送及 Transfer Order 功能",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "in_progress" }
+          },
           "docs": []
         }
       ]
     },
     {
       "id": "mod_activity_platform",
+      "group_id": "grp_operations",
       "name": "运营活动平台",
       "priority": "P1",
       "status": "in_progress",
@@ -271,6 +590,10 @@
           "status": "completed",
           "owner": "Mavin",
           "desc": "完成活动管理平台原型设计、PRD 文档编写、技术评审",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -279,6 +602,10 @@
           "status": "completed",
           "owner": "Mavin",
           "desc": "首充活动原型设计与 PRD 完成，已上线验收，问题修复推进",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -287,6 +614,10 @@
           "status": "in_progress",
           "owner": "Mavin",
           "desc": "VIP 活动原型及 PRD 完成（100%），进入研发评审阶段",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "in_progress", "backend_dev": "in_progress" }
+          },
           "docs": []
         },
         {
@@ -295,6 +626,10 @@
           "status": "in_progress",
           "owner": "Mavin",
           "desc": "通行证活动原型、PRD、多语言文案完成，运营侧评审通过",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "in_progress", "backend_dev": "pending" }
+          },
           "docs": []
         },
         {
@@ -303,6 +638,10 @@
           "status": "pending",
           "owner": "Mavin",
           "desc": "排行榜活动规划中，待开发",
+          "workflow": {
+            "pre_review": { "requirement_doc": "pending", "ui_design": "pending" },
+            "post_review": { "frontend_dev": "pending", "backend_dev": "pending" }
+          },
           "docs": []
         },
         {
@@ -311,132 +650,17 @@
           "status": "in_progress",
           "owner": "Mavin",
           "desc": "推动活动互斥规则文档编写及开发，确保单用户同一时间仅参加一个VIP活动",
-          "docs": []
-        }
-      ]
-    },
-    {
-      "id": "mod_user_system",
-      "name": "用户系统",
-      "priority": "P1",
-      "status": "in_progress",
-      "progress_percentage": 90,
-      "owner": "Yark",
-      "current_summary": "KYC 优化/用户标签完成，全民代理功能整理完成，待后续开发",
-      "next_milestone": "全民代理功能后续开发",
-      "history_timeline": [
-        { "date": "2026-01-02", "event": "代理管理 PRD 与流程规划完成（100%）" },
-        { "date": "2026-01-23", "event": "KYC 优化 V1.1（多国别识别及流程优化）完成" },
-        { "date": "2026-02-06", "event": "用户标签（UserTag）PRD 完成（100%）" },
-        { "date": "2026-02-27", "event": "墨西哥身份与手机号验证完成" },
-        { "date": "2026-04-10", "event": "用户分享需求会议（全民代理模式），全民代理功能整理 50%" },
-        { "date": "2026-04-17", "event": "全民代理功能整理完成（100%）" }
-      ],
-      "risks": [],
-      "weekly_updates": [
-        { "week": "2026-14", "update": "全民代理功能整理 50%" }
-      ],
-      "features": [
-        {
-          "id": "feat_kyc_v11",
-          "name": "KYC 优化 V1.1",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "多国别识别及流程优化，墨西哥身份与手机号验证完成",
-          "docs": []
-        },
-        {
-          "id": "feat_user_tag",
-          "name": "用户标签（UserTag）",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "用户标签功能 PRD 完成，收集操盘手用户风控标签",
-          "docs": []
-        },
-        {
-          "id": "feat_agent_management",
-          "name": "代理管理",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "代理管理 PRD 与流程规划完成",
-          "docs": []
-        },
-        {
-          "id": "feat_referral_agent",
-          "name": "全民代理",
-          "status": "in_progress",
-          "owner": "Yark",
-          "desc": "全民代理功能整理完成（100%），待后续开发",
-          "docs": []
-        }
-      ]
-    },
-    {
-      "id": "mod_wallet_finance",
-      "name": "钱包与财务",
-      "priority": "P1",
-      "status": "in_progress",
-      "progress_percentage": 88,
-      "owner": "Yark",
-      "current_summary": "主钱包划转/充提流程优化/代付优化已完成，财务优化 V1.2（钱包冻结）进行中",
-      "next_milestone": "验证财务优化 V1.1 提款重送及 Transfer Order 功能",
-      "history_timeline": [
-        { "date": "2026-01-16", "event": "主钱包划转规划完成（100%），用户明细（钱包与注单明细）PRD 完成" },
-        { "date": "2026-02-27", "event": "充提流程优化 V1.1 完成（100%）" },
-        { "date": "2026-03-27", "event": "财务模块代付优化完成（100%）" },
-        { "date": "2026-04-10", "event": "财务优化 V1.2（加入钱包冻结行为）进行中；V1.1 待验证提款重送/Transfer Order" }
-      ],
-      "risks": [
-        { "level": "Low", "desc": "财务优化 V1.1 待验证提款重送及 Transfer Order 功能" }
-      ],
-      "weekly_updates": [
-        { "week": "2026-14", "update": "财务优化 V1.2 推进中，V1.1 待验证" }
-      ],
-      "features": [
-        {
-          "id": "feat_wallet_transfer",
-          "name": "主钱包划转",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "主钱包划转规划完成，用户账变记录及注单查询功能完成",
-          "docs": []
-        },
-        {
-          "id": "feat_deposit_withdraw_v11",
-          "name": "充提流程优化 V1.1",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "充提流程优化 V1.1 完成（100%）",
-          "docs": []
-        },
-        {
-          "id": "feat_payment_optimization",
-          "name": "代付优化",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "财务模块代付优化完成（100%）",
-          "docs": []
-        },
-        {
-          "id": "feat_finance_v12",
-          "name": "财务优化 V1.2",
-          "status": "in_progress",
-          "owner": "Yark",
-          "desc": "加入钱包冻结行为，进行中",
-          "docs": []
-        },
-        {
-          "id": "feat_withdrawal_resend",
-          "name": "提款重送 / Transfer Order",
-          "status": "in_progress",
-          "owner": "Yark",
-          "desc": "财务优化 V1.1 待验证提款重送及 Transfer Order 功能",
+          "workflow": {
+            "pre_review": { "requirement_doc": "in_progress", "ui_design": "pending" },
+            "post_review": { "frontend_dev": "pending", "backend_dev": "pending" }
+          },
           "docs": []
         }
       ]
     },
     {
       "id": "mod_casino",
+      "group_id": "grp_operations",
       "name": "游戏（Casino）",
       "priority": "P1",
       "status": "in_progress",
@@ -464,6 +688,10 @@
           "status": "completed",
           "owner": "Yark",
           "desc": "游戏商管理 PRD 完成，游戏管理交互图档更替完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -472,6 +700,10 @@
           "status": "completed",
           "owner": "Yark",
           "desc": "RG API 文件解析完成，IG/RG 对接文档说明完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -480,6 +712,10 @@
           "status": "in_progress",
           "owner": "Yark",
           "desc": "注单报表 PRD 完成，注单报表更新完成，将由新技术开发接手",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "in_progress", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -488,12 +724,17 @@
           "status": "completed",
           "owner": "Yark",
           "desc": "建立 Gamelist 范本，用于游戏管理 GameList",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "na" }
+          },
           "docs": []
         }
       ]
     },
     {
       "id": "mod_ads_system",
+      "group_id": "grp_operations",
       "name": "投放系统",
       "priority": "P1",
       "status": "in_progress",
@@ -521,6 +762,10 @@
           "status": "completed",
           "owner": "Yark",
           "desc": "多渠道广告与奖励投放管理 PRD 完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -529,6 +774,10 @@
           "status": "completed",
           "owner": "Yark",
           "desc": "PIXEL 事件规范定义完成（100%），广州团队提供 PIXEL 事件集接口",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -537,6 +786,10 @@
           "status": "completed",
           "owner": "Yark",
           "desc": "推广日报 Google Sheet 读取范例完成（100%）",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -545,65 +798,17 @@
           "status": "in_progress",
           "owner": "Yark",
           "desc": "埋点、数据、数据展示功能待验收",
-          "docs": []
-        }
-      ]
-    },
-    {
-      "id": "mod_platform_setting",
-      "name": "平台系统管理",
-      "priority": "P2",
-      "status": "completed",
-      "progress_percentage": 100,
-      "owner": "Yark",
-      "current_summary": "平台 Setting 配置/SMS·SMTP 服务/FAQ/公告等功能全部完成",
-      "next_milestone": "无待办",
-      "history_timeline": [
-        { "date": "2026-01-02", "event": "前台 Setting 配置项规划完成（100%）" },
-        { "date": "2026-01-23", "event": "平台系统管理(Setting) 完成（100%）" },
-        { "date": "2026-02-06", "event": "FAQ 完成（100%），公告功能启动" },
-        { "date": "2026-02-20", "event": "公告完成（100%），SMTP/SMS 配置完成" },
-        { "date": "2026-04-10", "event": "FAQ 配置与展示完成（100%）" }
-      ],
-      "risks": [],
-      "weekly_updates": [],
-      "features": [
-        {
-          "id": "feat_platform_setting",
-          "name": "平台 Setting 配置",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "前台 Setting 配置项规划及实现完成",
-          "docs": []
-        },
-        {
-          "id": "feat_sms_smtp",
-          "name": "SMS/SMTP 服务配置",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "SMS/SMTP 服务端配置完成，验收报告及交互完成",
-          "docs": []
-        },
-        {
-          "id": "feat_faq",
-          "name": "FAQ 配置与展示",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "FAQ PRD 完成，FAQ 配置与展示功能完成（100%）",
-          "docs": []
-        },
-        {
-          "id": "feat_announcement",
-          "name": "公告功能",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "公告功能完成（100%）",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "in_progress", "backend_dev": "completed" }
+          },
           "docs": []
         }
       ]
     },
     {
       "id": "mod_uiux_design",
+      "group_id": "grp_platform",
       "name": "UI/UX 设计",
       "priority": "P2",
       "status": "in_progress",
@@ -632,6 +837,10 @@
           "status": "completed",
           "owner": "Starvia",
           "desc": "注册/登录、主页、个人中心、注单、钱包、Casino 等核心 UI 完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "na" }
+          },
           "docs": []
         },
         {
@@ -640,6 +849,10 @@
           "status": "completed",
           "owner": "Starvia",
           "desc": "首充活动、VIP 活动、墨西哥冠军盘、通行证等活动 UI 完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "na" }
+          },
           "docs": []
         },
         {
@@ -648,6 +861,10 @@
           "status": "completed",
           "owner": "VoidZ",
           "desc": "注单卡片系统交互设计规范 v1.4，重构注单记录卡片，优化串关展示形式",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "na" }
+          },
           "docs": []
         },
         {
@@ -656,6 +873,10 @@
           "status": "in_progress",
           "owner": "うみ",
           "desc": "H5 主页、个人中心、登录/注册 UI 设计，赛事比赛详情直播组件",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "in_progress" },
+            "post_review": { "frontend_dev": "pending", "backend_dev": "na" }
+          },
           "docs": []
         },
         {
@@ -664,54 +885,87 @@
           "status": "completed",
           "owner": "Fay",
           "desc": "赛事赛程广告图片/视频模板，首充活动图片/视频，新手注册视频，充值投注广告视频",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "na" }
+          },
           "docs": []
         }
       ]
     },
     {
-      "id": "mod_data_ingestion",
-      "name": "数据接入层",
-      "priority": "P0",
-      "status": "in_progress",
-      "progress_percentage": 82,
-      "owner": "VoidZ",
-      "current_summary": "UOF 数据异常修复，SR/LSport 数据接入取得进展，与匹配引擎同步推进",
-      "next_milestone": "与匹配引擎优化同步，无独立待办",
+      "id": "mod_platform_setting",
+      "group_id": "grp_platform",
+      "name": "平台系统管理",
+      "priority": "P2",
+      "status": "completed",
+      "progress_percentage": 100,
+      "owner": "Yark",
+      "current_summary": "平台 Setting 配置/SMS·SMTP 服务/FAQ/公告等功能全部完成",
+      "next_milestone": "无待办",
       "history_timeline": [
-        { "date": "2026-01-09", "event": "UOF 结算数据异常修复，赛事比分数据异常原因明确" },
-        { "date": "2026-04-03", "event": "SR→TS 匹配算法迭代，LSport 后端对接基本完成" }
+        { "date": "2026-01-02", "event": "前台 Setting 配置项规划完成（100%）" },
+        { "date": "2026-01-23", "event": "平台系统管理(Setting) 完成（100%）" },
+        { "date": "2026-02-06", "event": "FAQ 完成（100%），公告功能启动" },
+        { "date": "2026-02-20", "event": "公告完成（100%），SMTP/SMS 配置完成" },
+        { "date": "2026-04-10", "event": "FAQ 配置与展示完成（100%）" }
       ],
       "risks": [],
       "weekly_updates": [],
       "features": [
         {
-          "id": "feat_uof_integration",
-          "name": "UOF 数据接入",
+          "id": "feat_platform_setting",
+          "name": "平台 Setting 配置",
           "status": "completed",
-          "owner": "VoidZ",
-          "desc": "UOF 结算数据异常修复，赛事比分数据异常原因明确",
+          "owner": "Yark",
+          "desc": "前台 Setting 配置项规划及实现完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
-          "id": "feat_sr_data",
-          "name": "SR 数据接入",
-          "status": "in_progress",
-          "owner": "VoidZ",
-          "desc": "SR 数据接入与匹配引擎同步推进",
+          "id": "feat_sms_smtp",
+          "name": "SMS/SMTP 服务配置",
+          "status": "completed",
+          "owner": "Yark",
+          "desc": "SMS/SMTP 服务端配置完成，验收报告及交互完成",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "na" },
+            "post_review": { "frontend_dev": "na", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
-          "id": "feat_lsport_data",
-          "name": "LSport 数据接入",
-          "status": "in_progress",
-          "owner": "VoidZ",
-          "desc": "LSport 后端对接基本完成，数据接收正常",
+          "id": "feat_faq",
+          "name": "FAQ 配置与展示",
+          "status": "completed",
+          "owner": "Yark",
+          "desc": "FAQ PRD 完成，FAQ 配置与展示功能完成（100%）",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
+          "docs": []
+        },
+        {
+          "id": "feat_announcement",
+          "name": "公告功能",
+          "status": "completed",
+          "owner": "Yark",
+          "desc": "公告功能完成（100%）",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
           "docs": []
         }
       ]
     },
     {
       "id": "mod_im_cs",
+      "group_id": "grp_platform",
       "name": "站内信与客服",
       "priority": "P2",
       "status": "completed",
@@ -731,6 +985,10 @@
           "status": "completed",
           "owner": "Yark",
           "desc": "站内信功能验收通过",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
           "docs": []
         },
         {
@@ -739,6 +997,10 @@
           "status": "completed",
           "owner": "Yark",
           "desc": "站内客服功能验收通过",
+          "workflow": {
+            "pre_review": { "requirement_doc": "completed", "ui_design": "completed" },
+            "post_review": { "frontend_dev": "completed", "backend_dev": "completed" }
+          },
           "docs": []
         }
       ]
