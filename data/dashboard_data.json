@@ -1,0 +1,346 @@
+{
+  "last_updated": "2026-04-14T00:00:00Z",
+  "project_name": "XP-BET 体育博彩产品及 sports-matcher-go 核心数据匹配服务",
+  "kpi_metrics": {
+    "health_score": {
+      "value": 85,
+      "trend_monthly": [
+        {
+          "month": "2026-01",
+          "score": 75,
+          "label": "初期匹配算法及核心功能开发"
+        },
+        {
+          "month": "2026-02",
+          "score": 80,
+          "label": "功能测试及活动平台设计推进"
+        },
+        {
+          "month": "2026-03",
+          "score": 88,
+          "label": "多模块原型完成及测试"
+        },
+        {
+          "month": "2026-04",
+          "score": 90,
+          "label": "匹配度提升及多模块验收"
+        }
+      ],
+      "details": {
+        "bug_rate": "medium",
+        "delay_rate": "low",
+        "team_velocity": "high"
+      }
+    },
+    "risk_alerts": {
+      "count": 3,
+      "threshold": 5,
+      "trend_weekly": [
+        {
+          "week": "2026-13",
+          "count": 4
+        },
+        {
+          "week": "2026-14",
+          "count": 3
+        },
+        {
+          "week": "2026-15",
+          "count": 3
+        }
+      ],
+      "items": [
+        {
+          "level": "Medium",
+          "module": "SR→TS 匹配引擎",
+          "desc": "继续优化迭代匹配算法，确保匹配准确率"
+        },
+        {
+          "level": "Medium",
+          "module": "运营活动平台",
+          "desc": "活动平台互斥功能、标签系统对接及运营位前台适配风险"
+        },
+        {
+          "level": "Low",
+          "module": "财务模块",
+          "desc": "财务优化 V1.1 待验证提款重送及 Tranfer Order 功能"
+        }
+      ]
+    },
+    "stage_version": {
+      "current": "V1.2",
+      "history": [
+        {
+          "version": "V1.0",
+          "date": "2026-01-09",
+          "desc": "MTS 基础投注功能验收"
+        },
+        {
+          "version": "V1.1",
+          "date": "2026-02-27",
+          "desc": "MTS 测试完成并申请 SR 生产账号"
+        },
+        {
+          "version": "V1.2",
+          "date": "2026-04-03",
+          "desc": "匹配算法迭代及财务优化推进"
+        }
+      ]
+    },
+    "growth_engine": {
+      "active_modules": 8,
+      "completed_modules": 4,
+      "trend_weekly": [
+        {
+          "week": "2026-10",
+          "active": 10,
+          "completed": 2
+        },
+        {
+          "week": "2026-14",
+          "active": 8,
+          "completed": 4
+        }
+      ]
+    }
+  },
+  "milestones": [
+    {
+      "date": "2026-01-09",
+      "title": "MTS 基础投注功能验收",
+      "owner": "VoidZ",
+      "status": "completed",
+      "is_current": false
+    },
+    {
+      "date": "2026-01-23",
+      "title": "KYC 优化 V1.1 完成",
+      "owner": "Yark",
+      "status": "completed",
+      "is_current": false
+    },
+    {
+      "date": "2026-02-20",
+      "title": "站内信、站内客服功能验收",
+      "owner": "Yark",
+      "status": "completed",
+      "is_current": false
+    },
+    {
+      "date": "2026-02-27",
+      "title": "MTS 测试完成并申请 SR 生产账号",
+      "owner": "VoidZ",
+      "status": "completed",
+      "is_current": false
+    },
+    {
+      "date": "2026-03-06",
+      "title": "RG API 文件解析完成，游戏商管理、注单报表、IG/RG 对接文档完成",
+      "owner": "Yark",
+      "status": "completed",
+      "is_current": false
+    },
+    {
+      "date": "2026-03-20",
+      "title": "首充活动原型设计与 PRD 文档输出完成",
+      "owner": "Mavin",
+      "status": "completed",
+      "is_current": false
+    },
+    {
+      "date": "2026-04-03",
+      "title": "SR→TS 匹配算法迭代，匹配度显著提升至 90% 以上；LSport 后端对接基本完成",
+      "owner": "VoidZ",
+      "status": "completed",
+      "is_current": false
+    },
+    {
+      "date": "2026-04-10",
+      "title": "游戏注单报表更新完成，FAQ 配置与展示完成，全民代理功能整理 50%",
+      "owner": "Yark",
+      "status": "in_progress",
+      "is_current": true
+    }
+  ],
+  "modules": [
+    {
+      "id": "mod_sr_ts_matching",
+      "name": "SR→TS 匹配引擎",
+      "priority": "P0",
+      "status": "in_progress",
+      "progress_percentage": 85,
+      "owner": "VoidZ",
+      "current_summary": "匹配算法经过迭代优化，匹配度显著提升，并已进入人工校验阶段",
+      "next_milestone": "继续优化迭代 SR→TS 匹配算法",
+      "history_timeline": [
+        {
+          "date": "2026-01-09",
+          "event": "诊断并修复 UOF 结算数据异常"
+        },
+        {
+          "date": "2026-02-06",
+          "event": "推进 SR sport testing Producer1/2 验收"
+        },
+        {
+          "date": "2026-04-03",
+          "event": "匹配算法迭代，匹配度提升至 90%以上"
+        }
+      ],
+      "risks": [
+        {
+          "level": "Medium",
+          "desc": "匹配算法需持续优化以保证准确率"
+        }
+      ],
+      "weekly_updates": [
+        {
+          "week": "2026-14",
+          "update": "匹配算法迭代完成，进入人工校验阶段"
+        }
+      ]
+    },
+    {
+      "id": "mod_ls_ts_matching",
+      "name": "LS→TS 匹配引擎",
+      "priority": "P0",
+      "status": "in_progress",
+      "progress_percentage": 80,
+      "owner": "VoidZ",
+      "current_summary": "LSport 后端对接已基本完成，风控团队正在配置后台",
+      "next_milestone": "完成前端监控消息配置及解析功能开发",
+      "history_timeline": [
+        {
+          "date": "2026-03-20",
+          "event": "完成 Lsport 接入及 MVP 搭建"
+        },
+        {
+          "date": "2026-04-03",
+          "event": "解决账户配置问题，完成后端对接"
+        }
+      ],
+      "risks": [
+        {
+          "level": "Medium",
+          "desc": "前端监控功能开发及 Defend 投注逻辑验证存在风险"
+        }
+      ],
+      "weekly_updates": [
+        {
+          "week": "2026-14",
+          "update": "后端对接完成，前端功能开发中"
+        }
+      ]
+    },
+    {
+      "id": "mod_sports_betting_core",
+      "name": "体育博彩核心",
+      "priority": "P0",
+      "status": "in_progress",
+      "progress_percentage": 90,
+      "owner": "VoidZ",
+      "current_summary": "MTS 基础投注已验收，测试完成并申请生产账号，功能持续补齐",
+      "next_milestone": "跟进 Sportbook Testing，准备 cashout 文档",
+      "history_timeline": [
+        {
+          "date": "2026-01-09",
+          "event": "MTS 基础投注功能验收"
+        },
+        {
+          "date": "2026-02-27",
+          "event": "完成 MTS 测试并申请 SR 生产账号"
+        },
+        {
+          "date": "2026-04-03",
+          "event": "优化投注栏交互，新增 Bet on all 按钮"
+        }
+      ],
+      "risks": [
+        {
+          "level": "Medium",
+          "desc": "Sportbook Testing 进度及 cashout 文档准备风险"
+        }
+      ],
+      "weekly_updates": [
+        {
+          "week": "2026-14",
+          "update": "投注栏交互优化完成，持续跟进测试"
+        }
+      ]
+    },
+    {
+      "id": "mod_activity_platform",
+      "name": "运营活动平台",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress_percentage": 75,
+      "owner": "Mavin",
+      "current_summary": "活动平台原型设计及 PRD 完成，首充活动上线验收，VIP 及世界杯活动进入研发评审",
+      "next_milestone": "推进排行榜及墨西哥冠军盘活动开发",
+      "history_timeline": [
+        {
+          "date": "2026-01-02",
+          "event": "活动 PRD 确认"
+        },
+        {
+          "date": "2026-03-20",
+          "event": "首充活动原型设计与 PRD 完成"
+        },
+        {
+          "date": "2026-04-03",
+          "event": "VIP 活动及世界杯通行证活动原型及 PRD 完成"
+        }
+      ],
+      "risks": [
+        {
+          "level": "Medium",
+          "desc": "活动平台互斥功能及标签系统对接风险"
+        },
+        {
+          "level": "High",
+          "desc": "活动互斥规则尚未上线，存在用户可同时参加多个VIP活动的风险"
+        }
+      ],
+      "weekly_updates": [
+        {
+          "week": "2026-14",
+          "update": "VIP 活动研发评审，活动平台开发答疑"
+        },
+        {
+          "week": "2026-15",
+          "update": "活动平台V1由广州负责运营位前台开发，上海负责Casino Bonus及Freespin礼券配置前台适配；V2由广州负责预算管理、活动模板及活动页管理；推动活动互斥规则文档编写及开发，确保单用户同一时间仅参加一个VIP活动"
+        }
+      ]
+    },
+    {
+      "id": "mod_user_system",
+      "name": "用户系统",
+      "priority": "P1",
+      "status": "in_progress",
+      "progress_percentage": 90,
+      "owner": "Yark",
+      "current_summary": "KYC 优化及用户标签功能完成，代理管理流程规划，全民代理功能整理完成",
+      "next_milestone": "全民代理功能后续开发",
+      "history_timeline": [
+        {
+          "date": "2026-01-23",
+          "event": "KYC 优化 V1.1 完成"
+        },
+        {
+          "date": "2026-02-06",
+          "event": "用户标签功能完成"
+        },
+        {
+          "date": "2026-04-17",
+          "event": "全民代理功能整理完成"
+        }
+      ],
+      "risks": [],
+      "weekly_updates": [
+        {
+          "week": "2026-14",
+          "update": "全民代理功能整理 50%"
+        }
+      ]
+    }
+  ]
+}
