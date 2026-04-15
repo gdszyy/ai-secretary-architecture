@@ -9,7 +9,8 @@
   5. 返回结构化结果（工单 ID、链接、询问话术等）。
 
 环境变量要求（在 .env 中配置）：
-  - OPENAI_API_KEY / FORGE_API_KEY: LLM 调用凭证
+  - DASHSCOPE_API_KEY: 通义千问 API Key（阿里云百炼平台获取）
+  - QWEN_MODEL: (可选) 模型名称，默认 qwen-plus（可选 qwen-turbo / qwen-max）
   - MEEGLE_TOKEN: Meegle Personal Access Token
   - MEEGLE_PROJECT_KEY: 前端缺陷对应的 Meegle 项目 Key（如 frontend_opt）
   - MEEGLE_BASE_URL: (可选) Meegle API 基础 URL
@@ -27,8 +28,12 @@ import logging
 from datetime import datetime, timezone
 from typing import Dict, List, Optional, Tuple
 
-from openai import OpenAI
+from openai import OpenAI  # 通义千问兼容 OpenAI SDK，无需额外安装
 from meegle_client import MeegleClient
+
+# 通义千问 API 配置（阿里云百炼平台，兼容 OpenAI 接口规范）
+_QWEN_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+_QWEN_DEFAULT_MODEL = os.environ.get("QWEN_MODEL", "qwen-plus")
 
 logging.basicConfig(
     level=logging.INFO,
@@ -74,9 +79,22 @@ PRIORITY_MAP = {
 # LLM 调用封装
 # ---------------------------------------------------------------------------
 
-def call_llm(system_prompt: str, user_content: str, model: str = "gpt-4.1-mini") -> str:
-    """调用 LLM，返回纯文本响应。"""
-    client = OpenAI()
+def call_llm(system_prompt: str, user_content: str, model: str = None) -> str:
+    """
+    调用通义千问 LLM，返回纯文本响应。
+    使用阿里云百炼平台的 OpenAI 兼容接口，只需替换 base_url 和 api_key。
+    """
+    api_key = os.environ.get("DASHSCOPE_API_KEY")
+    if not api_key:
+        raise EnvironmentError(
+            "缺少 DASHSCOPE_API_KEY 环境变量。\n"
+            "请前往 https://bailian.console.aliyun.com/ 创建 API Key 并配置。"
+        )
+    client = OpenAI(
+        api_key=api_key,
+        base_url=_QWEN_BASE_URL,
+    )
+    model = model or _QWEN_DEFAULT_MODEL
     resp = client.chat.completions.create(
         model=model,
         messages=[
