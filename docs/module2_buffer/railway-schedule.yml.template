@@ -1,0 +1,133 @@
+name: Railway 服务定时启停（北京时间 09:00-20:00）
+
+# 北京时间 = UTC+8
+# 开启：北京时间 09:00  → UTC 01:00
+# 关闭：北京时间 20:00  → UTC 12:00
+# 周一至周五工作日执行
+
+on:
+  schedule:
+    # 每天 UTC 01:00（北京时间 09:00）启动服务
+    - cron: "0 1 * * 1-5"
+    # 每天 UTC 12:00（北京时间 20:00）停止服务
+    - cron: "0 12 * * 1-5"
+
+  # 允许手动触发（用于测试或紧急操作）
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "操作类型"
+        required: true
+        default: "start"
+        type: choice
+        options:
+          - start
+          - stop
+
+jobs:
+  toggle-railway-service:
+    name: 启停 Railway 服务
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 判断当前操作（定时 or 手动）
+        id: determine-action
+        run: |
+          # 手动触发时使用用户输入
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "action=${{ github.event.inputs.action }}" >> $GITHUB_OUTPUT
+            echo "手动触发：操作 = ${{ github.event.inputs.action }}"
+          else
+            # 根据当前 UTC 小时判断是开启还是关闭
+            HOUR=$(date -u +%H)
+            echo "当前 UTC 时间：$(date -u)"
+            echo "当前 UTC 小时：$HOUR"
+            if [ "$HOUR" = "01" ]; then
+              echo "action=start" >> $GITHUB_OUTPUT
+              echo "定时触发：北京时间 09:00 → 开启服务"
+            else
+              echo "action=stop" >> $GITHUB_OUTPUT
+              echo "定时触发：北京时间 20:00 → 关闭服务"
+            fi
+          fi
+
+      - name: 开启服务（numReplicas = 1）
+        if: steps.determine-action.outputs.action == 'start'
+        env:
+          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_SERVICE_ID }}
+          RAILWAY_ENVIRONMENT_ID: ${{ secrets.RAILWAY_ENVIRONMENT_ID }}
+        run: |
+          echo "▶ 正在开启 Railway 服务（设置 numReplicas = 1）..."
+          RESPONSE=$(curl -s -X POST \
+            -H "Authorization: Bearer $RAILWAY_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "query": "mutation serviceInstanceUpdate($serviceId: String!, $environmentId: String!, $input: ServiceInstanceUpdateInput!) { serviceInstanceUpdate(serviceId: $serviceId, environmentId: $environmentId, input: $input) }",
+              "variables": {
+                "serviceId": "'"$RAILWAY_SERVICE_ID"'",
+                "environmentId": "'"$RAILWAY_ENVIRONMENT_ID"'",
+                "input": {
+                  "numReplicas": 1
+                }
+              }
+            }' \
+            https://backboard.railway.com/graphql/v2)
+
+          echo "API 响应: $RESPONSE"
+
+          # 检查是否有错误
+          if echo "$RESPONSE" | grep -q '"errors"'; then
+            echo "❌ 开启服务失败！"
+            echo "$RESPONSE"
+            exit 1
+          else
+            echo "✅ 服务已成功开启（numReplicas = 1）"
+          fi
+
+      - name: 关闭服务（numReplicas = 0）
+        if: steps.determine-action.outputs.action == 'stop'
+        env:
+          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
+          RAILWAY_SERVICE_ID: ${{ secrets.RAILWAY_SERVICE_ID }}
+          RAILWAY_ENVIRONMENT_ID: ${{ secrets.RAILWAY_ENVIRONMENT_ID }}
+        run: |
+          echo "⏹ 正在关闭 Railway 服务（设置 numReplicas = 0）..."
+          RESPONSE=$(curl -s -X POST \
+            -H "Authorization: Bearer $RAILWAY_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "query": "mutation serviceInstanceUpdate($serviceId: String!, $environmentId: String!, $input: ServiceInstanceUpdateInput!) { serviceInstanceUpdate(serviceId: $serviceId, environmentId: $environmentId, input: $input) }",
+              "variables": {
+                "serviceId": "'"$RAILWAY_SERVICE_ID"'",
+                "environmentId": "'"$RAILWAY_ENVIRONMENT_ID"'",
+                "input": {
+                  "numReplicas": 0
+                }
+              }
+            }' \
+            https://backboard.railway.com/graphql/v2)
+
+          echo "API 响应: $RESPONSE"
+
+          # 检查是否有错误
+          if echo "$RESPONSE" | grep -q '"errors"'; then
+            echo "❌ 关闭服务失败！"
+            echo "$RESPONSE"
+            exit 1
+          else
+            echo "✅ 服务已成功关闭（numReplicas = 0）"
+          fi
+
+      - name: 打印运行摘要
+        run: |
+          ACTION="${{ steps.determine-action.outputs.action }}"
+          BEIJING_TIME=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
+          if [ "$ACTION" = "start" ]; then
+            echo "### ▶ 服务已开启" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ⏹ 服务已关闭" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "- **北京时间**: $BEIJING_TIME" >> $GITHUB_STEP_SUMMARY
+          echo "- **操作**: $ACTION" >> $GITHUB_STEP_SUMMARY
+          echo "- **触发方式**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
