@@ -63,3 +63,14 @@ LLM 对输入信息进行六大类意图分类：
 | `inquiry_strategy.md` | 主动询问策略与话术模板 |
 | `thread_separation_algorithm.md` | 话题分离算法设计 |
 | `prereq_data_assessment.md` | 前置数据评估报告 |
+
+## 6. 前端缺陷自动报送 (Frontend Defect Reporting)
+
+针对前端技术群聊（如“上线前前端优化需求”），系统实现了专用的拦截与报送工作流。
+
+*   **SOP 文档**: `docs/module2_buffer/frontend_defect_reporting_sop.md`
+*   **评估报告**: `docs/module2_buffer/robot_intervention_assessment.md`
+*   **核心脚本**: 
+    *   `scripts/frontend_defect_reporter.py` (LLM 分析与拦截话术生成)
+    *   `scripts/meegle_client.py` (Meegle API 交互封装)
+*   **触发机制**: 当识别到 `is_frontend_bug=True` 时，若 `completeness_score < 80`（缺少复现步骤、优先级等），则在群内触发 `@发送者` 的补全询问；信息完整后，自动调用 Meegle API 创建 `defect` 工单。
