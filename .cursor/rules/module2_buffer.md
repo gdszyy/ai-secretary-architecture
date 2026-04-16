@@ -64,7 +64,16 @@ LLM 对输入信息进行六大类意图分类：
 | `thread_separation_algorithm.md` | 话题分离算法设计 |
 | `prereq_data_assessment.md` | 前置数据评估报告 |
 
-## 6. 前端缺陷自动报送 (Frontend Defect Reporting)
+## 6. 多对话分离算法 (Thread Separation)
+
+多对话分离是信息缓冲池的前置层，负责将混杂群聊消息分离为独立的 `ThreadEvent`，供下游意图识别和完整度打分使用。
+
+*   **算法设计文档**: `docs/module2_buffer/thread_separation_algorithm.md`
+*   **核心脚本**: `scripts/thread_separator.py`
+*   **调用方式**: 被 `main.py` 异步调用，或独立运行 `python3 scripts/thread_separator.py --demo`
+*   **输出结果**: `high_value_threads`（可直接推入缓冲池）+ `review_pending_threads`（待人工审核）
+
+## 7. 前端缺陷自动报送 (Frontend Defect Reporting)
 
 针对前端技术群聊（如“上线前前端优化需求”），系统实现了专用的拦截与报送工作流。
 

@@ -64,9 +64,17 @@
 
 **Schema 约定**：`dashboard_data.json` 的字段结构由 `docs/module1_kanban/dashboard_visualization_architecture.md` 定义，任何字段变更必须同步更新该文档。
 
-### 4.3 脚本层（`scripts/`）
+### 4.3 脚本层（`scripts/`）与服务入口层
 
 所有脚本均为 Python 3，依赖飞书 Bitable API 和 OpenAI/Forge API。运行前需确保 `.env` 中配置了对应凭证（参考 `.env.example`）。
+
+**服务入口文件（根目录）**：
+
+| 文件 | 用途 |
+|------|------|
+| `main.py` | FastAPI Webhook 服务入口，接收飞书事件推送，路由至缺陷报送或对话分离流程 |
+| `requirements.txt` | Python 依赖清单，供 Railway 等云平台自动安装 |
+| `Procfile` | Railway 启动配置，指定 uvicorn 启动命令 |
 
 | 脚本 | 用途 | 调用时机 |
 |------|------|----------|
@@ -81,6 +89,7 @@
 | `extract_weekly_insights.py` | 从飞书群消息中提取本周关键洞察 | 每周定期运行 |
 | `generate_markdown_report.py` | 生成 Markdown 格式周报 | 每周定期运行 |
 | `media_pipeline.py` | 媒体消息解析流水线（图片/语音/文件） | 按需运行 |
+| `thread_separator.py` | 多对话分离算法：两阶段（实体聚类 + LLM）将混杂群聊消息分离为独立 ThreadEvent | 被 `main.py` 调用，或独立运行 `--demo` 验证 |
 
 ### 4.4 归档层（`archive/`）
 

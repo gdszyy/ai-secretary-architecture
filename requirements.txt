@@ -1,0 +1,18 @@
+# AI 秘书系统 Python 依赖清单
+# 用于 Railway 等云平台自动安装依赖
+
+# Web 框架（Webhook 服务入口）
+fastapi==0.115.12
+uvicorn==0.34.0
+
+# HTTP 客户端
+requests==2.32.3
+
+# LLM SDK（兼容 OpenAI 接口，用于通义千问 / GPT）
+openai==1.72.0
+
+# 环境变量管理（本地开发）
+python-dotenv==1.1.0
+
+# 数据处理
+python-dateutil==2.9.0.post0
