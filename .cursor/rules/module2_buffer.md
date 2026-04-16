@@ -78,6 +78,19 @@ LLM 对输入信息进行六大类意图分类：
 针对前端技术群聊（如“上线前前端优化需求”），系统实现了专用的拦截与报送工作流。
 
 *   **SOP 文档**: `docs/module2_buffer/frontend_defect_reporting_sop.md`
+
+## 8. Module 2 待实现 TODO 快照
+
+> 详细优先级和工作量见 `.cursor/rules/implementation_status.md`
+
+| TODO ID | 描述 | 优先级 |
+| :--- | :--- | :---: |
+| `TODO-P0-01` | 实现 `send_lark_message`，将追问话术和成功通知发回飞书群 | P0 |
+| `TODO-P1-01` | 将 `thread_separator` 输出的高价値线程写入 Bitable 缓冲池 | P1 |
+| `TODO-P1-02` | 实体关键词库改为从 `project_context.json` 动态加载 | P1 |
+| `TODO-P1-03` | 基于真实脱敏数据输出 Thread Separation 评测报告 | P1 |
+| `TODO-P2-02` | 实现防堆积定时任务（24h 降级 / 72h 强制归档） | P2 |
+| `TODO-P2-03` | 实现完整 Dispatcher 引擎，覆盖全意图类型 | P2 |
 *   **评估报告**: `docs/module2_buffer/robot_intervention_assessment.md`
 *   **核心脚本**: 
     *   `scripts/frontend_defect_reporter.py` (LLM 分析与拦截话术生成)

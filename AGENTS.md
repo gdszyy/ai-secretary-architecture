@@ -111,5 +111,25 @@
 | [`.cursor/rules/module2_buffer.md`](.cursor/rules/module2_buffer.md) | 模块二：信息缓冲池机制、意图识别、防堆积策略 |
 | [`.cursor/rules/module3_info_sources.md`](.cursor/rules/module3_info_sources.md) | 模块三：信息源治理、Lark Bot 集成 |
 | [`.cursor/rules/agent_skills.md`](.cursor/rules/agent_skills.md) | 跨项目复用技能的调用规范（`lark-bitable`、`multi-agent-hub` 等） |
+| [`.cursor/rules/implementation_status.md`](.cursor/rules/implementation_status.md) | **系统实现状态全景索引**：已实现能力清单 + TODO 任务优先级列表（P0/P1/P2） |
 
 > **注意**：随着架构的演进，本索引应持续更新。负责重构的 Agent 需维护对应的规则文档。
+
+---
+
+## 6. 系统实现进度快照
+
+> **最后更新**：2026-04-16 | 详细清单见 [`.cursor/rules/implementation_status.md`](.cursor/rules/implementation_status.md)
+
+```
+整体进度：████████░░░░░░░░░░░░  ~40%
+
+Module 1（看板）     ████████████░░░░░░░░  60%  数据层和脚本层已完整，双向同步待实现
+Module 2（缓冲池）   ████████░░░░░░░░░░░░  40%  核心算法已实现，集成层（回复/推送）待完成
+Module 3（信息源）   ████░░░░░░░░░░░░░░░░  20%  冷启动脚本已实现，实时监听（Lark Bot）待开发
+服务入口层           ██████████████░░░░░░  70%  Webhook 框架已就绪，签名校验和消息回复待补全
+```
+
+**最高优先级 TODO（P0）**：
+- `TODO-P0-01`：实现 `send_lark_message`，让系统能将追问话术和成功通知发回飞书群
+- `TODO-P0-02`：补全 Lark Webhook 签名校验（当前框架已有，返回值待接入真实比对逻辑）

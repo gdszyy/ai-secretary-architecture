@@ -11,9 +11,9 @@
 
 | 任务项 | 核心目标 | 所属仓库 | 当前进度 | 融合形态 |
 | :--- | :--- | :--- | :--- | :--- |
-| **Lark 机器人 MVP** | 验证群聊消息捕获与关键词触发链路 | `manus-lark-skills` | **未开始** (仅有规划文档) | 沉淀为独立的 Manus Skill |
-| **多对话分离 PoC** | 验证 Thread Separation 算法准确率 | `ai-secretary-architecture` | **未开始** (仅有架构设计) | 沉淀为核心算法设计与评测报告 |
-| **看板数据结构升级** | 增加 `sourceRef` 和 `epicId` 字段 | `xpbet-frontend-components` | **未开始** (需前后端同步改造) | 沉淀为 JSON 结构变更与前端 UI 渲染更新 |
+| **Lark 机器人 MVP** | 验证群聊消息捕获与关键词触发链路 | `manus-lark-skills` | **未开始** (仅有规划文档) | 沉淠为独立的 Manus Skill，对应 `TODO-P1-04` |
+| **多对话分离 PoC** | 验证 Thread Separation 算法准确率 | `ai-secretary-architecture` | **已实现** (`scripts/thread_separator.py`，两阶段算法) | 已沉淠为核心算法实现，评测报告待补充 |
+| **看板数据结构升级** | 增加 `sourceRef` 和 `epicId` 字段 | `xpbet-frontend-components` | **未开始** (需前后端同步改造) | 沉淠为 JSON 结构变更与前端 UI 渲染更新，对应 `TODO-P1-05` |
 
 ---
 
