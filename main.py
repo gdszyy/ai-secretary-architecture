@@ -19,6 +19,8 @@ AI 秘书系统 Webhook 服务入口 (main.py)
   - MEEGLE_PROJECT_KEY: Meegle 项目 Key
   - BITABLE_APP_TOKEN: 飞书 Bitable 应用 Token（多维表格 App Token）
   - BITABLE_TABLE_PENDING_THREADS: 待处理线程缓冲池表 ID
+  - BITABLE_TABLE_CURSOR: 群组调度游标表 ID（记录每个群的最后拉取消息 ID 和下次同步时间）
+  - BITABLE_BASE_ID: 飞书 Bitable 应用 Base ID（多维表格 App Token，与 BITABLE_APP_TOKEN 相同或独立配置）
 
 架构说明：
   Lark Webhook → /lark/webhook
@@ -158,6 +160,120 @@ def is_frontend_related(text: str, chat_name: str = "") -> bool:
     combined = (text + " " + chat_name).lower()
     return any(kw.lower() in combined for kw in FRONTEND_GROUP_KEYWORDS)
 
+
+
+# ---------------------------------------------------------------------------
+# Bitable 游标表（Cursor）— 群组调度状态持久化
+# ---------------------------------------------------------------------------
+
+# 内存缓存：chat_id → record_id，避免每次消息都查询 Bitable
+# 格式：{"oc_xxxxxxxx": "recxxxxxxxx", ...}
+_cursor_cache: Dict[str, str] = {}
+
+
+def get_cursor_record_id(client: "LarkBitableClient", base_id: str, table_id: str, chat_id: str) -> Optional[str]:
+    """
+    从 Cursor 表中查找指定 chat_id 对应的 record_id。
+
+    查找策略：
+      1. 先查内存缓存（_cursor_cache），命中则直接返回。
+      2. 未命中则调用 Bitable list_records 全量扫描（Cursor 表通常 < 200 行，性能可接受）。
+      3. 找到后写入缓存；未找到返回 None（由调用方决定是否自动创建）。
+    """
+    # 1. 内存缓存命中
+    if chat_id in _cursor_cache:
+        return _cursor_cache[chat_id]
+
+    # 2. 全量扫描 Cursor 表
+    try:
+        records = client.list_records(base_id, table_id)
+        for record in records:
+            fields = record.get("fields", {})
+            # Cursor 表的群组标识字段为 "chat_id"
+            stored_chat_id = fields.get("chat_id", "")
+            if isinstance(stored_chat_id, list):
+                # 飞书 Bitable 文本字段有时返回 [{"text": "..."}] 格式
+                stored_chat_id = "".join(seg.get("text", "") for seg in stored_chat_id)
+            if str(stored_chat_id).strip() == chat_id:
+                record_id = record.get("record_id", "")
+                _cursor_cache[chat_id] = record_id
+                logger.debug("Cursor 缓存命中（扫描）: chat_id=%s → record_id=%s", chat_id, record_id)
+                return record_id
+    except Exception as e:
+        logger.error("扫描 Cursor 表失败: %s", str(e))
+
+    return None
+
+
+def update_cursor_record(chat_id: str, message_id: str) -> None:
+    """
+    将指定群组的「最后拉取消息ID」和「下次同步时间」更新到 Bitable Cursor 表。
+
+    调度逻辑：
+      - 下次同步时间 = 当前时间 + 建议同步间隔（默认 60 分钟）
+      - 若 Cursor 表中不存在该群的记录，则自动创建一条最小化记录（仅含 chat_id、
+        最后拉取消息ID、下次同步时间），后续冷启动脚本可补全其余字段。
+
+    失败时只记录日志，不影响主流程（容错处理）。
+    """
+    base_id = os.environ.get("BITABLE_BASE_ID") or os.environ.get("BITABLE_APP_TOKEN")
+    table_id = os.environ.get("BITABLE_TABLE_CURSOR")
+
+    if not base_id or not table_id:
+        logger.debug(
+            "BITABLE_BASE_ID 或 BITABLE_TABLE_CURSOR 未配置，跳过 Cursor 更新 (chat_id=%s)",
+            chat_id,
+        )
+        return
+
+    try:
+        client = LarkBitableClient()
+    except Exception as e:
+        logger.error("初始化 LarkBitableClient 失败（Cursor 更新）: %s", str(e))
+        return
+
+    # 计算下次同步时间（默认间隔 60 分钟）
+    from datetime import datetime, timezone, timedelta
+    default_interval_minutes = int(os.environ.get("DEFAULT_SYNC_INTERVAL_MINUTES", "60"))
+    next_sync_dt = datetime.now(timezone.utc) + timedelta(minutes=default_interval_minutes)
+    next_sync_str = next_sync_dt.strftime("%Y-%m-%d %H:%M:%S")
+
+    update_fields = {
+        "最后拉取消息ID": message_id,
+        "下次同步时间": next_sync_str,
+    }
+
+    try:
+        record_id = get_cursor_record_id(client, base_id, table_id, chat_id)
+
+        if record_id:
+            # 更新已有记录
+            client.update_record(base_id, table_id, record_id, update_fields)
+            logger.info(
+                "Cursor 已更新: chat_id=%s, message_id=%s, next_sync=%s",
+                chat_id, message_id, next_sync_str,
+            )
+        else:
+            # 首次出现的群组：自动创建最小化记录
+            create_fields = {
+                "chat_id": chat_id,
+                "最后拉取消息ID": message_id,
+                "下次同步时间": next_sync_str,
+                "冷启动次数": 0,
+            }
+            new_record = client.create_record(base_id, table_id, create_fields)
+            new_record_id = new_record.get("record_id", "")
+            if new_record_id:
+                _cursor_cache[chat_id] = new_record_id
+            logger.info(
+                "Cursor 新建记录: chat_id=%s, record_id=%s, next_sync=%s",
+                chat_id, new_record_id, next_sync_str,
+            )
+    except Exception as e:
+        logger.error(
+            "更新 Cursor 表失败 (chat_id=%s): %s",
+            chat_id, str(e),
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -374,6 +490,11 @@ async def handle_message_event(msg_info: Dict) -> None:
                 thread.get("intent"),
                 thread.get("confidence", 0),
             )
+
+    # 无论路由至哪个流程，处理完成后均更新 Cursor 表（记录最后拉取消息 ID 和下次同步时间）
+    message_id = msg_info.get("message_id", "")
+    if chat_id and message_id:
+        update_cursor_record(chat_id, message_id)
 
 
 # ---------------------------------------------------------------------------
