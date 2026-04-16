@@ -5,7 +5,7 @@ globs: ["main.py", "scripts/*.py", "docs/**/*.md"]
 
 # 系统实现状态全景索引 (Implementation Status)
 
-> **最后更新**：2026-04-16
+> **最后更新**：2026-04-16（P0 任务完成）
 > **维护规则**：每次完成一个功能模块或关闭一个 TODO 后，必须在同一 Commit 中更新本文档。
 
 ---
@@ -16,7 +16,7 @@ globs: ["main.py", "scripts/*.py", "docs/**/*.md"]
 
 | 文件 | 状态 | 核心能力描述 |
 | :--- | :---: | :--- |
-| `main.py` | ✅ 已实现 | FastAPI Webhook 服务入口；接收飞书 `im.message.receive_v1` 事件；支持 URL Challenge 验证；签名校验（已实现框架，当前返回 `True`，待补全）；异步后台任务处理（避免超时重试）；路由至 `frontend_defect_reporter` 或 `thread_separator` |
+| `main.py` | ✅ 已实现 | FastAPI Webhook 服务入口；接收飞书 `im.message.receive_v1` 事件；支持 URL Challenge 验证；**签名校验（TODO-P0-02 ✅ 已完成：HMAC-SHA256 真实比对）**；**Lark 消息回复（TODO-P0-01 ✅ 已完成：send_lark_message + token 缓存）**；异步后台任务处理（避免超时重试）；路由至 `frontend_defect_reporter` 或 `thread_separator` |
 | `requirements.txt` | ✅ 已实现 | 完整 Python 依赖清单（fastapi / uvicorn / openai / requests / python-dotenv / python-dateutil） |
 | `Procfile` | ✅ 已实现 | Railway 启动配置（`uvicorn main:app --host 0.0.0.0 --port $PORT`） |
 
@@ -60,8 +60,8 @@ globs: ["main.py", "scripts/*.py", "docs/**/*.md"]
 
 | ID | 任务描述 | 所属模块 | 关联文件 | 预估工作量 |
 | :--- | :--- | :--- | :--- | :--- |
-| `TODO-P0-01` | **Lark 消息回复集成**：`main.py` 中 `handle_message_event` 的追问话术和成功通知当前只记录日志，需实现 `send_lark_message(chat_id, text)` 并调用飞书 `im.message.create` API 将结果发回群里 | Module 2 | `main.py` L130-138 | 0.5d |
-| `TODO-P0-02` | **Lark 签名校验补全**：`verify_lark_signature` 当前无条件返回 `True`，需从请求头提取 `X-Lark-Signature` 并与计算值比对，防止伪造请求 | 服务入口 | `main.py` L96-108 | 0.5d |
+| `TODO-P0-01` | ✅ **[已完成]** **Lark 消息回复集成**：已实现 `send_lark_message(chat_id, text)` 函数，调用飞书 `im.message.create` API 将追问话术和成功通知发回群里；实现 `get_lark_tenant_access_token()` 并缓存 token（有效期 2h，提前 5min 刷新） | Module 2 | `main.py` | 0.5d |
+| `TODO-P0-02` | ✅ **[已完成]** **Lark Webhook 签名校验补全**：已从请求头提取 `X-Lark-Signature`，使用 HMAC-SHA256(timestamp + nonce + body, token) 计算签名并与请求头比对；未配置 `LARK_VERIFICATION_TOKEN` 时跳过校验（向后兼容） | 服务入口 | `main.py` | 0.5d |
 
 ### 2.2 P1 — 核心功能完善
 
@@ -88,12 +88,12 @@ globs: ["main.py", "scripts/*.py", "docs/**/*.md"]
 ## 3. 系统实现进度总览
 
 ```
-整体进度：████████░░░░░░░░░░░░  ~40%
+整体进度：█████████░░░░░░░░░░░  ~45%
 
 Module 1（看板）     ████████████░░░░░░░░  60%  数据层和脚本层已完整，双向同步待实现
 Module 2（缓冲池）   ████████░░░░░░░░░░░░  40%  核心算法已实现，集成层（回复/推送）待完成
 Module 3（信息源）   ████░░░░░░░░░░░░░░░░  20%  冷启动脚本已实现，实时监听（Lark Bot）待开发
-服务入口层           ██████████████░░░░░░  70%  Webhook 框架已就绪，签名校验和消息回复待补全
+服务入口层           ████████████████████  100%  Webhook 框架已就绪，签名校验和消息回复均已完成（P0 任务）
 ```
 
 ---
