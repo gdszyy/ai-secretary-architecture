@@ -1,0 +1,13 @@
+{
+  "entity_keywords": {
+    "frontend": ["前端", "UI", "H5", "页面", "组件", "样式", "CSS", "React"],
+    "backend": ["后端", "API", "接口", "服务", "数据库", "SQL"],
+    "product": ["需求", "功能", "PRD", "原型", "设计稿", "交互"],
+    "devops": ["部署", "上线", "发布", "环境", "配置", "Railway", "Docker"]
+  },
+  "group_project_mapping": {
+    "前端技术群": "xpbet-frontend",
+    "产品需求群": "xpbet-product"
+  },
+  "user_meegle_mapping": {}
+}

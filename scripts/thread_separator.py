@@ -80,12 +80,11 @@ CONFIDENCE_THRESHOLD = 0.8
 # 无效意图类型（过滤掉，不推入缓冲池）
 INVALID_INTENTS = {"casual_chat", "other"}
 
-# 项目实体关键词库（模块名、功能名等）
-# 实际部署时应从 project_context.json 动态加载
-PROJECT_ENTITY_KEYWORDS = [
+# 项目实体关键词库默认备用列表（当配置文件加载失败时回退到此列表）
+_DEFAULT_ENTITY_KEYWORDS = [
     # 模块名
     "支付", "用户系统", "活动中心", "游戏", "购物车", "菜单", "Bet Slip",
-    "登录", "注册", "搜索", "推荐", "通知", "消息", "钱包", "提现", "充值",
+    "登录", "注册", "搜索", "推荐", "通知", "消息", "錢包", "提现", "充値",
     "报表", "数据", "权限", "配置", "网关", "接口", "缓存", "数据库",
     # 技术术语
     "500", "404", "OOM", "crash", "崩溃", "白屏", "闪退", "超时",
@@ -93,6 +92,75 @@ PROJECT_ENTITY_KEYWORDS = [
     # 业务术语
     "EPAY", "微信支付", "支付宝", "iOS", "Android", "H5", "Web",
 ]
+
+
+def load_project_context() -> List[str]:
+    """
+    从 config/project_context.json 动态加载实体关键词库。
+
+    加载逻辑：
+      1. 尝试读取脚本目录的上级目录下的 config/project_context.json。
+      2. 读取其中的 entity_keywords 字典，展平所有分组的关键词为一个列表。
+      3. 加载失败（文件不存在、JSON 解析错误等）时回退到硬编码默认列表。
+
+    返回：关键词字符串列表。
+    """
+    # 配置文件路径：脚本目录的上级目录下的 config/
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(script_dir, "..", "config", "project_context.json")
+    config_path = os.path.normpath(config_path)
+
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            context = json.load(f)
+
+        entity_keywords_dict = context.get("entity_keywords", {})
+        if not isinstance(entity_keywords_dict, dict):
+            logger.warning(
+                "project_context.json 中 entity_keywords 格式错误，回退到默认关键词库"
+            )
+            return list(_DEFAULT_ENTITY_KEYWORDS)
+
+        # 展平所有分组的关键词为一个列表（去重）
+        keywords: List[str] = []
+        seen = set()
+        for category, words in entity_keywords_dict.items():
+            if isinstance(words, list):
+                for word in words:
+                    if word not in seen:
+                        keywords.append(word)
+                        seen.add(word)
+
+        if not keywords:
+            logger.warning(
+                "project_context.json 中 entity_keywords 为空，回退到默认关键词库"
+            )
+            return list(_DEFAULT_ENTITY_KEYWORDS)
+
+        logger.info(
+            "已从 %s 动态加载实体关键词库：%d 个关键词",
+            config_path,
+            len(keywords),
+        )
+        return keywords
+
+    except FileNotFoundError:
+        logger.info(
+            "project_context.json 不存在（%s），使用默认关键词库",
+            config_path,
+        )
+        return list(_DEFAULT_ENTITY_KEYWORDS)
+    except (json.JSONDecodeError, KeyError, TypeError) as e:
+        logger.warning(
+            "读取 project_context.json 失败 (%s)，回退到默认关键词库: %s",
+            config_path,
+            str(e),
+        )
+        return list(_DEFAULT_ENTITY_KEYWORDS)
+
+
+# 动态加载实体关键词库（模块加载时执行，TODO-P1-02 ✅ 已实现）
+PROJECT_ENTITY_KEYWORDS = load_project_context()
 
 # ---------------------------------------------------------------------------
 # LLM 调用封装

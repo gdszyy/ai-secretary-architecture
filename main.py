@@ -17,6 +17,8 @@ AI 秘书系统 Webhook 服务入口 (main.py)
   - DASHSCOPE_API_KEY: 通义千问 API Key
   - MEEGLE_TOKEN: Meegle Personal Access Token
   - MEEGLE_PROJECT_KEY: Meegle 项目 Key
+  - BITABLE_APP_TOKEN: 飞书 Bitable 应用 Token（多维表格 App Token）
+  - BITABLE_TABLE_PENDING_THREADS: 待处理线程缓冲池表 ID
 
 架构说明：
   Lark Webhook → /lark/webhook
@@ -51,6 +53,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "scripts"))
 
 from frontend_defect_reporter import process_message as process_defect_message
 from thread_separator import separate as separate_threads
+from lark_bitable_client import LarkBitableClient
 
 # ---------------------------------------------------------------------------
 # 日志配置
@@ -155,6 +158,72 @@ def is_frontend_related(text: str, chat_name: str = "") -> bool:
     combined = (text + " " + chat_name).lower()
     return any(kw.lower() in combined for kw in FRONTEND_GROUP_KEYWORDS)
 
+
+
+# ---------------------------------------------------------------------------
+# Bitable 缓冲池写入
+# ---------------------------------------------------------------------------
+
+def write_threads_to_bitable(threads: list) -> None:
+    """
+    将高价值 ThreadEvent 列表写入飞书 Bitable 缓冲池表。
+
+    字段映射：
+      thread_id        → "线程ID"  (文本)
+      topic            → "主题"    (文本)
+      intent           → "意图类型" (单选)
+      participants     → "参与者"  (文本，JSON 序列化)
+      confidence       → "置信度"  (数字)
+      extracted_entities → "实体"  (文本，JSON 序列化)
+      needs_review     → "待审核"  (复选框)
+      len(messages)    → "消息数"  (数字)
+
+    写入失败时只记录日志，不影响主流程（容错处理）。
+    """
+    if not threads:
+        return
+
+    app_token = os.environ.get("BITABLE_APP_TOKEN")
+    table_id = os.environ.get("BITABLE_TABLE_PENDING_THREADS")
+
+    if not app_token or not table_id:
+        logger.warning(
+            "BITABLE_APP_TOKEN 或 BITABLE_TABLE_PENDING_THREADS 未配置，跳过 Bitable 写入"
+        )
+        return
+
+    try:
+        client = LarkBitableClient()
+    except Exception as e:
+        logger.error("初始化 LarkBitableClient 失败: %s", str(e))
+        return
+
+    for thread in threads:
+        try:
+            fields = {
+                "线程ID": thread.get("thread_id", ""),
+                "主题": thread.get("topic", ""),
+                "意图类型": thread.get("intent", ""),
+                "参与者": json.dumps(thread.get("participants", []), ensure_ascii=False),
+                "置信度": float(thread.get("confidence", 0)),
+                "实体": json.dumps(thread.get("extracted_entities", {}), ensure_ascii=False),
+                "待审核": bool(thread.get("needs_review", False)),
+                "消息数": len(thread.get("messages", [])),
+            }
+            record = client.create_record(app_token, table_id, fields)
+            logger.info(
+                "高价值线程已写入 Bitable: thread_id=%s, record_id=%s",
+                thread.get("thread_id"),
+                record.get("record_id", "unknown"),
+            )
+        except Exception as e:
+            logger.error(
+                "写入 Bitable 失败 (thread_id=%s): %s",
+                thread.get("thread_id", "unknown"),
+                str(e),
+            )
+            # 容错：单条写入失败不影响其他线程和主流程
+            continue
 
 
 # ---------------------------------------------------------------------------
@@ -294,7 +363,10 @@ async def handle_message_event(msg_info: Dict) -> None:
             len(result.get("review_pending_threads", [])),
         )
 
-        # TODO: 将高价值线程推入信息缓冲池（Bitable 或内存队列）
+        # 将高价值线程写入 Bitable 缓冲池（TODO-P1-01 ✅ 已实现）
+        if high_value:
+            logger.info("开始将 %d 条高价值线程写入 Bitable 缓冲池", len(high_value))
+            write_threads_to_bitable(high_value)
         for thread in high_value:
             logger.info(
                 "高价值线程: topic=%s, intent=%s, confidence=%.2f",

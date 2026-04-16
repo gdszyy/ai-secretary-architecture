@@ -5,7 +5,7 @@ globs: ["main.py", "scripts/*.py", "docs/**/*.md"]
 
 # 系统实现状态全景索引 (Implementation Status)
 
-> **最后更新**：2026-04-16（P0 任务完成）
+> **最后更新**：2026-04-16（P1 任务完成：TODO-P1-01 + TODO-P1-02）
 > **维护规则**：每次完成一个功能模块或关闭一个 TODO 后，必须在同一 Commit 中更新本文档。
 
 ---
@@ -67,8 +67,8 @@ globs: ["main.py", "scripts/*.py", "docs/**/*.md"]
 
 | ID | 任务描述 | 所属模块 | 关联文件 | 预估工作量 |
 | :--- | :--- | :--- | :--- | :--- |
-| `TODO-P1-01` | **高价值线程推入缓冲池**：`thread_separator` 输出的 `high_value_threads` 当前只记录日志，需实现写入 Bitable（`BITABLE_TABLE_PENDING_THREADS`）或内存队列，供下游调度器消费 | Module 2 | `main.py` L142-152 | 1d |
-| `TODO-P1-02` | **实体关键词库动态加载**：`thread_separator.py` 中 `PROJECT_ENTITY_KEYWORDS` 当前为硬编码列表，需从 `project_context.json` 或 Bitable 动态加载，支持跨项目复用 | Module 2 | `scripts/thread_separator.py` L57-72 | 0.5d |
+| `TODO-P1-01` | ✅ **[已完成]** **高价值线程推入缓冲池**：已实现 `write_threads_to_bitable()` 函数，将 `high_value_threads` 中每个 ThreadEvent 写入飞书 Bitable `BITABLE_TABLE_PENDING_THREADS` 表；字段映射：thread_id → 线程ID、topic → 主题、intent → 意图类型、participants → 参与者(JSON)、confidence → 置信度、extracted_entities → 实体(JSON)、needs_review → 待审核、len(messages) → 消息数；容错处理（单条失败不影响主流程） | Module 2 | `main.py` | 1d |
+| `TODO-P1-02` | ✅ **[已完成]** **实体关键词库动态加载**：已实现 `load_project_context()` 函数，模块加载时自动从 `config/project_context.json` 动态加载实体关键词库；加载失败时回退到硬编码默认列表（向后兼容）；同时创建了 `config/project_context.json` 配置文件（包含 entity_keywords、group_project_mapping、user_meegle_mapping） | Module 2 | `scripts/thread_separator.py`, `config/project_context.json` | 0.5d |
 | `TODO-P1-03` | **Thread Separation 评测报告**：基于真实脱敏群聊数据，对 `thread_separator.py` 进行准确率 / 召回率评测，输出 `docs/module2_buffer/thread_separation_eval_report.md` | Module 2 | 新建文档 | 1d |
 | `TODO-P1-04` | **Lark 机器人 MVP**：在 `manus-lark-skills` 仓库开发 `lark-group-monitor` 技能，实现群聊消息实时监听与事件推送至本系统 Webhook | Module 3 | 跨仓库（`manus-lark-skills`） | 2d |
 | `TODO-P1-05` | **看板数据结构升级**：在 `xpbet-frontend-components` 仓库的 `kanban_data.json` 中引入 `sourceRef` 和 `epicId` 字段，更新 React 组件渲染逻辑 | Module 1 | 跨仓库（`xpbet-frontend-components`） | 1d |
@@ -88,10 +88,10 @@ globs: ["main.py", "scripts/*.py", "docs/**/*.md"]
 ## 3. 系统实现进度总览
 
 ```
-整体进度：█████████░░░░░░░░░░░  ~45%
+整体进度：██████████░░░░░░░░░░  ~50%
 
 Module 1（看板）     ████████████░░░░░░░░  60%  数据层和脚本层已完整，双向同步待实现
-Module 2（缓冲池）   ████████░░░░░░░░░░░░  40%  核心算法已实现，集成层（回复/推送）待完成
+Module 2（缓冲池）   ██████████░░░░░░░░░░  50%  核心算法已实现，Bitable 写入和词库动态加载已完成（P1 任务）
 Module 3（信息源）   ████░░░░░░░░░░░░░░░░  20%  冷启动脚本已实现，实时监听（Lark Bot）待开发
 服务入口层           ████████████████████  100%  Webhook 框架已就绪，签名校验和消息回复均已完成（P0 任务）
 ```
