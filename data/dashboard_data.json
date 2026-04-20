@@ -642,7 +642,15 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "Lsport数据源接入推进中：赛程变更和赔率变更两个Kafka Topic已确认，outright league冠军盘数据推送跟进中，多语言数据缺失问题与数据源方沟通解决。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "Lsport数据源接入推进中：赛程变更和赔率变更两个Kafka Topic已确认，outright league冠军盘数据推送跟进中，多语言数据缺失问题与数据源方沟通解决。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -743,11 +751,27 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "SR→TS匹配率达95%以上，数据已同步仓库，安排效果验证中。outright冠军盘数据优先接入outright league，普通outright关联方案待完善。多语言（es/pt）翻译接口权限问题排查中。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "SR→TS匹配率达95%以上，数据已同步仓库，安排效果验证中。outright冠军盘数据优先接入outright league，普通outright关联方案待完善。多语言（es/pt）翻译接口权限问题排查中。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         },
         {
           "week": "2026-14",
-          "update": "匹配算法迭代完成，进入人工校验阶段（操盘手+风控团队）"
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "匹配算法迭代完成，进入人工校验阶段（操盘手+风控团队）",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -859,11 +883,27 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "Kafka Topic（dev_ls_fixture_change / dev_ls_odds_change）配置完成，生产环境参数完善中，数据源部分预计4/18完成，整体联调预计4/24-25完成。WebSocket断连问题排查中，SR→TS匹配率已达95%以上。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "Kafka Topic（dev_ls_fixture_change / dev_ls_odds_change）配置完成，生产环境参数完善中，数据源部分预计4/18完成，整体联调预计4/24-25完成。WebSocket断连问题排查中，SR→TS匹配率已达95%以上。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         },
         {
           "week": "2026-14",
-          "update": "后端对接完成，前端功能开发中，预计下周二完成"
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "后端对接完成，前端功能开发中，预计下周二完成",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -982,11 +1022,27 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "体育活动优先级确定：新客首充→0-0退赔→Superodds→VIP。0-0退赔规则明确（仅限指定赛事，支持胜平负/让球/大小球单关），上海负责。VIP UI设计4/10验收通过，推送开发。Cashout功能决定做平台级别，方案评估中。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "体育活动优先级确定：新客首充→0-0退赔→Superodds→VIP。0-0退赔规则明确（仅限指定赛事，支持胜平负/让球/大小球单关），上海负责。VIP UI设计4/10验收通过，推送开发。Cashout功能决定做平台级别，方案评估中。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         },
         {
           "week": "2026-14",
-          "update": "投注栏交互优化完成，持续跟进测试"
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "投注栏交互优化完成，持续跟进测试",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -1188,11 +1244,27 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "推荐好友功能：广州负责页面开发，上海负责推荐关系绑定和分享三方对接，需求整理中。数字显示格式统一为三位小数，已确认并完成调整。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "推荐好友功能：广州负责页面开发，上海负责推荐关系绑定和分享三方对接，需求整理中。数字显示格式统一为三位小数，已确认并完成调整。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         },
         {
           "week": "2026-14",
-          "update": "全民代理功能整理 50%"
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "全民代理功能整理 50%",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -1337,11 +1409,27 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "Bonus类型使用流程明确：SportBonus/CasinoBonus/Freesports/Freespin四种类型，前端UI由设计团队负责，注单报表开发已启动，后端与财务协调投注计算逻辑。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "Bonus类型使用流程明确：SportBonus/CasinoBonus/Freesports/Freespin四种类型，前端UI由设计团队负责，注单报表开发已启动，后端与财务协调投注计算逻辑。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         },
         {
           "week": "2026-14",
-          "update": "财务优化 V1.2 推进中，V1.1 待验证"
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "财务优化 V1.2 推进中，V1.1 待验证",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -1525,15 +1613,39 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "活动平台V1：广州负责运营位前台开发，上海负责Casino Bonus及Freespin礼券配置前台适配。V2：广州负责预算管理、活动模板及活动页管理（优先级较低）。活动互斥规则文档编写中，VIP/通行证/留存/排行榜为当前优先活动。每日短会机制已建立，跟进需求进展。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "活动平台V1：广州负责运营位前台开发，上海负责Casino Bonus及Freespin礼券配置前台适配。V2：广州负责预算管理、活动模板及活动页管理（优先级较低）。活动互斥规则文档编写中，VIP/通行证/留存/排行榜为当前优先活动。每日短会机制已建立，跟进需求进展。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         },
         {
           "week": "2026-14",
-          "update": "VIP 活动研发评审，活动平台开发答疑"
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "VIP 活动研发评审，活动平台开发答疑",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         },
         {
           "week": "2026-15",
-          "update": "活动平台V1广州负责运营位前台开发，上海负责Casino Bonus/Freespin礼券配置前台适配；推动活动互斥规则文档编写及开发"
+          "start_date": "2026-04-07",
+          "end_date": "2026-04-14",
+          "update": "活动平台V1广州负责运营位前台开发，上海负责Casino Bonus/Freespin礼券配置前台适配；推动活动互斥规则文档编写及开发",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -1726,11 +1838,27 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "游戏厂商PP对接正常，图档大小问题跟进中。Stripe对接等待Free请假结束后启动，技术由Chase协助。游戏渲染加载性能优化中（直连速度较快，VPN可接受）。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "游戏厂商PP对接正常，图档大小问题跟进中。Stripe对接等待Free请假结束后启动，技术由Chase协助。游戏渲染加载性能优化中（直连速度较快，VPN可接受）。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         },
         {
           "week": "2026-14",
-          "update": "游戏注单报表更新完成，换新技术开发接手，游戏对接协助中"
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "游戏注单报表更新完成，换新技术开发接手，游戏对接协助中",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -1891,11 +2019,27 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "投放后台存在较多问题：xp技术ch逻辑未完成，广告配置自动化未实现，pixel/token数据未传递，技术团队跟进中，争取两天内解决。数据埋点及登录记录需求（APP/H5/网页端）将与埋点一起开发。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "投放后台存在较多问题：xp技术ch逻辑未完成，广告配置自动化未实现，pixel/token数据未传递，技术团队跟进中，争取两天内解决。数据埋点及登录记录需求（APP/H5/网页端）将与埋点一起开发。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         },
         {
           "week": "2026-14",
-          "update": "投放功能验收进行中，埋点/数据/数据展示待验收"
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "投放功能验收进行中，埋点/数据/数据展示待验收",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -2044,11 +2188,27 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "活动页面UI优化完成（巴西/墨西哥活动图已添加，footer/登陆页关闭按钮已上线）。移动端按钮高度规范确定（首页/live/体育详情页56，outright/比赛详情页40）。Bet Slip全屏交互调整：保留返回按钮，移除底部TabBar，交互文档编写中。Tooltip统一为弹窗动画形式（从问号弹出收起）。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "活动页面UI优化完成（巴西/墨西哥活动图已添加，footer/登陆页关闭按钮已上线）。移动端按钮高度规范确定（首页/live/体育详情页56，outright/比赛详情页40）。Bet Slip全屏交互调整：保留返回按钮，移除底部TabBar，交互文档编写中。Tooltip统一为弹窗动画形式（从问号弹出收起）。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         },
         {
           "week": "2026-14",
-          "update": "VIP UI/墨西哥冠军盘 UI 完成，H5 登录/注册 UI 设计中"
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "VIP UI/墨西哥冠军盘 UI 完成，H5 登录/注册 UI 设计中",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -2180,7 +2340,15 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "菜单改为纯树形结构（二级在一级下，三级在二级下），地区筛选接口暂缓。法务要求新增底部文案和新logo，已上线test1测试环境，移动端后续美化。文案多语言支持：西语/葡语语言包提供中，Lark文案表格维护中。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "菜单改为纯树形结构（二级在一级下，三级在二级下），地区筛选接口暂缓。法务要求新增底部文案和新logo，已上线test1测试环境，移动端后续美化。文案多语言支持：西语/葡语语言包提供中，Lark文案表格维护中。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -2309,7 +2477,15 @@
       "weekly_updates": [
         {
           "week": "2026-16",
-          "update": "弱网弹窗触发频率评估中（针对墨西哥市场网络状况）。购物车快捷金额设置已同步后端，问号tooltip统一为hover状态。"
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "弱网弹窗触发频率评估中（针对墨西哥市场网络状况）。购物车快捷金额设置已同步后端，问号tooltip统一为hover状态。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          }
         }
       ],
       "features": [
@@ -2369,6 +2545,29 @@
           "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/JrJddX9JSoshhoxPqfnjGhmgp3g?previous_navigation_time=1768814434393"
         }
       ]
+    }
+  ],
+  "weekly_periods": [
+    {
+      "week": "2026-16",
+      "start_date": "2026-04-14",
+      "end_date": "2026-04-21",
+      "label": "W16 (4/14 - 4/21)",
+      "is_current": false
+    },
+    {
+      "week": "2026-15",
+      "start_date": "2026-04-07",
+      "end_date": "2026-04-14",
+      "label": "W15 (4/7 - 4/14)",
+      "is_current": false
+    },
+    {
+      "week": "2026-14",
+      "start_date": "2026-03-31",
+      "end_date": "2026-04-07",
+      "label": "W14 (3/31 - 4/7)",
+      "is_current": false
     }
   ]
 }
