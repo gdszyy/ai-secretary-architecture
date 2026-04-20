@@ -74,6 +74,9 @@ TABLE_ID = "tblKscoaGp6VwhQe"
 VOIDZ_OPEN_ID = "ou_d06d8df64bc40ed44f8e8df3f4be3403"
 VOIDZ_NAME    = "VoidZ"
 
+# 追问消息统一发到「Manus」群（而非话题来源群）
+MANUS_CHAT_ID = "oc_94a94e2b7eedb031077a40dd0474a145"
+
 # 过期阈值（天）：来源周期结束日超过此天数视为过期
 STALE_THRESHOLD_DAYS = 7
 
@@ -256,7 +259,7 @@ def save_sent_records(sent_ids: set) -> None:
 
 def build_followup_message(topic: Dict) -> str:
     """
-    构建 @VoidZ 的话题收尾追问消息。
+    构建 @VoidZ 的话题收尾追问消息（纯文本，无 Markdown）。
 
     消息结构：
       1. @VoidZ
@@ -271,31 +274,35 @@ def build_followup_message(topic: Dict) -> str:
     period  = topic.get("period", "")
     status  = topic.get("status", "")
     age_days = topic.get("age_days", 0)
+    group   = topic.get("group", "")
 
     at_mention = f'<at user_id="{VOIDZ_OPEN_ID}">{VOIDZ_NAME}</at>'
 
     lines = [
         f"{at_mention}",
         f"",
-        f"🤖 检测到一个已超过 {int(age_days)} 天、尚未闭环的话题，需要确认最终结论：",
+        f"检测到一个已超过 {int(age_days)} 天、尚未闭环的话题，需要确认最终结论：",
         f"",
-        f"📌 **话题**：{title}",
+        f"话题：{title}",
     ]
 
+    if group:
+        lines.append(f"来源群组：{group}")
+
     if module and module != "unknown":
-        lines.append(f"🗂 **所属模块**：{module}")
+        lines.append(f"所属模块：{module}")
 
     if period:
-        lines.append(f"📅 **来源周期**：{period}（当前状态：{status}）")
+        lines.append(f"来源周期：{period}（当前状态：{status}）")
 
     if summary:
         lines.append(f"")
-        lines.append(f"**背景摘要**：")
+        lines.append(f"背景摘要：")
         lines.append(summary)
 
     if todos:
         lines.append(f"")
-        lines.append(f"**当时的待办事项**：")
+        lines.append(f"当时的待办事项：")
         lines.append(todos)
 
     lines.extend([
@@ -431,45 +438,38 @@ def run(
             "stale_topics": [],
         }
 
-    # 4. 按群组分组，每个群组发送一条汇总消息（避免刷屏）
-    # 同时也支持逐条发送（当前实现：按群组分组汇总）
-    by_chat: Dict[str, List[Dict]] = {}
-    for topic in stale_topics:
-        chat_id = topic.get("chat_id", "")
-        if not chat_id:
-            logger.warning("话题 '%s' 没有 chat_id，跳过", topic.get("title"))
-            continue
-        by_chat.setdefault(chat_id, []).append(topic)
-
+    # 4. 所有追问消息统一发到「Manus」群，逐条发送
     sent_count   = 0
     failed_count = 0
     newly_sent_ids = set()
 
-    for chat_id, topics in by_chat.items():
-        group_name = topics[0].get("group", chat_id)
-        logger.info("处理群组 [%s] (%s)，共 %d 条过期话题", group_name, chat_id, len(topics))
+    logger.info("将向 Manus 群发送 %d 条追问消息", len(stale_topics))
 
-        # 逐条发送（每条话题单独发一条消息，带完整上下文）
-        for topic in topics:
-            msg_text = build_followup_message(topic)
-            success = send_message(chat_id, msg_text, dry_run=dry_run)
+    for topic in stale_topics:
+        if not topic.get("chat_id") and not topic.get("group"):
+            logger.warning("话题 '%s' 缺少群组信息，跳过", topic.get("title"))
+            continue
 
-            if success:
-                sent_count += 1
-                newly_sent_ids.add(topic["record_id"])
-                logger.info(
-                    "  ✅ 已发送追问: [%d天] %s",
-                    topic["age_days"], topic["title"]
-                )
-            else:
-                failed_count += 1
-                logger.error(
-                    "  ❌ 发送失败: %s", topic["title"]
-                )
+        msg_text = build_followup_message(topic)
+        # 统一发到 Manus 群
+        success = send_message(MANUS_CHAT_ID, msg_text, dry_run=dry_run)
 
-            # 避免频率限制
-            if not dry_run:
-                time.sleep(MESSAGE_SEND_INTERVAL)
+        if success:
+            sent_count += 1
+            newly_sent_ids.add(topic["record_id"])
+            logger.info(
+                "  ✅ 已发送追问: [%d天] %s",
+                topic["age_days"], topic["title"]
+            )
+        else:
+            failed_count += 1
+            logger.error(
+                "  ❌ 发送失败: %s", topic["title"]
+            )
+
+        # 避免频率限制
+        if not dry_run:
+            time.sleep(MESSAGE_SEND_INTERVAL)
 
     # 5. 更新已发送记录
     if not dry_run and newly_sent_ids:
