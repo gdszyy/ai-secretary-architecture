@@ -10,13 +10,11 @@
 
 ## 活跃洞察 (Active Insights)
 
-当前共有 **0** 条活跃洞察。
-
-*（暂无洞察。当 Agent 在任务中发现隐蔽逻辑或耦合陷阱时，请按照规范创建洞察文档并在此注册。）*
+当前共有 **1** 条活跃洞察。
 
 | ID | 标题 | 版本 | 关联模块 | 最后更新 | 文档链接 |
 |----|------|------|---------|---------|---------|
-| — | — | — | — | — | — |
+| PI-001 | 多对话分离（Thread Separation）流程 | v1.0 | module2_buffer, architecture | 2026-04-20 | [PI-001_thread_separation_flow.md](./PI-001_thread_separation_flow.md) |
 
 ---
 
@@ -34,14 +32,14 @@
 
 当你需要创建新的流程洞察时，请遵循以下步骤：
 
-1. 在本目录下创建新文件，命名格式：`PI-{编号:03d}_{slug}.md`（如 `PI-001_combat_damage_flow.md`）。
+1. 在本目录下创建新文件，命名格式：`PI-{编号:03d}_{slug}.md`（如 `PI-002_bitable_sync_flow.md`）。
 2. 按照以下模板填写内容：
 
 ```markdown
 ---
 id: "PI-{编号}"
 version: "v1.0"
-last_updated: "2026-04-19"
+last_updated: "2026-04-20"
 author: "{Agent ID 或 Task ID}"
 related_modules: ["{模块1}", "{模块2}"]
 status: "active"
@@ -70,10 +68,10 @@ status: "active"
 
 | 版本 | 日期 | 变更内容 | 作者 |
 |------|------|---------|------|
-| v1.0 | 2026-04-19 | 初始记录 | {Agent ID} |
+| v1.0 | 2026-04-20 | 初始记录 | {Agent ID} |
 ```
 
-3. 在本文件的"活跃洞察"表格中添加一行注册记录。
+3. 在本文件的"活跃洞察"表格中添加一行注册记录，并将计数 +1。
 4. 将新增洞察的创建包含在当前任务的 Git Commit 中。
 
 ### 版本号管理规则

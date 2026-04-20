@@ -2,9 +2,9 @@
   "indexed": [
     {
       "file": "main.py",
-      "lines": 587,
+      "lines": 590,
       "funcs": 10,
-      "sections": 0,
+      "sections": 12,
       "mega_funcs": 0,
       "index_path": ".cursor/rules/auto_index/main_py_index.md"
     },
@@ -12,7 +12,7 @@
       "file": "scripts/thread_separator.py",
       "lines": 713,
       "funcs": 9,
-      "sections": 0,
+      "sections": 9,
       "mega_funcs": 1,
       "index_path": ".cursor/rules/auto_index/scripts_thread_separator_py_index.md"
     },

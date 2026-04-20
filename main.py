@@ -296,9 +296,11 @@ def write_threads_to_bitable(threads: list) -> None:
 
     写入失败时只记录日志，不影响主流程（容错处理）。
     """
+    # @section:guard_empty_threads - 空线程列表快速返回
     if not threads:
         return
 
+    # @section:validate_env_config - 校验 Bitable 环境变量配置
     app_token = os.environ.get("BITABLE_APP_TOKEN")
     table_id = os.environ.get("BITABLE_TABLE_PENDING_THREADS")
 
@@ -308,12 +310,14 @@ def write_threads_to_bitable(threads: list) -> None:
         )
         return
 
+    # @section:init_bitable_client - 初始化 Lark Bitable 客户端
     try:
         client = LarkBitableClient()
     except Exception as e:
         logger.error("初始化 LarkBitableClient 失败: %s", str(e))
         return
 
+    # @section:write_records_loop - 逐条写入线程记录（容错：单条失败不影响其他）
     for thread in threads:
         try:
             fields = {
@@ -429,6 +433,7 @@ async def handle_message_event(msg_info: Dict) -> None:
     后台处理消息事件（避免阻塞 Webhook 响应）。
     根据消息内容路由至不同的处理流程。
     """
+    # @section:extract_msg_fields - 提取消息基本字段
     text = msg_info.get("text", "")
     sender = msg_info.get("sender_name", "")
     chat_id = msg_info.get("chat_id", "")
@@ -440,8 +445,8 @@ async def handle_message_event(msg_info: Dict) -> None:
         text[:50],
     )
 
+    # @section:route_frontend_defect - 前端相关消息路由至缺陷报送流程
     if is_frontend_related(text):
-        # 路由至前端缺陷报送流程
         logger.info("路由至前端缺陷报送流程")
         result = process_defect_message(
             message_text=text,
@@ -461,8 +466,8 @@ async def handle_message_event(msg_info: Dict) -> None:
             logger.info("工单已创建: %s", notify_msg[:100])
             await send_lark_message(chat_id, notify_msg)
 
+    # @section:route_thread_separation - 通用群聊消息路由至多对话分离流程
     else:
-        # 路由至多对话分离流程（通用群聊消息处理）
         logger.info("路由至多对话分离流程")
         messages = [
             {
@@ -491,7 +496,7 @@ async def handle_message_event(msg_info: Dict) -> None:
                 thread.get("confidence", 0),
             )
 
-    # 无论路由至哪个流程，处理完成后均更新 Cursor 表（记录最后拉取消息 ID 和下次同步时间）
+    # @section:update_cursor_record - 更新 Cursor 表（记录最后拉取消息 ID）
     message_id = msg_info.get("message_id", "")
     if chat_id and message_id:
         update_cursor_record(chat_id, message_id)
@@ -524,15 +529,16 @@ async def lark_webhook(
     2. 处理 URL 验证挑战（Challenge）
     3. 异步处理消息事件（避免超时）
     """
+    # @section:parse_request_body - 解析请求体
     body = await request.body()
     payload = await request.json()
 
-    # 1. 处理 URL 验证挑战（飞书首次配置时发送）
+    # @section:handle_url_challenge - 处理飞书 URL 验证挑战（首次配置时发送）
     if "challenge" in payload:
         logger.info("收到飞书 URL 验证挑战，返回 challenge")
         return JSONResponse({"challenge": payload["challenge"]})
 
-    # 2. 签名校验（可选，生产环境建议开启）
+    # @section:verify_signature - 签名校验（可选，生产环境建议开启）
     verification_token = os.environ.get("LARK_VERIFICATION_TOKEN", "")
     if verification_token:
         timestamp = request.headers.get("X-Lark-Request-Timestamp", "")
@@ -542,11 +548,10 @@ async def lark_webhook(
             logger.warning("签名校验失败，拒绝请求")
             raise HTTPException(status_code=401, detail="Invalid signature")
 
-    # 3. 提取事件类型
+    # @section:dispatch_event_type - 提取事件类型并路由到对应处理器
     event_type = payload.get("header", {}).get("event_type", "")
     logger.info("收到飞书事件: event_type=%s", event_type)
 
-    # 4. 处理消息接收事件
     if event_type == "im.message.receive_v1":
         msg_info = extract_message_from_event(payload)
         if msg_info and msg_info.get("text"):
@@ -554,8 +559,6 @@ async def lark_webhook(
             background_tasks.add_task(handle_message_event, msg_info)
         else:
             logger.info("消息内容为空，跳过处理")
-
-    # 5. 其他事件类型（预留扩展）
     else:
         logger.info("暂不处理的事件类型: %s", event_type)
 

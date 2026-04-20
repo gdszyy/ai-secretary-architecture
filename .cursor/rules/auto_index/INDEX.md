@@ -1,15 +1,15 @@
 # 自动函数索引汇总 (Auto Index)
 
-> 自动生成于 2026-04-19 | 由 code-indexer 脚本维护
+> 自动生成于 2026-04-20 | 由 code-indexer 脚本维护
 > **本文件由脚本自动生成，严禁手动编辑。**
 
 ## 已索引文件 (3 个)
 
 | 文件 | 总行数 | 函数数 | 巨型函数 | @section 标记 | 索引文件 |
 |------|--------|--------|----------|--------------|---------|
-| `scripts/thread_separator.py` | 713 | 9 | **1** | 0 | [scripts_thread_separator_py_index.md](scripts_thread_separator_py_index.md) |
+| `scripts/thread_separator.py` | 713 | 9 | **1** | 9 | [scripts_thread_separator_py_index.md](scripts_thread_separator_py_index.md) |
 | `tasks/tsk-c62cf5d9-d66/deliverables/thread_separator.py` | 713 | 9 | **1** | 0 | [tasks_tsk-c62cf5d9-d66_deliverables_thread_separator_py_index.md](tasks_tsk-c62cf5d9-d66_deliverables_thread_separator_py_index.md) |
-| `main.py` | 587 | 10 | 0 | 0 | [main_py_index.md](main_py_index.md) |
+| `main.py` | 590 | 10 | 0 | 12 | [main_py_index.md](main_py_index.md) |
 
 ## 未索引文件 (25 个)
 

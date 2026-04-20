@@ -285,20 +285,19 @@ def preprocess_messages(messages: List[Dict]) -> Dict:
     第一阶段预处理：提取实体、构建关联图，生成初步聚类线索。
     返回包含预处理信息的上下文字典，供第二阶段 LLM 使用。
     """
+    # @section:extract_entity_map - 逐条消息提取实体关键词
     entity_map = {}  # {message_id: [entities]}
     for msg in messages:
         entities = extract_entities(msg.get("content", ""))
         if entities:
             entity_map[msg["id"]] = entities
-
+    # @section:build_mention_graph - 构建 @提及和 reply_to 关联图
     mention_graph = build_mention_graph(messages)
-
-    # 生成初步聚类线索（相同实体的消息倾向于同一 Thread）
+    # @section:group_by_entity - 按实体分组生成初步聚类线索
     entity_groups = defaultdict(list)  # {entity: [message_ids]}
     for msg_id, entities in entity_map.items():
         for entity in entities:
             entity_groups[entity].append(msg_id)
-
     return {
         "entity_map": entity_map,
         "mention_graph": dict(mention_graph),
@@ -528,10 +527,11 @@ def separate(
           - review_pending_threads: 待人工审核线程列表
           - stats: 统计信息
     """
+    # @section:guard_empty_input - 空消息列表快速返回
     if not messages:
         return {"high_value_threads": [], "review_pending_threads": [], "stats": {}}
 
-    # 第一步：按时间窗口切分 Session
+    # @section:split_sessions - 按时间窗口将消息切分为多个 Session
     sessions = split_by_time_window(messages, gap_minutes=session_gap_minutes)
     logger.info("消息切分为 %d 个 Session", len(sessions))
 
@@ -540,17 +540,17 @@ def separate(
     for session_idx, session_msgs in enumerate(sessions):
         logger.info("处理 Session %d，消息数量: %d", session_idx + 1, len(session_msgs))
 
-        # 第二步：第一阶段预处理（实体提取 + 关联图构建）
+        # @section:preprocess_per_session - 第一阶段预处理（实体提取 + 关联图构建）
         preprocess_ctx = preprocess_messages(session_msgs)
 
-        # 第三步：第二阶段 LLM 分离
+        # @section:llm_separation - 第二阶段 LLM 对话分离
         raw_threads = separate_threads_with_llm(session_msgs, preprocess_ctx)
 
-        # 第四步：构建标准 ThreadEvent
+        # @section:build_thread_events - 将 LLM 原始输出转换为标准 ThreadEvent
         thread_events = build_thread_events(raw_threads, session_msgs, session_idx)
         all_thread_events.extend(thread_events)
 
-    # 第五步：过滤
+    # @section:filter_and_stats - 过滤高价值线程并汇总统计信息
     high_value, review_pending = filter_thread_events(all_thread_events)
 
     stats = {
