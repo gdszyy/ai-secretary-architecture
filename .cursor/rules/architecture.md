@@ -7,16 +7,24 @@ globs: ["architecture/**/*"]
 
 ## 1. 模块职责
 
-（请在此处补充 architecture 模块的核心职责和业务边界）
+系统全局架构与核心逻辑设计文档层，包括仓库拆分评估、派发任务记录、交接文档等。为所有子模块提供全局视角和架构决策支撑。
 
-## 2. 核心数据模型 / API 接口
+## 2. 核心文档索引
 
-（请在此处补充 architecture 模块的关键数据结构、数据库表或对外暴露的 API）
+| 文档 | 路径 | 说明 |
+|------|------|------|
+| 交接文档 | `docs/architecture/handover.md` | Agent 间项目交接说明 |
+| 仓库拆分评估 | `docs/architecture/repository_split_assessment.md` | 仓库拆分方案评估 |
+| 拆分验收总结 | `docs/architecture/split_repo_acceptance_summary.md` | 拆分完成验收报告 |
+| 派发任务记录 | `docs/architecture/dispatched_tasks.md` | 历史派发任务汇总 |
+| Skill 索引 | `docs/architecture/skill_index.md` | Agent 核心技能索引与使用指南 |
 
-## 3. 状态流转 / 业务规则
+## 3. 架构决策原则
 
-（请在此处补充 architecture 模块特有的业务规则、状态机或异常处理策略）
+- **仓库三角**：不同职责的代码分居不同仓库，严禁将业务代码提交到本架构文档库
+- **文档优先**：本仓库为纯 Markdown 文档库，不引入业务逻辑代码
+- **交接规范**：每次 Agent 交接必须更新 `handover.md`，确保下一个 Agent 能无缝接手
 
 ## 4. 详细设计文档索引
 
-（请在此处列出 architecture 模块相关的详细设计文档链接）
+详见 `docs/architecture/` 目录下的各文档。

@@ -1,0 +1,181 @@
+{
+  "indexed": [
+    {
+      "file": "main.py",
+      "lines": 587,
+      "funcs": 10,
+      "sections": 0,
+      "mega_funcs": 0,
+      "index_path": ".cursor/rules/auto_index/main_py_index.md"
+    },
+    {
+      "file": "scripts/thread_separator.py",
+      "lines": 713,
+      "funcs": 9,
+      "sections": 0,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/scripts_thread_separator_py_index.md"
+    },
+    {
+      "file": "tasks/tsk-c62cf5d9-d66/deliverables/thread_separator.py",
+      "lines": 713,
+      "funcs": 9,
+      "sections": 0,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/tasks_tsk-c62cf5d9-d66_deliverables_thread_separator_py_index.md"
+    }
+  ],
+  "skipped": [
+    {
+      "file": "scripts/add_group_milestones.py",
+      "lines": 192,
+      "funcs": 2,
+      "reason": "未达阈值 (行数=192<500, 函数数=2<20)"
+    },
+    {
+      "file": "scripts/cold_start_step1_list_groups.py",
+      "lines": 72,
+      "funcs": 2,
+      "reason": "未达阈值 (行数=72<500, 函数数=2<20)"
+    },
+    {
+      "file": "scripts/cold_start_step2_fetch_messages.py",
+      "lines": 108,
+      "funcs": 3,
+      "reason": "未达阈值 (行数=108<500, 函数数=3<20)"
+    },
+    {
+      "file": "scripts/cold_start_step3_llm_profile.py",
+      "lines": 106,
+      "funcs": 1,
+      "reason": "未达阈值 (行数=106<500, 函数数=1<20)"
+    },
+    {
+      "file": "scripts/cold_start_step4_write_bitable.py",
+      "lines": 150,
+      "funcs": 5,
+      "reason": "未达阈值 (行数=150<500, 函数数=5<20)"
+    },
+    {
+      "file": "scripts/debug_message_body.py",
+      "lines": 29,
+      "funcs": 2,
+      "reason": "未达阈值 (行数=29<500, 函数数=2<20)"
+    },
+    {
+      "file": "scripts/enrich_global_milestones.py",
+      "lines": 121,
+      "funcs": 1,
+      "reason": "未达阈值 (行数=121<500, 函数数=1<20)"
+    },
+    {
+      "file": "scripts/extract_weekly_insights.py",
+      "lines": 153,
+      "funcs": 2,
+      "reason": "未达阈值 (行数=153<500, 函数数=2<20)"
+    },
+    {
+      "file": "scripts/fetch_4weeks_messages.py",
+      "lines": 189,
+      "funcs": 4,
+      "reason": "未达阈值 (行数=189<500, 函数数=4<20)"
+    },
+    {
+      "file": "scripts/frontend_defect_reporter.py",
+      "lines": 493,
+      "funcs": 4,
+      "reason": "未达阈值 (行数=493<500, 函数数=4<20)"
+    },
+    {
+      "file": "scripts/generate_markdown_report.py",
+      "lines": 89,
+      "funcs": 1,
+      "reason": "未达阈值 (行数=89<500, 函数数=1<20)"
+    },
+    {
+      "file": "scripts/get_railway_ids.py",
+      "lines": 110,
+      "funcs": 2,
+      "reason": "未达阈值 (行数=110<500, 函数数=2<20)"
+    },
+    {
+      "file": "scripts/inject_weekly_updates.py",
+      "lines": 102,
+      "funcs": 1,
+      "reason": "未达阈值 (行数=102<500, 函数数=1<20)"
+    },
+    {
+      "file": "scripts/inspect_bitable.py",
+      "lines": 81,
+      "funcs": 4,
+      "reason": "未达阈值 (行数=81<500, 函数数=4<20)"
+    },
+    {
+      "file": "scripts/lark_bitable_client.py",
+      "lines": 98,
+      "funcs": 8,
+      "reason": "未达阈值 (行数=98<500, 函数数=8<20)"
+    },
+    {
+      "file": "scripts/list_all_groups.py",
+      "lines": 104,
+      "funcs": 3,
+      "reason": "未达阈值 (行数=104<500, 函数数=3<20)"
+    },
+    {
+      "file": "scripts/media_parse_evaluator.py",
+      "lines": 210,
+      "funcs": 2,
+      "reason": "未达阈值 (行数=210<500, 函数数=2<20)"
+    },
+    {
+      "file": "scripts/media_parser.py",
+      "lines": 317,
+      "funcs": 12,
+      "reason": "未达阈值 (行数=317<500, 函数数=12<20)"
+    },
+    {
+      "file": "scripts/media_pipeline.py",
+      "lines": 184,
+      "funcs": 1,
+      "reason": "未达阈值 (行数=184<500, 函数数=1<20)"
+    },
+    {
+      "file": "scripts/meegle_client.py",
+      "lines": 192,
+      "funcs": 4,
+      "reason": "未达阈值 (行数=192<500, 函数数=4<20)"
+    },
+    {
+      "file": "scripts/parse_to_dashboard_json.py",
+      "lines": 226,
+      "funcs": 4,
+      "reason": "未达阈值 (行数=226<500, 函数数=4<20)"
+    },
+    {
+      "file": "scripts/sync_bitable_docs.py",
+      "lines": 180,
+      "funcs": 6,
+      "reason": "未达阈值 (行数=180<500, 函数数=6<20)"
+    },
+    {
+      "file": "scripts/test_frontend_defect_reporter.py",
+      "lines": 100,
+      "funcs": 1,
+      "reason": "未达阈值 (行数=100<500, 函数数=1<20)"
+    },
+    {
+      "file": "tasks/tsk-60fa6d89-d8f/deliverables/main.py",
+      "lines": 394,
+      "funcs": 7,
+      "reason": "未达阈值 (行数=394<500, 函数数=7<20)"
+    },
+    {
+      "file": "tasks/tsk-c62cf5d9-d66/deliverables/main.py",
+      "lines": 466,
+      "funcs": 8,
+      "reason": "未达阈值 (行数=466<500, 函数数=8<20)"
+    }
+  ],
+  "warnings": []
+}
