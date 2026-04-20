@@ -166,8 +166,8 @@ def main():
     parser.add_argument(
         "--stale-threshold",
         type=int,
-        default=int(os.environ.get("STALE_THRESHOLD_DAYS", "14")),
-        help="话题过期阈值（天），默认 14",
+        default=int(os.environ.get("STALE_THRESHOLD_DAYS", "7")),
+        help="话题过期阈值（天），默认 7",
     )
     parser.add_argument(
         "--force",

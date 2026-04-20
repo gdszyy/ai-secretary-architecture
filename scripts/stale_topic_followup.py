@@ -75,7 +75,7 @@ VOIDZ_OPEN_ID = "ou_d06d8df64bc40ed44f8e8df3f4be3403"
 VOIDZ_NAME    = "VoidZ"
 
 # 过期阈值（天）：来源周期结束日超过此天数视为过期
-STALE_THRESHOLD_DAYS = 14
+STALE_THRESHOLD_DAYS = 7
 
 # 需要跟进的状态（不在此列表中的状态跳过）
 STALE_STATUSES = {"跟进中", "待跟进", ""}
