@@ -708,7 +708,8 @@
           },
           "docs": []
         }
-      ]
+      ],
+      "weekly_progress_percentage": 8
     },
     {
       "id": "mod_sr_ts_matching",
@@ -852,7 +853,8 @@
           },
           "docs": []
         }
-      ]
+      ],
+      "weekly_progress_percentage": 7
     },
     {
       "id": "mod_ls_ts_matching",
@@ -979,7 +981,8 @@
           },
           "docs": []
         }
-      ]
+      ],
+      "weekly_progress_percentage": 6
     },
     {
       "id": "mod_sports_betting_core",
@@ -1202,7 +1205,8 @@
           "title": "个性化推荐",
           "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/AcgjdUUPLoeGgexsReIj3K1jplc"
         }
-      ]
+      ],
+      "weekly_progress_percentage": 5
     },
     {
       "id": "mod_user_system",
@@ -1370,7 +1374,8 @@
           "title": "Transaction 优化V1.1",
           "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/DaEvdPLQPopSL5xRSFWjJRxdpef"
         }
-      ]
+      ],
+      "weekly_progress_percentage": 8
     },
     {
       "id": "mod_wallet_finance",
@@ -1554,7 +1559,8 @@
           "title": "币种钱包设置",
           "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/YfJ9dsMA2o9XUtx5qaGjbrIUpJg"
         }
-      ]
+      ],
+      "weekly_progress_percentage": 7
     },
     {
       "id": "mod_activity_platform",
@@ -1795,7 +1801,8 @@
           "title": "使用记录",
           "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/YUD3diXm3ojZe5xX2s3jwil6pTf"
         }
-      ]
+      ],
+      "weekly_progress_percentage": 15
     },
     {
       "id": "mod_casino",
@@ -1976,7 +1983,8 @@
           "title": "游戏对接-第15-16家",
           "url": "#"
         }
-      ]
+      ],
+      "weekly_progress_percentage": 7
     },
     {
       "id": "mod_ads_system",
@@ -2141,7 +2149,8 @@
           "title": "投放中心-归因埋点",
           "url": "#"
         }
-      ]
+      ],
+      "weekly_progress_percentage": 13
     },
     {
       "id": "mod_uiux_design",
@@ -2302,7 +2311,8 @@
           },
           "docs": []
         }
-      ]
+      ],
+      "weekly_progress_percentage": 5
     },
     {
       "id": "mod_platform_setting",
@@ -2455,7 +2465,8 @@
           "title": "文章系统",
           "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/NozldGmDPoaGeDxNsTKjW8aHpPh"
         }
-      ]
+      ],
+      "weekly_progress_percentage": 0
     },
     {
       "id": "mod_im_cs",
@@ -2544,7 +2555,8 @@
           "title": "VIP客服",
           "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/JrJddX9JSoshhoxPqfnjGhmgp3g?previous_navigation_time=1768814434393"
         }
-      ]
+      ],
+      "weekly_progress_percentage": 0
     }
   ],
   "weekly_periods": [
