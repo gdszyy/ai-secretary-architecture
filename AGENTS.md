@@ -58,3 +58,11 @@
 *   **洞察注册表**：[`.cursor/rules/process_insights/index.md`](.cursor/rules/process_insights/index.md) - 所有活跃与废弃洞察的版本索引。
 
 > **注意**：随着架构的演进，本索引应持续更新。负责重构的 Agent 需维护对应的规则文档和流程洞察。
+
+## 6. 待开发需求登记表 (Pending Features)
+
+以下需求已记录但尚未实现，下一个接手 Agent 应优先阅读对应需求文档再开工。
+
+| ID | 需求名称 | 优先级 | 状态 | 需求文档 | 前置条件 |
+|---|---|---|---|---|---|
+| PF-001 | 飞书卡片回复自动触发信息纠正 | P1 | 待开发 | [`docs/module2_buffer/lark_card_reply_correction_spec.md`](docs/module2_buffer/lark_card_reply_correction_spec.md) | 飞书机器人消息订阅权限（见交接文档） |
