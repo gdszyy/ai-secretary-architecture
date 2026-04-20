@@ -1,12 +1,12 @@
 {
   "indexed": [
     {
-      "file": "scripts/thread_separator.py",
-      "lines": 726,
-      "funcs": 9,
+      "file": "scripts/run_weekly_report.py",
+      "lines": 539,
+      "funcs": 10,
       "sections": 0,
-      "mega_funcs": 1,
-      "index_path": ".cursor/rules/auto_index/scripts_thread_separator_py_index.md"
+      "mega_funcs": 0,
+      "index_path": ".cursor/rules/auto_index/scripts_run_weekly_report_py_index.md"
     }
   ],
   "skipped": [],

@@ -392,7 +392,7 @@ def inject_to_dashboard(
 # ---------------------------------------------------------------------------
 
 def send_lark_notification(week_str: str, updated_count: int, dry_run: bool = False):
-    """通过 lark-secretary 向飞书群发送周报完成通知"""
+    """通过 lark-secretary 向飞书群发送周报完成通知（含信息纠正入口）"""
     if dry_run:
         logger.info("[DRY RUN] 跳过飞书通知")
         return
@@ -402,7 +402,14 @@ def send_lark_notification(week_str: str, updated_count: int, dry_run: bool = Fa
         f"**{label} 周报已生成完毕**\n\n"
         f"本次共更新 **{updated_count}** 个模块的进度数据，"
         f"数据来源：飞书多维表格周报 + Meegle 进度 + 群聊洞察。\n\n"
-        f"请前往看板查看各模块本周详细进展。"
+        f"请前往看板查看各模块本周详细进展。\n\n"
+        f"---\n"
+        f"**📝 信息纠正 / 补充入口**\n"
+        f"如果 AI 提取的话题信息有偏差，或有群外决策/进展未被记录，"
+        f"请直接回复本卡片，格式：\n"
+        f"> `纠正：[话题名] 实际情况是……`\n"
+        f"> `补充：[新话题] 决策/进展是……`\n\n"
+        f"AI 秘书将在下次运行时读取并更新记录。"
     )
 
     if not LARK_SECRETARY.exists():
