@@ -25,9 +25,15 @@ AI 秘书系统 Webhook 服务入口 (main.py)
 架构说明：
   Lark Webhook → /lark/webhook
       ↓
-  消息路由器 (route_lark_event)
-      ├── 前端相关群组消息 → frontend_defect_reporter.process_message
-      └── 通用群组消息    → thread_separator.separate（多对话分离）
+  消息路由器 (handle_message_event)
+      ├── 纠正/补充指令（优先级最高）→ lark_correction_handler.handle_correction
+      ├── 前端相关群组消息          → frontend_defect_reporter.process_message
+      └── 通用群组消息              → thread_separator.separate（多对话分离）
+
+新增环境变量：
+  - AUTHORIZED_USER_IDS: 允许触发信息纠正的用户 open_id（逗号分隔）
+  - OPENAI_MODEL: LLM 模型名称（默认 gpt-4.1-mini）
+  - BITABLE_TABLE_ID: 话题 Bitable 表 ID（供 correction_writer 使用）
 """
 
 import os
@@ -56,6 +62,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "scripts"))
 from frontend_defect_reporter import process_message as process_defect_message
 from thread_separator import separate as separate_threads
 from lark_bitable_client import LarkBitableClient
+from lark_correction_handler import handle_correction, is_correction_command
 
 # ---------------------------------------------------------------------------
 # 日志配置
@@ -432,11 +439,14 @@ async def handle_message_event(msg_info: Dict) -> None:
     """
     后台处理消息事件（避免阻塞 Webhook 响应）。
     根据消息内容路由至不同的处理流程。
+    路由优先级：纠正指令 > 前端缺陷报送 > 通用多对话分离
     """
     # @section:extract_msg_fields - 提取消息基本字段
     text = msg_info.get("text", "")
     sender = msg_info.get("sender_name", "")
+    sender_open_id = msg_info.get("sender_id", "")
     chat_id = msg_info.get("chat_id", "")
+    message_id = msg_info.get("message_id", "")
 
     logger.info(
         "处理消息事件: chat_id=%s, sender=%s, text_preview=%s",
@@ -444,6 +454,32 @@ async def handle_message_event(msg_info: Dict) -> None:
         sender,
         text[:50],
     )
+
+    # @section:route_correction - 纠正/补充指令路由（最高优先级）
+    if is_correction_command(text):
+        logger.info("路由至信息纠正处理流程")
+        correction_result = handle_correction(
+            text=text,
+            sender_open_id=sender_open_id,
+            sender_name=sender,
+            message_id=message_id,
+        )
+        if correction_result["handled"]:
+            reply = correction_result.get("reply_text", "")
+            if reply:
+                await send_lark_message(chat_id, reply)
+            logger.info(
+                "纠正处理完成: success=%s action=%s title=%s needs_confirm=%s",
+                correction_result["success"],
+                correction_result["action"],
+                correction_result["title"],
+                correction_result["needs_confirm"],
+            )
+            # 更新 Cursor 表后返回，不再走其他路由
+            if chat_id and message_id:
+                update_cursor_record(chat_id, message_id)
+            return
+        # 权限不足（handled=False），不回复，继续走后续路由
 
     # @section:route_frontend_defect - 前端相关消息路由至缺陷报送流程
     if is_frontend_related(text):
@@ -497,7 +533,6 @@ async def handle_message_event(msg_info: Dict) -> None:
             )
 
     # @section:update_cursor_record - 更新 Cursor 表（记录最后拉取消息 ID）
-    message_id = msg_info.get("message_id", "")
     if chat_id and message_id:
         update_cursor_record(chat_id, message_id)
 

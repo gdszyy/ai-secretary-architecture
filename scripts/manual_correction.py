@@ -19,17 +19,26 @@ CORRECTIONS 格式说明：
   period      来源周期（填写当前周期字符串）
   summary     话题摘要（纠正后的完整描述）
   source      信息来源（如 VoidZ补充、群聊等）
+
+重构说明（2026-04-21）：
+  核心写入逻辑已迁移至 correction_writer.py，本脚本通过 write_corrections() 调用。
+  这使得飞书卡片回复触发的自动纠正（lark_correction_handler.py）可以复用相同逻辑。
 """
 
-import os, sys, time, logging, argparse, requests
+import os
+import sys
+import logging
+import argparse
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("manual_correction")
 
-APP_ID     = os.environ.get("LARK_APP_ID",     "cli_a9d985cd40f89e1a")
-APP_SECRET = os.environ.get("LARK_APP_SECRET", "UNemS0zPnUuXhONgkuuprgdK3SrVx05T")
-BASE_ID    = os.environ.get("BITABLE_BASE_ID", "CyDxbUQGGa3N2NsVanMjqdjxp6e")
-TABLE_ID   = os.environ.get("BITABLE_TABLE_ID","tblKscoaGp6VwhQe")
+# 确保 scripts 目录在 Python 路径中（从仓库根目录运行时需要）
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if _SCRIPT_DIR not in sys.path:
+    sys.path.insert(0, _SCRIPT_DIR)
+
+from correction_writer import write_corrections, upsert_correction
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 本次纠正内容（2026-W17，VoidZ 补充）
@@ -114,122 +123,27 @@ CORRECTIONS = [
 ]
 # ─────────────────────────────────────────────────────────────────────────────
 
-def get_token():
-    r = requests.post(
-        "https://open.larksuite.com/open-apis/auth/v3/tenant_access_token/internal",
-        json={"app_id": APP_ID, "app_secret": APP_SECRET}, timeout=10
-    )
-    r.raise_for_status()
-    return r.json()["tenant_access_token"]
-
-def fetch_all(token):
-    url = f"https://open.larksuite.com/open-apis/bitable/v1/apps/{BASE_ID}/tables/{TABLE_ID}/records"
-    headers = {"Authorization": f"Bearer {token}"}
-    records, page_token = [], None
-    while True:
-        params = {"page_size": 100}
-        if page_token:
-            params["page_token"] = page_token
-        r = requests.get(url, headers=headers, params=params, timeout=15)
-        r.raise_for_status()
-        data = r.json()["data"]
-        records.extend(data.get("items", []))
-        if not data.get("has_more"):
-            break
-        page_token = data.get("page_token")
-        time.sleep(0.2)
-    return records
-
-def update_record(token, record_id, fields):
-    url = f"https://open.larksuite.com/open-apis/bitable/v1/apps/{BASE_ID}/tables/{TABLE_ID}/records/{record_id}"
-    r = requests.put(
-        url,
-        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
-        json={"fields": fields}, timeout=10
-    )
-    r.raise_for_status()
-    return r.json().get("code") == 0
-
-def create_record(token, fields):
-    url = f"https://open.larksuite.com/open-apis/bitable/v1/apps/{BASE_ID}/tables/{TABLE_ID}/records"
-    r = requests.post(
-        url,
-        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
-        json={"fields": fields}, timeout=10
-    )
-    r.raise_for_status()
-    return r.json().get("code") == 0
 
 def main():
     parser = argparse.ArgumentParser(description="手动信息纠正写入 Bitable")
-    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--dry-run", action="store_true", help="预览模式，不实际写入")
     args = parser.parse_args()
 
-    token = get_token()
-    existing = fetch_all(token)
-    # 建立标题 → record_id 的索引
-    title_to_id = {
-        rec["fields"].get("话题标题", ""): rec["record_id"]
-        for rec in existing
-        if rec["fields"].get("话题标题")
-    }
-    logger.info("已加载 %d 条现有记录", len(existing))
-
-    created, updated, errors = 0, 0, 0
-
-    for corr in CORRECTIONS:
-        source_note = corr.get("source", "VoidZ手动纠正")
-        fields = {
-            "话题标题":  corr["title"],
-            "意图类型":  corr["intent"],
-            "状态":      corr["status"],
-            "来源周期":  corr["period"],
-            "话题摘要":  corr["summary"],
-            "追问回复":  f"[手动纠正 {source_note}]\n{corr['summary']}",
-        }
-
-        if corr["title"] in title_to_id:
-            rid = title_to_id[corr["title"]]
-            action = "UPDATE"
-        else:
-            rid = None
-            action = "CREATE"
-
-        logger.info("[%s] %s | intent=%s status=%s",
-                    action, corr["title"], corr["intent"], corr["status"])
-
-        if args.dry_run:
-            if action == "UPDATE":
-                updated += 1
-            else:
-                created += 1
-            continue
-
-        try:
-            if action == "UPDATE":
-                ok = update_record(token, rid, fields)
-                if ok:
-                    updated += 1
-                else:
-                    errors += 1
-            else:
-                ok = create_record(token, fields)
-                if ok:
-                    created += 1
-                else:
-                    errors += 1
-        except Exception as e:
-            logger.error("写入失败 [%s]: %s", corr["title"], e)
-            errors += 1
-
-        time.sleep(0.2)
-
-    print(f"\n{'='*60}")
     if args.dry_run:
-        print(f"[DRY RUN] 将更新 {updated} 条 / 新建 {created} 条（未实际写入）")
-    else:
-        print(f"✅ 完成：更新 {updated} 条 / 新建 {created} 条 / 失败 {errors} 条")
-    print(f"{'='*60}")
+        print(f"\n{'='*60}")
+        print("[DRY RUN] 以下条目将被写入（未实际执行）：")
+        for corr in CORRECTIONS:
+            action = "UPDATE（已存在）" if True else "CREATE（新建）"
+            print(f"  [{corr['intent']}] {corr['title']} | status={corr['status']}")
+        print(f"共 {len(CORRECTIONS)} 条")
+        print(f"{'='*60}\n")
+        return
+
+    result = write_corrections(CORRECTIONS)
+    print(f"\n{'='*60}")
+    print(f"✅ 完成：更新 {result['updated']} 条 / 新建 {result['created']} 条 / 失败 {result['errors']} 条")
+    print(f"{'='*60}\n")
+
 
 if __name__ == "__main__":
     main()
