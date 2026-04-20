@@ -6,7 +6,15 @@
   2. 第一阶段：基于规则与实体的初步聚类（时间窗口切分 + @提及图谱 + 实体匹配）。
   3. 第二阶段：调用 LLM 对初步聚类结果进行深度上下文分离，输出标准 ThreadEvent 列表。
   4. 过滤低置信度线程（confidence < 0.8），标记为 Needs_Human_Review。
-  5. 过滤无效线程（intent 为 casual_chat / other），仅保留高价值线程。
+  5. 过滤无效线程（intent 为 casual_chat / other / personal_followup），仅保留高价值线程。
+
+意图分类体系（2026-04-20 重构）：
+  - major_decision: 重大决策 → 高价值，直接归档
+  - milestone_fact: 里程碑/进度事实 → 高价值，与 Meegle 比对
+  - risk_blocker: 风险/阻塞 → 高价值，推入风险池
+  - routine_task: 常规缺陷/需求 → 低价值，尝试映射 Meegle
+  - personal_followup: 个人间事务交接 → 过滤，不进项目看板
+  - casual_chat / other: 直接过滤
 
 环境变量要求（在 .env 中配置）：
   - DASHSCOPE_API_KEY: 通义千问 API Key（阿里云百炼平台获取）
@@ -28,7 +36,7 @@
       "topic": "支付网关签名验证失败导致500错误",
       "participants": ["Alice", "Charlie"],
       "messages": [{"id": "m1", "content": "..."}],
-      "intent": "bug_report",
+      "intent": "risk_blocker",
       "confidence": 0.98,
       "cross_thread_messages": [],
       "extracted_entities": {"module": "支付网关", "error_code": "500"},
@@ -78,7 +86,15 @@ SESSION_GAP_MINUTES = 30
 CONFIDENCE_THRESHOLD = 0.8
 
 # 无效意图类型（过滤掉，不推入缓冲池）
-INVALID_INTENTS = {"casual_chat", "other"}
+# 新意图体系（2026-04-20 重构）：
+#   major_decision    → 重大决策（商务选型、架构拍板等）
+#   milestone_fact    → 里程碑/进度事实（提测、上线等）
+#   risk_blocker      → 风险/阻塞（外部依赖、牌照问题等）
+#   routine_task      → 常规缺陷/需求（日常 Bug、小功能调整等）
+#   personal_followup → 个人间事务交接（不进项目看板）
+#   casual_chat       → 闲聊（直接过滤）
+#   other             → 其他（直接过滤）
+INVALID_INTENTS = {"casual_chat", "other", "personal_followup"}
 
 # 项目实体关键词库默认备用列表（当配置文件加载失败时回退到此列表）
 _DEFAULT_ENTITY_KEYWORDS = [
@@ -325,17 +341,14 @@ THREAD_SEPARATION_SYSTEM_PROMPT = """
 4. 提取每个线程的核心意图和相关实体（如模块、参与者）。
 5. 评估每个线程的置信度（0-1）。
 
-【意图类型枚举】
-- bug_report: Bug 报告或故障排查
-- feature_request: 新功能需求讨论
-- feature_discussion: 功能方案讨论（尚未形成明确需求）
-- progress_update: 进度同步或状态确认
-- status_check: 状态查询
-- decision_record: 决策记录
-- risk_escalation: 风险上报
-- memo: 备忘或提醒
-- casual_chat: 日常闲聊（无业务价值）
-- other: 其他
+【意图类型枚举（2026-04-20 重构）】
+- major_decision: 重大决策（商务三方选型、架构拍板、供应商选择等）→ 高价值，直接归档
+- milestone_fact: 里程碑/进度事实（某功能提测、上线、完成联调等）→ 高价值，与 Meegle 比对
+- risk_blocker: 风险/阻塞（外部依赖不配合、牌照问题、技术风险等）→ 高价值，推入风险池
+- routine_task: 常规缺陷/需求（日常 Bug 修复、小功能调整等）→ 低价值，尝试映射 Meegle
+- personal_followup: 个人间的事务交接（如"@A 帮 @B 处理某事"）→ 不进项目看板，直接过滤
+- casual_chat: 日常闲聊（无业务价值）→ 直接过滤
+- other: 其他 → 直接过滤
 
 【处理规则】
 1. 实体聚类：优先参考 entity_groups 中的实体聚类线索进行初步关联。
@@ -384,7 +397,7 @@ THREAD_SEPARATION_SYSTEM_PROMPT = """
       "topic": "服务器OOM故障排查",
       "participants": ["Alice", "Charlie"],
       "message_ids": ["m1", "m3", "m4"],
-      "intent": "bug_report",
+      "intent": "risk_blocker",
       "confidence": 0.97,
       "cross_thread_messages": [],
       "extracted_entities": {"module": "服务器", "error_code": "OOM", "keywords": ["prod-01"]}
@@ -394,7 +407,7 @@ THREAD_SEPARATION_SYSTEM_PROMPT = """
       "topic": "会议时间确认",
       "participants": ["Bob", "Dave"],
       "message_ids": ["m2", "m5"],
-      "intent": "memo",
+      "intent": "routine_task",
       "confidence": 0.95,
       "cross_thread_messages": [],
       "extracted_entities": {"module": null, "error_code": null, "keywords": ["会议室A"]}
@@ -586,42 +599,42 @@ DEMO_MESSAGES = [
         "id": "m1",
         "sender": "Alice",
         "time": "2026-04-16T10:00:00Z",
-        "content": "支付网关在回调时报了500错误，签名验证一直失败",
+        "content": "SR 商务不配合，我们用新公司与 SR 对接，希望换一个商务",
         "reply_to": None,
     },
     {
         "id": "m2",
         "sender": "Bob",
         "time": "2026-04-16T10:01:00Z",
-        "content": "登录页面的按钮颜色和设计稿不一致，需要改一下",
+        "content": "Lsport 数据源对接已完成联调，准备提测",
         "reply_to": None,
     },
     {
         "id": "m3",
         "sender": "Charlie",
         "time": "2026-04-16T10:02:00Z",
-        "content": "@Alice 我在沙箱环境也复现了，是HMAC-SHA256的密钥配置问题",
+        "content": "@Alice 目前牌照在办理中，大部分供应商对牌照要求较高，不太积极配合",
         "reply_to": "m1",
     },
     {
         "id": "m4",
         "sender": "Dave",
         "time": "2026-04-16T10:03:00Z",
-        "content": "@Bob 按钮颜色我来改，是哪个页面？",
+        "content": "@Bob 这是里程碑，记录一下提测时间",
         "reply_to": "m2",
     },
     {
         "id": "m5",
         "sender": "Alice",
         "time": "2026-04-16T10:04:00Z",
-        "content": "@Charlie 对，生产环境的密钥没有同步更新，我现在去修",
+        "content": "@Charlie 所以我们同时在接触其他数据供应商，目前正在对接 Lsport",
         "reply_to": "m3",
     },
     {
         "id": "m6",
         "sender": "Bob",
         "time": "2026-04-16T10:05:00Z",
-        "content": "@Dave 是登录页面，主按钮应该是 #FF6B35 但现在是 #FF5722",
+        "content": "@Dave 提测时间确认下周三，我这边已准备好",
         "reply_to": "m4",
     },
 ]
