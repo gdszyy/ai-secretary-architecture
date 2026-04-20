@@ -12,3 +12,4 @@ venv/
 # macOS
 .DS_Store
 cold_start_*.json
+stale_followup_sent.json
