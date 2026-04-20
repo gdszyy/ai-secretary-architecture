@@ -10,11 +10,12 @@
 
 ## 活跃洞察 (Active Insights)
 
-当前共有 **1** 条活跃洞察。
+当前共有 **2** 条活跃洞察。
 
 | ID | 标题 | 版本 | 关联模块 | 最后更新 | 文档链接 |
 |----|------|------|---------|---------|---------|
 | PI-001 | 多对话分离（Thread Separation）流程 | v1.0 | module2_buffer, architecture | 2026-04-20 | [PI-001_thread_separation_flow.md](./PI-001_thread_separation_flow.md) |
+| PI-002 | 话题提取与追问降噪策略 | v1.0 | module2_buffer, module3_info_sources | 2026-04-20 | [PI-002_topic_extraction_and_inquiry_noise_reduction.md](./PI-002_topic_extraction_and_inquiry_noise_reduction.md) |
 
 ---
 

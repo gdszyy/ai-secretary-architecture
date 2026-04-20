@@ -9,6 +9,9 @@ globs: ["module2_buffer/**/*"]
 
 信息缓冲池是 AI 秘书系统的核心中枢，负责接收所有非结构化或半结构化的碎片信息，通过 LLM 进行意图识别和完整度评分，在信息达到可执行标准后自动分发到下游系统。
 
+> **架构重构说明 (2026-04-20)**：
+> 缓冲区已从“跟进驱动”转向“事实沉淀驱动”。系统不再将所有群聊视为待办事项生成器，而是聚焦于提取**重大决策、里程碑事实和风险阻塞**。个人跟进逻辑已与项目主线解耦。
+
 ## 2. 核心数据模型
 
 ### Buffer Item 结构
@@ -18,7 +21,7 @@ globs: ["module2_buffer/**/*"]
 | `item_id` | String | 唯一标识符 |
 | `source_type` | Enum | `lark` / `meeting_notes` / `meegle_webhook` / `voice` |
 | `raw_content` | String | 原始输入内容 |
-| `parsed_intent` | Enum | `bug_report` / `feature_request` / `memo` / `progress_update` |
+| `parsed_intent` | Enum | `major_decision` / `milestone_fact` / `risk_blocker` / `routine_task` / `personal_followup` |
 | `completeness_score` | Integer | 完整度评分 0-100 |
 | `status` | Enum | `pending` / `asking` / `ready` / `archived` / `discarded` |
 | `missing_fields` | List | 缺失的关键信息字段列表 |
@@ -36,9 +39,11 @@ pending → asking → ready → archived
                       discarded
 ```
 
-- **完整度 < 80 分**：进入 `asking` 状态，触发主动询问（即时或每日 17:30 批量）
-- **完整度 ≥ 80 分**：直接进入 `ready`，等待调度器分发
-- **24h 未处理**：降级处理；**72h 未处理**：强制归档；**>50 条堆积**：触发批量合并
+- **完整度 < 80 分**：
+  - 仅针对“重大决策”缺失关键上下文，或“风险/阻塞”需要明确责任人时，进入 `asking` 状态，触发主动询问。
+  - 常规任务信息不足直接进入 `discarded`，不再追问。
+- **完整度 ≥ 80 分**：直接进入 `ready`，等待调度器分发。
+- **24h 未处理**：降级处理；**72h 未处理**：强制归档；**>50 条堆积**：触发批量合并。
 
 ## 4. 详细设计文档索引
 
