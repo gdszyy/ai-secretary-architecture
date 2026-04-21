@@ -45,39 +45,60 @@ globs: ["module1_kanban/**/*"]
 - **开发中 → 已上线**：Meegle Webhook 回传自动更新
 - **Single Source of Truth**：开发前 Lark 为主，开发后 Meegle 为主
 
-## 4. weekly_progress_percentage 自动计算逻辑
+## 4. 度量指标设计（双轨模型）
+
+### 设计原则
+
+> **金色进度条 = 里程碑叙事（主线）**：表达“我们在哪里”，由人工维护，不受需求变化影响。
+> **交付活跃度区块 = 本周实际发生了什么（辅线）**：自动采集客观事实，不依赖终点预测。
+
+### weekly_progress_percentage 字段
+
+`module["weekly_progress_percentage"]` 保持人工维护，表示里程碑进展层次。每到达一个里程碑节点（设计/开发/联调/提测/上线）就增长固定幅度，不受需求调整影响。
+
+### activity 字段（自动采集）
+
+`weekly_updates[].activity` 由 `run_weekly_report.py` 的 Step 5 循环自动写入，记录本周客观交付事实：
+
+| 字段 | 来源 | 说明 |
+|------|------|------|
+| `completed_stories` | Meegle `list_work_items_by_week()` | 本周关闭的 Story 数量 |
+| `new_defects` | Meegle `list_work_items_by_week()` | 本周新增的 Defect 数量 |
+| `resolved_defects` | Meegle `list_work_items_by_week()` | 本周解决的 Defect 数量 |
+| `chat_insight_count` | `extract_weekly_insights.get_weekly_insights_for_modules()` | 本周群聊洞察条数 |
 
 ### 数据流
 
 ```
 Step 5 循环（每个模块）
   ↓
-  generate_comprehensive_summary() → summary 文本
+  meegle_progress 文本 → 正则解析 completed_stories / new_defects / resolved_defects
+  chat_insights 列表 → len() 得到 chat_insight_count
   ↓
-  calculate_weekly_progress(module_id, module_name, xp_report, meegle_progress, chat_insights, summary, client)
-  ↓
-  module_updates[mid]["weekly_progress_percentage"] = progress_pct  (0-20 整数)
+  module_updates[mid]["activity"] = { completed_stories, new_defects, resolved_defects, chat_insight_count }
   ↓
 Step 6: inject_to_dashboard()
   ↓
-  module["weekly_progress_percentage"] = update_data["weekly_progress_percentage"]
+  new_entry["activity"] = update_data["activity"]
   ↓
   写入 dashboard_data.json
 ```
 
-### 三源加权算法（总分 clamp 到 [0, 20]%）
+### 前端展示（kanban-v2 hover 层）
 
-| 数据源 | 权重 | 计算方式 | 上限 |
-|------|------|----------|------|
-| Meegle Story 完成数 | 60% | 每完成 1 个 Story +4%，Defect>3 时扣 1% | 12% |
-| 飞书周报内容质量 | 25% | LLM 打 0-4 分，映射为 0/2/5/7/10% | 10% |
-| 群聊洞察质量 | 15% | 1条+2%，3条+3%，关键词额外+2% | 5% |
+```
+金色区块：本周里程碑进展（人工维护）
+  ↓
+靳蓝区块：本周交付活跃度（自动采集）
+  ✔ Story ×N   🔧 修复 ×N
+  🐛 新增缺陷 ×N   💬 洞察 ×N
+```
 
-最终经过 LLM 一致性校验：将初步分数和综合摘要一起传给 LLM，判断数字与文本描述是否一致，输出最终整数分数。
+仅当 `activity` 字段存在且至少一项非零时渲染活跃度区块，向后兼容旧数据。
 
 ### 错误处理
 
-任何异常情况均返回 0，不中断主流程。
+任何异常情况均返回 `activity: None`，不中断主流程。
 
 ## 5. 详细设计文档索引
 

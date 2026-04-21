@@ -59,7 +59,19 @@
 
 > **注意**：随着架构的演进，本索引应持续更新。负责重构的 Agent 需维护对应的规则文档和流程洞察。
 
-## 6. 待开发需求登记表 (Pending Features)
+## 6. 批处理调度入口 (Batch Scheduling)
+
+以下是系统的自动化批处理入口脚本，由 Manus 定时任务触发：
+
+| 脚本 | 触发时机 | 功能 | 备注 |
+|------|----------|------|------|
+| `scripts/run_daily_batch.py` | 每日 09:00（工作日） | 群消息提取 → 写入 weekly_updates → git push；周四额外触发 weekly_issue_reminder | `--dry-run` 预览，`--hours N` 自定义拉取时长 |
+| `scripts/run_weekly_batch.py` | 每周一 06:00 | 话题归档 → 三源周报生成（含 activity）→ 里程碑更新 → git push | `--dry-run` 预览，`--week YYYY-WW` 补跑历史周 |
+| `scripts/weekly_issue_reminder.py` | 每周四 15:00（由 run_daily_batch 触发） | 扫描本周 risk_blocker，发飞书提醒卡片 | 独立运行：`--dry-run` 预览 |
+
+> **注意**：Manus 只维护两个定时任务（每日批 + 每周批），周四提醒已内嵌在每日批中。
+
+## 7. 待开发需求登记表 (Pending Features)
 
 以下需求已记录但尚未实现，下一个接手 Agent 应优先阅读对应需求文档再开工。
 
