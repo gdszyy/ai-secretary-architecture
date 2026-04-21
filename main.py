@@ -26,14 +26,22 @@ AI 秘书系统 Webhook 服务入口 (main.py)
   Lark Webhook → /lark/webhook
       ↓
   消息路由器 (handle_message_event)
-      ├── 纠正/补充指令（优先级最高）→ lark_correction_handler.handle_correction
-      ├── 前端相关群组消息          → frontend_defect_reporter.process_message
-      └── 通用群组消息              → thread_separator.separate（多对话分离）
+      ├── @机器人 问答（优先级最高）  → lark_qa_handler.handle_qa
+      ├── 纠正/补充指令（次高）          → lark_correction_handler.handle_correction
+      ├── 前端相关群组消息              → frontend_defect_reporter.process_message
+      └── 通用群组消息                  → thread_separator.separate（多对话分离）
 
 新增环境变量：
   - AUTHORIZED_USER_IDS: 允许触发信息纠正的用户 open_id（逗号分隔）
-  - OPENAI_MODEL: LLM 模型名称（默认 gpt-4.1-mini）
   - BITABLE_TABLE_ID: 话题 Bitable 表 ID（供 correction_writer 使用）
+  - BITABLE_TABLE_QA_LOG: 问答日志表 ID（默认 tblwhuGWDRPpAyPp）
+  - BITABLE_TABLE_FEATURES: 功能表 ID（默认 tblLzX7wqGWFr9KP）
+  - BITABLE_TABLE_MODULES: 模块表 ID（默认 tblaDW4D2hQS2xCw）
+  - BITABLE_TABLE_MEEGLE_DEFECTS: Meegle 缺陷表 ID（默认 tblLmzknrXtzhGFc）
+  - BITABLE_TABLE_MEEGLE_TASKS: Meegle 任务表 ID（默认 tblzyH3DKSz9IAG9）
+  - BITABLE_TABLE_MEEGLE_REQS: Meegle 需求表 ID（默认 tblO4wA2agKU1ZSP）
+  - QA_CACHE_TTL_HOURS: 问答缓存有效期（小时，默认 24）
+  - QA_SIMILARITY_THRESHOLD: 缓存相似度阈值 0~1（默认 0.85）
 """
 
 import os
@@ -63,6 +71,7 @@ from frontend_defect_reporter import process_message as process_defect_message
 from thread_separator import separate as separate_threads
 from lark_bitable_client import LarkBitableClient
 from lark_correction_handler import handle_correction, is_correction_command
+from lark_qa_handler import handle_qa, is_at_bot
 
 # ---------------------------------------------------------------------------
 # 日志配置
@@ -80,7 +89,7 @@ logger = logging.getLogger("ai_secretary.main")
 
 app = FastAPI(
     title="AI 秘书系统 Webhook 服务",
-    description="接收 Lark 事件推送，自动处理前端缺陷报送与多对话分离",
+    description="接收 Lark 事件推送，自动处理问答查询、信息纠正、前端缺陷报送与多对话分离",
     version="1.0.0",
 )
 
@@ -151,6 +160,9 @@ def extract_message_from_event(payload: Dict) -> Optional[Dict]:
     chat_id = message.get("chat_id", "")
     chat_type = message.get("chat_type", "")  # "group" or "p2p"
 
+    # 提取 mentions 列表（用于 @机器人 检测）
+    mentions = message.get("mentions", [])
+
     return {
         "message_id": message.get("message_id", ""),
         "text": text,
@@ -159,6 +171,7 @@ def extract_message_from_event(payload: Dict) -> Optional[Dict]:
         "chat_id": chat_id,
         "chat_type": chat_type,
         "raw_message": message,
+        "mentions": mentions,
     }
 
 
@@ -455,7 +468,25 @@ async def handle_message_event(msg_info: Dict) -> None:
         text[:50],
     )
 
-    # @section:route_correction - 纠正/补充指令路由（最高优先级）
+    # @section:route_qa - @机器人 问答路由（优先级最高）
+    if is_at_bot(msg_info):
+        logger.info("路由至 AI 秘书问答流程")
+        qa_result = handle_qa(msg_info)
+        if qa_result["handled"]:
+            answer = qa_result.get("answer", "")
+            if answer:
+                await send_lark_message(chat_id, answer)
+            logger.info(
+                "QA 处理完成: from_cache=%s routes=%s keywords=%s",
+                qa_result["from_cache"],
+                qa_result["routes"],
+                qa_result["keywords"],
+            )
+            if chat_id and message_id:
+                update_cursor_record(chat_id, message_id)
+            return
+
+    # @section:route_correction - 纠正/补充指令路由（次高优先级）
     if is_correction_command(text):
         logger.info("路由至信息纠正处理流程")
         correction_result = handle_correction(
