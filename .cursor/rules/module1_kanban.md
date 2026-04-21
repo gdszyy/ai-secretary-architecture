@@ -45,7 +45,41 @@ globs: ["module1_kanban/**/*"]
 - **开发中 → 已上线**：Meegle Webhook 回传自动更新
 - **Single Source of Truth**：开发前 Lark 为主，开发后 Meegle 为主
 
-## 4. 详细设计文档索引
+## 4. weekly_progress_percentage 自动计算逻辑
+
+### 数据流
+
+```
+Step 5 循环（每个模块）
+  ↓
+  generate_comprehensive_summary() → summary 文本
+  ↓
+  calculate_weekly_progress(module_id, module_name, xp_report, meegle_progress, chat_insights, summary, client)
+  ↓
+  module_updates[mid]["weekly_progress_percentage"] = progress_pct  (0-20 整数)
+  ↓
+Step 6: inject_to_dashboard()
+  ↓
+  module["weekly_progress_percentage"] = update_data["weekly_progress_percentage"]
+  ↓
+  写入 dashboard_data.json
+```
+
+### 三源加权算法（总分 clamp 到 [0, 20]%）
+
+| 数据源 | 权重 | 计算方式 | 上限 |
+|------|------|----------|------|
+| Meegle Story 完成数 | 60% | 每完成 1 个 Story +4%，Defect>3 时扣 1% | 12% |
+| 飞书周报内容质量 | 25% | LLM 打 0-4 分，映射为 0/2/5/7/10% | 10% |
+| 群聊洞察质量 | 15% | 1条+2%，3条+3%，关键词额外+2% | 5% |
+
+最终经过 LLM 一致性校验：将初步分数和综合摘要一起传给 LLM，判断数字与文本描述是否一致，输出最终整数分数。
+
+### 错误处理
+
+任何异常情况均返回 0，不中断主流程。
+
+## 5. 详细设计文档索引
 
 | 文档 | 路径 | 说明 |
 |------|------|------|

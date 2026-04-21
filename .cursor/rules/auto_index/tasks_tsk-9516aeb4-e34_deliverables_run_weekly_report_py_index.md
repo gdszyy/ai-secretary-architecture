@@ -1,9 +1,7 @@
-# scripts/run_weekly_report.py 函数索引
+# tasks/tsk-9516aeb4-e34/deliverables/run_weekly_report.py 函数索引
 
-> 自动生成于 2026-04-21 | 总行数: 761 | 函数数: 10 | 语言: python
+> 自动生成于 2026-04-21 | 总行数: 570 | 函数数: 10 | 语言: python
 > **本文件由 code-indexer 脚本自动生成，严禁手动编辑。**
-
-**巨型函数警告**: 本文件包含 1 个超过 200 行的函数，建议优先通过 `@section` 标记进行内部导航。
 
 ## 函数列表
 
@@ -15,7 +13,7 @@
 | get_week_tuesday_date | function | L109 | L118 | 10 | `get_week_tuesday_date(week_str: str)` |
 | fetch_xp_weekly_report | function | L119 | L224 | 106 | `fetch_xp_weekly_report(week_str: str)` |
 | fetch_meegle_progress | function | L225 | L271 | 47 | `fetch_meegle_progress(week_str: str)` |
-| fetch_chat_insights | function | L272 | L610 | **339** | `fetch_chat_insights(week_str: str)` |
-| send_lark_notification | function | L611 | L654 | 44 | `send_lark_notification(week_str: str, updated_count: int, dry_run: bool = False)` |
-| run | function | L655 | L724 | 70 | `run(week_str: str, dry_run: bool = False, skip_notify: bool = False)` |
-| main | function | L725 | L762 | 38 | `main()` |
+| fetch_chat_insights | function | L272 | L424 | 153 | `fetch_chat_insights(week_str: str)` |
+| send_lark_notification | function | L425 | L468 | 44 | `send_lark_notification(week_str: str, updated_count: int, dry_run: bool = False)` |
+| run | function | L469 | L533 | 65 | `run(week_str: str, dry_run: bool = False, skip_notify: bool = False)` |
+| main | function | L534 | L571 | 38 | `main()` |

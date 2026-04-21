@@ -347,6 +347,182 @@ def generate_comprehensive_summary(
 
 
 # ---------------------------------------------------------------------------
+# Step 5.5: 计算模块本周进度增量百分比
+# ---------------------------------------------------------------------------
+
+def calculate_weekly_progress(
+    module_id: str,
+    module_name: str,
+    xp_report: Optional[str],
+    meegle_progress: Optional[str],
+    chat_insights: list[str],
+    summary: str,
+    client: OpenAI
+) -> int:
+    """
+    基于三源加权算法，自动计算模块本周进度增量百分比（0-20 整数）。
+
+    算法设计（三源加权，总分 clamp 到 [0, 20]）：
+
+    1. Meegle Story 完成数（定量基准，权重 60%）：
+       - 从 meegle_progress 文本中解析 completed_stories 数量
+         （格式："本周完成 N 个 Story，新增 M 个 Defect"）
+       - 每完成 1 个 Story 贡献 4%，上限 12%
+       - 新增 Defect 超过 3 个时扣 1%（质量风险惩罚）
+
+    2. 飞书周报内容质量（定性修正，权重 25%）：
+       - 用 LLM 对 xp_report 文本打 0-4 分：
+         0=无内容, 1=简单提及, 2=有具体进展, 3=有里程碑, 4=有上线/交付
+       - 分数映射：0→0%, 1→2%, 2→5%, 3→7%, 4→10%
+
+    3. 群聊洞察质量（补充修正，权重 15%）：
+       - 有 1 条以上相关洞察：+2%
+       - 有 3 条以上相关洞察：+3%（上限 +5%）
+       - 洞察中含有「上线」「完成」「交付」等关键词：额外 +2%
+
+    4. 最终 LLM 一致性校验：
+       - 将三源分数合计（clamp 到 [0, 20]）和综合摘要文本一起传给 LLM
+       - LLM 判断数字与摘要描述是否一致，输出最终 score（整数，0-20）
+
+    Args:
+        module_id:       模块 ID（如 "mod_casino"）
+        module_name:     模块名称（如 "Casino 游戏平台"）
+        xp_report:       飞书周报文本（可为 None）
+        meegle_progress: Meegle 进度文本（格式："本周完成 N 个 Story，新增 M 个 Defect"）
+        chat_insights:   群聊洞察列表（可为空列表）
+        summary:         generate_comprehensive_summary() 生成的综合摘要文本
+        client:          OpenAI 客户端实例
+
+    Returns:
+        0-20 之间的整数，表示本周进度增量百分比。任何异常情况返回 0。
+    """
+    import re
+
+    try:
+        # ----------------------------------------------------------------
+        # 源 1：Meegle Story 完成数（定量基准）
+        # ----------------------------------------------------------------
+        meegle_score = 0
+        completed_stories = 0
+        new_defects = 0
+
+        if meegle_progress:
+            # 解析格式："本周完成 N 个 Story，新增 M 个 Defect"
+            story_match = re.search(r'本周完成\s*(\d+)\s*个\s*Story', meegle_progress)
+            defect_match = re.search(r'新增\s*(\d+)\s*个\s*Defect', meegle_progress)
+            if story_match:
+                completed_stories = int(story_match.group(1))
+            if defect_match:
+                new_defects = int(defect_match.group(1))
+
+        # 每完成 1 个 Story 贡献 4%，上限 12%
+        meegle_score = min(completed_stories * 4, 12)
+        # 新增 Defect 超过 3 个时扣 1%
+        if new_defects > 3:
+            meegle_score = max(0, meegle_score - 1)
+
+        # ----------------------------------------------------------------
+        # 源 2：飞书周报内容质量（定性修正，LLM 打分）
+        # ----------------------------------------------------------------
+        xp_score = 0
+        xp_score_map = {0: 0, 1: 2, 2: 5, 3: 7, 4: 10}
+
+        if xp_report and xp_report.strip():
+            xp_prompt = f"""请对以下飞书周报文本的内容质量打分（0-4分）：
+
+文本：
+{xp_report}
+
+评分标准：
+0 = 无内容或"本周无进展"
+1 = 简单提及工作，无具体产出
+2 = 有具体进展描述（如"完成了X功能开发"）
+3 = 有明确里程碑达成（如"完成联调"、"提测"）
+4 = 有上线/交付/验收等最终产出
+
+请只输出一个 0-4 之间的整数，不要有其他说明。"""
+            try:
+                xp_resp = client.chat.completions.create(
+                    model=LLM_MODEL,
+                    messages=[{"role": "user", "content": xp_prompt}],
+                    temperature=0.0,
+                )
+                raw_score = xp_resp.choices[0].message.content.strip()
+                llm_xp_score = int(re.search(r'[0-4]', raw_score).group())
+                xp_score = xp_score_map.get(llm_xp_score, 0)
+            except Exception as e:
+                logger.warning("模块 %s 飞书周报 LLM 打分失败: %s", module_id, e)
+                xp_score = 0
+
+        # ----------------------------------------------------------------
+        # 源 3：群聊洞察质量（补充修正）
+        # ----------------------------------------------------------------
+        chat_score = 0
+        if chat_insights:
+            insight_count = len(chat_insights)
+            if insight_count >= 3:
+                chat_score = 3
+            elif insight_count >= 1:
+                chat_score = 2
+
+            # 洞察中含有关键词时额外加分（上限 +5%）
+            keyword_bonus = 0
+            keywords = ["上线", "完成", "交付"]
+            combined_insights = "；".join(chat_insights)
+            if any(kw in combined_insights for kw in keywords):
+                keyword_bonus = 2
+            chat_score = min(chat_score + keyword_bonus, 5)
+
+        # ----------------------------------------------------------------
+        # 三源合计（clamp 到 [0, 20]）
+        # ----------------------------------------------------------------
+        raw_total = min(max(meegle_score + xp_score + chat_score, 0), 20)
+
+        # ----------------------------------------------------------------
+        # 最终 LLM 一致性校验
+        # ----------------------------------------------------------------
+        final_score = raw_total
+        if summary and summary.strip():
+            consistency_prompt = f"""你是一个项目进度评估助手。
+
+模块「{module_name}」本周综合摘要如下：
+{summary}
+
+基于三源数据（Meegle Story 完成数、飞书周报质量、群聊洞察）的初步评分为：{raw_total}%（满分 20%）。
+
+请判断：这个分数与摘要描述是否一致？
+- 如果摘要说"本周无进展"或类似表述，但分数较高，请调低分数到 0-2
+- 如果摘要描述了明确的上线/交付成果，但分数偏低，可适当调高
+- 如果基本一致，保持原分数
+
+请只输出一个 0-20 之间的整数作为最终分数，不要有其他说明。"""
+            try:
+                consistency_resp = client.chat.completions.create(
+                    model=LLM_MODEL,
+                    messages=[{"role": "user", "content": consistency_prompt}],
+                    temperature=0.0,
+                )
+                raw_final = consistency_resp.choices[0].message.content.strip()
+                match = re.search(r'\b([0-9]|1[0-9]|20)\b', raw_final)
+                if match:
+                    final_score = int(match.group())
+                    final_score = min(max(final_score, 0), 20)
+            except Exception as e:
+                logger.warning("模块 %s LLM 一致性校验失败: %s，使用三源合计分数 %d", module_id, e, raw_total)
+                final_score = raw_total
+
+        logger.info(
+            "  📊 %s: meegle=%d%% xp=%d%% chat=%d%% raw=%d%% final=%d%%",
+            module_name, meegle_score, xp_score, chat_score, raw_total, final_score
+        )
+        return final_score
+
+    except Exception as e:
+        logger.error("模块 %s calculate_weekly_progress 异常: %s", module_id, e)
+        return 0
+
+
+# ---------------------------------------------------------------------------
 # Step 6: 注入 dashboard_data.json
 # ---------------------------------------------------------------------------
 
@@ -387,8 +563,18 @@ def inject_to_dashboard(
             if w.get("week") != week_str
         ]
         module["weekly_updates"].insert(0, new_entry)
+
+        # 同步更新 weekly_progress_percentage 字段（覆盖旧値）
+        if "weekly_progress_percentage" in update_data:
+            module["weekly_progress_percentage"] = update_data["weekly_progress_percentage"]
+            logger.info(
+                "  📊 %s: weekly_progress_percentage=%d%%",
+                module.get("name", mid),
+                update_data["weekly_progress_percentage"]
+            )
+
         updated_count += 1
-        logger.info("  ✅ %s: 周报已更新", module.get("name", mid))
+        logger.info("  \u2705 %s: 周报已更新", module.get("name", mid))
 
     # 更新 weekly_periods
     existing_periods = {p["week"]: p for p in data.get("weekly_periods", [])}
@@ -501,8 +687,13 @@ def run(week_str: str, dry_run: bool = False, skip_notify: bool = False):
             mid, module_name, xp_report, meegle_progress, insights, client
         )
         if summary:
+            # Step 5.5: 计算本周进度增量百分比
+            progress_pct = calculate_weekly_progress(
+                mid, module_name, xp_report, meegle_progress, insights, summary, client
+            )
             module_updates[mid] = {
                 "update": summary,
+                "weekly_progress_percentage": progress_pct,
                 "sources": {
                     "xp_weekly_report": xp_report,
                     "bitable_summary": None,  # 待 bitable 接口扩展后填充
@@ -510,7 +701,7 @@ def run(week_str: str, dry_run: bool = False, skip_notify: bool = False):
                     "chat_insights": insights
                 }
             }
-            logger.info("  ✅ %s: 摘要生成完成", module_name)
+            logger.info("  \u2705 %s: 摘要生成完成，进度增量=%d%%", module_name, progress_pct)
 
     logger.info("共生成 %d 个模块的综合摘要", len(module_updates))
 

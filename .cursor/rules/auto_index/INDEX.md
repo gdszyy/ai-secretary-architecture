@@ -3,15 +3,19 @@
 > 自动生成于 2026-04-21 | 由 code-indexer 脚本维护
 > **本文件由脚本自动生成，严禁手动编辑。**
 
-## 已索引文件 (5 个)
+## 已索引文件 (9 个)
 
 | 文件 | 总行数 | 函数数 | 巨型函数 | @section 标记 | 索引文件 |
 |------|--------|--------|----------|--------------|---------|
+| `scripts/run_weekly_report.py` | 761 | 10 | **1** | 0 | [scripts_run_weekly_report_py_index.md](scripts_run_weekly_report_py_index.md) |
 | `scripts/thread_separator.py` | 726 | 9 | **1** | 0 | [scripts_thread_separator_py_index.md](scripts_thread_separator_py_index.md) |
 | `tasks/tsk-c62cf5d9-d66/deliverables/thread_separator.py` | 713 | 9 | **1** | 0 | [tasks_tsk-c62cf5d9-d66_deliverables_thread_separator_py_index.md](tasks_tsk-c62cf5d9-d66_deliverables_thread_separator_py_index.md) |
 | `scripts/daily_progress_updater.py` | 639 | 10 | 0 | 0 | [scripts_daily_progress_updater_py_index.md](scripts_daily_progress_updater_py_index.md) |
 | `main.py` | 625 | 10 | 0 | 0 | [main_py_index.md](main_py_index.md) |
-| `scripts/run_weekly_report.py` | 569 | 10 | 0 | 0 | [scripts_run_weekly_report_py_index.md](scripts_run_weekly_report_py_index.md) |
+| `tasks/tsk-9516aeb4-e34/deliverables/run_weekly_report.py` | 570 | 10 | 0 | 0 | [tasks_tsk-9516aeb4-e34_deliverables_run_weekly_report_py_index.md](tasks_tsk-9516aeb4-e34_deliverables_run_weekly_report_py_index.md) |
+| `tasks/tsk-443b8f4a-218/deliverables/run_weekly_report.py` | 569 | 10 | 0 | 0 | [tasks_tsk-443b8f4a-218_deliverables_run_weekly_report_py_index.md](tasks_tsk-443b8f4a-218_deliverables_run_weekly_report_py_index.md) |
+| `scripts/extract_weekly_insights.py` | 512 | 7 | 0 | 0 | [scripts_extract_weekly_insights_py_index.md](scripts_extract_weekly_insights_py_index.md) |
+| `tasks/tsk-9516aeb4-e34/deliverables/extract_weekly_insights.py` | 512 | 7 | 0 | 0 | [tasks_tsk-9516aeb4-e34_deliverables_extract_weekly_insights_py_index.md](tasks_tsk-9516aeb4-e34_deliverables_extract_weekly_insights_py_index.md) |
 
 ## 未索引文件 (33 个)
 
@@ -28,6 +32,7 @@
 | `scripts/topic_expiry_archiver.py` | 301 | 7 |
 | `scripts/migrate_intent_field.py` | 288 | 5 |
 | `scripts/meegle_client.py` | 280 | 4 |
+| `tasks/tsk-443b8f4a-218/deliverables/meegle_client.py` | 280 | 4 |
 | `run_batch.py` | 246 | 4 |
 | `scripts/correction_writer.py` | 246 | 7 |
 | `scripts/parse_to_dashboard_json.py` | 226 | 4 |
@@ -36,7 +41,6 @@
 | `scripts/fetch_4weeks_messages.py` | 189 | 4 |
 | `scripts/media_pipeline.py` | 184 | 1 |
 | `scripts/sync_bitable_docs.py` | 180 | 6 |
-| `scripts/extract_weekly_insights.py` | 153 | 2 |
 | `scripts/cold_start_step4_write_bitable.py` | 150 | 5 |
 | `scripts/manual_correction.py` | 149 | 1 |
 | `scripts/migrate_weekly_updates.py` | 140 | 4 |
