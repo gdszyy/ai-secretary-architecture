@@ -183,6 +183,16 @@ def _normalize_messages(raw_messages: List[Dict]) -> List[Dict]:
                         texts.append(node.get("text", ""))
                     elif node.get("tag") == "at":
                         texts.append(f"@{node.get('user_name', '')}")
+                    elif node.get("tag") == "a":
+                        # 超链接节点：保留链接文本和 URL，确保 Lark 云文档链接不被丢弃
+                        link_text = node.get("text", "")
+                        link_href = node.get("href", "")
+                        if link_text and link_href:
+                            texts.append(f"{link_text}({link_href})")
+                        elif link_href:
+                            texts.append(link_href)
+                        elif link_text:
+                            texts.append(link_text)
             text = " ".join(texts).strip()
         else:
             text = ""
