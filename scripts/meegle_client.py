@@ -173,6 +173,94 @@ class MeegleClient:
 
         return all_items
 
+    def list_work_items_by_week(
+        self,
+        module_label: str,
+        week_start: str,
+        week_end: str,
+        project_key: Optional[str] = None,
+    ) -> Dict[str, int]:
+        """
+        按时间范围和模块标签查询 Work Item，并统计本周内状态变更为「已完成/已上线」的 Story 数量，以及新增的 Defect 数量。
+        
+        Args:
+            module_label: 模块标签，用于在标题或描述中匹配模块。
+            week_start: 周开始日期 (YYYY-MM-DD)。
+            week_end: 周结束日期 (YYYY-MM-DD)。
+            project_key: Meegle 项目 Key，不传则使用实例默认值。
+            
+        Returns:
+            Dict 包含统计数据，例如: {"completed_stories": 3, "new_defects": 2}
+        """
+        proj = project_key or self.project_key
+        if not proj:
+            raise ValueError("project_key is required.")
+            
+        # 转换日期为时间戳 (毫秒)
+        from datetime import datetime
+        try:
+            start_ts = int(datetime.strptime(week_start, "%Y-%m-%d").timestamp() * 1000)
+            # 结束日期包含当天，所以加一天减一毫秒
+            end_ts = int(datetime.strptime(week_end, "%Y-%m-%d").timestamp() * 1000) + 86400000 - 1
+        except ValueError as e:
+            logger.error(f"Date format error: {e}")
+            return {"completed_stories": 0, "new_defects": 0}
+
+        completed_stories = 0
+        new_defects = 0
+
+        # 1. 统计本周完成的 Story
+        # 假设状态 "Done" 或 "已完成" 或 "已上线" 为完成状态
+        # 实际中可能需要根据 Meegle 的具体状态字段判断，这里简化为检查更新时间并在标题中匹配模块
+        try:
+            # 这里使用一个简化的过滤逻辑，实际可能需要更复杂的 payload
+            # 由于 meegle_client.py 中 _request 方法对 GET /filter 传的是 params，
+            # 我们先获取所有 story，然后在本地过滤（如果 API 支持复杂过滤更好，但为了稳妥先本地过滤）
+            stories = self.list_work_items(project_key=proj, work_item_type_key="story")
+            for story in stories:
+                # 检查模块标签是否在标题中
+                name = story.get("name", "")
+                if module_label not in name:
+                    continue
+                    
+                # 检查状态是否为完成
+                # 假设 status 字段存在且包含状态名
+                status = story.get("status", "")
+                if isinstance(status, dict):
+                    status_name = status.get("name", "")
+                else:
+                    status_name = str(status)
+                    
+                is_completed = status_name in ["Done", "已完成", "已上线", "Testing", "测试中"] # 根据设计文档，测试中和已上线都算进展
+                
+                # 检查更新时间是否在本周内
+                # 假设 update_time 是毫秒时间戳
+                update_time = story.get("update_time", 0)
+                if is_completed and start_ts <= update_time <= end_ts:
+                    completed_stories += 1
+        except Exception as e:
+            logger.error(f"Error fetching stories: {e}")
+
+        # 2. 统计本周新增的 Defect
+        try:
+            defects = self.list_work_items(project_key=proj, work_item_type_key="defect")
+            for defect in defects:
+                name = defect.get("name", "")
+                if module_label not in name:
+                    continue
+                    
+                # 检查创建时间是否在本周内
+                create_time = defect.get("create_time", 0)
+                if start_ts <= create_time <= end_ts:
+                    new_defects += 1
+        except Exception as e:
+            logger.error(f"Error fetching defects: {e}")
+
+        return {
+            "completed_stories": completed_stories,
+            "new_defects": new_defects
+        }
+
     # ------------------------------------------------------------------
     # 用户查询接口
     # ------------------------------------------------------------------

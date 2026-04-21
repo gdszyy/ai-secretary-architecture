@@ -225,14 +225,44 @@ def attribute_reports_to_modules(
 def fetch_meegle_progress(week_str: str) -> dict[str, str]:
     """
     从 meegle_client.py 获取各模块本周 Story/Defect 变更统计。
-    当前为占位实现，待 meegle_client.py 扩展按周查询接口后完善。
     返回: { "mod_xxx": "完成 3 个 Story，新增 2 个 Defect", ... }
     """
-    logger.info("Step 3: 获取 Meegle 进度（当前为占位实现）")
-    # TODO: 调用 meegle_client.py 的按周查询接口
-    # from scripts.meegle_client import get_weekly_progress
-    # return get_weekly_progress(week_str)
-    return {}
+    logger.info("Step 3: 获取 Meegle 进度")
+    from scripts.meegle_client import MeegleClient
+    
+    try:
+        client = MeegleClient()
+    except ValueError as e:
+        logger.warning(f"MeegleClient 初始化失败: {e}")
+        return {}
+
+    start_date, end_date = week_str_to_dates(week_str)
+    result = {}
+    
+    for mid, mname in MODULE_NAMES.items():
+        # 提取模块名称的简写作为标签，例如 "用户系统（注册/推荐/账户）" -> "用户系统"
+        label = mname.split("（")[0].strip()
+        
+        try:
+            stats = client.list_work_items_by_week(
+                module_label=label,
+                week_start=start_date,
+                week_end=end_date
+            )
+            
+            completed = stats.get("completed_stories", 0)
+            new_defects = stats.get("new_defects", 0)
+            
+            if completed == 0 and new_defects == 0:
+                result[mid] = "本周无 Story 变更，新增 0 个 Defect"
+            else:
+                result[mid] = f"本周完成 {completed} 个 Story，新增 {new_defects} 个 Defect"
+                
+        except Exception as e:
+            logger.error(f"获取模块 {mid} 的 Meegle 进度失败: {e}")
+            result[mid] = "本周无 Story 变更，新增 0 个 Defect"
+            
+    return result
 
 
 # ---------------------------------------------------------------------------

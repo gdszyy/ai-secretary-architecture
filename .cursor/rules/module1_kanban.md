@@ -11,6 +11,10 @@ globs: ["module1_kanban/**/*"]
 
 ## 2. 核心数据模型
 
+### Meegle API 扩展能力
+
+- `list_work_items_by_week(module_label, week_start, week_end)`: 按时间范围和模块标签查询 Work Item，并统计本周内状态变更为「已完成/已上线」的 Story 数量，以及新增的 Defect 数量。用于周报自动生成。
+
 ### Lark 多维表格字段（功能表）
 
 | 字段 | 类型 | 说明 |
