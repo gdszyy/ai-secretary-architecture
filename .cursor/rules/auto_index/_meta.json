@@ -1,12 +1,12 @@
 {
   "indexed": [
     {
-      "file": "scripts/extract_weekly_insights.py",
-      "lines": 522,
-      "funcs": 7,
+      "file": "scripts/meegle_client.py",
+      "lines": 313,
+      "funcs": 12,
       "sections": 0,
       "mega_funcs": 0,
-      "index_path": ".cursor/rules/auto_index/scripts_extract_weekly_insights_py_index.md"
+      "index_path": ".cursor/rules/auto_index/scripts_meegle_client_py_index.md"
     }
   ],
   "skipped": [],

@@ -157,46 +157,98 @@ def fetch_xp_weekly_report(week_str: str) -> dict:
 
 def attribute_reports_to_modules(
     records: dict,
-    client: OpenAI
-) -> dict[str, str]:
+    client: OpenAI,
+    meegle_data: Optional[dict] = None,
+) -> dict:
     """
-    使用 LLM 将成员周报的自由文本内容归因到具体的 Module ID。
-    返回: { "mod_xxx": "归因后的综合描述", ... }
+    使用 LLM 将飞书周报 + Meegle 工作项联合归因到具体的 Module ID。
+
+    返回:
+    {
+        "mod_xxx": {
+            "xp_report": "归因后的飞书周报描述",
+            "story_ids": ["story_id_1", ...],   # 该模块对应的 Meegle Story ID 列表
+            "defect_ids": ["defect_id_1", ...], # 该模块对应的 Meegle Defect ID 列表
+        },
+        ...
+    }
     """
-    if not records:
-        logger.info("Step 2: 无飞书周报数据，跳过归因")
+    if not records and not meegle_data:
+        logger.info("Step 2: 无飞书周报和 Meegle 数据，跳过归因")
         return {}
 
-    logger.info("Step 2: LLM 归因飞书周报到模块...")
+    logger.info("Step 2: LLM 联合归因飞书周报 + Meegle 工作项到模块...")
 
-    # 构建输入文本
+    # 构建飞书周报文本
     report_text = ""
-    for name, info in records.items():
+    for name, info in (records or {}).items():
         content = info.get("content", "")
         if content:
             report_text += f"\n【{name}】\n{content}\n"
 
+    # 构建 Meegle 工作项文本
+    meegle_text = ""
+    all_stories = (meegle_data or {}).get("completed_stories", [])
+    all_new_defects = (meegle_data or {}).get("new_defects", [])
+    all_resolved_defects = (meegle_data or {}).get("resolved_defects", [])
+
+    if all_stories:
+        meegle_text += "\n本周完成的 Story：\n"
+        for s in all_stories:
+            meegle_text += f"  - [{s['id']}] {s['name']}\n"
+    if all_new_defects:
+        meegle_text += "\n本周新增的 Defect：\n"
+        for d in all_new_defects:
+            meegle_text += f"  - [{d['id']}] {d['name']}\n"
+    if all_resolved_defects:
+        meegle_text += "\n本周解决的 Defect：\n"
+        for d in all_resolved_defects:
+            meegle_text += f"  - [{d['id']}] {d['name']}\n"
+
     module_list = "\n".join([f"- {mid}: {name}" for mid, name in MODULE_NAMES.items()])
 
-    prompt = f"""你是一个项目管理助手。以下是 XP 团队本周各成员的周报内容：
+    has_report = bool(report_text.strip())
+    has_meegle = bool(meegle_text.strip())
 
-{report_text}
+    if not has_report and not has_meegle:
+        logger.info("飞书周报和 Meegle 均无内容，跳过归因")
+        return {}
 
-请将上述内容按照以下模块进行归因分类，提取与每个模块相关的工作内容：
+    prompt_parts = ["你是一个项目管理助手。"]
+    if has_report:
+        prompt_parts.append(f"以下是 XP 团队本周各成员的飞书周报内容：\n{report_text}")
+    if has_meegle:
+        prompt_parts.append(f"以下是本周 Meegle 工作项（每项格式为 [ID] 名称）：\n{meegle_text}")
+
+    prompt_parts.append(f"""
+请将以上所有内容按照以下模块进行归因：
 
 {module_list}
 
 要求：
-1. 只输出有实质内容的模块，没有相关内容的模块不要输出
-2. 每个模块的内容要简洁精炼，保留关键进展和数字
-3. 输出格式为 JSON，key 为模块 ID，value 为该模块的综合描述字符串
-4. 只输出 JSON，不要有其他说明文字
+1. 只输出有实质内容的模块
+2. 每个模块输出一个对象，包含：
+   - xp_report: 飞书周报归因内容（字符串，无内容则为 null）
+   - story_ids: 归因到该模块的 Meegle Story ID 列表（没有则为 []）
+   - defect_ids: 归因到该模块的 Meegle Defect ID 列表（没有则为 []）
+3. 只输出 JSON，不要有其他说明文字
 
 示例输出格式：
 {{
-  "mod_data_ingestion": "Kafka Topic 配置完成，多语言问题跟进中...",
-  "mod_uiux_design": "活动页面 UI 优化完成，移动端规范确定..."
+  "mod_sports_betting_core": {{
+    "xp_report": "Cashout 功能本周完成...",
+    "story_ids": ["1234", "1235"],
+    "defect_ids": ["5678"]
+  }},
+  "mod_uiux_design": {{
+    "xp_report": null,
+    "story_ids": ["1236"],
+    "defect_ids": []
+  }}
 }}"""
+    )
+
+    prompt = "\n\n".join(prompt_parts)
 
     try:
         response = client.chat.completions.create(
@@ -219,52 +271,97 @@ def attribute_reports_to_modules(
 
 
 # ---------------------------------------------------------------------------
-# Step 3: 获取 Meegle 进度（占位，待 meegle_client.py 支持按周查询）
+# Step 3: 获取 Meegle 全量本周工作项（不按模块过滤，由 LLM 归因）
 # ---------------------------------------------------------------------------
 
-def fetch_meegle_progress(week_str: str) -> dict[str, str]:
+def fetch_meegle_progress(week_str: str) -> dict:
     """
-    从 meegle_client.py 获取各模块本周 Story/Defect 变更统计。
-    返回: { "mod_xxx": "完成 3 个 Story，新增 2 个 Defect", ... }
+    拉取本周全量 Story（已完成）和 Defect（新增/已解决），返回结构化字典。
+
+    由于 Meegle 中 Story 未关联模块字段，模块归因由后续 LLM 步骤完成。
+
+    返回:
+    {
+        "completed_stories": [ {"id": ..., "name": ..., "finish_time": ...}, ... ],
+        "new_defects":       [ {"id": ..., "name": ..., "created_at": ...}, ... ],
+        "resolved_defects":  [ {"id": ..., "name": ..., "finish_time": ...}, ... ],
+    }
     """
-    logger.info("Step 3: 获取 Meegle 进度")
+    logger.info("Step 3: 获取 Meegle 全量本周工作项")
     scripts_dir = str(REPO_ROOT / "scripts")
     if scripts_dir not in sys.path:
         sys.path.insert(0, scripts_dir)
-    from meegle_client import MeegleClient
-    
+    from meegle_client import MeegleAPIClient
+
     try:
-        client = MeegleClient()
-    except ValueError as e:
-        logger.warning(f"MeegleClient 初始化失败: {e}")
-        return {}
+        meegle_client = MeegleAPIClient(
+            domain=os.environ.get("MEEGLE_DOMAIN", "meegle.com"),
+            plugin_id=os.environ.get("MEEGLE_PLUGIN_ID", ""),
+            plugin_secret=os.environ.get("MEEGLE_PLUGIN_SECRET", ""),
+            user_key=os.environ.get("MEEGLE_USER_KEY", ""),
+            token_type=int(os.environ.get("MEEGLE_TOKEN_TYPE", "1")),
+        )
+    except Exception as e:
+        logger.warning("MeegleAPIClient 初始化失败: %s", e)
+        return {"completed_stories": [], "new_defects": [], "resolved_defects": []}
 
     start_date, end_date = week_str_to_dates(week_str)
-    result = {}
-    
-    for mid, mname in MODULE_NAMES.items():
-        # 提取模块名称的简写作为标签，例如 "用户系统（注册/推荐/账户）" -> "用户系统"
-        label = mname.split("（")[0].strip()
-        
-        try:
-            stats = client.list_work_items_by_week(
-                module_label=label,
-                week_start=start_date,
-                week_end=end_date
-            )
-            
-            completed = stats.get("completed_stories", 0)
-            new_defects = stats.get("new_defects", 0)
-            
-            if completed == 0 and new_defects == 0:
-                result[mid] = "本周无 Story 变更，新增 0 个 Defect"
-            else:
-                result[mid] = f"本周完成 {completed} 个 Story，新增 {new_defects} 个 Defect"
-                
-        except Exception as e:
-            logger.error(f"获取模块 {mid} 的 Meegle 进度失败: {e}")
-            result[mid] = "本周无 Story 变更，新增 0 个 Defect"
-            
+    # 转换为毫秒时间戳
+    import datetime as _dt
+    start_ms = int(_dt.datetime.strptime(start_date, "%Y-%m-%d").timestamp() * 1000)
+    end_ms   = int((_dt.datetime.strptime(end_date, "%Y-%m-%d") + _dt.timedelta(days=1)).timestamp() * 1000)
+
+    project_key = os.environ.get("MEEGLE_PROJECT_KEY", "")
+
+    def _to_item(wi):
+        return {
+            "id":   wi.get("work_item_id") or wi.get("id"),
+            "name": wi.get("name", ""),
+            "finish_time": wi.get("finish_time"),
+            "created_at":  wi.get("created_at"),
+        }
+
+    result = {"completed_stories": [], "new_defects": [], "resolved_defects": []}
+
+    try:
+        # 拉取全量 Story（需求）
+        stories = meegle_client.fetch_all_work_items(
+            project_key=project_key, work_item_type_key="story"
+        )
+        for s in stories:
+            ft = s.get("finish_time") or 0
+            ct = s.get("created_at") or 0
+            status_cat = (s.get("work_item_status") or {}).get("state_category", "")
+            # 本周完成的 Story
+            if status_cat in ("DONE", "done", "completed") or s.get("finish_status"):
+                if start_ms <= ft < end_ms:
+                    result["completed_stories"].append(_to_item(s))
+
+        # 拉取全量 Defect（缺陷）
+        defects = meegle_client.fetch_all_work_items(
+            project_key=project_key, work_item_type_key="issue"
+        )
+        for d in defects:
+            ft = d.get("finish_time") or 0
+            ct = d.get("created_at") or 0
+            status_cat = (d.get("work_item_status") or {}).get("state_category", "")
+            # 本周新增的 Defect
+            if start_ms <= ct < end_ms:
+                result["new_defects"].append(_to_item(d))
+            # 本周解决的 Defect
+            if status_cat in ("DONE", "done", "completed") or d.get("finish_status"):
+                if start_ms <= ft < end_ms:
+                    result["resolved_defects"].append(_to_item(d))
+
+        logger.info(
+            "Meegle 本周数据: 完成 Story×%d, 新增 Defect×%d, 解决 Defect×%d",
+            len(result["completed_stories"]),
+            len(result["new_defects"]),
+            len(result["resolved_defects"]),
+        )
+    except Exception as e:
+        logger.error("Meegle 全量拉取失败: %s", e)
+
     return result
 
 
@@ -668,43 +765,54 @@ def run(week_str: str, dry_run: bool = False, skip_notify: bool = False):
     # Step 1: 飞书周报
     xp_records = fetch_xp_weekly_report(week_str)
 
-    # Step 2: LLM 归因
-    attributed = attribute_reports_to_modules(xp_records, client)
-
-    # Step 3: Meegle 进度
+    # Step 2: Meegle 全量本周工作项（先拉，一起传入 LLM 归因）
     meegle_data = fetch_meegle_progress(week_str)
+
+    # Step 3: LLM 联合归因（飞书周报 + Meegle 工作项）
+    attributed = attribute_reports_to_modules(xp_records, client, meegle_data=meegle_data)
 
     # Step 4: 群聊洞察
     chat_data = fetch_chat_insights(week_str)
 
+    # 构建 Meegle 工作项索引（id -> item），用于后续计数
+    _story_index  = {str(s["id"]): s for s in meegle_data.get("completed_stories", [])}
+    _new_def_index = {str(d["id"]): d for d in meegle_data.get("new_defects", [])}
+    _res_def_index = {str(d["id"]): d for d in meegle_data.get("resolved_defects", [])}
+
     # Step 5: 为每个模块生成综合摘要
     logger.info("Step 5: 生成各模块综合摘要...")
     module_updates = {}
-    all_module_ids = set(attributed) | set(meegle_data) | set(chat_data)
+    all_module_ids = set(attributed) | set(chat_data)
 
     for mid in all_module_ids:
         module_name = MODULE_NAMES.get(mid, mid)
-        xp_report = attributed.get(mid)
-        meegle_progress = meegle_data.get(mid)
-        insights = chat_data.get(mid, [])
+        attr = attributed.get(mid, {})
+        xp_report = attr.get("xp_report") if isinstance(attr, dict) else attr
+        story_ids  = attr.get("story_ids", []) if isinstance(attr, dict) else []
+        defect_ids = attr.get("defect_ids", []) if isinstance(attr, dict) else []
+        insights   = chat_data.get(mid, [])
+
+        # 基于 LLM 归因结果计算 activity（客观事实，不依赖文本解析）
+        completed_stories = len([sid for sid in story_ids if str(sid) in _story_index])
+        new_defects       = len([did for did in defect_ids if str(did) in _new_def_index])
+        resolved_defects  = len([did for did in defect_ids if str(did) in _res_def_index])
+        chat_insight_count = len(insights)
+
+        # 为生成摘要构建 Meegle 进度文本（供 LLM 参考）
+        meegle_summary_parts = []
+        if completed_stories:
+            names = "; ".join(_story_index[str(sid)]["name"] for sid in story_ids if str(sid) in _story_index)
+            meegle_summary_parts.append(f"本周完成 {completed_stories} 个 Story：{names}")
+        if new_defects:
+            meegle_summary_parts.append(f"新增 {new_defects} 个 Defect")
+        if resolved_defects:
+            meegle_summary_parts.append(f"解决 {resolved_defects} 个 Defect")
+        meegle_progress_text = "；".join(meegle_summary_parts) if meegle_summary_parts else None
 
         summary = generate_comprehensive_summary(
-            mid, module_name, xp_report, meegle_progress, insights, client
+            mid, module_name, xp_report, meegle_progress_text, insights, client
         )
         if summary:
-            # Step 5.5: 采集本周交付活跃度数据（客观事实，不依赖估算）
-            completed_stories = 0
-            new_defects = 0
-            resolved_defects = 0
-            if meegle_progress:
-                import re as _re
-                m_story = _re.search(r'完成\s*(\d+)\s*个\s*Story', meegle_progress)
-                m_new_def = _re.search(r'新增\s*(\d+)\s*个\s*Defect', meegle_progress)
-                m_res_def = _re.search(r'解决\s*(\d+)\s*个\s*Defect', meegle_progress)
-                if m_story: completed_stories = int(m_story.group(1))
-                if m_new_def: new_defects = int(m_new_def.group(1))
-                if m_res_def: resolved_defects = int(m_res_def.group(1))
-            chat_insight_count = len(insights) if insights else 0
             activity = {
                 "completed_stories": completed_stories,
                 "new_defects": new_defects,
@@ -717,8 +825,8 @@ def run(week_str: str, dry_run: bool = False, skip_notify: bool = False):
                 "activity": activity,
                 "sources": {
                     "xp_weekly_report": xp_report,
-                    "bitable_summary": None,  # 待 bitable 接口扩展后填充
-                    "meegle_progress": meegle_progress,
+                    "bitable_summary": None,
+                    "meegle_progress": meegle_progress_text,
                     "chat_insights": insights
                 }
             }
