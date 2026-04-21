@@ -554,8 +554,10 @@ def inject_to_dashboard(
             "start_date": start_date,
             "end_date": end_date,
             "update": update_data.get("update", ""),
-            "sources": update_data.get("sources", {})
+            "sources": update_data.get("sources", {}),
         }
+        if "activity" in update_data:
+            new_entry["activity"] = update_data["activity"]
 
         # 移除同周旧数据，插入新数据到最前
         module["weekly_updates"] = [
@@ -687,13 +689,29 @@ def run(week_str: str, dry_run: bool = False, skip_notify: bool = False):
             mid, module_name, xp_report, meegle_progress, insights, client
         )
         if summary:
-            # Step 5.5: 计算本周进度增量百分比
-            progress_pct = calculate_weekly_progress(
-                mid, module_name, xp_report, meegle_progress, insights, summary, client
-            )
+            # Step 5.5: 采集本周交付活跃度数据（客观事实，不依赖估算）
+            completed_stories = 0
+            new_defects = 0
+            resolved_defects = 0
+            if meegle_progress:
+                import re as _re
+                m_story = _re.search(r'完成\s*(\d+)\s*个\s*Story', meegle_progress)
+                m_new_def = _re.search(r'新增\s*(\d+)\s*个\s*Defect', meegle_progress)
+                m_res_def = _re.search(r'解决\s*(\d+)\s*个\s*Defect', meegle_progress)
+                if m_story: completed_stories = int(m_story.group(1))
+                if m_new_def: new_defects = int(m_new_def.group(1))
+                if m_res_def: resolved_defects = int(m_res_def.group(1))
+            chat_insight_count = len(insights) if insights else 0
+            activity = {
+                "completed_stories": completed_stories,
+                "new_defects": new_defects,
+                "resolved_defects": resolved_defects,
+                "chat_insight_count": chat_insight_count,
+            }
+
             module_updates[mid] = {
                 "update": summary,
-                "weekly_progress_percentage": progress_pct,
+                "activity": activity,
                 "sources": {
                     "xp_weekly_report": xp_report,
                     "bitable_summary": None,  # 待 bitable 接口扩展后填充
@@ -701,7 +719,10 @@ def run(week_str: str, dry_run: bool = False, skip_notify: bool = False):
                     "chat_insights": insights
                 }
             }
-            logger.info("  \u2705 %s: 摘要生成完成，进度增量=%d%%", module_name, progress_pct)
+            logger.info(
+                "  \u2705 %s: 摘要生成完成，activity=story:%d def+%d/-%d insight:%d",
+                module_name, completed_stories, new_defects, resolved_defects, chat_insight_count
+            )
 
     logger.info("共生成 %d 个模块的综合摘要", len(module_updates))
 

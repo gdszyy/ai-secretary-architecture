@@ -650,6 +650,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 3,
+            "new_defects": 1,
+            "resolved_defects": 0,
+            "chat_insight_count": 5
           }
         }
       ],
@@ -760,6 +766,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 2,
+            "new_defects": 0,
+            "resolved_defects": 1,
+            "chat_insight_count": 3
           }
         },
         {
@@ -772,6 +784,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
           }
         }
       ],
@@ -893,6 +911,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 2,
+            "new_defects": 2,
+            "resolved_defects": 1,
+            "chat_insight_count": 4
           }
         },
         {
@@ -905,6 +929,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
           }
         }
       ],
@@ -1033,6 +1063,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 4,
+            "new_defects": 1,
+            "resolved_defects": 2,
+            "chat_insight_count": 6
           }
         },
         {
@@ -1045,6 +1081,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
           }
         }
       ],
@@ -1256,6 +1298,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 1,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 2
           }
         },
         {
@@ -1268,6 +1316,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
           }
         }
       ],
@@ -1422,6 +1476,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 2,
+            "new_defects": 1,
+            "resolved_defects": 1,
+            "chat_insight_count": 3
           }
         },
         {
@@ -1434,6 +1494,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
           }
         }
       ],
@@ -1627,6 +1693,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 3,
+            "new_defects": 0,
+            "resolved_defects": 2,
+            "chat_insight_count": 4
           }
         },
         {
@@ -1639,6 +1711,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
           }
         },
         {
@@ -1651,6 +1729,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
           }
         }
       ],
@@ -1853,6 +1937,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 1,
+            "new_defects": 1,
+            "resolved_defects": 0,
+            "chat_insight_count": 2
           }
         },
         {
@@ -1865,6 +1955,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
           }
         }
       ],
@@ -2035,6 +2131,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 2,
+            "new_defects": 0,
+            "resolved_defects": 1,
+            "chat_insight_count": 3
           }
         },
         {
@@ -2047,6 +2149,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
           }
         }
       ],
@@ -2205,6 +2313,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 2,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 2
           }
         },
         {
@@ -2217,6 +2331,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
           }
         }
       ],
@@ -2358,6 +2478,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 1,
+            "new_defects": 1,
+            "resolved_defects": 1,
+            "chat_insight_count": 1
           }
         }
       ],
@@ -2496,6 +2622,12 @@
             "bitable_summary": null,
             "meegle_progress": null,
             "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 1,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 2
           }
         }
       ],
