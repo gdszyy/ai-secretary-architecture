@@ -271,24 +271,25 @@ def fetch_meegle_progress(week_str: str) -> dict[str, str]:
 
 def fetch_chat_insights(week_str: str) -> dict[str, list[str]]:
     """
-    从 extract_weekly_insights.py 获取本周群聊中对模块进度有推进作用的关键话题。
+    实时拉取指定周的群聊消息，提取对模块进度有推进作用的关键话题。
+
+    直接调用 extract_weekly_insights.get_weekly_insights_for_modules(week_str)，
+    不再通过 subprocess 调用脚本，避免接口断层。
+
     返回: { "mod_xxx": ["话题1", "话题2"], ... }
     """
-    logger.info("Step 4: 获取群聊洞察")
-    insights_script = REPO_ROOT / "scripts" / "extract_weekly_insights.py"
-    if not insights_script.exists():
-        logger.warning("extract_weekly_insights.py 不存在，跳过")
-        return {}
+    logger.info("Step 4: 获取群聊洞察（直接函数调用）")
+
+    # 将 scripts 目录加入 sys.path，确保可以直接导入
+    scripts_dir = str(REPO_ROOT / "scripts")
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
 
     try:
-        result = subprocess.run(
-            [sys.executable, str(insights_script), "--week", week_str, "--output-json"],
-            capture_output=True, text=True, timeout=120
-        )
-        if result.returncode == 0 and result.stdout.strip():
-            data = json.loads(result.stdout)
-            logger.info("群聊洞察提取完成，涉及 %d 个模块", len(data))
-            return data
+        from extract_weekly_insights import get_weekly_insights_for_modules
+        data = get_weekly_insights_for_modules(week_str)
+        logger.info("群聊洞察提取完成，涉及 %d 个模块", len(data))
+        return data
     except Exception as e:
         logger.warning("群聊洞察提取失败: %s", e)
     return {}
