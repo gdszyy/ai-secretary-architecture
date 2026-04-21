@@ -35,14 +35,23 @@ AUTHORIZED_USER_IDS: set = {
 }
 
 # ---------------------------------------------------------------------------
-# LLM 客户端（OpenAI 兼容接口）
+# LLM 客户端（通义千问 / 阶云百炼，与仓库其他模块保持一致）
 # ---------------------------------------------------------------------------
+_QWEN_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+_QWEN_DEFAULT_MODEL = os.environ.get("QWEN_MODEL", "qwen-plus")
+
 _llm_client: Optional[OpenAI] = None
 
 def _get_llm_client() -> OpenAI:
     global _llm_client
     if _llm_client is None:
-        _llm_client = OpenAI()  # 使用环境变量中预配置的 API Key 和 base_url
+        api_key = os.environ.get("DASHSCOPE_API_KEY")
+        if not api_key:
+            raise RuntimeError(
+                "缺少 DASHSCOPE_API_KEY 环境变量。\n"
+                "请前往 https://bailian.console.aliyun.com/ 创建 API Key 并配置。"
+            )
+        _llm_client = OpenAI(api_key=api_key, base_url=_QWEN_BASE_URL)
     return _llm_client
 
 
@@ -123,7 +132,7 @@ def _parse_with_llm(text: str) -> dict:
     try:
         client = _get_llm_client()
         resp = client.chat.completions.create(
-            model=os.environ.get("OPENAI_MODEL", "gpt-4.1-mini"),
+            model=_QWEN_DEFAULT_MODEL,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": text},
