@@ -2565,7 +2565,7 @@
       "start_date": "2026-04-14",
       "end_date": "2026-04-21",
       "label": "W16 (4/14 - 4/21)",
-      "is_current": false
+      "is_current": true
     },
     {
       "week": "2026-15",
