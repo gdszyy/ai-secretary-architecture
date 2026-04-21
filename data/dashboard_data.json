@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-21T08:16:47.566985+00:00",
+  "last_updated": "2026-04-21 16:28:38",
   "project_name": "XP-BET 体育博彩产品及 sports-matcher-go 核心数据匹配服务",
   "module_groups": [
     {
@@ -22,7 +22,7 @@
           ],
           "description": "Lsport/SR 两路数据源完成接入，赛程变更和赔率变更 Kafka Topic 稳定推送，SR→TS 匹配率达 95% 以上，LS→TS 联调完成。",
           "progress": 100,
-          "overdue": false
+          "overdue": true
         },
         {
           "id": "gms_de_02",
@@ -148,7 +148,7 @@
           ],
           "description": "投放后台 xp 技术逻辑完成，广告配置自动化实现，pixel/token 数据正常传递，埋点数据验收通过。",
           "progress": 100,
-          "overdue": false
+          "overdue": true
         },
         {
           "id": "gms_op_03",
@@ -642,7 +642,25 @@
       "weekly_updates": [
         {
           "week": "2026-17",
-          "update": "PWA功能已存在，需分别测试安卓和iOS版本，iOS可能存在安装引导问题。前端版本更新后PWA自动弹出安装功能暂未见，需进一步确认和调整。 | 当前LSport数据接入存在部分问题，如未开赛比赛的1X2盘口可下注但Under/Over盘口不可下注，注单成功后未收到websocket注单结果（accept/reject）。后端接口部署中出现错误，且数据分页较多，仍需后端定时同步数据。预计下周一Trade会议讨论相关问题。下一步将开接口支持通过client_event_id查询id，并继续解决数据同步和接口异常问题。"
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "本周「数据接入（Lsport/SR 数据源）」模块发现后端接口部署存在错误，导致sport_name始终返回Badminton，影响数据准确性。当前数据分页较多，共4398条，后端需定时拉取并同步至数据库，确保通过client_event_id查询接口可用。预计周三完成测试环境数据推送至生产环境，并同步至test环境进行验证。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "Lsport后端接口部署遇到错误，接口返回sport_name始终为Badminton，影响数据准确性。",
+              "数据分页较多（4398条），后端需定时拉取并同步到数据库，确保通过client_event_id查询id的接口可用。",
+              "预计周三将数据从测试环境推送到生产环境，测试环境数据需同步到test环境验证。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 3
+          }
         },
         {
           "week": "2026-16",
@@ -906,6 +924,33 @@
       ],
       "weekly_updates": [
         {
+          "week": "2026-17",
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "Lsport组件widget已接入移动端，UI调整由丹妮负责，计划本周五发布新版，周四后预计2-3天接通生产环境。当前优先快速上线方案，先全量接入后再优化，赛事匹配存在eventID未匹配导致错误，匹配逻辑需优化。滚球页面改版未完成，直播数据接入存在法律风险，风控和产品将召开需求评审会。后台操作培训和验收正在安排，风控团队参与，前端需实时反映盘口和比赛状态，test1环境完整上线时间尚未确定，数据问题仍较多。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "Lsport组件widget已接入移动端，UI调整由丹妮负责，计划本周五发新版，周四后预计2-3天接通生产环境。",
+              "当前优先快速上线方案，先全量接入后再优化，UI和赛事匹配最好自己做，但因时间紧迫先用iframe快速接入。",
+              "后台操作培训和验收正在安排，风控团队将参与培训，前端需能看到对应比赛数据和信息。",
+              "滚球页面改版优化未完成，风控和产品将开需求评审会，计划加入直播数据但存在法律风险。",
+              "Lsport赛事数据只推送变化部分，静态接口数据量大，需对比静态接口确认数据完整性。",
+              "赛事匹配存在eventID未匹配导致的错误，需优化匹配逻辑。",
+              "操盘端配置影响赛事显示，暂停盘口和比赛状态需实时反映在前端。",
+              "预计何时能完整上线test1环境尚未确定，当前数据仍存在较多问题。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 8
+          }
+        },
+        {
           "week": "2026-16",
           "start_date": "2026-04-14",
           "end_date": "2026-04-21",
@@ -1059,7 +1104,23 @@
       "weekly_updates": [
         {
           "week": "2026-17",
-          "update": "针对无KYC用户，Sport投注流程由之前的Toast提示改为强制进入KYC流程，与Casino保持一致。下一步是确认并统一各模块KYC引导流程。 | 完成了最高串关赔付金额上线的配置调整，后端增加了配置选项以支持排除不支持串关的比赛。0-0退赔功能也已完善，相关文档已上传至活动文档目录。下一步将完成Cashout和Superodds功能的前端卡片开发，并准备相关宣传材料。"
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "本周「体育投注核心」模块完成了Cashout功能开发，superodds功能及前端配置预计明天完成。Cashout功能涉及自有风控，下一版本将新增CMS内容配置及比赛联赛推荐。暂无明显阻塞或风险。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "Cashout功能已完成，superodds功能和前端配置争取明天完成，cashout涉及自有风控，下一版本将包含CMS内容配置和比赛联赛推荐。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 1
+          }
         },
         {
           "week": "2026-16",
@@ -1480,7 +1541,23 @@
       "weekly_updates": [
         {
           "week": "2026-17",
-          "update": "Bonus发放涉及财务账变，系统已有账变记录和划转订单表，前台个人中心支持查询Bonus订单及划转状态。确保发放记录完整以便排查异常。下一步是配合活动验收检查账变和订单数据完整性。 | 讨论多国别货币符号显示问题，确认当前单一平台只支持一种货币，暂不支持汇率转换及符号切换，避免金额显示混乱。未来若支持多币种需考虑汇率转换。"
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "本周完成多国别货币符号展示功能，当前暂不联动汇率转换，因平台仅支持单一货币。语言切换已验证不影响钱包币别符号显示。暂无阻塞，功能符合预期。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "多国别货币符号展示暂不联动汇率转换，因单一平台只存在一种货币，切换语言不影响钱包币别符号显示。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 1
+          }
         },
         {
           "week": "2026-16",
@@ -1701,7 +1778,25 @@
       "weekly_updates": [
         {
           "week": "2026-17",
-          "update": "活动管理平台目前只支持墨西哥国别配置，巴西等其他国别配置尚未实装。计划后续通过主站统一多国别配置接口实现国别适配，Felix团队负责排期开发。下一步是完成多国别配置开发以支持不同国家的活动数据隔离。 | 针对多语言翻译工作，特别提醒巴西和墨西哥两地活动数据存在两套，需要在翻译时进行数据置换。相关翻译问题已集中更新，确保遗漏得到修正，下一步是按更新内容完成翻译工作。 | Promotion卡片设计完成，包含大卡、次卡和小卡三种类型，跳转内页功能正在等待完成。部分优化已发到test1环境，正在进行验收和细节调整，计划完成后上线。 | 多国别活动页面语言配置采用单独配置方式，无多语言自动切换。联赛名称过长时隐藏国家和箭头，悬浮显示完整信息。部分细节调整后准备上线，4.17版本剩余问题少量，先上线生产，剩余问题后续处理。"
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "本周活动平台无新功能上线，所有活动方案已准备完毕。VIP体系预计下周二上线，VIP客服招聘工作正在推进中。页面语言已支持按国别单独配置，联赛名称过长时优化展示空间，提升用户体验。暂无明显阻塞或风险。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "运营本周无上线，所有活动方案已准备好，VIP体系预计下周二上线，VIP客服招聘在推进中。",
+              "活动平台页面语言直接配置为对应国别语言，单个国别配置单独活动，无多语言动态切换。",
+              "联赛名称过长时，隐藏国家和箭头，悬浮展示完整国家和箭头，优化展示空间。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 3
+          }
         },
         {
           "week": "2026-16",
@@ -1949,7 +2044,23 @@
       "weekly_updates": [
         {
           "week": "2026-17",
-          "update": "Casino模块的Bonus和FreeSpin功能即将开始调通，上海团队负责开发，后端账变和订单记录已完成，前端功能尚未上线。验收环节需重点关注，确保功能完善。下一步是完成前端开发并进行活动验收。"
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "Casino游戏平台模块本周完成全部板块布置，已成功对接3家游戏厂商。相关优化工作预计于下周三完成，目前暂无阻塞或风险。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "Casino板块布置本周全部完成，已对接3家游戏厂商，优化点预计下周三完成。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 1
+          }
         },
         {
           "week": "2026-16",
@@ -2329,7 +2440,26 @@
       "weekly_updates": [
         {
           "week": "2026-17",
-          "update": "个人中心Bonus功能存在前端Bug，点击按钮未展示数额，Felix负责修复。前端功能尚未完全上线，需尽快完善以配合后端功能和活动验收。 | 确定了客户端H5设计优先做安卓版本，采用暗黑色皮肤设计，VIP及SVIP用户将优先体验新功能和暗黑皮肤。设计标准也限定为VIP用户使用，后续将根据用户反馈持续优化体验。 | 新增了一个字体变量 title-lg，字体粗细调整为900，字号修改为32。相关调整已确认，后续将继续优化字体样式。"
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "本周UI优化持续推进，丹妮负责体育数据展示及页面改版，外部UI设计方案同步中但因成本较高，仍在寻找合适人员。前端优化需求明确，优先展示右侧tournamentName，左侧categoryName截断显示省略号，整体内容不换行，H5端不显示地区以保证最小宽度。移动端点击两次才能出现按下状态的bug已确认为Chrome老版本问题并修复，快捷金额按钮选中样式调整符合预期交互效果。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "UI优化持续进行，丹妮负责体育数据展示和页面改版，外部UI设计方案同步中但成本较高，仍在寻找合适人员。",
+              "前端优化需求确定：优先展示右侧tournamentName，左侧categoryName截断显示省略号，整体内容不换行，H5端不显示地区以保证最小宽度。",
+              "发现移动端点击两次才能出现按下状态的bug，确认是Chrome老版本浏览器问题，已修复。",
+              "快捷金额按钮选中样式调整为不常亮，避免用户手动修改金额后样式异常，符合预期交互效果。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 4
+          }
         },
         {
           "week": "2026-16",
@@ -2725,11 +2855,18 @@
   ],
   "weekly_periods": [
     {
+      "week": "2026-17",
+      "start_date": "2026-04-21",
+      "end_date": "2026-04-28",
+      "label": "W17 (4/21 - 4/28)",
+      "is_current": true
+    },
+    {
       "week": "2026-16",
       "start_date": "2026-04-14",
       "end_date": "2026-04-21",
       "label": "W16 (4/14 - 4/21)",
-      "is_current": true
+      "is_current": false
     },
     {
       "week": "2026-15",
