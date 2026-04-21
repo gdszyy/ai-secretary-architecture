@@ -228,7 +228,10 @@ def fetch_meegle_progress(week_str: str) -> dict[str, str]:
     返回: { "mod_xxx": "完成 3 个 Story，新增 2 个 Defect", ... }
     """
     logger.info("Step 3: 获取 Meegle 进度")
-    from scripts.meegle_client import MeegleClient
+    scripts_dir = str(REPO_ROOT / "scripts")
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
+    from meegle_client import MeegleClient
     
     try:
         client = MeegleClient()
