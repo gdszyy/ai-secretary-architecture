@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-14T00:00:00Z",
+  "last_updated": "2026-04-21T08:16:47.566985+00:00",
   "project_name": "XP-BET 体育博彩产品及 sports-matcher-go 核心数据匹配服务",
   "module_groups": [
     {
@@ -626,7 +626,7 @@
       "status": "in_progress",
       "progress_percentage": 82,
       "owner": "VoidZ",
-      "current_summary": "UOF 数据异常修复，SR/LSport 数据接入取得进展，与匹配引擎同步推进",
+      "current_summary": "当前LSport数据接入存在部分问题，如未开赛比赛的1X2盘口可下注但Under/Over盘口不可下注，注单成功后未收到websocket注单结果（accept/reject）。后端接口部署中出现错误",
       "next_milestone": "与匹配引擎优化同步，无独立待办",
       "history_timeline": [
         {
@@ -640,6 +640,10 @@
       ],
       "risks": [],
       "weekly_updates": [
+        {
+          "week": "2026-17",
+          "update": "PWA功能已存在，需分别测试安卓和iOS版本，iOS可能存在安装引导问题。前端版本更新后PWA自动弹出安装功能暂未见，需进一步确认和调整。 | 当前LSport数据接入存在部分问题，如未开赛比赛的1X2盘口可下注但Under/Over盘口不可下注，注单成功后未收到websocket注单结果（accept/reject）。后端接口部署中出现错误，且数据分页较多，仍需后端定时同步数据。预计下周一Trade会议讨论相关问题。下一步将开接口支持通过client_event_id查询id，并继续解决数据同步和接口异常问题。"
+        },
         {
           "week": "2026-16",
           "start_date": "2026-04-14",
@@ -1022,7 +1026,7 @@
       "status": "in_progress",
       "progress_percentage": 90,
       "owner": "VoidZ",
-      "current_summary": "MTS 基础投注验收，SR 生产账号已申请，Sportbook Testing 持续推进",
+      "current_summary": "完成了最高串关赔付金额上线的配置调整，后端增加了配置选项以支持排除不支持串关的比赛。0-0退赔功能也已完善，相关文档已上传至活动文档目录。下一步将完成Cashout和Superodds功能的前端卡片开",
       "next_milestone": "跟进 Sportbook Testing，准备 cashout 文档",
       "history_timeline": [
         {
@@ -1053,6 +1057,10 @@
         }
       ],
       "weekly_updates": [
+        {
+          "week": "2026-17",
+          "update": "针对无KYC用户，Sport投注流程由之前的Toast提示改为强制进入KYC流程，与Casino保持一致。下一步是确认并统一各模块KYC引导流程。 | 完成了最高串关赔付金额上线的配置调整，后端增加了配置选项以支持排除不支持串关的比赛。0-0退赔功能也已完善，相关文档已上传至活动文档目录。下一步将完成Cashout和Superodds功能的前端卡片开发，并准备相关宣传材料。"
+        },
         {
           "week": "2026-16",
           "start_date": "2026-04-14",
@@ -1258,7 +1266,7 @@
       "status": "in_progress",
       "progress_percentage": 90,
       "owner": "Yark",
-      "current_summary": "KYC 优化/用户标签完成，全民代理功能整理完成，待后续开发",
+      "current_summary": "PC个人中心验收进行中，部分功能如Referral暂不考虑。H5端个人中心点击触发的监控告警问题定位为sentry配置问题，无需处理。部分多语言和符号显示问题讨论中，确认快捷金额按钮不需要常亮效果。",
       "next_milestone": "全民代理功能后续开发",
       "history_timeline": [
         {
@@ -1288,6 +1296,10 @@
       ],
       "risks": [],
       "weekly_updates": [
+        {
+          "week": "2026-17",
+          "update": "PC个人中心验收进行中，部分功能如Referral暂不考虑。H5端个人中心点击触发的监控告警问题定位为sentry配置问题，无需处理。部分多语言和符号显示问题讨论中，确认快捷金额按钮不需要常亮效果。"
+        },
         {
           "week": "2026-16",
           "start_date": "2026-04-14",
@@ -1439,7 +1451,7 @@
       "status": "in_progress",
       "progress_percentage": 88,
       "owner": "Yark",
-      "current_summary": "主钱包划转/充提流程优化/代付优化已完成，财务优化 V1.2（钱包冻结）进行中",
+      "current_summary": "讨论多国别货币符号显示问题，确认当前单一平台只支持一种货币，暂不支持汇率转换及符号切换，避免金额显示混乱。未来若支持多币种需考虑汇率转换。",
       "next_milestone": "验证财务优化 V1.1 提款重送及 Transfer Order 功能",
       "history_timeline": [
         {
@@ -1466,6 +1478,10 @@
         }
       ],
       "weekly_updates": [
+        {
+          "week": "2026-17",
+          "update": "Bonus发放涉及财务账变，系统已有账变记录和划转订单表，前台个人中心支持查询Bonus订单及划转状态。确保发放记录完整以便排查异常。下一步是配合活动验收检查账变和订单数据完整性。 | 讨论多国别货币符号显示问题，确认当前单一平台只支持一种货币，暂不支持汇率转换及符号切换，避免金额显示混乱。未来若支持多币种需考虑汇率转换。"
+        },
         {
           "week": "2026-16",
           "start_date": "2026-04-14",
@@ -1636,7 +1652,7 @@
       "status": "in_progress",
       "progress_percentage": 75,
       "owner": "Mavin",
-      "current_summary": "首充活动已上线验收，VIP/世界杯通行证活动原型+PRD完成，进入研发评审",
+      "current_summary": "多国别活动页面语言配置采用单独配置方式，无多语言自动切换。联赛名称过长时隐藏国家和箭头，悬浮显示完整信息。部分细节调整后准备上线，4.17版本剩余问题少量，先上线生产，剩余问题后续处理。",
       "next_milestone": "推进排行榜及墨西哥冠军盘活动开发，推动活动互斥规则上线",
       "history_timeline": [
         {
@@ -1683,6 +1699,10 @@
         }
       ],
       "weekly_updates": [
+        {
+          "week": "2026-17",
+          "update": "活动管理平台目前只支持墨西哥国别配置，巴西等其他国别配置尚未实装。计划后续通过主站统一多国别配置接口实现国别适配，Felix团队负责排期开发。下一步是完成多国别配置开发以支持不同国家的活动数据隔离。 | 针对多语言翻译工作，特别提醒巴西和墨西哥两地活动数据存在两套，需要在翻译时进行数据置换。相关翻译问题已集中更新，确保遗漏得到修正，下一步是按更新内容完成翻译工作。 | Promotion卡片设计完成，包含大卡、次卡和小卡三种类型，跳转内页功能正在等待完成。部分优化已发到test1环境，正在进行验收和细节调整，计划完成后上线。 | 多国别活动页面语言配置采用单独配置方式，无多语言自动切换。联赛名称过长时隐藏国家和箭头，悬浮显示完整信息。部分细节调整后准备上线，4.17版本剩余问题少量，先上线生产，剩余问题后续处理。"
+        },
         {
           "week": "2026-16",
           "start_date": "2026-04-14",
@@ -1896,7 +1916,7 @@
       "status": "in_progress",
       "progress_percentage": 80,
       "owner": "Yark",
-      "current_summary": "游戏商管理/RG·IG 对接文档/注单报表 PRD 完成，注单报表更新完成，将由新技术开发接手",
+      "current_summary": "Casino模块的Bonus和FreeSpin功能即将开始调通，上海团队负责开发，后端账变和订单记录已完成，前端功能尚未上线。验收环节需重点关注，确保功能完善。下一步是完成前端开发并进行活动验收。",
       "next_milestone": "跟进游戏注单报表进度（新技术开发）",
       "history_timeline": [
         {
@@ -1927,6 +1947,10 @@
         }
       ],
       "weekly_updates": [
+        {
+          "week": "2026-17",
+          "update": "Casino模块的Bonus和FreeSpin功能即将开始调通，上海团队负责开发，后端账变和订单记录已完成，前端功能尚未上线。验收环节需重点关注，确保功能完善。下一步是完成前端开发并进行活动验收。"
+        },
         {
           "week": "2026-16",
           "start_date": "2026-04-14",
@@ -2268,7 +2292,7 @@
       "status": "in_progress",
       "progress_percentage": 85,
       "owner": "Starvia",
-      "current_summary": "核心页面多轮迭代完成，H5 适配推进中，部分 UI 小修改待验收",
+      "current_summary": "新增了一个字体变量 title-lg，字体粗细调整为900，字号修改为32。相关调整已确认，后续将继续优化字体样式。",
       "next_milestone": "完成移动端投注卡片及投注栏设计优化，推进 H5 适配",
       "history_timeline": [
         {
@@ -2303,6 +2327,10 @@
         }
       ],
       "weekly_updates": [
+        {
+          "week": "2026-17",
+          "update": "个人中心Bonus功能存在前端Bug，点击按钮未展示数额，Felix负责修复。前端功能尚未完全上线，需尽快完善以配合后端功能和活动验收。 | 确定了客户端H5设计优先做安卓版本，采用暗黑色皮肤设计，VIP及SVIP用户将优先体验新功能和暗黑皮肤。设计标准也限定为VIP用户使用，后续将根据用户反馈持续优化体验。 | 新增了一个字体变量 title-lg，字体粗细调整为900，字号修改为32。相关调整已确认，后续将继续优化字体样式。"
+        },
         {
           "week": "2026-16",
           "start_date": "2026-04-14",
@@ -2442,7 +2470,7 @@
       "status": "completed",
       "progress_percentage": 100,
       "owner": "Yark",
-      "current_summary": "平台 Setting 配置/SMS·SMTP 服务/FAQ/公告等功能全部完成",
+      "current_summary": "确认了办公场地搬迁情况，5月7日租期到期，团队计划在此时间节点回归办公。相关人员安排和办公环境调整已沟通确认。",
       "next_milestone": "无待办",
       "history_timeline": [
         {
@@ -2468,6 +2496,10 @@
       ],
       "risks": [],
       "weekly_updates": [
+        {
+          "week": "2026-17",
+          "update": "确认了办公场地搬迁情况，5月7日租期到期，团队计划在此时间节点回归办公。相关人员安排和办公环境调整已沟通确认。"
+        },
         {
           "week": "2026-16",
           "start_date": "2026-04-14",
