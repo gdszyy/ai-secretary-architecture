@@ -292,7 +292,7 @@ def main():
     if args.dry_run:
         print(f"\n[DRY RUN] 将归档 {stats['archived']} 条跨周话题（未实际写入）")
     else:
-        print(f"\n✅ 归档完成：{stats['archived']} 条话题已更新为"已归档(跨周)"")
+        print(f"\n✅ 归档完成：{stats['archived']} 条话题已更新为'已归档(跨周)'")
 
     sys.exit(0 if stats["errors"] == 0 else 1)
 
