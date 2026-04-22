@@ -52,6 +52,8 @@
 *   **Meegle 深度集成方案**：[`docs/module3_info_sources/meegle_integration_deepening.md`](docs/module3_info_sources/meegle_integration_deepening.md) - Meegle 扩展能力与模块映射规范。
 *   **里程碑管理规范**：[`docs/project/milestone_policy.md`](docs/project/milestone_policy.md) - 人工设定里程碑的强制规范。
 *   **project 模块规范**：[`.cursor/rules/project.md`](.cursor/rules/project.md) - project 模块的专属设计规范与 SOP。
+*   **handover 模块规范**：[`.cursor/rules/handover.md`](.cursor/rules/handover.md) - 任务交接文档规范，记录跨 Agent 上下文传递。
+*   **weekly_report_timeline 模块规范**：[`.cursor/rules/weekly_report_timeline.md`](.cursor/rules/weekly_report_timeline.md) - 周报时间线功能设计文档索引与触发机制规范。
 
 ## 5. 流程洞察索引 (Process Insights)
 
