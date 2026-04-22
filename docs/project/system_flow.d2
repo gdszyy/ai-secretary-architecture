@@ -1,0 +1,287 @@
+direction: right
+
+vars: {
+  d2-config: {
+    theme-id: 4
+    layout-engine: elk
+  }
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 层 0：外部数据源（最左侧输入）
+# ══════════════════════════════════════════════════════════════════════════════
+
+lark_groups: "飞书群聊\n(8个业务群)" {
+  style.fill: "#dbeafe"
+  style.stroke: "#3b82f6"
+  style.border-radius: 6
+}
+
+lark_bitable: "飞书 Bitable\n多维表格" {
+  style.fill: "#dbeafe"
+  style.stroke: "#3b82f6"
+  style.border-radius: 6
+}
+
+meegle_src: "Meegle\n研发执行引擎" {
+  style.fill: "#dbeafe"
+  style.stroke: "#3b82f6"
+  style.border-radius: 6
+}
+
+xp_report_src: "飞书周报表\n(xp-weekly-report)" {
+  style.fill: "#dbeafe"
+  style.stroke: "#3b82f6"
+  style.border-radius: 6
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 层 1：触发器
+# ══════════════════════════════════════════════════════════════════════════════
+
+trigger_daily: "Manus 定时\n每日 09:00" {
+  style.fill: "#fef3c7"
+  style.stroke: "#d97706"
+  style.border-radius: 20
+}
+
+trigger_weekly: "Manus 定时\n每周一 06:00" {
+  style.fill: "#fef3c7"
+  style.stroke: "#d97706"
+  style.border-radius: 20
+}
+
+trigger_webhook: "飞书 Webhook\n实时事件推送" {
+  style.fill: "#fef3c7"
+  style.stroke: "#d97706"
+  style.border-radius: 20
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 层 2：每日批处理流水线
+# ══════════════════════════════════════════════════════════════════════════════
+
+daily: "每日批处理 run_daily_batch.py" {
+  style.fill: "#f0fdf4"
+  style.stroke: "#16a34a"
+  style.bold: true
+
+  updater: "daily_progress_updater.py\n① 飞书群消息增量拉取\n   (fetch_cursor.json 游标)\n② LLM 意图分类\n   major_decision / milestone_fact\n   risk_blocker / routine_task\n③ 写入 weekly_updates\n④ 高价值话题写入 Bitable" {
+    style.fill: "#dcfce7"
+    style.stroke: "#22c55e"
+  }
+
+  reminder: "weekly_issue_reminder.py\n(仅周四触发)\n① 扫描本周 risk_blocker\n② 生成风险清单\n③ 发飞书提醒卡片" {
+    style.fill: "#dcfce7"
+    style.stroke: "#22c55e"
+  }
+
+  git_daily: "git commit & push\ndashboard_data.json" {
+    style.fill: "#bbf7d0"
+    style.stroke: "#16a34a"
+  }
+
+  updater -> reminder: "周四触发"
+  updater -> git_daily: "数据更新后"
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 层 2：每周批处理流水线
+# ══════════════════════════════════════════════════════════════════════════════
+
+weekly: "每周批处理 run_weekly_batch.py" {
+  style.fill: "#fdf4ff"
+  style.stroke: "#9333ea"
+  style.bold: true
+
+  archiver: "① topic_expiry_archiver.py\n扫描跨周高价值话题\n→ 标记「已归档(跨周)」\n→ 更新 Bitable 状态" {
+    style.fill: "#f3e8ff"
+    style.stroke: "#a855f7"
+  }
+
+  report: "② run_weekly_report.py\n三源数据整合\n→ LLM 联合归因到模块\n→ 生成模块综合摘要\n→ 写入 activity 计数" {
+    style.fill: "#f3e8ff"
+    style.stroke: "#a855f7"
+  }
+
+  milestones_step: "③ enrich_global_milestones.py\n里程碑状态监控\n(仅监控/预警，不自动创建)" {
+    style.fill: "#f3e8ff"
+    style.stroke: "#a855f7"
+  }
+
+  git_weekly: "④ git commit & push\ndashboard_data.json" {
+    style.fill: "#e9d5ff"
+    style.stroke: "#9333ea"
+  }
+
+  notify: "⑤ 飞书卡片通知\n(lark-secretary)\n发送周报摘要" {
+    style.fill: "#e9d5ff"
+    style.stroke: "#9333ea"
+  }
+
+  archiver -> report: "归档完成"
+  report -> milestones_step: "摘要写入完成"
+  milestones_step -> git_weekly
+  milestones_step -> notify
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 层 2：实时 Webhook 服务
+# ══════════════════════════════════════════════════════════════════════════════
+
+webhook: "实时 Webhook 服务 main.py (FastAPI / Railway)" {
+  style.fill: "#fff7ed"
+  style.stroke: "#ea580c"
+  style.bold: true
+
+  router: "消息路由器\nhandle_message_event" {
+    style.fill: "#ffedd5"
+    style.stroke: "#f97316"
+    style.bold: true
+  }
+
+  qa_handler: "lark_qa_handler.py\n@机器人问答\n路由: Bitable话题/功能/模块\n      Meegle缺陷/任务/需求\n→ LLM 生成自然语言回答\n→ qa_cache 相似度缓存(0.85)" {
+    style.fill: "#fed7aa"
+    style.stroke: "#f97316"
+  }
+
+  correction: "lark_correction_handler.py\n信息纠正指令\n「纠正：」「补充：」前缀\n→ 权限校验(AUTHORIZED_USER_IDS)\n→ LLM 解析意图\n→ correction_writer 写入 Bitable" {
+    style.fill: "#fed7aa"
+    style.stroke: "#f97316"
+  }
+
+  defect_reporter: "frontend_defect_reporter.py\n前端缺陷自动报送\n→ LLM 完整度评分\n< 80分: 追问补全\n≥ 80分: 创建 Meegle Defect" {
+    style.fill: "#fed7aa"
+    style.stroke: "#f97316"
+  }
+
+  thread_sep: "thread_separator.py\n通用消息多对话分离\n→ 识别独立话题线程\n→ 写入 Bitable 缓冲池" {
+    style.fill: "#fed7aa"
+    style.stroke: "#f97316"
+  }
+
+  router -> qa_handler: "@机器人 / p2p"
+  router -> correction: "纠正/补充前缀"
+  router -> defect_reporter: "前端相关群"
+  router -> thread_sep: "通用群消息"
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 层 3：核心数据存储
+# ══════════════════════════════════════════════════════════════════════════════
+
+storage: "核心数据存储" {
+  style.fill: "#f8fafc"
+  style.stroke: "#64748b"
+  style.bold: true
+
+  dashboard: "data/dashboard_data.json\n27个模块 | 9个分组\nweekly_updates (每日更新)\nkpi_metrics | milestones(人工设定)" {
+    style.fill: "#e2e8f0"
+    style.stroke: "#475569"
+  }
+
+  bitable_topics: "Bitable 话题表\nmajor_decision\nmilestone_fact\nrisk_blocker" {
+    style.fill: "#e2e8f0"
+    style.stroke: "#475569"
+  }
+
+  bitable_features: "Bitable 功能表\n功能验收状态" {
+    style.fill: "#e2e8f0"
+    style.stroke: "#475569"
+  }
+
+  bitable_modules: "Bitable 模块表\n模块整体状态" {
+    style.fill: "#e2e8f0"
+    style.stroke: "#475569"
+  }
+
+  meegle_db: "Meegle 工作项\nStory / Defect / Issue\n(project_key: 42nqu9)" {
+    style.fill: "#e2e8f0"
+    style.stroke: "#475569"
+  }
+
+  github: "GitHub main 分支\n触发 Railway 重新部署" {
+    style.fill: "#e2e8f0"
+    style.stroke: "#475569"
+  }
+
+  cursor: "data/fetch_cursor.json\n每群最后拉取时间戳" {
+    style.fill: "#e2e8f0"
+    style.stroke: "#475569"
+    style.stroke-dash: 4
+  }
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 层 4：输出
+# ══════════════════════════════════════════════════════════════════════════════
+
+kanban_out: "项目看板\n(Railway 托管)\n每日自动刷新" {
+  style.fill: "#dcfce7"
+  style.stroke: "#16a34a"
+  style.border-radius: 8
+}
+
+lark_card_out: "飞书卡片通知\n周报摘要 / 风险预警(周四)" {
+  style.fill: "#dcfce7"
+  style.stroke: "#16a34a"
+  style.border-radius: 8
+}
+
+meegle_defect_out: "Meegle Defect 工单\n(前端缺陷自动创建)" {
+  style.fill: "#dcfce7"
+  style.stroke: "#16a34a"
+  style.border-radius: 8
+}
+
+qa_reply_out: "飞书群 AI 问答回复" {
+  style.fill: "#dcfce7"
+  style.stroke: "#16a34a"
+  style.border-radius: 8
+}
+
+# ══════════════════════════════════════════════════════════════════════════════
+# 连接关系
+# ══════════════════════════════════════════════════════════════════════════════
+
+# 触发器激活
+trigger_daily -> daily.updater: "每日 09:00"
+trigger_weekly -> weekly.archiver: "每周一 06:00"
+trigger_webhook -> webhook.router: "实时消息"
+
+# 外部数据源 → 处理层
+lark_groups -> trigger_webhook: "消息事件"
+lark_groups -> daily.updater: "增量消息拉取\n(飞书 IM API)"
+lark_groups -> weekly.report: "全量消息拉取\n(指定周期)"
+xp_report_src -> weekly.report: "飞书周报数据"
+meegle_src -> weekly.report: "Story/Defect 列表"
+lark_bitable -> weekly.archiver: "读取话题状态"
+
+# 每日批处理 → 存储
+daily.updater -> storage.dashboard: "写入 weekly_updates"
+daily.updater -> storage.bitable_topics: "写入高价值话题"
+daily.updater -> storage.cursor: "更新游标"
+storage.cursor -> daily.updater: "读取游标"
+daily.git_daily -> storage.github: "git push"
+
+# 每周批处理 → 存储
+weekly.archiver -> storage.bitable_topics: "更新归档状态"
+weekly.report -> storage.dashboard: "写入模块摘要\n+ activity 计数"
+weekly.git_weekly -> storage.github: "git push"
+
+# Webhook → 存储（读）
+webhook.qa_handler -> storage.bitable_topics: "查询话题"
+webhook.qa_handler -> storage.bitable_features: "查询功能"
+webhook.qa_handler -> storage.bitable_modules: "查询模块"
+webhook.qa_handler -> storage.meegle_db: "查询 Defect/Story"
+# Webhook → 存储（写）
+webhook.correction -> storage.bitable_topics: "纠正写入"
+webhook.thread_sep -> storage.bitable_topics: "写入缓冲池"
+webhook.defect_reporter -> storage.meegle_db: "创建 Defect"
+
+# 存储 → 输出
+storage.github -> kanban_out: "Railway 自动部署"
+weekly.notify -> lark_card_out: "发送周报"
+daily.reminder -> lark_card_out: "发送风险预警"
+webhook.defect_reporter -> meegle_defect_out: "工单创建"
+webhook.qa_handler -> qa_reply_out: "回复飞书群"
