@@ -82,3 +82,18 @@
 | ID | 需求名称 | 优先级 | 状态 | 需求文档 | 前置条件 |
 |---|---|---|---|---|---|
 | PF-001 | 飞书卡片回复自动触发信息纠正 | P1 | 待开发 | [`docs/module2_buffer/lark_card_reply_correction_spec.md`](docs/module2_buffer/lark_card_reply_correction_spec.md) | 飞书机器人消息订阅权限（见交接文档） |
+
+## 8. 产品需求文档索引 (PRD Documents)
+
+以下为各产品模块的需求文档，按**模块 → 功能（PRD 文件）→ Feature（章节）**三层结构组织，由 `prd-doc-ingestion` 技能自动入库维护。
+
+| 模块 | 规范文件 | PRD 索引 | 说明 |
+|---|---|---|---|
+| `mod_activity` | [`.cursor/rules/mod_activity.md`](.cursor/rules/mod_activity.md) | [`auto_index/docs_mod_activity_index.md`](.cursor/rules/auto_index/docs_mod_activity_index.md) | 活动管理、代投配置、站内信、用户标签 |
+| `mod_casino` | [`.cursor/rules/mod_casino.md`](.cursor/rules/mod_casino.md) | [`auto_index/docs_mod_casino_index.md`](.cursor/rules/auto_index/docs_mod_casino_index.md) | 游戏大厅、注单报表、游戏商钱包 |
+| `mod_customer_service` | [`.cursor/rules/mod_customer_service.md`](.cursor/rules/mod_customer_service.md) | [`auto_index/docs_mod_customer_service_index.md`](.cursor/rules/auto_index/docs_mod_customer_service_index.md) | 站内客服、FAQ 管理 |
+| `mod_riskcontrol` | [`.cursor/rules/mod_riskcontrol.md`](.cursor/rules/mod_riskcontrol.md) | [`auto_index/docs_mod_riskcontrol_index.md`](.cursor/rules/auto_index/docs_mod_riskcontrol_index.md) | KYC 配置与三方身份验证 |
+| `mod_settlement` | [`.cursor/rules/mod_settlement.md`](.cursor/rules/mod_settlement.md) | [`auto_index/docs_mod_settlement_index.md`](.cursor/rules/auto_index/docs_mod_settlement_index.md) | 结算、充提流程、钱包、有效流水 |
+
+> **Agent 读取路径**：`AGENTS.md` → 模块规范文件（`.cursor/rules/mod_*.md`）→ auto_index PRD 索引（精准定位 Feature ID 与行号）→ 具体 PRD 章节。
+> **更新规范**：每次通过 `prd-doc-ingestion` 新增文档后，需重新运行 `python3 /home/ubuntu/gen_prd_index.py` 更新索引。
