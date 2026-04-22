@@ -1,6 +1,6 @@
 # 体育博彩平台首页推荐系统 · 未来需求规划
 
-> 本目录记录体育博彩平台首页推荐系统的完整需求规划，涵盖冷启动方案（Phase 0）至全个性化方案（Phase 3）的演进路线。详细需求文档存放于独立仓库 [sportsbook-requirements](https://github.com/gdszyy/sportsbook-requirements)。
+> 本目录记录体育博彩平台首页推荐系统的完整需求规划，涵盖冷启动方案（Phase 0）至全个性化方案（Phase 3）的演进路线。详细需求文档存放于独立仓库 [crm-requirements](https://github.com/gdszyy/crm-requirements)。
 
 ---
 
@@ -68,11 +68,11 @@ Phase 0（冷启动）  →  Phase 1（分群个性化）  →  Phase 2（协同
 
 | 文件 | 说明 |
 | :--- | :--- |
-| [体育赛事分级与限额](https://github.com/gdszyy/sportsbook-requirements/blob/main/references/体育赛事分级与限额.xlsx) | 风控参考：赛事分级规则与各级别投注限额 |
-| [早盘滚球排序](https://github.com/gdszyy/sportsbook-requirements/blob/main/references/早盘滚球排序.xlsx) | 风控参考：早盘与滚球赛事排序规则 |
+| [体育赛事分级与限额](https://github.com/gdszyy/crm-requirements/blob/main/references/体育赛事分级与限额.xlsx) | 风控参考：赛事分级规则与各级别投注限额 |
+| [早盘滚球排序](https://github.com/gdszyy/crm-requirements/blob/main/references/早盘滚球排序.xlsx) | 风控参考：早盘与滚球赛事排序规则 |
 
 ---
 
 ## 需求仓库
 
-完整需求文档、架构图表、参考资料均存放于：**[gdszyy/sportsbook-requirements](https://github.com/gdszyy/sportsbook-requirements)**
+完整需求文档、架构图表、参考资料均存放于：**[gdszyy/crm-requirements](https://github.com/gdszyy/crm-requirements)**
