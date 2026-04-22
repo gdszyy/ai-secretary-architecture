@@ -1,211 +1,834 @@
 {
-  "last_updated": "2026-04-21 16:41:27",
+  "last_updated": "2026-04-21 21:29:49",
   "project_name": "XP-BET 体育博彩产品及 sports-matcher-go 核心数据匹配服务",
+  "_milestone_policy": "【重要】里程碑必须由项目管理人员手动设定，禁止 AI 自动生成。\n设定格式：{ id, title, due_date, status, group_id, description }\nstatus 枚举：pending / in_progress / completed / overdue",
   "module_groups": [
     {
-      "id": "grp_data_engine",
-      "name": "数据引擎",
-      "color": "#6366f1",
-      "desc": "数据接入、匹配算法、实时数据流",
-      "milestones": [
-        {
-          "id": "gms_de_01",
-          "title": "数据源全量接入 & 匹配率 ≥95%",
-          "due_date": "2026-04-18",
-          "status": "in_progress",
-          "feature_ids": [
-            "feat_sr_data",
-            "feat_lsport_data",
-            "feat_matching_algo_v2",
-            "feat_manual_review",
-            "feat_frontend_monitor"
-          ],
-          "description": "Lsport/SR 两路数据源完成接入，赛程变更和赔率变更 Kafka Topic 稳定推送，SR→TS 匹配率达 95% 以上，LS→TS 联调完成。",
-          "progress": 100,
-          "overdue": true
-        },
-        {
-          "id": "gms_de_02",
-          "title": "多语言数据 & outright 冠军盘完善",
-          "due_date": "2026-04-25",
-          "status": "pending",
-          "feature_ids": [
-            "feat_defend_betting"
-          ],
-          "description": "西语/葡语翻译接口权限问题解决，outright league 冠军盘数据推送稳定，Defend 投注与结算验证完成。",
-          "progress": 0,
-          "overdue": false
-        }
-      ]
+      "id": "grp_acquisition",
+      "name": "引流获客",
+      "color": "#7c3aed",
+      "desc": "投放平台、代理后台，负责流量引入",
+      "milestones": []
     },
     {
-      "id": "grp_betting_core",
-      "name": "博彩核心",
-      "color": "#0ea5e9",
-      "desc": "体育投注、赔率管理、结算系统",
-      "milestones": [
-        {
-          "id": "gms_bc_01",
-          "title": "体育活动 V1 验收（Sportbook Testing+投注栏优化）",
-          "due_date": "2026-04-24",
-          "status": "in_progress",
-          "feature_ids": [
-            "feat_mts_basic",
-            "feat_sr_production",
-            "feat_sportbook_testing",
-            "feat_bet_ui_optimization"
-          ],
-          "description": "Sportbook Testing 完成，投注栏交互优化上线，MTS 基础投注和 SR 生产账号申请完成。",
-          "progress": 100,
-          "overdue": false
-        },
-        {
-          "id": "gms_bc_02",
-          "title": "Cashout 平台级方案落地",
-          "due_date": "2026-05-09",
-          "status": "pending",
-          "feature_ids": [
-            "feat_cashout"
-          ],
-          "description": "Cashout 功能完成平台级方案评估并启动开发，支持体育单关/串关提前结算。",
-          "progress": 0,
-          "overdue": false
-        }
-      ]
+      "id": "grp_country_site",
+      "name": "国别 & 站点",
+      "color": "#0e7490",
+      "desc": "租户管理、国别配置、站点上线，合规基础",
+      "milestones": []
     },
     {
-      "id": "grp_user_finance",
-      "name": "用户与财务",
-      "color": "#10b981",
-      "desc": "用户系统、KYC、钱包、充提",
-      "milestones": [
-        {
-          "id": "gms_uf_01",
-          "title": "全民代理上线 & 财务优化 V1.2",
-          "due_date": "2026-04-28",
-          "status": "in_progress",
-          "feature_ids": [
-            "feat_referral_agent",
-            "feat_finance_v12",
-            "feat_withdrawal_resend"
-          ],
-          "description": "全民代理功能整理完成并上线，财务优化 V1.2 完成，提款重送/Transfer Order 功能上线。",
-          "progress": 100,
-          "overdue": false
-        },
-        {
-          "id": "gms_uf_02",
-          "title": "用户体系完善（KYC+标签+代理）",
-          "due_date": "2026-03-31",
-          "status": "completed",
-          "feature_ids": [
-            "feat_kyc_v11",
-            "feat_user_tag",
-            "feat_agent_management",
-            "feat_wallet_transfer",
-            "feat_deposit_withdraw_v11",
-            "feat_payment_optimization"
-          ],
-          "description": "KYC 优化 V1.1、用户标签、代理管理、主钱包划转、充提流程优化 V1.1、代付优化全部完成。",
-          "progress": 100,
-          "overdue": false
-        }
-      ]
+      "id": "grp_user",
+      "name": "用户 & 实名",
+      "color": "#2563eb",
+      "desc": "注册登录、KYC 实名认证",
+      "milestones": []
     },
     {
-      "id": "grp_operations",
-      "name": "运营与增长",
-      "color": "#f59e0b",
-      "desc": "活动平台、投放系统、Casino",
-      "milestones": [
-        {
-          "id": "gms_op_01",
-          "title": "活动平台 V1 上线（VIP+通行证+排行榜）",
-          "due_date": "2026-04-28",
-          "status": "in_progress",
-          "feature_ids": [
-            "feat_activity_platform_prd",
-            "feat_first_deposit",
-            "feat_vip_activity",
-            "feat_worldcup_pass",
-            "feat_leaderboard",
-            "feat_activity_mutex"
-          ],
-          "description": "VIP、通行证、留存、排行榜四类活动完成前台开发，活动互斥规则上线。",
-          "progress": 83,
-          "overdue": false
-        },
-        {
-          "id": "gms_op_02",
-          "title": "投放系统验收（埋点/数据/展示）",
-          "due_date": "2026-04-17",
-          "status": "in_progress",
-          "feature_ids": [
-            "feat_ads_prd",
-            "feat_pixel_spec",
-            "feat_promo_report",
-            "feat_ads_acceptance"
-          ],
-          "description": "投放后台 xp 技术逻辑完成，广告配置自动化实现，pixel/token 数据正常传递，埋点数据验收通过。",
-          "progress": 100,
-          "overdue": true
-        },
-        {
-          "id": "gms_op_03",
-          "title": "Casino 游戏注单报表完成",
-          "due_date": "2026-05-09",
-          "status": "pending",
-          "feature_ids": [
-            "feat_bet_report"
-          ],
-          "description": "游戏注单报表开发完成，支持多厂商数据汇总与导出。",
-          "progress": 100,
-          "overdue": false
-        }
-      ]
+      "id": "grp_cms",
+      "name": "CMS 内容管理",
+      "color": "#0891b2",
+      "desc": "比赛管理、热门算法、首页推荐、Super Odds 配置",
+      "milestones": []
+    },
+    {
+      "id": "grp_sports",
+      "name": "体育博彩",
+      "color": "#1e3a5f",
+      "desc": "数据源、匹配引擎、盘口展示、投注下单、风控、结算",
+      "milestones": []
+    },
+    {
+      "id": "grp_casino",
+      "name": "Casino 游戏",
+      "color": "#6d28d9",
+      "desc": "三方厂商接入、无缝钱包",
+      "milestones": []
+    },
+    {
+      "id": "grp_retention",
+      "name": "留存激励",
+      "color": "#d97706",
+      "desc": "活动配置、礼券系统、VIP、通行证、日常活动",
+      "milestones": []
+    },
+    {
+      "id": "grp_finance",
+      "name": "财务 & 钱包",
+      "color": "#059669",
+      "desc": "钱包系统、充提、财务审核",
+      "milestones": []
     },
     {
       "id": "grp_platform",
-      "name": "平台基础",
-      "color": "#8b5cf6",
-      "desc": "UI/UX 设计、系统管理、站内信",
-      "milestones": [
+      "name": "平台支撑",
+      "color": "#b45309",
+      "desc": "用户标签、个人中心、站内信客服、数据平台",
+      "milestones": []
+    }
+  ],
+  "modules": [
+    {
+      "id": "mod_ads_placement",
+      "name": "投放平台",
+      "desc": "投手后台、GA 埋点统计、来源追踪",
+      "group_id": "grp_acquisition",
+      "weekly_updates": [
         {
-          "id": "gms_pf_01",
-          "title": "平台稳定化 & H5 适配完成",
-          "due_date": "2026-04-21",
-          "status": "in_progress",
-          "feature_ids": [
-            "feat_core_ui",
-            "feat_activity_ui",
-            "feat_bet_card_spec",
-            "feat_h5_adaptation",
-            "feat_ad_materials",
-            "feat_platform_setting",
-            "feat_sms_smtp",
-            "feat_faq",
-            "feat_announcement"
-          ],
-          "description": "H5 适配完成，平台 Setting 配置、SMS/SMTP、FAQ、公告功能全部稳定，核心 UI 规范落地。",
-          "progress": 100,
-          "overdue": false
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "投放后台存在较多问题：xp技术ch逻辑未完成，广告配置自动化未实现，pixel/token数据未传递，技术团队跟进中，争取两天内解决。数据埋点及登录记录需求（APP/H5/网页端）将与埋点一起开发。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 2,
+            "new_defects": 0,
+            "resolved_defects": 1,
+            "chat_insight_count": 3
+          }
         },
         {
-          "id": "gms_pf_02",
-          "title": "站内信与客服功能完善",
-          "due_date": "2026-03-15",
-          "status": "completed",
-          "feature_ids": [
-            "feat_im",
-            "feat_cs"
-          ],
-          "description": "站内信和站内客服功能验收完成，稳定运行。",
-          "progress": 100,
-          "overdue": false
+          "week": "2026-14",
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "投放功能验收进行中，埋点/数据/数据展示待验收",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_affiliate",
+      "name": "代理后台",
+      "desc": "代理管理、支付等级、数据统计、结算方式",
+      "group_id": "grp_acquisition",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_tenant_country",
+      "name": "租户 & 国别系统",
+      "desc": "租户管理、多站点绑定、IP 限制、支付路由、短信三方、手机号验证、币种绑定",
+      "group_id": "grp_country_site",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_site_config",
+      "name": "站点活动配置",
+      "desc": "单站点上线、语言/金额/内容配置",
+      "group_id": "grp_country_site",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_auth",
+      "name": "注册 & 登录",
+      "desc": "手机号注册（国别验证）、账号全局唯一、6位 PIN 码、个人设置",
+      "group_id": "grp_user",
+      "weekly_updates": [
+        {
+          "week": "2026-17",
+          "update": "PC个人中心验收进行中，部分功能如Referral暂不考虑。H5端个人中心点击触发的监控告警问题定位为sentry配置问题，无需处理。部分多语言和符号显示问题讨论中，确认快捷金额按钮不需要常亮效果。"
+        },
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "推荐好友功能：广州负责页面开发，上海负责推荐关系绑定和分享三方对接，需求整理中。数字显示格式统一为三位小数，已确认并完成调整。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 1,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 2
+          }
+        },
+        {
+          "week": "2026-14",
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "全民代理功能整理 50%",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_kyc",
+      "name": "实名认证 KYC",
+      "desc": "身份证/CURP/税号、活体认证、三方 KYC 接入、未实名限制逻辑",
+      "group_id": "grp_user",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_cms",
+      "name": "CMS 内容管理",
+      "desc": "比赛管理/排序权重、盘口热门算法、首页推荐配置、Super Odds 配置",
+      "group_id": "grp_cms",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_data_feed",
+      "name": "体育数据源",
+      "desc": "Sportradar UOF、LSports Trade、赛事/盘口/比分/动画/多语言数据",
+      "group_id": "grp_sports",
+      "weekly_updates": [
+        {
+          "week": "2026-17",
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "本周「数据接入（Lsport/SR 数据源）」模块发现Lsport后端接口部署存在错误，接口返回的sport_name始终为Badminton，影响数据准确性。数据分页量较大（4398条），后端需定时拉取并同步完整数据，前端当前仅能获取部分ID。预计周三完成测试环境数据上线至生产环境，并同步至test环境进行验证。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "Lsport后端接口部署遇到错误，接口返回sport_name始终为Badminton，影响数据准确性。",
+              "数据分页较多（4398条），后端需定时拉取并同步到数据库，前端访问只能获取部分ID，后端仍需支持完整数据同步。",
+              "预计周三将数据从测试环境上线到生产环境，测试环境数据需同步到test环境验证。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 3
+          }
+        },
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "Lsport数据源接入推进中：赛程变更和赔率变更两个Kafka Topic已确认，outright league冠军盘数据推送跟进中，多语言数据缺失问题与数据源方沟通解决。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 3,
+            "new_defects": 1,
+            "resolved_defects": 0,
+            "chat_insight_count": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_sr_matching",
+      "name": "SR→TS 匹配引擎",
+      "desc": "Sportradar 赛事与 Trading Service 的匹配算法，匹配率目标 ≥95%",
+      "group_id": "grp_sports",
+      "weekly_updates": [
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "SR→TS匹配率达95%以上，数据已同步仓库，安排效果验证中。outright冠军盘数据优先接入outright league，普通outright关联方案待完善。多语言（es/pt）翻译接口权限问题排查中。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 2,
+            "new_defects": 0,
+            "resolved_defects": 1,
+            "chat_insight_count": 3
+          }
+        },
+        {
+          "week": "2026-14",
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "匹配算法迭代完成，进入人工校验阶段（操盘手+风控团队）",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_ls_matching",
+      "name": "LS→TS 匹配引擎",
+      "desc": "LSports 赛事与 Trading Service 的匹配算法，Defend 风控对接",
+      "group_id": "grp_sports",
+      "weekly_updates": [
+        {
+          "week": "2026-17",
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "Lsport组件widget已接入移动端，UI调整由丹妮负责，计划本周五发版，周四后预计2-3天接通生产环境。当前方案采用iframe快速上线全功能，赛事匹配数据仍存在多处异常，完整上线test1环境时间待确认。操盘端配置需确保前端实时反映比赛和盘口暂停状态，风控团队本周将与产品开需求评审会，UI优化成本较高存在风险。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "Lsport组件widget已接入移动端，UI调整由丹妮负责，计划本周五发版，周四后预计2-3天接通生产环境。",
+              "当前方案先快速上线全功能，后续再优化，UI和赛事匹配最好自己做，但因时间紧迫先用iframe快速接入。",
+              "需要前端能看到对应比赛数据和信息，后台账号已有，等待前端接入LS后台验证小功能设置。",
+              "页面改版优化重点包括首页、casino页面和滚球页面，风控团队本周将与产品开需求评审会，UI优化由外部同步设计但成本较高。",
+              "Lsport赛事匹配数据存在多处问题，完整上线test1环境时间待确认，当前数据仍有较多异常。",
+              "操盘端配置影响比赛和盘口状态展示，需确保前端能实时反映操盘端的比赛和盘口暂停状态。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 6
+          }
+        },
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "Kafka Topic（dev_ls_fixture_change / dev_ls_odds_change）配置完成，生产环境参数完善中，数据源部分预计4/18完成，整体联调预计4/24-25完成。WebSocket断连问题排查中，SR→TS匹配率已达95%以上。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 2,
+            "new_defects": 2,
+            "resolved_defects": 1,
+            "chat_insight_count": 4
+          }
+        },
+        {
+          "week": "2026-14",
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "后端对接完成，前端功能开发中，预计下周二完成",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_odds_display",
+      "name": "盘口展示",
+      "desc": "赛前盘/滚球盘/冠军盘展示，CMS 热门算法驱动，前端 UI/UX",
+      "group_id": "grp_sports",
+      "weekly_updates": [
+        {
+          "week": "2026-17",
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "本周UI优化持续推进，丹妮负责调整，重点聚焦滚球页面和首页。赛事展示调整为右侧优先显示tournamentName，左侧categoryName截断显示且内容不换行。H5端已取消地区显示，PC端地区显示方案待确认，联赛名称过长导致地区不展示的问题正在解决。外部设计方案成本较高，正在寻找合适人员，存在人员匹配风险。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "UI优化持续进行，丹妮负责调整，外部设计方案成本高，正在寻找合适人员，重点优化滚球页面和首页。",
+              "优化赛事展示优先显示右侧tournamentName，左侧categoryName截断显示省略号，整体内容不换行。",
+              "H5端不显示地区，PC端待确认，解决联赛名称过长导致地区不展示的问题。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 3
+          }
+        },
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "活动页面UI优化完成（巴西/墨西哥活动图已添加，footer/登陆页关闭按钮已上线）。移动端按钮高度规范确定（首页/live/体育详情页56，outright/比赛详情页40）。Bet Slip全屏交互调整：保留返回按钮，移除底部TabBar，交互文档编写中。Tooltip统一为弹窗动画形式（从问号弹出收起）。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 2,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 2
+          }
+        },
+        {
+          "week": "2026-14",
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "VIP UI/墨西哥冠军盘 UI 完成，H5 登录/注册 UI 设计中",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_betting",
+      "name": "投注下单",
+      "desc": "单关/串关/系统串关/Ways/Banker/Cash Out，投注等待，限额查询",
+      "group_id": "grp_sports",
+      "weekly_updates": [
+        {
+          "week": "2026-17",
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "本周「体育投注核心」模块完成Cashout功能，superodds功能及前端配置预计明天完成，后续版本将支持CMS内容配置和比赛联赛推荐。快捷金额按钮样式已调整，避免金额修改后样式异常。4.17版本已在生产环境发布，除一项问题待修复外其余已解决，剩余问题计划于20号通过文档处理。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "Cashout功能已完成，superodds功能及前端配置争取明天完成，cashout涉及自有风控，后续版本将支持CMS内容配置和比赛联赛推荐。",
+              "快捷金额按钮选中样式调整，取消常亮效果，避免用户手动修改金额后样式异常。",
+              "生产环境已发布，4.17版本问题除一个待修复外其余已解决，剩余问题计划20号文档处理。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 3
+          }
+        },
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "体育活动优先级确定：新客首充→0-0退赔→Superodds→VIP。0-0退赔规则明确（仅限指定赛事，支持胜平负/让球/大小球单关），上海负责。VIP UI设计4/10验收通过，推送开发。Cashout功能决定做平台级别，方案评估中。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 4,
+            "new_defects": 1,
+            "resolved_defects": 2,
+            "chat_insight_count": 6
+          }
+        },
+        {
+          "week": "2026-14",
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "投注栏交互优化完成，持续跟进测试",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_risk_control",
+      "name": "风控系统",
+      "desc": "Sportradar MTS、LSports Defend，投注等待/套利防控，用户限额，水位平衡",
+      "group_id": "grp_sports",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_settlement",
+      "name": "结算模块",
+      "desc": "实时结算/回滚结算、Void Factor/串关处理、赢半输半/冲正重派",
+      "group_id": "grp_sports",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_casino",
+      "name": "Casino 游戏",
+      "desc": "三方厂商接入（内嵌页面）、Slot/真金游戏、无缝钱包、Bonus 注入/使用记录回传",
+      "group_id": "grp_casino",
+      "weekly_updates": [
+        {
+          "week": "2026-17",
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "Casino游戏平台模块本周完成全部布置并已正式上线，成功对接3家游戏厂商。优化工作预计于下周三完成，目前无明显阻塞或风险。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "Casino板块布置本周全部完成，已正式上线，完成3家游戏厂商对接，优化点预计下周三完成。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 1
+          }
+        },
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "游戏厂商PP对接正常，图档大小问题跟进中。Stripe对接等待Free请假结束后启动，技术由Chase协助。游戏渲染加载性能优化中（直连速度较快，VPN可接受）。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 1,
+            "new_defects": 1,
+            "resolved_defects": 0,
+            "chat_insight_count": 2
+          }
+        },
+        {
+          "week": "2026-14",
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "游戏注单报表更新完成，换新技术开发接手，游戏对接协助中",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_activity_config",
+      "name": "活动配置平台",
+      "desc": "活动入口/准入/时间/预算池，单站点上线，活动互斥规则",
+      "group_id": "grp_retention",
+      "weekly_updates": [
+        {
+          "week": "2026-17",
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "本周活动平台无新功能上线，所有活动方案已准备完成，VIP体系预计下周二上线，VIP客服招聘工作正在推进中。页面语言已支持直接配置对应语言，单国别活动单独配置，无多语言支持。联赛名称过长时优化展示逻辑，隐藏国家和箭头并悬浮显示完整信息。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "运营本周无上线，所有活动方案已准备好，VIP体系预计下周二上线，VIP客服招聘在推进中。",
+              "活动平台页面语言直接配置成对应语言，单个国别配置单独活动，无多语言支持。",
+              "联赛名称过长时隐藏国家和箭头，悬浮展示完整国家和箭头，优化展示逻辑。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 3
+          }
+        },
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "活动平台V1：广州负责运营位前台开发，上海负责Casino Bonus及Freespin礼券配置前台适配。V2：广州负责预算管理、活动模板及活动页管理（优先级较低）。活动互斥规则文档编写中，VIP/通行证/留存/排行榜为当前优先活动。每日短会机制已建立，跟进需求进展。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 3,
+            "new_defects": 0,
+            "resolved_defects": 2,
+            "chat_insight_count": 4
+          }
+        },
+        {
+          "week": "2026-14",
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "VIP 活动研发评审，活动平台开发答疑",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
+          }
+        },
+        {
+          "week": "2026-15",
+          "start_date": "2026-04-07",
+          "end_date": "2026-04-14",
+          "update": "活动平台V1广州负责运营位前台开发，上海负责Casino Bonus/Freespin礼券配置前台适配；推动活动互斥规则文档编写及开发",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_coupon",
+      "name": "礼券系统",
+      "desc": "5种礼券（Sport Bonus/Casino Bonus/Free Sport/Free Spin/Cash）、降落伞机制、流水计算、主钱包能量池",
+      "group_id": "grp_retention",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_vip",
+      "name": "VIP 系统",
+      "desc": "100等级/升级奖励/每周每月固定权益",
+      "group_id": "grp_retention",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_pass",
+      "name": "通行证",
+      "desc": "付费/免费通行证、每日任务、经验积分、等级解锁",
+      "group_id": "grp_retention",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_daily_activity",
+      "name": "日常活动",
+      "desc": "抽奖/流水榜/冠军盘活动/0:0退赔/串关加赔/Super Odds",
+      "group_id": "grp_retention",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_wallet",
+      "name": "钱包系统",
+      "desc": "主钱包（真金/国别币种）、Bonus 钱包（先入先出/流水达标转真金）",
+      "group_id": "grp_finance",
+      "weekly_updates": [
+        {
+          "week": "2026-17",
+          "start_date": "2026-04-21",
+          "end_date": "2026-04-28",
+          "update": "本周「钱包与财务」模块确认多国别货币符号展示保持不变，因单一平台仅支持一种货币，语言切换不影响币别符号。当前无汇率转换功能，未来若需变更货币符号，需重点评估汇率转换相关风险。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": [
+              "多国别货币符号展示暂不变动，因单一平台只存在一种货币，切换语言不影响币别符号。",
+              "提醒若未来货币符号变更需考虑汇率转换问题，当前无汇率功能。"
+            ]
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 2
+          }
+        },
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "Bonus类型使用流程明确：SportBonus/CasinoBonus/Freesports/Freespin四种类型，前端UI由设计团队负责，注单报表开发已启动，后端与财务协调投注计算逻辑。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 2,
+            "new_defects": 1,
+            "resolved_defects": 1,
+            "chat_insight_count": 3
+          }
+        },
+        {
+          "week": "2026-14",
+          "start_date": "2026-03-31",
+          "end_date": "2026-04-07",
+          "update": "财务优化 V1.2 推进中，V1.1 待验证",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 0,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_payment",
+      "name": "充值 & 提现",
+      "desc": "三方支付 Epay、支付路由（国别）",
+      "group_id": "grp_finance",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_finance_ops",
+      "name": "财务审核",
+      "desc": "代付/提款/重送、全民代理结算",
+      "group_id": "grp_finance",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_user_tag",
+      "name": "用户标签系统",
+      "desc": "活动准入/风控/限额/精准投放标签管理",
+      "group_id": "grp_platform",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_personal_center",
+      "name": "个人中心",
+      "desc": "信息管理/钱包/实名/负责任博彩/PIN 码",
+      "group_id": "grp_platform",
+      "weekly_updates": []
+    },
+    {
+      "id": "mod_im_cs",
+      "name": "站内信 & 客服",
+      "desc": "站内信系统、TG 客服、VIP 电话、CRM Smartico",
+      "group_id": "grp_platform",
+      "weekly_updates": [
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "弱网弹窗触发频率评估中（针对墨西哥市场网络状况）。购物车快捷金额设置已同步后端，问号tooltip统一为hover状态。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 1,
+            "new_defects": 0,
+            "resolved_defects": 0,
+            "chat_insight_count": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "mod_data_platform",
+      "name": "数据平台",
+      "desc": "Metabase、埋点统计、财务指标、Casino 游戏注单报表",
+      "group_id": "grp_platform",
+      "weekly_updates": [
+        {
+          "week": "2026-17",
+          "update": "确认了办公场地搬迁情况，5月7日租期到期，团队计划在此时间节点回归办公。相关人员安排和办公环境调整已沟通确认。"
+        },
+        {
+          "week": "2026-16",
+          "start_date": "2026-04-14",
+          "end_date": "2026-04-21",
+          "update": "菜单改为纯树形结构（二级在一级下，三级在二级下），地区筛选接口暂缓。法务要求新增底部文案和新logo，已上线test1测试环境，移动端后续美化。文案多语言支持：西语/葡语语言包提供中，Lark文案表格维护中。",
+          "sources": {
+            "xp_weekly_report": null,
+            "bitable_summary": null,
+            "meegle_progress": null,
+            "chat_insights": []
+          },
+          "activity": {
+            "completed_stories": 1,
+            "new_defects": 1,
+            "resolved_defects": 1,
+            "chat_insight_count": 1
+          }
         }
       ]
     }
   ],
+  "milestones": [],
   "kpi_metrics": {
     "health_score": {
       "value": 85,
@@ -309,2550 +932,6 @@
       ]
     }
   },
-  "milestones": [
-    {
-      "date": "2026-01-09",
-      "title": "MTS 基础投注功能验收",
-      "owner": "VoidZ",
-      "status": "completed",
-      "is_current": false,
-      "group_snapshots": [
-        {
-          "group_id": "grp_data_engine",
-          "status": "in_progress",
-          "summary": "UOF 数据接入完成，SR/LS 接入进行中"
-        },
-        {
-          "group_id": "grp_betting_core",
-          "status": "in_progress",
-          "summary": "MTS 基础投注验收完成"
-        },
-        {
-          "group_id": "grp_user_finance",
-          "status": "in_progress",
-          "summary": "KYC、用户标签开发中"
-        },
-        {
-          "group_id": "grp_operations",
-          "status": "pending",
-          "summary": "活动平台尚未启动"
-        },
-        {
-          "group_id": "grp_platform",
-          "status": "in_progress",
-          "summary": "核心 UI 设计进行中"
-        }
-      ]
-    },
-    {
-      "date": "2026-01-23",
-      "title": "KYC 优化 V1.1 完成",
-      "owner": "Yark",
-      "status": "completed",
-      "is_current": false,
-      "group_snapshots": [
-        {
-          "group_id": "grp_data_engine",
-          "status": "in_progress",
-          "summary": "SR 数据接入测试中"
-        },
-        {
-          "group_id": "grp_betting_core",
-          "status": "in_progress",
-          "summary": "SR 生产账号申请中"
-        },
-        {
-          "group_id": "grp_user_finance",
-          "status": "in_progress",
-          "summary": "KYC V1.1 完成，代理管理开发中"
-        },
-        {
-          "group_id": "grp_operations",
-          "status": "pending",
-          "summary": "活动 PRD 准备中"
-        },
-        {
-          "group_id": "grp_platform",
-          "status": "in_progress",
-          "summary": "平台 Setting 配置开发中"
-        }
-      ]
-    },
-    {
-      "date": "2026-02-20",
-      "title": "站内信、站内客服功能验收",
-      "owner": "Yark",
-      "status": "completed",
-      "is_current": false,
-      "group_snapshots": [
-        {
-          "group_id": "grp_data_engine",
-          "status": "in_progress",
-          "summary": "SR testing 验收中，LSport MVP 搭建"
-        },
-        {
-          "group_id": "grp_betting_core",
-          "status": "in_progress",
-          "summary": "Sportbook Testing 启动"
-        },
-        {
-          "group_id": "grp_user_finance",
-          "status": "in_progress",
-          "summary": "主钱包划转、充提流程优化完成"
-        },
-        {
-          "group_id": "grp_operations",
-          "status": "in_progress",
-          "summary": "RG/IG 对接完成，游戏商管理上线"
-        },
-        {
-          "group_id": "grp_platform",
-          "status": "in_progress",
-          "summary": "站内信与客服验收完成"
-        }
-      ]
-    },
-    {
-      "date": "2026-02-27",
-      "title": "MTS 测试完成并申请 SR 生产账号",
-      "owner": "VoidZ",
-      "status": "completed",
-      "is_current": false,
-      "group_snapshots": [
-        {
-          "group_id": "grp_data_engine",
-          "status": "in_progress",
-          "summary": "SR sport testing 验收完成"
-        },
-        {
-          "group_id": "grp_betting_core",
-          "status": "in_progress",
-          "summary": "MTS 测试完成，SR 生产账号申请中"
-        },
-        {
-          "group_id": "grp_user_finance",
-          "status": "in_progress",
-          "summary": "代付优化完成，全民代理规划中"
-        },
-        {
-          "group_id": "grp_operations",
-          "status": "in_progress",
-          "summary": "首充活动 PRD 输出中"
-        },
-        {
-          "group_id": "grp_platform",
-          "status": "in_progress",
-          "summary": "SMS/SMTP、FAQ、公告功能完成"
-        }
-      ]
-    },
-    {
-      "date": "2026-03-06",
-      "title": "RG API 解析完成，游戏商管理/注单报表/IG·RG 对接文档完成",
-      "owner": "Yark",
-      "status": "completed",
-      "is_current": false,
-      "group_snapshots": [
-        {
-          "group_id": "grp_data_engine",
-          "status": "in_progress",
-          "summary": "Trade/Defend 产品连接完成"
-        },
-        {
-          "group_id": "grp_betting_core",
-          "status": "in_progress",
-          "summary": "投注栏交互优化完成"
-        },
-        {
-          "group_id": "grp_user_finance",
-          "status": "in_progress",
-          "summary": "用户标签、代理管理完成"
-        },
-        {
-          "group_id": "grp_operations",
-          "status": "in_progress",
-          "summary": "RG API 解析完成，注单报表文档输出"
-        },
-        {
-          "group_id": "grp_platform",
-          "status": "completed",
-          "summary": "站内信与客服功能完善"
-        }
-      ]
-    },
-    {
-      "date": "2026-03-20",
-      "title": "首充活动原型设计与 PRD 文档输出完成",
-      "owner": "Mavin",
-      "status": "completed",
-      "is_current": false,
-      "group_snapshots": [
-        {
-          "group_id": "grp_data_engine",
-          "status": "in_progress",
-          "summary": "前端监控消息配置进行中"
-        },
-        {
-          "group_id": "grp_betting_core",
-          "status": "in_progress",
-          "summary": "Sportbook Testing 进行中"
-        },
-        {
-          "group_id": "grp_user_finance",
-          "status": "in_progress",
-          "summary": "全民代理开发启动"
-        },
-        {
-          "group_id": "grp_operations",
-          "status": "in_progress",
-          "summary": "首充活动 PRD 完成，VIP 活动开发中"
-        },
-        {
-          "group_id": "grp_platform",
-          "status": "in_progress",
-          "summary": "H5 适配开发中，广告素材制作"
-        }
-      ]
-    },
-    {
-      "date": "2026-04-03",
-      "title": "SR→TS 匹配度提升至 90%+；LSport 后端对接基本完成",
-      "owner": "VoidZ",
-      "status": "completed",
-      "is_current": false,
-      "group_snapshots": [
-        {
-          "group_id": "grp_data_engine",
-          "status": "in_progress",
-          "summary": "SR→TS 匹配率 90%+，LSport 后端对接基本完成"
-        },
-        {
-          "group_id": "grp_betting_core",
-          "status": "in_progress",
-          "summary": "Sportbook Testing 持续进行"
-        },
-        {
-          "group_id": "grp_user_finance",
-          "status": "in_progress",
-          "summary": "全民代理 50% 完成，财务优化 V1.2 进行中"
-        },
-        {
-          "group_id": "grp_operations",
-          "status": "in_progress",
-          "summary": "VIP 活动、世界杯通行证开发中"
-        },
-        {
-          "group_id": "grp_platform",
-          "status": "in_progress",
-          "summary": "H5 适配完成，平台稳定化进行中"
-        }
-      ]
-    },
-    {
-      "date": "2026-04-10",
-      "title": "游戏注单报表更新完成，FAQ 完成，全民代理整理 50%",
-      "owner": "Yark",
-      "status": "in_progress",
-      "is_current": true,
-      "group_snapshots": [
-        {
-          "group_id": "grp_data_engine",
-          "status": "in_progress",
-          "summary": "匹配算法 V2 迭代中，人工校验流程进行中"
-        },
-        {
-          "group_id": "grp_betting_core",
-          "status": "in_progress",
-          "summary": "Sportbook Testing 收尾，Cashout 方案评估"
-        },
-        {
-          "group_id": "grp_user_finance",
-          "status": "in_progress",
-          "summary": "全民代理整理 50%，提款重送开发中"
-        },
-        {
-          "group_id": "grp_operations",
-          "status": "in_progress",
-          "summary": "游戏注单报表更新，投放验收进行中"
-        },
-        {
-          "group_id": "grp_platform",
-          "status": "in_progress",
-          "summary": "平台稳定化，H5 适配完成"
-        }
-      ]
-    },
-    {
-      "date": "2026-04-17",
-      "title": "全民代理功能整理完成，投放功能验收（埋点/数据/展示）",
-      "owner": "Yark",
-      "status": "pending",
-      "is_current": false,
-      "group_snapshots": [
-        {
-          "group_id": "grp_data_engine",
-          "status": "in_progress",
-          "summary": "Defend 投注与结算验证待完成"
-        },
-        {
-          "group_id": "grp_betting_core",
-          "status": "in_progress",
-          "summary": "Sportbook Testing 完成，Cashout 启动"
-        },
-        {
-          "group_id": "grp_user_finance",
-          "status": "in_progress",
-          "summary": "全民代理上线，财务优化 V1.2 收尾"
-        },
-        {
-          "group_id": "grp_operations",
-          "status": "in_progress",
-          "summary": "投放功能验收完成，活动平台 V1 冲刺"
-        },
-        {
-          "group_id": "grp_platform",
-          "status": "in_progress",
-          "summary": "平台稳定化基本完成"
-        }
-      ]
-    }
-  ],
-  "modules": [
-    {
-      "id": "mod_data_ingestion",
-      "group_id": "grp_data_engine",
-      "name": "数据接入层",
-      "priority": "P0",
-      "status": "in_progress",
-      "progress_percentage": 82,
-      "owner": "VoidZ",
-      "current_summary": "当前LSport数据接入存在部分问题，如未开赛比赛的1X2盘口可下注但Under/Over盘口不可下注，注单成功后未收到websocket注单结果（accept/reject）。后端接口部署中出现错误",
-      "next_milestone": "与匹配引擎优化同步，无独立待办",
-      "history_timeline": [
-        {
-          "date": "2026-01-09",
-          "event": "UOF 结算数据异常修复，赛事比分数据异常原因明确"
-        },
-        {
-          "date": "2026-04-03",
-          "event": "SR→TS 匹配算法迭代，LSport 后端对接基本完成"
-        }
-      ],
-      "risks": [],
-      "weekly_updates": [
-        {
-          "week": "2026-17",
-          "start_date": "2026-04-21",
-          "end_date": "2026-04-28",
-          "update": "本周「数据接入（Lsport/SR 数据源）」模块发现Lsport后端接口部署存在错误，接口返回的sport_name始终为Badminton，影响数据准确性。数据分页量较大（4398条），后端需定时拉取并同步完整数据，前端当前仅能获取部分ID。预计周三完成测试环境数据上线至生产环境，并同步至test环境进行验证。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": [
-              "Lsport后端接口部署遇到错误，接口返回sport_name始终为Badminton，影响数据准确性。",
-              "数据分页较多（4398条），后端需定时拉取并同步到数据库，前端访问只能获取部分ID，后端仍需支持完整数据同步。",
-              "预计周三将数据从测试环境上线到生产环境，测试环境数据需同步到test环境验证。"
-            ]
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 3
-          }
-        },
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "Lsport数据源接入推进中：赛程变更和赔率变更两个Kafka Topic已确认，outright league冠军盘数据推送跟进中，多语言数据缺失问题与数据源方沟通解决。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 3,
-            "new_defects": 1,
-            "resolved_defects": 0,
-            "chat_insight_count": 5
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_uof_integration",
-          "name": "UOF 数据接入",
-          "status": "completed",
-          "owner": "VoidZ",
-          "desc": "UOF 结算数据异常修复，赛事比分数据异常原因明确",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_sr_data",
-          "name": "SR 数据接入",
-          "status": "in_progress",
-          "owner": "VoidZ",
-          "desc": "SR 数据接入与匹配引擎同步推进",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "in_progress"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_lsport_data",
-          "name": "LSport 数据接入",
-          "status": "in_progress",
-          "owner": "VoidZ",
-          "desc": "LSport 后端对接基本完成，数据接收正常",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "in_progress"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "weekly_progress_percentage": 8
-    },
-    {
-      "id": "mod_sr_ts_matching",
-      "group_id": "grp_data_engine",
-      "name": "SR→TS 匹配引擎",
-      "priority": "P0",
-      "status": "in_progress",
-      "progress_percentage": 85,
-      "owner": "VoidZ",
-      "current_summary": "匹配算法迭代优化，热门联赛匹配度 95%+，进入人工校验阶段",
-      "next_milestone": "继续优化迭代 SR→TS 匹配算法，扩展至更多运动类型",
-      "history_timeline": [
-        {
-          "date": "2026-01-09",
-          "event": "诊断并修复 UOF 结算数据异常"
-        },
-        {
-          "date": "2026-01-16",
-          "event": "协助技术排查 UOF 比赛数据问题"
-        },
-        {
-          "date": "2026-01-23",
-          "event": "协助排查比赛超时未结束/开始事件"
-        },
-        {
-          "date": "2026-02-06",
-          "event": "推进 SR sport testing Producer1/2 验收"
-        },
-        {
-          "date": "2026-04-03",
-          "event": "重新迭代匹配算法（时间+名称+四层兜底），热门联赛 95%+，常规 90%+"
-        }
-      ],
-      "risks": [
-        {
-          "level": "Medium",
-          "desc": "匹配算法需持续优化以保证准确率，目前仅覆盖足球和篮球"
-        }
-      ],
-      "weekly_updates": [
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "SR→TS匹配率达95%以上，数据已同步仓库，安排效果验证中。outright冠军盘数据优先接入outright league，普通outright关联方案待完善。多语言（es/pt）翻译接口权限问题排查中。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 2,
-            "new_defects": 0,
-            "resolved_defects": 1,
-            "chat_insight_count": 3
-          }
-        },
-        {
-          "week": "2026-14",
-          "start_date": "2026-03-31",
-          "end_date": "2026-04-07",
-          "update": "匹配算法迭代完成，进入人工校验阶段（操盘手+风控团队）",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 0
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_uof_data_fix",
-          "name": "UOF 数据异常修复",
-          "status": "completed",
-          "owner": "VoidZ",
-          "desc": "诊断并修复 UOF 结算数据异常、赛事比分数据异常",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_sr_testing",
-          "name": "SR sport testing 验收",
-          "status": "completed",
-          "owner": "VoidZ",
-          "desc": "推进 SR sport testing Producer1/2 验收，完成最后步骤",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_matching_algo_v2",
-          "name": "匹配算法 V2 迭代",
-          "status": "in_progress",
-          "owner": "VoidZ",
-          "desc": "采用时间、名称及四层兜底校验规则，热门联赛匹配度 95%+，常规 90%+",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "in_progress"
-            }
-          },
-          "docs": [
-            {
-              "title": "XP团队历史模块进度沉淀文档",
-              "url": "https://github.com/gdszyy/ai-secretary-architecture/blob/main/archive/tasks_history/xp_team_history_progress_report.md"
-            }
-          ]
-        },
-        {
-          "id": "feat_manual_review",
-          "name": "人工校验流程",
-          "status": "in_progress",
-          "owner": "VoidZ",
-          "desc": "匹配结果交由操盘手和风控团队进行人工校验（足球+篮球）",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "in_progress",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "pending",
-              "backend_dev": "pending"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "weekly_progress_percentage": 7
-    },
-    {
-      "id": "mod_ls_ts_matching",
-      "group_id": "grp_data_engine",
-      "name": "LS→TS 匹配引擎",
-      "priority": "P0",
-      "status": "in_progress",
-      "progress_percentage": 80,
-      "owner": "VoidZ",
-      "current_summary": "LSport 后端对接基本完成，Trade/Defend 已连接并接收消息，风控团队配置后台中",
-      "next_milestone": "完成前端监控消息配置及解析功能，验证 Defend 投注与结算逻辑",
-      "history_timeline": [
-        {
-          "date": "2026-03-20",
-          "event": "对接 Lsport，接入 iLSport 搭建 MVP"
-        },
-        {
-          "date": "2026-04-03",
-          "event": "解决账户配置问题，Trade/Defend 成功连接并接收消息，后端对接基本完成"
-        }
-      ],
-      "risks": [
-        {
-          "level": "Medium",
-          "desc": "前端监控功能开发及 Defend 投注逻辑验证存在风险"
-        }
-      ],
-      "weekly_updates": [
-        {
-          "week": "2026-17",
-          "start_date": "2026-04-21",
-          "end_date": "2026-04-28",
-          "update": "Lsport组件widget已接入移动端，UI调整由丹妮负责，计划本周五发版，周四后预计2-3天接通生产环境。当前方案采用iframe快速上线全功能，赛事匹配数据仍存在多处异常，完整上线test1环境时间待确认。操盘端配置需确保前端实时反映比赛和盘口暂停状态，风控团队本周将与产品开需求评审会，UI优化成本较高存在风险。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": [
-              "Lsport组件widget已接入移动端，UI调整由丹妮负责，计划本周五发版，周四后预计2-3天接通生产环境。",
-              "当前方案先快速上线全功能，后续再优化，UI和赛事匹配最好自己做，但因时间紧迫先用iframe快速接入。",
-              "需要前端能看到对应比赛数据和信息，后台账号已有，等待前端接入LS后台验证小功能设置。",
-              "页面改版优化重点包括首页、casino页面和滚球页面，风控团队本周将与产品开需求评审会，UI优化由外部同步设计但成本较高。",
-              "Lsport赛事匹配数据存在多处问题，完整上线test1环境时间待确认，当前数据仍有较多异常。",
-              "操盘端配置影响比赛和盘口状态展示，需确保前端能实时反映操盘端的比赛和盘口暂停状态。"
-            ]
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 6
-          }
-        },
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "Kafka Topic（dev_ls_fixture_change / dev_ls_odds_change）配置完成，生产环境参数完善中，数据源部分预计4/18完成，整体联调预计4/24-25完成。WebSocket断连问题排查中，SR→TS匹配率已达95%以上。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 2,
-            "new_defects": 2,
-            "resolved_defects": 1,
-            "chat_insight_count": 4
-          }
-        },
-        {
-          "week": "2026-14",
-          "start_date": "2026-03-31",
-          "end_date": "2026-04-07",
-          "update": "后端对接完成，前端功能开发中，预计下周二完成",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 0
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_lsport_mvp",
-          "name": "LSport MVP 搭建",
-          "status": "completed",
-          "owner": "VoidZ",
-          "desc": "接入 iLSport，搭建 MVP，解决账户配置问题",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_trade_defend_connect",
-          "name": "Trade/Defend 产品连接",
-          "status": "completed",
-          "owner": "VoidZ",
-          "desc": "Trade 和 Defend 产品成功连接并接收消息，后端对接基本完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_frontend_monitor",
-          "name": "前端监控消息配置",
-          "status": "in_progress",
-          "owner": "VoidZ",
-          "desc": "开发前端监控消息配置及解析情况的功能",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "in_progress",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_defend_betting",
-          "name": "Defend 投注与结算验证",
-          "status": "pending",
-          "owner": "VoidZ",
-          "desc": "验证 Defend 投注与结算逻辑",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "in_progress",
-              "ui_design": "pending"
-            },
-            "post_review": {
-              "frontend_dev": "pending",
-              "backend_dev": "pending"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "weekly_progress_percentage": 6
-    },
-    {
-      "id": "mod_sports_betting_core",
-      "group_id": "grp_betting_core",
-      "name": "体育博彩核心",
-      "priority": "P0",
-      "status": "in_progress",
-      "progress_percentage": 90,
-      "owner": "VoidZ",
-      "current_summary": "完成了最高串关赔付金额上线的配置调整，后端增加了配置选项以支持排除不支持串关的比赛。0-0退赔功能也已完善，相关文档已上传至活动文档目录。下一步将完成Cashout和Superodds功能的前端卡片开",
-      "next_milestone": "跟进 Sportbook Testing，准备 cashout 文档",
-      "history_timeline": [
-        {
-          "date": "2026-01-09",
-          "event": "MTS 基础投注功能验收"
-        },
-        {
-          "date": "2026-01-23",
-          "event": "跟进 Sportbook Testing，取得赛前/滚球盘 checklist"
-        },
-        {
-          "date": "2026-02-27",
-          "event": "完成 MTS 测试并申请 SR 生产账号"
-        },
-        {
-          "date": "2026-03-06",
-          "event": "MTS 后台培训会议+翻译"
-        },
-        {
-          "date": "2026-04-03",
-          "event": "优化多项投注栏交互，新增 Bet on all 按钮"
-        }
-      ],
-      "risks": [
-        {
-          "level": "Medium",
-          "desc": "Sportbook Testing 进度及 cashout 文档准备风险"
-        }
-      ],
-      "weekly_updates": [
-        {
-          "week": "2026-17",
-          "start_date": "2026-04-21",
-          "end_date": "2026-04-28",
-          "update": "本周「体育投注核心」模块完成Cashout功能，superodds功能及前端配置预计明天完成，后续版本将支持CMS内容配置和比赛联赛推荐。快捷金额按钮样式已调整，避免金额修改后样式异常。4.17版本已在生产环境发布，除一项问题待修复外其余已解决，剩余问题计划于20号通过文档处理。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": [
-              "Cashout功能已完成，superodds功能及前端配置争取明天完成，cashout涉及自有风控，后续版本将支持CMS内容配置和比赛联赛推荐。",
-              "快捷金额按钮选中样式调整，取消常亮效果，避免用户手动修改金额后样式异常。",
-              "生产环境已发布，4.17版本问题除一个待修复外其余已解决，剩余问题计划20号文档处理。"
-            ]
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 3
-          }
-        },
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "体育活动优先级确定：新客首充→0-0退赔→Superodds→VIP。0-0退赔规则明确（仅限指定赛事，支持胜平负/让球/大小球单关），上海负责。VIP UI设计4/10验收通过，推送开发。Cashout功能决定做平台级别，方案评估中。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 4,
-            "new_defects": 1,
-            "resolved_defects": 2,
-            "chat_insight_count": 6
-          }
-        },
-        {
-          "week": "2026-14",
-          "start_date": "2026-03-31",
-          "end_date": "2026-04-07",
-          "update": "投注栏交互优化完成，持续跟进测试",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 0
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_mts_basic",
-          "name": "MTS 基础投注",
-          "status": "completed",
-          "owner": "VoidZ",
-          "desc": "MTS 基础投注功能验收通过，完成 end2end test",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_sr_production",
-          "name": "SR 生产账号申请",
-          "status": "completed",
-          "owner": "VoidZ",
-          "desc": "MTS 测试全部完成，申请 SR 生产账号",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_sportbook_testing",
-          "name": "Sportbook Testing",
-          "status": "in_progress",
-          "owner": "VoidZ",
-          "desc": "持续推进 Sportbook Testing，跟进赛前/滚球盘 checklist",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "in_progress",
-              "backend_dev": "in_progress"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_bet_ui_optimization",
-          "name": "投注栏交互优化",
-          "status": "completed",
-          "owner": "VoidZ",
-          "desc": "优化多项投注栏交互，新增 Bet on all 按钮，热门算法/赔率格式功能补齐",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_cashout",
-          "name": "Cashout 功能",
-          "status": "pending",
-          "owner": "VoidZ",
-          "desc": "准备 cashout 文档，待开发",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "in_progress",
-              "ui_design": "pending"
-            },
-            "post_review": {
-              "frontend_dev": "pending",
-              "backend_dev": "pending"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "module_docs": [
-        {
-          "title": "新版视觉（比赛卡片、详情页分组作为重点）",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/NaWQdFHM1oM1dXx8AuUj2Izcp9e"
-        },
-        {
-          "title": "UOF数据呈现",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/NaWQdFHM1oM1dXx8AuUj2Izcp9e"
-        },
-        {
-          "title": "MTS注单单关/串关",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Im6FdSHqho76NqxRsTcj05aep3d"
-        },
-        {
-          "title": "盘口展示优化",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/C0ALdISsvorDGex1YRmjimpNpWg"
-        },
-        {
-          "title": "MTS高级投注",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Im6FdSHqho76NqxRsTcj05aep3d"
-        },
-        {
-          "title": "CASHOUT",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Im6FdSHqho76NqxRsTcj05aep3d"
-        },
-        {
-          "title": "手动投注取消 API 需求",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/wiki/Fl2jwHCD0iYXgRkGdaejpfnfpHd?from=from_copylink"
-        },
-        {
-          "title": "投注栏迭代",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Im6FdSHqho76NqxRsTcj05aep3d"
-        },
-        {
-          "title": "Bet Builder",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Im6FdSHqho76NqxRsTcj05aep3d"
-        },
-        {
-          "title": "串关推荐卡片",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/AcgjdUUPLoeGgexsReIj3K1jplc"
-        },
-        {
-          "title": "中奖订单推荐",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/AcgjdUUPLoeGgexsReIj3K1jplc"
-        },
-        {
-          "title": "卡片管理后台",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/AcgjdUUPLoeGgexsReIj3K1jplc"
-        },
-        {
-          "title": "Head to Head数据对接",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/AFludkDwZoY2tsxfXVOjWEMjp3c"
-        },
-        {
-          "title": "Icon数据对接",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/NaWQdFHM1oM1dXx8AuUj2Izcp9e"
-        },
-        {
-          "title": "推荐算法",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/AcgjdUUPLoeGgexsReIj3K1jplc"
-        },
-        {
-          "title": "个性化推荐",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/AcgjdUUPLoeGgexsReIj3K1jplc"
-        }
-      ],
-      "weekly_progress_percentage": 5
-    },
-    {
-      "id": "mod_user_system",
-      "group_id": "grp_user_finance",
-      "name": "用户系统",
-      "priority": "P1",
-      "status": "in_progress",
-      "progress_percentage": 90,
-      "owner": "Yark",
-      "current_summary": "PC个人中心验收进行中，部分功能如Referral暂不考虑。H5端个人中心点击触发的监控告警问题定位为sentry配置问题，无需处理。部分多语言和符号显示问题讨论中，确认快捷金额按钮不需要常亮效果。",
-      "next_milestone": "全民代理功能后续开发",
-      "history_timeline": [
-        {
-          "date": "2026-01-02",
-          "event": "代理管理 PRD 与流程规划完成（100%）"
-        },
-        {
-          "date": "2026-01-23",
-          "event": "KYC 优化 V1.1（多国别识别及流程优化）完成"
-        },
-        {
-          "date": "2026-02-06",
-          "event": "用户标签（UserTag）PRD 完成（100%）"
-        },
-        {
-          "date": "2026-02-27",
-          "event": "墨西哥身份与手机号验证完成"
-        },
-        {
-          "date": "2026-04-10",
-          "event": "用户分享需求会议（全民代理模式），全民代理功能整理 50%"
-        },
-        {
-          "date": "2026-04-17",
-          "event": "全民代理功能整理完成（100%）"
-        }
-      ],
-      "risks": [],
-      "weekly_updates": [
-        {
-          "week": "2026-17",
-          "update": "PC个人中心验收进行中，部分功能如Referral暂不考虑。H5端个人中心点击触发的监控告警问题定位为sentry配置问题，无需处理。部分多语言和符号显示问题讨论中，确认快捷金额按钮不需要常亮效果。"
-        },
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "推荐好友功能：广州负责页面开发，上海负责推荐关系绑定和分享三方对接，需求整理中。数字显示格式统一为三位小数，已确认并完成调整。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 1,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 2
-          }
-        },
-        {
-          "week": "2026-14",
-          "start_date": "2026-03-31",
-          "end_date": "2026-04-07",
-          "update": "全民代理功能整理 50%",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 0
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_kyc_v11",
-          "name": "KYC 优化 V1.1",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "多国别识别及流程优化，墨西哥身份与手机号验证完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_user_tag",
-          "name": "用户标签（UserTag）",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "用户标签功能 PRD 完成，收集操盘手用户风控标签",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_agent_management",
-          "name": "代理管理",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "代理管理 PRD 与流程规划完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_referral_agent",
-          "name": "全民代理",
-          "status": "in_progress",
-          "owner": "Yark",
-          "desc": "全民代理功能整理完成（100%），待后续开发",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "in_progress"
-            },
-            "post_review": {
-              "frontend_dev": "pending",
-              "backend_dev": "pending"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "module_docs": [
-        {
-          "title": "登录注册流程",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/WLdFdU0emoh1K8xiYy9j4iPTpre"
-        },
-        {
-          "title": "KYC流程",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/PgEgdGleco9TddxCgmcjPqUSpEg"
-        },
-        {
-          "title": "用户自我封禁(Gambling Games)",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/EpzWdiGpVo6m8mxaM92j4L3gp7b"
-        },
-        {
-          "title": "KYC 流程优化 V1.1",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/CEVTdBQEFoom7fxhVP7j7u47pwh"
-        },
-        {
-          "title": "用户配置(Account Setting)",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/wiki/M19QwUWNNikq1Kk7k4LjxpespRf"
-        },
-        {
-          "title": "用户信息编辑",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/XdS3dC8QLof4c1xqocnj5iBrpud"
-        },
-        {
-          "title": "Transaction 优化V1.1",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/DaEvdPLQPopSL5xRSFWjJRxdpef"
-        }
-      ],
-      "weekly_progress_percentage": 8
-    },
-    {
-      "id": "mod_wallet_finance",
-      "group_id": "grp_user_finance",
-      "name": "钱包与财务",
-      "priority": "P1",
-      "status": "in_progress",
-      "progress_percentage": 88,
-      "owner": "Yark",
-      "current_summary": "讨论多国别货币符号显示问题，确认当前单一平台只支持一种货币，暂不支持汇率转换及符号切换，避免金额显示混乱。未来若支持多币种需考虑汇率转换。",
-      "next_milestone": "验证财务优化 V1.1 提款重送及 Transfer Order 功能",
-      "history_timeline": [
-        {
-          "date": "2026-01-16",
-          "event": "主钱包划转规划完成（100%），用户明细（钱包与注单明细）PRD 完成"
-        },
-        {
-          "date": "2026-02-27",
-          "event": "充提流程优化 V1.1 完成（100%）"
-        },
-        {
-          "date": "2026-03-27",
-          "event": "财务模块代付优化完成（100%）"
-        },
-        {
-          "date": "2026-04-10",
-          "event": "财务优化 V1.2（加入钱包冻结行为）进行中；V1.1 待验证提款重送/Transfer Order"
-        }
-      ],
-      "risks": [
-        {
-          "level": "Low",
-          "desc": "财务优化 V1.1 待验证提款重送及 Transfer Order 功能"
-        }
-      ],
-      "weekly_updates": [
-        {
-          "week": "2026-17",
-          "start_date": "2026-04-21",
-          "end_date": "2026-04-28",
-          "update": "本周「钱包与财务」模块确认多国别货币符号展示保持不变，因单一平台仅支持一种货币，语言切换不影响币别符号。当前无汇率转换功能，未来若需变更货币符号，需重点评估汇率转换相关风险。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": [
-              "多国别货币符号展示暂不变动，因单一平台只存在一种货币，切换语言不影响币别符号。",
-              "提醒若未来货币符号变更需考虑汇率转换问题，当前无汇率功能。"
-            ]
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 2
-          }
-        },
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "Bonus类型使用流程明确：SportBonus/CasinoBonus/Freesports/Freespin四种类型，前端UI由设计团队负责，注单报表开发已启动，后端与财务协调投注计算逻辑。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 2,
-            "new_defects": 1,
-            "resolved_defects": 1,
-            "chat_insight_count": 3
-          }
-        },
-        {
-          "week": "2026-14",
-          "start_date": "2026-03-31",
-          "end_date": "2026-04-07",
-          "update": "财务优化 V1.2 推进中，V1.1 待验证",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 0
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_wallet_transfer",
-          "name": "主钱包划转",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "主钱包划转规划完成，用户账变记录及注单查询功能完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": [
-            {
-              "title": "主钱包划转",
-              "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/AFsSdqWoVoZcZtxTCOdjcdyspSe"
-            }
-          ]
-        },
-        {
-          "id": "feat_deposit_withdraw_v11",
-          "name": "充提流程优化 V1.1",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "充提流程优化 V1.1 完成（100%）",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_payment_optimization",
-          "name": "代付优化",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "财务模块代付优化完成（100%）",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_finance_v12",
-          "name": "财务优化 V1.2",
-          "status": "in_progress",
-          "owner": "Yark",
-          "desc": "加入钱包冻结行为，进行中",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "in_progress"
-            },
-            "post_review": {
-              "frontend_dev": "pending",
-              "backend_dev": "in_progress"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_withdrawal_resend",
-          "name": "提款重送 / Transfer Order",
-          "status": "in_progress",
-          "owner": "Yark",
-          "desc": "财务优化 V1.1 待验证提款重送及 Transfer Order 功能",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "in_progress"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "module_docs": [
-        {
-          "title": "支付路由",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/wiki/RgYGwl1naiZUtSkRTkVjbdAVpgd"
-        },
-        {
-          "title": "支付代收代付",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/wiki/QmCcw7JBNiIeE3kQqyvjUCBNpNb"
-        },
-        {
-          "title": "主钱包划转",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/AFsSdqWoVoZcZtxTCOdjcdyspSe"
-        },
-        {
-          "title": "Bonus 钱包划转",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/AFsSdqWoVoZcZtxTCOdjcdyspSe"
-        },
-        {
-          "title": "钱包规则参数",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/wiki/XY9rww6xdiqOYkku7WSjj82Hp1d"
-        },
-        {
-          "title": "币种钱包设置",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/YfJ9dsMA2o9XUtx5qaGjbrIUpJg"
-        }
-      ],
-      "weekly_progress_percentage": 7
-    },
-    {
-      "id": "mod_activity_platform",
-      "group_id": "grp_operations",
-      "name": "运营活动平台",
-      "priority": "P1",
-      "status": "in_progress",
-      "progress_percentage": 75,
-      "owner": "Mavin",
-      "current_summary": "多国别活动页面语言配置采用单独配置方式，无多语言自动切换。联赛名称过长时隐藏国家和箭头，悬浮显示完整信息。部分细节调整后准备上线，4.17版本剩余问题少量，先上线生产，剩余问题后续处理。",
-      "next_milestone": "推进排行榜及墨西哥冠军盘活动开发，推动活动互斥规则上线",
-      "history_timeline": [
-        {
-          "date": "2026-01-02",
-          "event": "活动 PRD 确认，整理活动通用模板"
-        },
-        {
-          "date": "2026-01-23",
-          "event": "评估/设计活动配置运营中心功能架构，调研 talon.one"
-        },
-        {
-          "date": "2026-02-06",
-          "event": "运营活动中台技术方案调研，ECA 项目方案评估"
-        },
-        {
-          "date": "2026-02-27",
-          "event": "活动管理平台原型设计完成，内部评审通过"
-        },
-        {
-          "date": "2026-03-06",
-          "event": "活动管理平台 PRD 文档编写完成"
-        },
-        {
-          "date": "2026-03-20",
-          "event": "首充活动原型设计与 PRD 文档输出完成（100%）"
-        },
-        {
-          "date": "2026-04-03",
-          "event": "VIP 活动及世界杯通行证活动原型及 PRD 完成，首充活动验收通过"
-        },
-        {
-          "date": "2026-04-10",
-          "event": "通行证活动原型/PRD/多语言文案完成，VIP 活动进入研发评审"
-        }
-      ],
-      "risks": [
-        {
-          "level": "High",
-          "desc": "活动互斥规则尚未上线，用户可同时参加多个VIP活动"
-        },
-        {
-          "level": "Medium",
-          "desc": "活动平台互斥功能、标签系统对接及运营位前台适配风险"
-        }
-      ],
-      "weekly_updates": [
-        {
-          "week": "2026-17",
-          "start_date": "2026-04-21",
-          "end_date": "2026-04-28",
-          "update": "本周活动平台无新功能上线，所有活动方案已准备完成，VIP体系预计下周二上线，VIP客服招聘工作正在推进中。页面语言已支持直接配置对应语言，单国别活动单独配置，无多语言支持。联赛名称过长时优化展示逻辑，隐藏国家和箭头并悬浮显示完整信息。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": [
-              "运营本周无上线，所有活动方案已准备好，VIP体系预计下周二上线，VIP客服招聘在推进中。",
-              "活动平台页面语言直接配置成对应语言，单个国别配置单独活动，无多语言支持。",
-              "联赛名称过长时隐藏国家和箭头，悬浮展示完整国家和箭头，优化展示逻辑。"
-            ]
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 3
-          }
-        },
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "活动平台V1：广州负责运营位前台开发，上海负责Casino Bonus及Freespin礼券配置前台适配。V2：广州负责预算管理、活动模板及活动页管理（优先级较低）。活动互斥规则文档编写中，VIP/通行证/留存/排行榜为当前优先活动。每日短会机制已建立，跟进需求进展。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 3,
-            "new_defects": 0,
-            "resolved_defects": 2,
-            "chat_insight_count": 4
-          }
-        },
-        {
-          "week": "2026-14",
-          "start_date": "2026-03-31",
-          "end_date": "2026-04-07",
-          "update": "VIP 活动研发评审，活动平台开发答疑",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 0
-          }
-        },
-        {
-          "week": "2026-15",
-          "start_date": "2026-04-07",
-          "end_date": "2026-04-14",
-          "update": "活动平台V1广州负责运营位前台开发，上海负责Casino Bonus/Freespin礼券配置前台适配；推动活动互斥规则文档编写及开发",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 0
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_activity_platform_prd",
-          "name": "活动管理平台 PRD",
-          "status": "completed",
-          "owner": "Mavin",
-          "desc": "完成活动管理平台原型设计、PRD 文档编写、技术评审",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_first_deposit",
-          "name": "首充活动",
-          "status": "completed",
-          "owner": "Mavin",
-          "desc": "首充活动原型设计与 PRD 完成，已上线验收，问题修复推进",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_vip_activity",
-          "name": "VIP 活动",
-          "status": "in_progress",
-          "owner": "Mavin",
-          "desc": "VIP 活动原型及 PRD 完成（100%），进入研发评审阶段",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "in_progress",
-              "backend_dev": "in_progress"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_worldcup_pass",
-          "name": "世界杯通行证活动",
-          "status": "in_progress",
-          "owner": "Mavin",
-          "desc": "通行证活动原型、PRD、多语言文案完成，运营侧评审通过",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "in_progress",
-              "backend_dev": "pending"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_leaderboard",
-          "name": "排行榜活动",
-          "status": "pending",
-          "owner": "Mavin",
-          "desc": "排行榜活动规划中，待开发",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "pending",
-              "ui_design": "pending"
-            },
-            "post_review": {
-              "frontend_dev": "pending",
-              "backend_dev": "pending"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_activity_mutex",
-          "name": "活动互斥规则",
-          "status": "in_progress",
-          "owner": "Mavin",
-          "desc": "推动活动互斥规则文档编写及开发，确保单用户同一时间仅参加一个VIP活动",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "in_progress",
-              "ui_design": "pending"
-            },
-            "post_review": {
-              "frontend_dev": "pending",
-              "backend_dev": "pending"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "module_docs": [
-        {
-          "title": "Bonus创建",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Bk3idZjWjoOBySxCSY5jZndKp9c"
-        },
-        {
-          "title": "Freebet创建",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Bk3idZjWjoOBySxCSY5jZndKp9c"
-        },
-        {
-          "title": "礼券核销",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/YUD3diXm3ojZe5xX2s3jwil6pTf"
-        },
-        {
-          "title": "Superodds",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Bk3idZjWjoOBySxCSY5jZndKp9c"
-        },
-        {
-          "title": "串关加赔",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Bk3idZjWjoOBySxCSY5jZndKp9c"
-        },
-        {
-          "title": "营销入口配置",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Bk3idZjWjoOBySxCSY5jZndKp9c"
-        },
-        {
-          "title": "Freespin创建",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/Bk3idZjWjoOBySxCSY5jZndKp9c"
-        },
-        {
-          "title": "余额查询",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/DaEvdPLQPopSL5xRSFWjJRxdpef"
-        },
-        {
-          "title": "使用记录",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/YUD3diXm3ojZe5xX2s3jwil6pTf"
-        }
-      ],
-      "weekly_progress_percentage": 15
-    },
-    {
-      "id": "mod_casino",
-      "group_id": "grp_operations",
-      "name": "游戏（Casino）",
-      "priority": "P1",
-      "status": "in_progress",
-      "progress_percentage": 80,
-      "owner": "Yark",
-      "current_summary": "Casino模块的Bonus和FreeSpin功能即将开始调通，上海团队负责开发，后端账变和订单记录已完成，前端功能尚未上线。验收环节需重点关注，确保功能完善。下一步是完成前端开发并进行活动验收。",
-      "next_milestone": "跟进游戏注单报表进度（新技术开发）",
-      "history_timeline": [
-        {
-          "date": "2026-01-30",
-          "event": "Gambling Game 需求宣讲"
-        },
-        {
-          "date": "2026-03-06",
-          "event": "RG API 文件解析完成，游戏商管理 PRD/注单报表 PRD/IG·RG 对接文档完成"
-        },
-        {
-          "date": "2026-03-13",
-          "event": "游戏管理 PRD/注单报表 PRD/游戏商管理 PRD 全部完成"
-        },
-        {
-          "date": "2026-03-27",
-          "event": "建立 Gamelist 范本，用于游戏管理 GameList"
-        },
-        {
-          "date": "2026-04-10",
-          "event": "游戏注单报表更新完成（100%），将由新技术开发接手"
-        }
-      ],
-      "risks": [
-        {
-          "level": "Medium",
-          "desc": "游戏注单报表进度跟进（新技术开发接手，存在交接风险）"
-        }
-      ],
-      "weekly_updates": [
-        {
-          "week": "2026-17",
-          "start_date": "2026-04-21",
-          "end_date": "2026-04-28",
-          "update": "Casino游戏平台模块本周完成全部布置并已正式上线，成功对接3家游戏厂商。优化工作预计于下周三完成，目前无明显阻塞或风险。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": [
-              "Casino板块布置本周全部完成，已正式上线，完成3家游戏厂商对接，优化点预计下周三完成。"
-            ]
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 1
-          }
-        },
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "游戏厂商PP对接正常，图档大小问题跟进中。Stripe对接等待Free请假结束后启动，技术由Chase协助。游戏渲染加载性能优化中（直连速度较快，VPN可接受）。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 1,
-            "new_defects": 1,
-            "resolved_defects": 0,
-            "chat_insight_count": 2
-          }
-        },
-        {
-          "week": "2026-14",
-          "start_date": "2026-03-31",
-          "end_date": "2026-04-07",
-          "update": "游戏注单报表更新完成，换新技术开发接手，游戏对接协助中",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 0
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_game_provider_mgmt",
-          "name": "游戏商管理",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "游戏商管理 PRD 完成，游戏管理交互图档更替完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_rg_ig_integration",
-          "name": "RG/IG 对接",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "RG API 文件解析完成，IG/RG 对接文档说明完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_bet_report",
-          "name": "游戏注单报表",
-          "status": "in_progress",
-          "owner": "Yark",
-          "desc": "注单报表 PRD 完成，注单报表更新完成，将由新技术开发接手",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "in_progress",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_gamelist",
-          "name": "GameList 范本",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "建立 Gamelist 范本，用于游戏管理 GameList",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "na"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "module_docs": [
-        {
-          "title": "Casino优先级",
-          "url": "#"
-        },
-        {
-          "title": "Casino参数",
-          "url": "#"
-        },
-        {
-          "title": "游戏对接-第1-2家",
-          "url": "#"
-        },
-        {
-          "title": "游戏对接-第3-4家",
-          "url": "#"
-        },
-        {
-          "title": "游戏对接-第5-6家",
-          "url": "#"
-        },
-        {
-          "title": "游戏对接-第7-8家",
-          "url": "#"
-        },
-        {
-          "title": "游戏对接-第9-10家",
-          "url": "#"
-        },
-        {
-          "title": "游戏对接-第11-12家",
-          "url": "#"
-        },
-        {
-          "title": "游戏对接-第13-14家",
-          "url": "#"
-        },
-        {
-          "title": "游戏对接-第15-16家",
-          "url": "#"
-        }
-      ],
-      "weekly_progress_percentage": 7
-    },
-    {
-      "id": "mod_ads_system",
-      "group_id": "grp_operations",
-      "name": "投放系统",
-      "priority": "P1",
-      "status": "in_progress",
-      "progress_percentage": 85,
-      "owner": "Yark",
-      "current_summary": "多渠道广告投放 PRD/PIXEL 埋点规范/推广日报范例完成，投放功能进入验收阶段",
-      "next_milestone": "完成投放功能验收（埋点、数据、数据展示）",
-      "history_timeline": [
-        {
-          "date": "2026-01-09",
-          "event": "多渠道广告与奖励投放管理(Ads) PRD 完成（100%）"
-        },
-        {
-          "date": "2026-03-20",
-          "event": "投放系统验收标准和交互功能修正完成（100%）"
-        },
-        {
-          "date": "2026-03-27",
-          "event": "PIXEL 事件规范定义完成（100%），推广日报 Google Sheet 读取范例启动"
-        },
-        {
-          "date": "2026-04-03",
-          "event": "推广日报 Google Sheet 读取范例完成（100%），投放功能验收启动"
-        },
-        {
-          "date": "2026-04-10",
-          "event": "投放功能验收进行中，埋点/数据/数据展示待验收"
-        }
-      ],
-      "risks": [
-        {
-          "level": "Medium",
-          "desc": "投放功能验收（埋点、数据、数据展示）待完成"
-        }
-      ],
-      "weekly_updates": [
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "投放后台存在较多问题：xp技术ch逻辑未完成，广告配置自动化未实现，pixel/token数据未传递，技术团队跟进中，争取两天内解决。数据埋点及登录记录需求（APP/H5/网页端）将与埋点一起开发。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 2,
-            "new_defects": 0,
-            "resolved_defects": 1,
-            "chat_insight_count": 3
-          }
-        },
-        {
-          "week": "2026-14",
-          "start_date": "2026-03-31",
-          "end_date": "2026-04-07",
-          "update": "投放功能验收进行中，埋点/数据/数据展示待验收",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 0
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_ads_prd",
-          "name": "多渠道广告投放管理",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "多渠道广告与奖励投放管理 PRD 完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_pixel_spec",
-          "name": "PIXEL 埋点规范",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "PIXEL 事件规范定义完成（100%），广州团队提供 PIXEL 事件集接口",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_promo_report",
-          "name": "推广日报 Google Sheet",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "推广日报 Google Sheet 读取范例完成（100%）",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_ads_acceptance",
-          "name": "投放功能验收",
-          "status": "in_progress",
-          "owner": "Yark",
-          "desc": "埋点、数据、数据展示功能待验收",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "in_progress",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "module_docs": [
-        {
-          "title": "投放中心-投放素材模板",
-          "url": "#"
-        },
-        {
-          "title": "投放中心-投放组管理",
-          "url": "#"
-        },
-        {
-          "title": "投放中心-Pixel对接",
-          "url": "#"
-        },
-        {
-          "title": "投放中心-数据统计报表",
-          "url": "#"
-        },
-        {
-          "title": "投放中心-Adjust对接",
-          "url": "#"
-        },
-        {
-          "title": "投放中心-归因埋点",
-          "url": "#"
-        }
-      ],
-      "weekly_progress_percentage": 13
-    },
-    {
-      "id": "mod_uiux_design",
-      "group_id": "grp_platform",
-      "name": "UI/UX 设计",
-      "priority": "P2",
-      "status": "in_progress",
-      "progress_percentage": 85,
-      "owner": "Starvia",
-      "current_summary": "新增了一个字体变量 title-lg，字体粗细调整为900，字号修改为32。相关调整已确认，后续将继续优化字体样式。",
-      "next_milestone": "完成移动端投注卡片及投注栏设计优化，推进 H5 适配",
-      "history_timeline": [
-        {
-          "date": "2026-01-16",
-          "event": "优化注册/登录/主页/注单操作 UI（Starvia）"
-        },
-        {
-          "date": "2026-01-23",
-          "event": "更新完成个人中心所有 UI，完成钱包划转 UI（Starvia）"
-        },
-        {
-          "date": "2026-02-27",
-          "event": "新名称 UGOBET-logo 设计，casino UI 页面制作（Starvia）"
-        },
-        {
-          "date": "2026-03-13",
-          "event": "新名称 GOTOBET-logo 设计，promotion UI 90%（Starvia）"
-        },
-        {
-          "date": "2026-04-03",
-          "event": "注单卡片系统交互设计规范 v1.4，投注栏修改，H5 主页/个人中心 UI 设计（うみ）"
-        },
-        {
-          "date": "2026-04-10",
-          "event": "完成 VIP UI/墨西哥冠军盘 UI，H5 登录/注册 UI 设计（うみ）"
-        }
-      ],
-      "risks": [
-        {
-          "level": "Low",
-          "desc": "部分 UI 小修改待前端开发和验收，移动端投注卡片设计优化待完善"
-        }
-      ],
-      "weekly_updates": [
-        {
-          "week": "2026-17",
-          "start_date": "2026-04-21",
-          "end_date": "2026-04-28",
-          "update": "本周UI优化持续推进，丹妮负责调整，重点聚焦滚球页面和首页。赛事展示调整为右侧优先显示tournamentName，左侧categoryName截断显示且内容不换行。H5端已取消地区显示，PC端地区显示方案待确认，联赛名称过长导致地区不展示的问题正在解决。外部设计方案成本较高，正在寻找合适人员，存在人员匹配风险。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": [
-              "UI优化持续进行，丹妮负责调整，外部设计方案成本高，正在寻找合适人员，重点优化滚球页面和首页。",
-              "优化赛事展示优先显示右侧tournamentName，左侧categoryName截断显示省略号，整体内容不换行。",
-              "H5端不显示地区，PC端待确认，解决联赛名称过长导致地区不展示的问题。"
-            ]
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 3
-          }
-        },
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "活动页面UI优化完成（巴西/墨西哥活动图已添加，footer/登陆页关闭按钮已上线）。移动端按钮高度规范确定（首页/live/体育详情页56，outright/比赛详情页40）。Bet Slip全屏交互调整：保留返回按钮，移除底部TabBar，交互文档编写中。Tooltip统一为弹窗动画形式（从问号弹出收起）。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 2,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 2
-          }
-        },
-        {
-          "week": "2026-14",
-          "start_date": "2026-03-31",
-          "end_date": "2026-04-07",
-          "update": "VIP UI/墨西哥冠军盘 UI 完成，H5 登录/注册 UI 设计中",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 0,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 0
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_core_ui",
-          "name": "核心产品 UI",
-          "status": "completed",
-          "owner": "Starvia",
-          "desc": "注册/登录、主页、个人中心、注单、钱包、Casino 等核心 UI 完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "na"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_activity_ui",
-          "name": "活动页面 UI",
-          "status": "completed",
-          "owner": "Starvia",
-          "desc": "首充活动、VIP 活动、墨西哥冠军盘、通行证等活动 UI 完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "na"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_bet_card_spec",
-          "name": "注单卡片设计规范",
-          "status": "completed",
-          "owner": "VoidZ",
-          "desc": "注单卡片系统交互设计规范 v1.4，重构注单记录卡片，优化串关展示形式",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "na"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_h5_adaptation",
-          "name": "H5 适配",
-          "status": "in_progress",
-          "owner": "うみ",
-          "desc": "H5 主页、个人中心、登录/注册 UI 设计，赛事比赛详情直播组件",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "in_progress"
-            },
-            "post_review": {
-              "frontend_dev": "pending",
-              "backend_dev": "na"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_ad_materials",
-          "name": "广告素材制作",
-          "status": "completed",
-          "owner": "Fay",
-          "desc": "赛事赛程广告图片/视频模板，首充活动图片/视频，新手注册视频，充值投注广告视频",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "na"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "weekly_progress_percentage": 5
-    },
-    {
-      "id": "mod_platform_setting",
-      "group_id": "grp_platform",
-      "name": "平台系统管理",
-      "priority": "P2",
-      "status": "completed",
-      "progress_percentage": 100,
-      "owner": "Yark",
-      "current_summary": "确认了办公场地搬迁情况，5月7日租期到期，团队计划在此时间节点回归办公。相关人员安排和办公环境调整已沟通确认。",
-      "next_milestone": "无待办",
-      "history_timeline": [
-        {
-          "date": "2026-01-02",
-          "event": "前台 Setting 配置项规划完成（100%）"
-        },
-        {
-          "date": "2026-01-23",
-          "event": "平台系统管理(Setting) 完成（100%）"
-        },
-        {
-          "date": "2026-02-06",
-          "event": "FAQ 完成（100%），公告功能启动"
-        },
-        {
-          "date": "2026-02-20",
-          "event": "公告完成（100%），SMTP/SMS 配置完成"
-        },
-        {
-          "date": "2026-04-10",
-          "event": "FAQ 配置与展示完成（100%）"
-        }
-      ],
-      "risks": [],
-      "weekly_updates": [
-        {
-          "week": "2026-17",
-          "update": "确认了办公场地搬迁情况，5月7日租期到期，团队计划在此时间节点回归办公。相关人员安排和办公环境调整已沟通确认。"
-        },
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "菜单改为纯树形结构（二级在一级下，三级在二级下），地区筛选接口暂缓。法务要求新增底部文案和新logo，已上线test1测试环境，移动端后续美化。文案多语言支持：西语/葡语语言包提供中，Lark文案表格维护中。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 1,
-            "new_defects": 1,
-            "resolved_defects": 1,
-            "chat_insight_count": 1
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_platform_setting",
-          "name": "平台 Setting 配置",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "前台 Setting 配置项规划及实现完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_sms_smtp",
-          "name": "SMS/SMTP 服务配置",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "SMS/SMTP 服务端配置完成，验收报告及交互完成",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "na"
-            },
-            "post_review": {
-              "frontend_dev": "na",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        },
-        {
-          "id": "feat_faq",
-          "name": "FAQ 配置与展示",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "FAQ PRD 完成，FAQ 配置与展示功能完成（100%）",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": [
-            {
-              "title": "FAQ",
-              "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/OAx8dQZPKosnwkxDsZXjoax0p0f"
-            }
-          ]
-        },
-        {
-          "id": "feat_announcement",
-          "name": "公告功能",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "公告功能完成（100%）",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "module_docs": [
-        {
-          "title": "用户打标签",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/GsxNdQ8Noo0bssxN5vqjP8nipad?previous_navigation_time=1770170613231"
-        },
-        {
-          "title": "KYC前端兼容多国别配置",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/HCDOdfxZdoYVckxJ4mdjfN06pmg?previous_navigation_time=1768979709457"
-        },
-        {
-          "title": "FAQ",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/OAx8dQZPKosnwkxDsZXjoax0p0f"
-        },
-        {
-          "title": "触达-站内信",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/NozldGmDPoaGeDxNsTKjW8aHpPh"
-        },
-        {
-          "title": "代理参数配置",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/LiYRdVnrEoPNRJxhKSTjrzoVpUg"
-        },
-        {
-          "title": "文章系统",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/NozldGmDPoaGeDxNsTKjW8aHpPh"
-        }
-      ],
-      "weekly_progress_percentage": 0
-    },
-    {
-      "id": "mod_im_cs",
-      "group_id": "grp_platform",
-      "name": "站内信与客服",
-      "priority": "P2",
-      "status": "completed",
-      "progress_percentage": 100,
-      "owner": "Yark",
-      "current_summary": "站内信、站内客服功能验收通过",
-      "next_milestone": "无待办",
-      "history_timeline": [
-        {
-          "date": "2026-02-20",
-          "event": "站内信、站内客服功能验收通过"
-        }
-      ],
-      "risks": [],
-      "weekly_updates": [
-        {
-          "week": "2026-16",
-          "start_date": "2026-04-14",
-          "end_date": "2026-04-21",
-          "update": "弱网弹窗触发频率评估中（针对墨西哥市场网络状况）。购物车快捷金额设置已同步后端，问号tooltip统一为hover状态。",
-          "sources": {
-            "xp_weekly_report": null,
-            "bitable_summary": null,
-            "meegle_progress": null,
-            "chat_insights": []
-          },
-          "activity": {
-            "completed_stories": 1,
-            "new_defects": 0,
-            "resolved_defects": 0,
-            "chat_insight_count": 2
-          }
-        }
-      ],
-      "features": [
-        {
-          "id": "feat_im",
-          "name": "站内信",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "站内信功能验收通过",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": [
-            {
-              "title": "站内信",
-              "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/RP8kdEVHEoxFPJxiXJ2j1Vabpbf"
-            }
-          ]
-        },
-        {
-          "id": "feat_cs",
-          "name": "站内客服",
-          "status": "completed",
-          "owner": "Yark",
-          "desc": "站内客服功能验收通过",
-          "workflow": {
-            "pre_review": {
-              "requirement_doc": "completed",
-              "ui_design": "completed"
-            },
-            "post_review": {
-              "frontend_dev": "completed",
-              "backend_dev": "completed"
-            }
-          },
-          "docs": []
-        }
-      ],
-      "module_docs": [
-        {
-          "title": "站内信",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/RP8kdEVHEoxFPJxiXJ2j1Vabpbf"
-        },
-        {
-          "title": "C端客服入口",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/DiLydsC6koKwPQxPQJFjX41upNe"
-        },
-        {
-          "title": "VIP客服",
-          "url": "https://kjpp4yydjn38.jp.larksuite.com/docx/JrJddX9JSoshhoxPqfnjGhmgp3g?previous_navigation_time=1768814434393"
-        }
-      ],
-      "weekly_progress_percentage": 0
-    }
-  ],
   "weekly_periods": [
     {
       "week": "2026-17",

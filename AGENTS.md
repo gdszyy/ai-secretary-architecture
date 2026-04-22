@@ -49,6 +49,8 @@
 *   **module1_kanban 模块规范**：[`.cursor/rules/module1_kanban.md`](.cursor/rules/module1_kanban.md) - module1_kanban 模块的专属设计规范与 SOP。
 *   **module2_buffer 模块规范**：[`.cursor/rules/module2_buffer.md`](.cursor/rules/module2_buffer.md) - module2_buffer 模块的专属设计规范与 SOP。
 *   **module3_info_sources 模块规范**：[`.cursor/rules/module3_info_sources.md`](.cursor/rules/module3_info_sources.md) - module3_info_sources 模块的专属设计规范与 SOP。
+*   **Meegle 深度集成方案**：[`docs/module3_info_sources/meegle_integration_deepening.md`](docs/module3_info_sources/meegle_integration_deepening.md) - Meegle 扩展能力与模块映射规范。
+*   **里程碑管理规范**：[`docs/project/milestone_policy.md`](docs/project/milestone_policy.md) - 人工设定里程碑的强制规范。
 *   **project 模块规范**：[`.cursor/rules/project.md`](.cursor/rules/project.md) - project 模块的专属设计规范与 SOP。
 
 ## 5. 流程洞察索引 (Process Insights)

@@ -61,3 +61,4 @@ globs: ["README.md", "docs/**/*.md"]
 5.  **巨型函数必须标记内部节点**：当函数超过 200 行时，必须在内部按业务逻辑块添加 `// @section:{snake_case_name} - {一句话说明}` 标记，以便索引器提取内部节点。
 6.  **禁止主动读取归档区**：`archive/` 和 `tasks/` 目录为历史归档区，Agent 默认严禁主动读取，除非任务明确要求追溯历史。
 7.  **禁止破坏 Single Source of Truth 原则**：进入开发前 Lark 为主，进入开发后（存在 Meegle ID）Meegle 为主，严禁在两侧同时手动修改状态。
+8.  **禁止 AI 自动生成里程碑**：里程碑必须由项目管理人员手动设定，AI 仅负责追踪和倒推 Buffer，严禁自动向 `dashboard_data.json` 写入新的里程碑。
