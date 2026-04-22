@@ -1,6 +1,6 @@
 # scripts/extract_weekly_insights.py 函数索引
 
-> 自动生成于 2026-04-21 | 总行数: 522 | 函数数: 7 | 语言: python
+> 自动生成于 2026-04-22 | 总行数: 522 | 函数数: 7 | 语言: python
 > **本文件由 code-indexer 脚本自动生成，严禁手动编辑。**
 
 ## 函数列表
