@@ -1,0 +1,15 @@
+{
+  "session_id": "sB",
+  "phase": 3,
+  "status": "completed",
+  "component_configs": [
+    {
+      "module_name": "项目健康度诊断",
+      "component_name": "评分卡组件",
+      "data_source": "来自财务模块",
+      "presentation_method": "自定义调整: 改成折线图",
+      "display_fields": "确认默认字段",
+      "drill_down_logic": "跳转到财务情况"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "session_id": "sA",
+  "phase": 3,
+  "status": "completed",
+  "component_configs": [
+    {
+      "module_name": "项目健康度诊断",
+      "component_name": "多维健康度雷达图",
+      "data_source": "来自增长与获客模块",
+      "presentation_method": "已切换至备选组件：多维健康度雷达图（HealthRadarChart）",
+      "display_fields": "确认默认字段",
+      "drill_down_logic": "暂不下钻"
+    }
+  ]
+}
