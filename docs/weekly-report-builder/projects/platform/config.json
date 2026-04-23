@@ -1,0 +1,42 @@
+{
+  "_comment": "中台项目配置。关注服务能力、API 稳定性、各业务线接入进度。",
+  "id": "platform",
+  "name": "中台建设周报",
+  "description": "面向中台团队的服务能力周报，包含服务健康度、API 指标、各业务线接入进度、基础设施里程碑。",
+  "template": "../../templates/weekly_report_example.tsx",
+  "schema": "schema.json",
+  "mockDataVar": "mockData",
+  "mockDataType": "DashboardData",
+  "sections": [
+    { "id": "hero",       "label": "首屏总览",       "required": true  },
+    { "id": "health",     "label": "服务健康度",     "required": true  },
+    { "id": "north-star", "label": "核心服务指标",   "required": true  },
+    { "id": "kpi",        "label": "API 告警",       "required": true  },
+    { "id": "milestones", "label": "基础设施里程碑", "required": true  },
+    { "id": "modules",    "label": "业务线接入进度", "required": true  },
+    { "id": "risks",      "label": "技术风险与决策", "required": true  }
+  ],
+  "moduleAlias": {
+    "_comment": "将通用字段名映射为中台业务语义标签",
+    "modules":             "业务线",
+    "module.name":         "业务线名称",
+    "module.owner":        "接入负责人",
+    "module.progress":     "接入完成度",
+    "module.currentFocus": "本周接入进展",
+    "module.nextMilestone":"下一接入节点",
+    "module.metrics":      "服务调用指标"
+  },
+  "extraFields": {
+    "_comment": "中台特有字段，在 schema.json 中以 extra 命名空间存放",
+    "serviceCapacity": {
+      "description": "服务能力概览：总 QPS、P99 延迟、可用率、接入业务线数",
+      "fields": ["totalQps", "p99Latency", "availability", "connectedBizLines"]
+    },
+    "apiMetrics": {
+      "description": "各核心 API 的调用量、成功率、延迟趋势",
+      "fields": ["apiName", "callCount", "successRate", "p99", "trend"]
+    }
+  },
+  "stateDir": "../../state/platform",
+  "outputDir": "../../output/platform"
+}

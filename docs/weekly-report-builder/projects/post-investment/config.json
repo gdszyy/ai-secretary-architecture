@@ -1,0 +1,42 @@
+{
+  "_comment": "投后管理项目配置。关注被投企业组合健康度、资金部署进度、退出管道。",
+  "id": "post-investment",
+  "name": "投后管理周报",
+  "description": "面向投资团队的被投企业组合周报，包含组合健康度、资金部署、里程碑跟踪、风险预警。",
+  "template": "../../templates/weekly_report_example.tsx",
+  "schema": "schema.json",
+  "mockDataVar": "mockData",
+  "mockDataType": "DashboardData",
+  "sections": [
+    { "id": "hero",       "label": "首屏总览",       "required": true  },
+    { "id": "health",     "label": "组合健康度",     "required": true  },
+    { "id": "north-star", "label": "核心追踪指标",   "required": true  },
+    { "id": "kpi",        "label": "KPI 监控",       "required": false },
+    { "id": "milestones", "label": "里程碑跟踪",     "required": true  },
+    { "id": "modules",    "label": "被投企业详情",   "required": true  },
+    { "id": "risks",      "label": "风险预警与决策", "required": true  }
+  ],
+  "moduleAlias": {
+    "_comment": "将通用字段名映射为业务语义标签，用于 Agent 生成代码时的注释和 UI 标签",
+    "modules":    "被投企业",
+    "module.name": "企业名称",
+    "module.owner": "对接 Partner",
+    "module.progress": "里程碑完成率",
+    "module.currentFocus": "本周重点进展",
+    "module.nextMilestone": "下一关键节点",
+    "module.metrics": "核心经营指标"
+  },
+  "extraFields": {
+    "_comment": "投后特有字段，在 schema.json 中以 extra 命名空间存放",
+    "portfolio": {
+      "description": "组合概览：总投资额、已部署资金、账面回报倍数等",
+      "fields": ["totalInvested", "deployed", "moic", "irr", "exitPipeline"]
+    },
+    "fundingRounds": {
+      "description": "本周融资动态：被投企业新一轮融资信息",
+      "fields": ["company", "round", "amount", "lead", "date", "status"]
+    }
+  },
+  "stateDir": "../../state/post-investment",
+  "outputDir": "../../output/post-investment"
+}

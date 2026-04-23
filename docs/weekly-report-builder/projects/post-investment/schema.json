@@ -1,0 +1,253 @@
+{
+  "_comment": "投后管理周报数据模板。每周填写此文件，运行 data_injector.py --project post-investment 生成周报。",
+  "_usage": "python scripts/data_injector.py --project post-investment --data projects/post-investment/schema.json",
+
+  "meta": {
+    "projectName": "投后管理周报",
+    "reportPeriod": "2026-W17",
+    "updatedAt": "2026/04/28",
+    "version": "v1.0"
+  },
+
+  "healthScore": {
+    "_comment": "组合整体健康度评分（0-100）。维度可自定义为投后关注的四个视角。",
+    "overall": 78,
+    "trend": "up",
+    "trendValue": "+3",
+    "dimensions": [
+      { "name": "增长势能",   "score": 82, "prevScore": 79, "color": "bg-emerald-500" },
+      { "name": "财务健康",   "score": 71, "prevScore": 68, "color": "bg-violet-500"  },
+      { "name": "团队稳定性", "score": 85, "prevScore": 85, "color": "bg-sky-500"     },
+      { "name": "风险控制",   "score": 62, "prevScore": 65, "color": "bg-amber-500"   }
+    ],
+    "summary": "组合整体运营稳健，财务健康度持续改善，两家企业存在资金压力需重点关注。"
+  },
+
+  "northStar": {
+    "_comment": "核心追踪指标。投后场景建议使用「账面回报倍数 MOIC」或「组合 ARR」作为北极星指标。",
+    "metric": "组合加权 MOIC",
+    "unit": "x",
+    "currentValue": 2.4,
+    "previousValue": 2.3,
+    "targetValue": 3.0,
+    "trend": "up",
+    "trendValue": "+0.1x",
+    "achievementRate": 80.0,
+    "factors": [
+      {
+        "id": "factor-growth",
+        "label": "增长类企业",
+        "contribution": 1.2,
+        "trend": "up",
+        "moduleId": "growth-portfolio"
+      },
+      {
+        "id": "factor-stable",
+        "label": "稳定类企业",
+        "contribution": 0.8,
+        "trend": "flat",
+        "moduleId": "stable-portfolio"
+      },
+      {
+        "id": "factor-early",
+        "label": "早期企业",
+        "contribution": 0.4,
+        "trend": "up",
+        "moduleId": "early-portfolio"
+      }
+    ],
+    "insight": "增长类企业贡献持续提升，早期企业中有 1 家完成 B 轮融资，账面价值上调。"
+  },
+
+  "kpiAlerts": [
+    {
+      "id": "alert-001",
+      "level": "P1",
+      "title": "企业 A 现金跑道不足 6 个月",
+      "description": "当前月均 burn rate 约 180 万，账上现金仅剩 900 万，需在 Q3 前完成新一轮融资或削减成本。",
+      "triggeredAt": "2026-04-25",
+      "impact": "若融资未能落地，可能触发对赌条款",
+      "status": "处理中",
+      "kpiId": "kpi-runway"
+    }
+  ],
+
+  "kpiMetrics": [
+    {
+      "id": "kpi-moic",
+      "label": "组合加权 MOIC",
+      "value": "2.4",
+      "unit": "x",
+      "target": "3.0x",
+      "status": "normal",
+      "trend": "up",
+      "trendValue": "+0.1x",
+      "description": "本周因企业 C 完成 B 轮，账面价值上调 0.1x",
+      "historyWeekly": [2.1, 2.2, 2.3, 2.4]
+    },
+    {
+      "id": "kpi-arr",
+      "label": "组合合并 ARR",
+      "value": "4200",
+      "unit": "万",
+      "target": "5000万",
+      "status": "warning",
+      "trend": "up",
+      "trendValue": "+3.2%",
+      "description": "企业 B ARR 增速放缓，拖累组合整体增速",
+      "historyWeekly": [3800, 3950, 4070, 4200]
+    }
+  ],
+
+  "milestones": [
+    {
+      "id": "ms-q1-review",
+      "version": "Q1",
+      "title": "Q1 投后复盘完成",
+      "date": "2026-03-31",
+      "status": "done",
+      "description": "完成全部 8 家被投企业 Q1 经营数据收集与分析",
+      "achievements": ["完成 8 家企业 Q1 数据收集", "识别 2 家高风险企业", "完成 Q1 投后报告"]
+    },
+    {
+      "id": "ms-fund-close",
+      "version": "基金",
+      "title": "新基金首关完成",
+      "date": "2026-06-30",
+      "status": "active",
+      "description": "目标募资 5 亿，首关目标 2 亿",
+      "achievements": ["已签 LOI 1.2 亿", "3 家 LP 进入 DD 阶段"]
+    },
+    {
+      "id": "ms-exit-a",
+      "version": "退出",
+      "title": "企业 A 战略并购退出",
+      "date": "2026-12-31",
+      "status": "upcoming",
+      "description": "与战略方谈判中，目标估值 3x 退出",
+      "achievements": []
+    }
+  ],
+
+  "modules": [
+    {
+      "id": "company-a",
+      "name": "企业 A（消费科技）",
+      "nameEn": "Company A",
+      "owner": "张 Partner",
+      "priority": 1,
+      "progress": 65,
+      "status": "warning",
+      "currentFocus": "融资推进：已与 3 家机构完成 TS 交流，预计 5 月底确定 Lead",
+      "nextMilestone": "完成 Term Sheet 签署",
+      "nextMilestoneDate": "2026-05-31",
+      "metrics": [
+        { "label": "月 GMV",     "value": "1,200万", "trend": "up",   "trendValue": "+8%" },
+        { "label": "现金跑道",   "value": "5个月",   "trend": "down", "trendValue": "-1月" }
+      ]
+    },
+    {
+      "id": "company-b",
+      "name": "企业 B（SaaS 工具）",
+      "nameEn": "Company B",
+      "owner": "李 Partner",
+      "priority": 2,
+      "progress": 80,
+      "status": "normal",
+      "currentFocus": "产品迭代：企业版功能上线，新增 12 家付费客户",
+      "nextMilestone": "ARR 突破 1500 万",
+      "nextMilestoneDate": "2026-07-31",
+      "metrics": [
+        { "label": "ARR",        "value": "1,380万", "trend": "up",   "trendValue": "+5%" },
+        { "label": "NRR",        "value": "118%",    "trend": "up",   "trendValue": "+3%" }
+      ]
+    },
+    {
+      "id": "company-c",
+      "name": "企业 C（AI 基础设施）",
+      "nameEn": "Company C",
+      "owner": "王 Partner",
+      "priority": 1,
+      "progress": 90,
+      "status": "excellent",
+      "currentFocus": "B 轮融资完成交割，估值较 A 轮上涨 3.2x，账面价值大幅提升",
+      "nextMilestone": "完成 B 轮资金交割",
+      "nextMilestoneDate": "2026-04-30",
+      "metrics": [
+        { "label": "B 轮估值",   "value": "8亿",     "trend": "up",   "trendValue": "+3.2x" },
+        { "label": "GPU 算力",   "value": "12,000卡","trend": "up",   "trendValue": "+40%" }
+      ]
+    }
+  ],
+
+  "risks": [
+    {
+      "id": "risk-001",
+      "title": "企业 A 融资风险",
+      "level": "high",
+      "description": "现金跑道不足 6 个月，若 5 月底未能锁定 Lead，需启动 Bridge 方案",
+      "owner": "张 Partner",
+      "mitigation": "已启动 Bridge 方案备选，与现有 LP 沟通 Pro-rata 权利"
+    }
+  ],
+
+  "decisions": [
+    {
+      "id": "dec-001",
+      "title": "是否为企业 A 提供 Bridge 融资",
+      "description": "若 5 月底新一轮融资未能落地，讨论是否动用跟投权利提供 500 万 Bridge",
+      "deadline": "2026-05-15",
+      "status": "pending"
+    }
+  ],
+
+  "todos": [
+    {
+      "id": "todo-001",
+      "title": "完成企业 B Q2 经营数据收集",
+      "owner": "李 Partner",
+      "dueDate": "2026-05-05",
+      "priority": "high",
+      "done": false
+    },
+    {
+      "id": "todo-002",
+      "title": "安排企业 C 创始人与新 LP 见面",
+      "owner": "王 Partner",
+      "dueDate": "2026-05-10",
+      "priority": "medium",
+      "done": false
+    }
+  ],
+
+  "issues": [
+    {
+      "id": "issue-001",
+      "title": "企业 A 核心技术负责人离职风险",
+      "description": "CTO 与创始人存在分歧，需介入协调或评估影响",
+      "level": "high",
+      "moduleId": "company-a"
+    }
+  ],
+
+  "extra": {
+    "_comment": "投后特有扩展字段，不影响基础模板渲染，供 Agent 生成定制化组件时使用",
+    "portfolio": {
+      "totalInvested": "1.2亿",
+      "deployed": "9,800万",
+      "moic": 2.4,
+      "irr": "28%",
+      "exitPipeline": 1
+    },
+    "fundingRounds": [
+      {
+        "company": "企业 C",
+        "round": "B 轮",
+        "amount": "5,000万",
+        "lead": "某头部美元基金",
+        "date": "2026-04-20",
+        "status": "completed"
+      }
+    ]
+  }
+}

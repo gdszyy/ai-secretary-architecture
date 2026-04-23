@@ -1,0 +1,21 @@
+{
+  "_comment": "项目配置文件。每个项目目录下必须有此文件。",
+  "id": "default",
+  "name": "泛娱乐项目周报",
+  "description": "面向泛娱乐产品团队的标准周报，包含北极星指标归因、健康度诊断、里程碑进度、业务模块详情。",
+  "template": "../../templates/weekly_report_example.tsx",
+  "schema": "schema.json",
+  "mockDataVar": "mockData",
+  "mockDataType": "DashboardData",
+  "sections": [
+    { "id": "hero",       "label": "首屏总览",     "required": true  },
+    { "id": "health",     "label": "健康度诊断",   "required": true  },
+    { "id": "north-star", "label": "北极星归因",   "required": true  },
+    { "id": "kpi",        "label": "KPI 监控",     "required": false },
+    { "id": "milestones", "label": "里程碑进度",   "required": true  },
+    { "id": "modules",    "label": "业务模块详情", "required": true  },
+    { "id": "risks",      "label": "风险与决策",   "required": false }
+  ],
+  "stateDir": "../../state",
+  "outputDir": "../../output"
+}

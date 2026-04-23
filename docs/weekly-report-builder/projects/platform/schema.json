@@ -1,0 +1,276 @@
+{
+  "_comment": "中台建设周报数据模板。每周填写此文件，运行 data_injector.py --project platform 生成周报。",
+  "_usage": "python scripts/data_injector.py --project platform --data projects/platform/schema.json",
+
+  "meta": {
+    "projectName": "中台建设周报",
+    "reportPeriod": "2026-W17",
+    "updatedAt": "2026/04/28",
+    "version": "v1.0"
+  },
+
+  "healthScore": {
+    "_comment": "中台服务整体健康度。维度建议：服务稳定性、接入进度、性能达标、研发效能。",
+    "overall": 85,
+    "trend": "up",
+    "trendValue": "+2",
+    "dimensions": [
+      { "name": "服务稳定性", "score": 92, "prevScore": 90, "color": "bg-emerald-500" },
+      { "name": "接入进度",   "score": 78, "prevScore": 72, "color": "bg-violet-500"  },
+      { "name": "性能达标",   "score": 88, "prevScore": 86, "color": "bg-sky-500"     },
+      { "name": "研发效能",   "score": 80, "prevScore": 78, "color": "bg-amber-500"   }
+    ],
+    "summary": "服务稳定性持续高位，增长业务线接入进度提速，用户中台 P99 延迟优化成效显著。"
+  },
+
+  "northStar": {
+    "_comment": "核心服务指标。中台场景建议使用「服务可用率」或「接入业务线数」作为北极星指标。",
+    "metric": "平台服务可用率",
+    "unit": "%",
+    "currentValue": 99.95,
+    "previousValue": 99.92,
+    "targetValue": 99.99,
+    "trend": "up",
+    "trendValue": "+0.03%",
+    "achievementRate": 99.96,
+    "factors": [
+      {
+        "id": "factor-infra",
+        "label": "基础设施稳定性",
+        "contribution": 0.6,
+        "trend": "up",
+        "moduleId": "infra"
+      },
+      {
+        "id": "factor-api",
+        "label": "API 网关优化",
+        "contribution": 0.25,
+        "trend": "up",
+        "moduleId": "api-gateway"
+      },
+      {
+        "id": "factor-cache",
+        "label": "缓存命中率提升",
+        "contribution": 0.1,
+        "trend": "flat",
+        "moduleId": "cache"
+      }
+    ],
+    "insight": "本周通过 API 网关限流策略优化，将突发流量导致的可用率下降风险降低 60%。"
+  },
+
+  "kpiAlerts": [
+    {
+      "id": "alert-001",
+      "level": "P1",
+      "title": "消息中台 MQ 积压超阈值",
+      "description": "周四 14:00-15:30 消息积压达 120 万条，超过告警阈值 50 万，已触发自动扩容",
+      "triggeredAt": "2026-04-24T14:00:00",
+      "impact": "部分下游业务延迟消费，无数据丢失",
+      "status": "已恢复",
+      "kpiId": "kpi-mq-lag"
+    }
+  ],
+
+  "kpiMetrics": [
+    {
+      "id": "kpi-availability",
+      "label": "平台整体可用率",
+      "value": "99.95",
+      "unit": "%",
+      "target": "99.99%",
+      "status": "normal",
+      "trend": "up",
+      "trendValue": "+0.03%",
+      "description": "本周无 P0 故障，P1 故障 1 起已恢复",
+      "historyWeekly": [99.88, 99.90, 99.92, 99.95]
+    },
+    {
+      "id": "kpi-p99",
+      "label": "用户中台 P99 延迟",
+      "value": "48",
+      "unit": "ms",
+      "target": "50ms",
+      "status": "excellent",
+      "trend": "down",
+      "trendValue": "-12ms",
+      "description": "索引重建优化上线后，P99 延迟从 60ms 降至 48ms",
+      "historyWeekly": [72, 65, 60, 48]
+    },
+    {
+      "id": "kpi-biz-lines",
+      "label": "已接入业务线",
+      "value": "7",
+      "unit": "条",
+      "target": "10条",
+      "status": "warning",
+      "trend": "up",
+      "trendValue": "+1条",
+      "description": "本周新增增长业务线接入，Q2 目标完成 70%",
+      "historyWeekly": [5, 6, 6, 7]
+    }
+  ],
+
+  "milestones": [
+    {
+      "id": "ms-user-center-v2",
+      "version": "用户中台 v2",
+      "title": "用户中台 v2.0 上线",
+      "date": "2026-04-15",
+      "status": "done",
+      "description": "统一账号体系、设备指纹、行为埋点三大能力合并上线",
+      "achievements": ["统一账号体系覆盖全部业务线", "P99 延迟降至 48ms", "日均调用量 2.3 亿次"]
+    },
+    {
+      "id": "ms-msg-center-v1",
+      "version": "消息中台 v1",
+      "title": "消息中台 v1.0 GA",
+      "date": "2026-06-30",
+      "status": "active",
+      "description": "统一 Push/短信/站内信三通道，支持全链路追踪",
+      "achievements": ["Push 通道已完成 3 条业务线接入", "短信通道 API 设计完成"]
+    },
+    {
+      "id": "ms-data-platform",
+      "version": "数据中台",
+      "title": "数据中台 MVP 上线",
+      "date": "2026-09-30",
+      "status": "upcoming",
+      "description": "统一数据资产目录、指标口径、实时/离线双链路",
+      "achievements": []
+    }
+  ],
+
+  "modules": [
+    {
+      "id": "user-center",
+      "name": "用户中台",
+      "nameEn": "User Center",
+      "owner": "陈工",
+      "priority": 1,
+      "progress": 95,
+      "status": "excellent",
+      "currentFocus": "v2.0 上线后稳定性保障，处理增长业务线接入问题",
+      "nextMilestone": "支持增长业务线全量切流",
+      "nextMilestoneDate": "2026-05-15",
+      "metrics": [
+        { "label": "日均调用量", "value": "2.3亿次", "trend": "up",   "trendValue": "+8%" },
+        { "label": "P99 延迟",   "value": "48ms",    "trend": "down", "trendValue": "-12ms" }
+      ]
+    },
+    {
+      "id": "msg-center",
+      "name": "消息中台",
+      "nameEn": "Message Center",
+      "owner": "刘工",
+      "priority": 1,
+      "progress": 55,
+      "status": "normal",
+      "currentFocus": "Push 通道稳定性优化，处理本周 MQ 积压告警复盘",
+      "nextMilestone": "短信通道接入测试完成",
+      "nextMilestoneDate": "2026-05-20",
+      "metrics": [
+        { "label": "Push 到达率", "value": "94.2%",   "trend": "up",   "trendValue": "+1.2%" },
+        { "label": "MQ 积压峰值", "value": "120万条",  "trend": "down", "trendValue": "已恢复" }
+      ]
+    },
+    {
+      "id": "api-gateway",
+      "name": "API 网关",
+      "nameEn": "API Gateway",
+      "owner": "赵工",
+      "priority": 2,
+      "progress": 80,
+      "status": "normal",
+      "currentFocus": "限流策略 v2 上线，新增业务线流量隔离能力",
+      "nextMilestone": "完成全部业务线流量接入",
+      "nextMilestoneDate": "2026-06-30",
+      "metrics": [
+        { "label": "日均请求量", "value": "15亿次",  "trend": "up",   "trendValue": "+5%" },
+        { "label": "网关 P99",   "value": "12ms",    "trend": "down", "trendValue": "-3ms" }
+      ]
+    }
+  ],
+
+  "risks": [
+    {
+      "id": "risk-001",
+      "title": "消息中台 MQ 容量不足",
+      "level": "medium",
+      "description": "当前 MQ 集群在大促场景下可能再次触发积压，需在 Q2 完成扩容",
+      "owner": "刘工",
+      "mitigation": "已申请 Q2 预算扩容，同时优化消费者消费速率"
+    },
+    {
+      "id": "risk-002",
+      "title": "数据中台排期风险",
+      "level": "low",
+      "description": "数据中台 MVP 依赖 3 名数据工程师，当前 HC 缺口 1 人",
+      "owner": "陈工",
+      "mitigation": "已提交 HC 申请，预计 5 月到岗"
+    }
+  ],
+
+  "decisions": [
+    {
+      "id": "dec-001",
+      "title": "消息中台 MQ 扩容方案选型",
+      "description": "讨论自建 Kafka 集群 vs 云托管 MSK 的成本与运维权衡",
+      "deadline": "2026-05-10",
+      "status": "pending"
+    }
+  ],
+
+  "todos": [
+    {
+      "id": "todo-001",
+      "title": "完成 MQ 积压告警复盘报告",
+      "owner": "刘工",
+      "dueDate": "2026-04-30",
+      "priority": "high",
+      "done": false
+    },
+    {
+      "id": "todo-002",
+      "title": "增长业务线接入联调排期",
+      "owner": "陈工",
+      "dueDate": "2026-05-05",
+      "priority": "high",
+      "done": false
+    },
+    {
+      "id": "todo-003",
+      "title": "数据中台 MVP 需求评审",
+      "owner": "赵工",
+      "dueDate": "2026-05-08",
+      "priority": "medium",
+      "done": false
+    }
+  ],
+
+  "issues": [
+    {
+      "id": "issue-001",
+      "title": "增长业务线接入用户中台后 AB 实验数据异常",
+      "description": "切流后发现 AB 实验分组逻辑与旧系统不兼容，需排查设备 ID 映射问题",
+      "level": "medium",
+      "moduleId": "user-center"
+    }
+  ],
+
+  "extra": {
+    "_comment": "中台特有扩展字段，供 Agent 生成定制化组件时使用",
+    "serviceCapacity": {
+      "totalQps": "17.3万",
+      "p99Latency": "48ms",
+      "availability": "99.95%",
+      "connectedBizLines": 7
+    },
+    "apiMetrics": [
+      { "apiName": "用户信息查询",   "callCount": "8.2亿/日", "successRate": "99.98%", "p99": "32ms",  "trend": "stable" },
+      { "apiName": "消息发送",       "callCount": "1.1亿/日", "successRate": "99.91%", "p99": "85ms",  "trend": "up"     },
+      { "apiName": "权限校验",       "callCount": "5.6亿/日", "successRate": "99.99%", "p99": "8ms",   "trend": "stable" },
+      { "apiName": "行为埋点上报",   "callCount": "3.4亿/日", "successRate": "99.85%", "p99": "120ms", "trend": "down"   }
+    ]
+  }
+}
