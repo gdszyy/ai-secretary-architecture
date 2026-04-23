@@ -1,0 +1,357 @@
+{
+  "_comment": "研发期项目周报数据模板。里程碑 = 功能点，northStar = 整体功能完成率，无业务数据指标。",
+  "_usage": "python scripts/data_injector.py --project pre-launch",
+  "_agent_fallback": "若字段不匹配，Agent 直接在生成代码中局部调整，无需修改此文件",
+
+  "meta": {
+    "projectName": "【项目名称】研发期周报",
+    "reportPeriod": "2026-W17",
+    "updatedAt": "2026/04/28",
+    "version": "v0.1",
+    "_hint": "version 建议用研发阶段版本号（如 v0.1 / alpha / beta），而非业务版本"
+  },
+
+  "healthScore": {
+    "_comment": "研发健康度。四个维度建议：功能完成度、排期健康、阻塞风险、代码质量。可按实际调整。",
+    "overall": 72,
+    "trend": "up",
+    "trendValue": "+5",
+    "dimensions": [
+      { "name": "功能完成度", "score": 68, "prevScore": 60, "color": "bg-violet-500" },
+      { "name": "排期健康",   "score": 75, "prevScore": 78, "color": "bg-amber-500"  },
+      { "name": "阻塞风险",   "score": 80, "prevScore": 72, "color": "bg-emerald-500"},
+      { "name": "代码质量",   "score": 65, "prevScore": 62, "color": "bg-sky-500"    }
+    ],
+    "summary": "本周核心模块开发进度提速，支付模块阻塞已解除，整体排期偏紧但可控。"
+  },
+
+  "northStar": {
+    "_comment": "整体研发进度。currentValue = 已完成功能点数 / 总功能点数 × 100（完成率%）。factors = 各模块进度归因。",
+    "metric": "整体功能完成率",
+    "unit": "%",
+    "currentValue": 42,
+    "previousValue": 35,
+    "targetValue": 100,
+    "trend": "up",
+    "trendValue": "+7%",
+    "achievementRate": 42,
+    "_achievementRate_hint": "研发期 achievementRate = currentValue（完成率即达成率）",
+    "factors": [
+      {
+        "id": "factor-user",
+        "label": "用户系统",
+        "contribution": 18,
+        "trend": "up",
+        "moduleId": "user-system",
+        "_hint": "contribution = 该模块贡献的完成率百分点"
+      },
+      {
+        "id": "factor-payment",
+        "label": "支付系统",
+        "contribution": 12,
+        "trend": "up",
+        "moduleId": "payment-system"
+      },
+      {
+        "id": "factor-content",
+        "label": "内容系统",
+        "contribution": 8,
+        "trend": "flat",
+        "moduleId": "content-system"
+      },
+      {
+        "id": "factor-infra",
+        "label": "基础设施",
+        "contribution": 4,
+        "trend": "up",
+        "moduleId": "infra"
+      }
+    ],
+    "insight": "本周支付模块阻塞解除后进度提速明显，用户系统已完成核心功能，内容系统因设计稿延迟进展偏慢。"
+  },
+
+  "_kpi_comment": "研发期无业务 KPI。kpiAlerts 用于排期预警，kpiMetrics 用于研发过程指标（PR 数、Bug 数等）。",
+  "kpiAlerts": [
+    {
+      "id": "alert-001",
+      "level": "P1",
+      "title": "内容系统排期延误风险",
+      "description": "设计稿延迟 3 天交付，导致内容系统开发窗口压缩，当前排期有延误风险",
+      "triggeredAt": "2026-04-25",
+      "impact": "内容系统功能点可能延迟 1 周上线",
+      "status": "处理中",
+      "kpiId": "kpi-content-progress"
+    }
+  ],
+
+  "kpiMetrics": [
+    {
+      "id": "kpi-overall-progress",
+      "label": "整体功能完成率",
+      "value": "42",
+      "unit": "%",
+      "target": "100%",
+      "status": "normal",
+      "trend": "up",
+      "trendValue": "+7%",
+      "description": "本周完成 7 个功能点，累计完成 42/100",
+      "historyWeekly": [14, 25, 35, 42]
+    },
+    {
+      "id": "kpi-pr-merged",
+      "label": "本周合并 PR 数",
+      "value": "23",
+      "unit": "个",
+      "target": "≥15个/周",
+      "status": "excellent",
+      "trend": "up",
+      "trendValue": "+8",
+      "description": "支付模块阻塞解除后 PR 合并提速",
+      "historyWeekly": [12, 15, 15, 23]
+    },
+    {
+      "id": "kpi-p0-bugs",
+      "label": "遗留 P0 Bug 数",
+      "value": "2",
+      "unit": "个",
+      "target": "0个",
+      "status": "warning",
+      "trend": "down",
+      "trendValue": "-1",
+      "description": "用户登录态异常（修复中）、支付回调丢失（待排查）",
+      "historyWeekly": [5, 4, 3, 2]
+    }
+  ],
+
+  "_milestones_comment": "功能点里程碑。每个 milestone 代表一个功能点/子系统。status: done/active/upcoming/blocked。",
+  "milestones": [
+    {
+      "id": "ms-user-auth",
+      "version": "用户系统",
+      "_version_hint": "version 字段在研发期用于标注所属模块",
+      "title": "用户认证与账号体系",
+      "date": "2026-04-20",
+      "status": "done",
+      "description": "注册/登录/第三方授权/账号安全全链路功能",
+      "achievements": [
+        "手机号/邮箱注册登录",
+        "微信/Apple 第三方授权",
+        "设备指纹与多端登录管理",
+        "账号安全（二次验证、异常登录告警）"
+      ]
+    },
+    {
+      "id": "ms-payment-core",
+      "version": "支付系统",
+      "title": "支付核心链路",
+      "date": "2026-05-10",
+      "status": "active",
+      "description": "支付下单、收银台、回调、退款全链路",
+      "achievements": [
+        "支付下单 API 已完成",
+        "微信支付接入完成",
+        "支付宝接入进行中（60%）"
+      ]
+    },
+    {
+      "id": "ms-content-browse",
+      "version": "内容系统",
+      "title": "内容浏览与消费",
+      "date": "2026-05-25",
+      "status": "active",
+      "description": "内容列表、详情页、播放器、评论互动",
+      "achievements": [
+        "内容列表接口已完成"
+      ]
+    },
+    {
+      "id": "ms-push-notify",
+      "version": "消息推送",
+      "title": "Push 通知系统",
+      "date": "2026-06-10",
+      "status": "upcoming",
+      "description": "站内信、Push 通知、消息中心",
+      "achievements": []
+    },
+    {
+      "id": "ms-admin-backend",
+      "version": "运营后台",
+      "title": "运营管理后台 MVP",
+      "date": "2026-06-20",
+      "status": "upcoming",
+      "description": "内容管理、用户管理、数据看板基础版",
+      "achievements": []
+    }
+  ],
+
+  "_modules_comment": "并行开发模块。每个 module 代表一个功能模块，metrics 建议包含：功能完成率、本周提交数、遗留 Bug 数。",
+  "modules": [
+    {
+      "id": "user-system",
+      "name": "用户系统",
+      "nameEn": "User System",
+      "owner": "张工",
+      "priority": 1,
+      "progress": 85,
+      "status": "excellent",
+      "currentFocus": "修复登录态异常 P0 Bug，推进用户画像基础能力",
+      "nextMilestone": "用户画像 v1 上线",
+      "nextMilestoneDate": "2026-05-08",
+      "metrics": [
+        { "label": "功能完成率", "value": "85%",  "trend": "up",   "trendValue": "+10%" },
+        { "label": "本周 PR",    "value": "8个",   "trend": "up",   "trendValue": "+3"   },
+        { "label": "遗留 Bug",   "value": "1个",   "trend": "down", "trendValue": "-2"   }
+      ]
+    },
+    {
+      "id": "payment-system",
+      "name": "支付系统",
+      "nameEn": "Payment System",
+      "owner": "李工",
+      "priority": 1,
+      "progress": 55,
+      "status": "normal",
+      "currentFocus": "完成支付宝接入，推进支付回调 P0 Bug 排查",
+      "nextMilestone": "支付核心链路全量完成",
+      "nextMilestoneDate": "2026-05-10",
+      "metrics": [
+        { "label": "功能完成率", "value": "55%",  "trend": "up",   "trendValue": "+20%" },
+        { "label": "本周 PR",    "value": "9个",   "trend": "up",   "trendValue": "+6"   },
+        { "label": "遗留 Bug",   "value": "1个",   "trend": "flat", "trendValue": "0"    }
+      ]
+    },
+    {
+      "id": "content-system",
+      "name": "内容系统",
+      "nameEn": "Content System",
+      "owner": "王工",
+      "priority": 1,
+      "progress": 25,
+      "status": "warning",
+      "currentFocus": "等待设计稿交付，先推进接口层开发",
+      "nextMilestone": "内容浏览核心功能完成",
+      "nextMilestoneDate": "2026-05-25",
+      "metrics": [
+        { "label": "功能完成率", "value": "25%",  "trend": "up",   "trendValue": "+5%"  },
+        { "label": "本周 PR",    "value": "4个",   "trend": "down", "trendValue": "-2"   },
+        { "label": "遗留 Bug",   "value": "0个",   "trend": "flat", "trendValue": "0"    }
+      ]
+    },
+    {
+      "id": "infra",
+      "name": "基础设施",
+      "nameEn": "Infrastructure",
+      "owner": "陈工",
+      "priority": 2,
+      "progress": 70,
+      "status": "normal",
+      "currentFocus": "CI/CD 流水线优化，压测环境搭建",
+      "nextMilestone": "压测环境就绪",
+      "nextMilestoneDate": "2026-05-15",
+      "metrics": [
+        { "label": "功能完成率", "value": "70%",  "trend": "up",   "trendValue": "+8%"  },
+        { "label": "本周 PR",    "value": "2个",   "trend": "flat", "trendValue": "0"    },
+        { "label": "遗留 Bug",   "value": "0个",   "trend": "flat", "trendValue": "0"    }
+      ]
+    }
+  ],
+
+  "_risks_comment": "阻塞项与风险。研发期的 risk 主要是技术阻塞、依赖阻塞、排期风险，level: high/medium/low。",
+  "risks": [
+    {
+      "id": "blocker-001",
+      "title": "内容系统设计稿延迟",
+      "level": "medium",
+      "description": "UI 设计稿延迟 3 天，导致内容浏览页开发窗口压缩，当前排期有延误风险",
+      "owner": "王工",
+      "mitigation": "先推进接口层和数据层开发，设计稿到位后立即启动 UI 实现"
+    },
+    {
+      "id": "blocker-002",
+      "title": "支付回调 P0 Bug 待排查",
+      "level": "high",
+      "description": "偶现支付成功但回调未触发，复现率约 3%，根因未定位",
+      "owner": "李工",
+      "mitigation": "已加日志，预计本周内定位根因；上线前必须修复"
+    }
+  ],
+
+  "decisions": [
+    {
+      "id": "dec-001",
+      "title": "内容系统是否延期上线",
+      "description": "设计稿延迟导致内容系统有延期风险，需决策是否接受延期或裁剪功能范围",
+      "deadline": "2026-05-01",
+      "status": "pending"
+    }
+  ],
+
+  "todos": [
+    {
+      "id": "todo-001",
+      "title": "定位支付回调 P0 Bug 根因",
+      "owner": "李工",
+      "dueDate": "2026-04-30",
+      "priority": "high",
+      "done": false
+    },
+    {
+      "id": "todo-002",
+      "title": "跟进设计稿交付时间",
+      "owner": "王工",
+      "dueDate": "2026-04-29",
+      "priority": "high",
+      "done": false
+    },
+    {
+      "id": "todo-003",
+      "title": "完成压测环境搭建",
+      "owner": "陈工",
+      "dueDate": "2026-05-15",
+      "priority": "medium",
+      "done": false
+    }
+  ],
+
+  "issues": [
+    {
+      "id": "issue-001",
+      "title": "用户登录态异常（偶现掉登录）",
+      "description": "部分设备在后台切换后 token 刷新失败，复现率约 5%",
+      "level": "high",
+      "moduleId": "user-system"
+    }
+  ],
+
+  "extra": {
+    "_comment": "研发期扩展字段。features 为功能点清单（可选），devMetrics 为研发过程指标（可选）。Agent 可据此生成功能地图或研发效能组件。",
+    "features": [
+      {
+        "id": "feat-001", "module": "用户系统",  "name": "手机号注册登录",   "status": "done",     "owner": "张工" },
+      { "id": "feat-002", "module": "用户系统",  "name": "第三方授权",       "status": "done",     "owner": "张工" },
+      { "id": "feat-003", "module": "用户系统",  "name": "账号安全",         "status": "done",     "owner": "张工" },
+      { "id": "feat-004", "module": "用户系统",  "name": "用户画像 v1",      "status": "active",   "owner": "张工" },
+      { "id": "feat-005", "module": "支付系统",  "name": "支付下单",         "status": "done",     "owner": "李工" },
+      { "id": "feat-006", "module": "支付系统",  "name": "微信支付",         "status": "done",     "owner": "李工" },
+      { "id": "feat-007", "module": "支付系统",  "name": "支付宝接入",       "status": "active",   "owner": "李工" },
+      { "id": "feat-008", "module": "支付系统",  "name": "退款流程",         "status": "upcoming", "owner": "李工" },
+      { "id": "feat-009", "module": "内容系统",  "name": "内容列表接口",     "status": "done",     "owner": "王工" },
+      { "id": "feat-010", "module": "内容系统",  "name": "内容详情页",       "status": "active",   "owner": "王工" },
+      { "id": "feat-011", "module": "内容系统",  "name": "播放器",           "status": "upcoming", "owner": "王工" },
+      { "id": "feat-012", "module": "内容系统",  "name": "评论互动",         "status": "upcoming", "owner": "王工" },
+      { "id": "feat-013", "module": "基础设施",  "name": "CI/CD 流水线",     "status": "done",     "owner": "陈工" },
+      { "id": "feat-014", "module": "基础设施",  "name": "压测环境",         "status": "active",   "owner": "陈工" },
+      { "id": "feat-015", "module": "基础设施",  "name": "监控告警体系",     "status": "upcoming", "owner": "陈工" }
+    ],
+    "devMetrics": {
+      "totalFeatures": 15,
+      "doneFeatures": 7,
+      "activeFeatures": 5,
+      "upcomingFeatures": 3,
+      "blockedFeatures": 0,
+      "weeklyPRsMerged": 23,
+      "p0Bugs": 2,
+      "p1Bugs": 3
+    }
+  }
+}

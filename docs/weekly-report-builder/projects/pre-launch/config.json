@@ -1,0 +1,59 @@
+{
+  "_comment": "研发期项目配置。适用于多模块并行开发、功能点驱动里程碑的上线前项目。",
+  "id": "pre-launch",
+  "name": "研发期项目周报",
+  "description": "面向研发阶段的功能点进度周报，关注多模块并行开发进度、功能完成率、阻塞风险与排期。无业务数据，里程碑为功能点而非指标。",
+  "template": "../../templates/weekly_report_example.tsx",
+  "schema": "schema.json",
+  "mockDataVar": "mockData",
+  "mockDataType": "DashboardData",
+
+  "_sections_comment": "研发期只启用进度相关 section，禁用业务数据相关 section（kpi/northStar 用进度替代）",
+  "sections": [
+    { "id": "hero",       "label": "首屏总览",       "required": true  },
+    { "id": "health",     "label": "研发健康度",     "required": true  },
+    { "id": "north-star", "label": "整体研发进度",   "required": true  },
+    { "id": "milestones", "label": "功能点里程碑",   "required": true  },
+    { "id": "modules",    "label": "模块开发详情",   "required": true  },
+    { "id": "risks",      "label": "阻塞项与风险",   "required": true  }
+  ],
+
+  "_alias_comment": "将通用 schema 字段映射为研发语义标签，供 Agent 生成代码时使用正确的业务术语",
+  "moduleAlias": {
+    "modules":                  "开发模块",
+    "module.name":              "模块名称",
+    "module.owner":             "模块负责人",
+    "module.progress":          "功能完成率",
+    "module.currentFocus":      "本周开发重点",
+    "module.nextMilestone":     "下一功能节点",
+    "module.metrics":           "研发指标",
+    "milestones":               "功能点",
+    "milestone.title":          "功能点名称",
+    "milestone.version":        "所属模块",
+    "milestone.status":         "开发状态",
+    "milestone.achievements":   "已完成子功能",
+    "northStar.metric":         "整体功能完成率",
+    "northStar.factors":        "模块进度归因",
+    "risks":                    "阻塞项",
+    "risk.title":               "阻塞原因",
+    "risk.mitigation":          "解除方案",
+    "kpiAlerts":                "排期预警",
+    "kpiMetrics":               "研发过程指标"
+  },
+
+  "_agent_hint_comment": "Agent 微调兜底规则：当 schema 字段无法完全覆盖时，Agent 应按此规则局部调整",
+  "agentHints": {
+    "northStar": "northStar.currentValue 表示整体功能完成率（0-100），unit 固定为 '%'，targetValue 固定为 100，factors 为各模块进度归因",
+    "healthScore": "healthScore.dimensions 的四个维度建议为：功能完成度、排期健康、阻塞风险、代码质量（可根据实际情况调整）",
+    "milestones": "每个 milestone 代表一个功能点或子系统，status 使用 done/active/upcoming/blocked 四态，achievements 列出已完成的子功能",
+    "modules": "每个 module 代表一个并行开发的功能模块，metrics 建议包含：功能完成率、本周提交数、遗留 Bug 数",
+    "kpiMetrics": "研发期无业务 KPI，kpiMetrics 改用研发过程指标：如「本周合并 PR 数」「遗留 P0 Bug 数」「联调通过率」",
+    "kpiAlerts": "kpiAlerts 用于排期预警，level P1 = 当前模块有阻塞导致排期延误风险，P2 = 排期偏紧但可控",
+    "extra.features": "功能点清单（可选）：列出所有功能点及其状态，供首屏功能地图组件使用",
+    "extra.devMetrics": "研发过程指标（可选）：如 PR 合并数、代码覆盖率、联调通过率等",
+    "agentFallback": "若用户提供的数据字段与 schema 不完全匹配（如有自定义功能状态、特殊排期字段），Agent 直接在生成的 tsx 代码中局部调整对应组件的数据绑定，无需修改 schema"
+  },
+
+  "stateDir": "../../state/pre-launch",
+  "outputDir": "../../output/pre-launch"
+}

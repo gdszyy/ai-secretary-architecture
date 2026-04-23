@@ -101,6 +101,21 @@ python scripts/project_scaffold.py --list-types
 
 > 创建后：编辑 `projects/{id}/schema.json` 填入真实数据，再运行 `data_injector.py --project {id}` 即可生成首份周报。
 
+### 特别说明：pre-launch 类型（上线前/研发期）
+
+**适用场景**：多模块并行开发、功能点驱动里程碑、无业务数据的项目。
+
+| schema 字段 | 研发期语义 | 说明 |
+| :--- | :--- | :--- |
+| `northStar.metric` | 整体功能完成率 | `currentValue` = 已完成功能点数/总功能点数 × 100 |
+| `milestones[].version` | 所属模块 | 不是业务版本号，而是模块名称 |
+| `milestones[].status` | 开发状态 | `done/active/upcoming/blocked` 四态 |
+| `risks[]` | 阻塞项 | 不是业务风险，而是技术阻塞和依赖阻塞 |
+| `kpiMetrics[]` | 研发过程指标 | PR 数、Bug 数、联调通过率等，而非业务 KPI |
+| `extra.features[]` | 功能点清单 | 可选，供 Agent 生成功能地图组件 |
+
+**Agent 微调层处理规则**：当用户提供的数据与 schema 不完全匹配时（如自定义功能状态、特殊排期字段），**直接在生成的 tsx 代码中局部调整对应组件的数据绑定，无需修改 schema**。参考 `projects/pre-launch/config.json` 中的 `agentHints` 字段。
+
 ### 项目目录结构
 
 ```
