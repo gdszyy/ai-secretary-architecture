@@ -1,38 +1,6 @@
 {
   "indexed": [
     {
-      "file": "docs/weekly-report-builder/components/NorthStarDecomposition.tsx",
-      "lines": 868,
-      "funcs": 10,
-      "sections": 1,
-      "mega_funcs": 1,
-      "index_path": ".cursor/rules/auto_index/docs_weekly-report-builder_components_NorthStarDecomposition_tsx_index.md"
-    },
-    {
-      "file": "docs/weekly-report-builder/components/StageProgressBar.tsx",
-      "lines": 606,
-      "funcs": 4,
-      "sections": 1,
-      "mega_funcs": 0,
-      "index_path": ".cursor/rules/auto_index/docs_weekly-report-builder_components_StageProgressBar_tsx_index.md"
-    },
-    {
-      "file": "docs/weekly-report-builder/components/UserSegmentationBubble.tsx",
-      "lines": 779,
-      "funcs": 1,
-      "sections": 1,
-      "mega_funcs": 1,
-      "index_path": ".cursor/rules/auto_index/docs_weekly-report-builder_components_UserSegmentationBubble_tsx_index.md"
-    },
-    {
-      "file": "docs/weekly-report-builder/components/component_recommender_updated.py",
-      "lines": 875,
-      "funcs": 6,
-      "sections": 0,
-      "mega_funcs": 1,
-      "index_path": ".cursor/rules/auto_index/docs_weekly-report-builder_components_component_recommender_updated_py_index.md"
-    },
-    {
       "file": "scripts/daily_progress_updater.py",
       "lines": 649,
       "funcs": 10,
@@ -71,6 +39,118 @@
       "sections": 0,
       "mega_funcs": 1,
       "index_path": ".cursor/rules/auto_index/scripts_thread_separator_py_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components/ConversionFunnel.tsx",
+      "lines": 555,
+      "funcs": 6,
+      "sections": 1,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components_ConversionFunnel_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components/EcosystemHealthMap.tsx",
+      "lines": 749,
+      "funcs": 10,
+      "sections": 0,
+      "mega_funcs": 0,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components_EcosystemHealthMap_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components/HealthRadarChart.tsx",
+      "lines": 681,
+      "funcs": 4,
+      "sections": 1,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components_HealthRadarChart_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components/MilestoneCardList.tsx",
+      "lines": 558,
+      "funcs": 6,
+      "sections": 0,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components_MilestoneCardList_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components/TrendMatrixGrid.tsx",
+      "lines": 720,
+      "funcs": 6,
+      "sections": 0,
+      "mega_funcs": 2,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components_TrendMatrixGrid_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components/UnitEconomicsCard.tsx",
+      "lines": 953,
+      "funcs": 3,
+      "sections": 8,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components_UnitEconomicsCard_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components-restyled/ConversionFunnel.tsx",
+      "lines": 733,
+      "funcs": 6,
+      "sections": 1,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components-restyled_ConversionFunnel_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components-restyled/EcosystemHealthMap.tsx",
+      "lines": 953,
+      "funcs": 10,
+      "sections": 0,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components-restyled_EcosystemHealthMap_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components-restyled/HealthRadarChart.tsx",
+      "lines": 815,
+      "funcs": 4,
+      "sections": 1,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components-restyled_HealthRadarChart_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components-restyled/MilestoneCardList.tsx",
+      "lines": 635,
+      "funcs": 6,
+      "sections": 0,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components-restyled_MilestoneCardList_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components-restyled/StageProgressBar.tsx",
+      "lines": 727,
+      "funcs": 4,
+      "sections": 1,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components-restyled_StageProgressBar_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components-restyled/TrendMatrixGrid.tsx",
+      "lines": 945,
+      "funcs": 7,
+      "sections": 0,
+      "mega_funcs": 2,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components-restyled_TrendMatrixGrid_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components-restyled/UnitEconomicsCard.tsx",
+      "lines": 984,
+      "funcs": 3,
+      "sections": 8,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components-restyled_UnitEconomicsCard_tsx_index.md"
+    },
+    {
+      "file": "weekly-report-builder/components-restyled/UserSegmentationBubble.tsx",
+      "lines": 975,
+      "funcs": 1,
+      "sections": 1,
+      "mega_funcs": 1,
+      "index_path": ".cursor/rules/auto_index/weekly-report-builder_components-restyled_UserSegmentationBubble_tsx_index.md"
     }
   ],
   "skipped": [

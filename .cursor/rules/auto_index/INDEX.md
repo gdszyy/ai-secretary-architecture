@@ -1,20 +1,30 @@
 # 自动函数索引汇总 (Auto Index)
 
-> 自动生成于 2026-04-22 | 由 code-indexer 脚本维护
+> 自动生成于 2026-04-23 | 由 code-indexer 脚本维护
 > **本文件由脚本自动生成，严禁手动编辑。**
 
-## 已索引文件 (9 个)
+## 已索引文件 (19 个)
 
 | 文件 | 总行数 | 函数数 | 巨型函数 | @section 标记 | 索引文件 |
 |------|--------|--------|----------|--------------|---------|
+| `weekly-report-builder/components-restyled/UnitEconomicsCard.tsx` | 984 | 3 | **1** | 8 | [weekly-report-builder_components-restyled_UnitEconomicsCard_tsx_index.md](weekly-report-builder_components-restyled_UnitEconomicsCard_tsx_index.md) |
+| `weekly-report-builder/components-restyled/UserSegmentationBubble.tsx` | 975 | 1 | **1** | 1 | [weekly-report-builder_components-restyled_UserSegmentationBubble_tsx_index.md](weekly-report-builder_components-restyled_UserSegmentationBubble_tsx_index.md) |
+| `weekly-report-builder/components/UnitEconomicsCard.tsx` | 953 | 3 | **1** | 8 | [weekly-report-builder_components_UnitEconomicsCard_tsx_index.md](weekly-report-builder_components_UnitEconomicsCard_tsx_index.md) |
+| `weekly-report-builder/components-restyled/EcosystemHealthMap.tsx` | 953 | 10 | **1** | 0 | [weekly-report-builder_components-restyled_EcosystemHealthMap_tsx_index.md](weekly-report-builder_components-restyled_EcosystemHealthMap_tsx_index.md) |
+| `weekly-report-builder/components-restyled/TrendMatrixGrid.tsx` | 945 | 7 | **2** | 0 | [weekly-report-builder_components-restyled_TrendMatrixGrid_tsx_index.md](weekly-report-builder_components-restyled_TrendMatrixGrid_tsx_index.md) |
 | `scripts/run_weekly_report.py` | 893 | 11 | **1** | 0 | [scripts_run_weekly_report_py_index.md](scripts_run_weekly_report_py_index.md) |
-| `docs/weekly-report-builder/components/component_recommender_updated.py` | 875 | 6 | **1** | 0 | [docs_weekly-report-builder_components_component_recommender_updated_py_index.md](docs_weekly-report-builder_components_component_recommender_updated_py_index.md) |
-| `docs/weekly-report-builder/components/NorthStarDecomposition.tsx` | 868 | 10 | **1** | 1 | [docs_weekly-report-builder_components_NorthStarDecomposition_tsx_index.md](docs_weekly-report-builder_components_NorthStarDecomposition_tsx_index.md) |
-| `docs/weekly-report-builder/components/UserSegmentationBubble.tsx` | 779 | 1 | **1** | 1 | [docs_weekly-report-builder_components_UserSegmentationBubble_tsx_index.md](docs_weekly-report-builder_components_UserSegmentationBubble_tsx_index.md) |
+| `weekly-report-builder/components-restyled/HealthRadarChart.tsx` | 815 | 4 | **1** | 1 | [weekly-report-builder_components-restyled_HealthRadarChart_tsx_index.md](weekly-report-builder_components-restyled_HealthRadarChart_tsx_index.md) |
+| `weekly-report-builder/components/EcosystemHealthMap.tsx` | 749 | 10 | 0 | 0 | [weekly-report-builder_components_EcosystemHealthMap_tsx_index.md](weekly-report-builder_components_EcosystemHealthMap_tsx_index.md) |
+| `weekly-report-builder/components-restyled/ConversionFunnel.tsx` | 733 | 6 | **1** | 1 | [weekly-report-builder_components-restyled_ConversionFunnel_tsx_index.md](weekly-report-builder_components-restyled_ConversionFunnel_tsx_index.md) |
+| `weekly-report-builder/components-restyled/StageProgressBar.tsx` | 727 | 4 | **1** | 1 | [weekly-report-builder_components-restyled_StageProgressBar_tsx_index.md](weekly-report-builder_components-restyled_StageProgressBar_tsx_index.md) |
 | `scripts/thread_separator.py` | 726 | 9 | **1** | 0 | [scripts_thread_separator_py_index.md](scripts_thread_separator_py_index.md) |
+| `weekly-report-builder/components/TrendMatrixGrid.tsx` | 720 | 6 | **2** | 0 | [weekly-report-builder_components_TrendMatrixGrid_tsx_index.md](weekly-report-builder_components_TrendMatrixGrid_tsx_index.md) |
+| `weekly-report-builder/components/HealthRadarChart.tsx` | 681 | 4 | **1** | 1 | [weekly-report-builder_components_HealthRadarChart_tsx_index.md](weekly-report-builder_components_HealthRadarChart_tsx_index.md) |
 | `scripts/daily_progress_updater.py` | 649 | 10 | 0 | 0 | [scripts_daily_progress_updater_py_index.md](scripts_daily_progress_updater_py_index.md) |
+| `weekly-report-builder/components-restyled/MilestoneCardList.tsx` | 635 | 6 | **1** | 0 | [weekly-report-builder_components-restyled_MilestoneCardList_tsx_index.md](weekly-report-builder_components-restyled_MilestoneCardList_tsx_index.md) |
 | `scripts/lark_qa_handler.py` | 610 | 16 | 0 | 0 | [scripts_lark_qa_handler_py_index.md](scripts_lark_qa_handler_py_index.md) |
-| `docs/weekly-report-builder/components/StageProgressBar.tsx` | 606 | 4 | 0 | 1 | [docs_weekly-report-builder_components_StageProgressBar_tsx_index.md](docs_weekly-report-builder_components_StageProgressBar_tsx_index.md) |
+| `weekly-report-builder/components/MilestoneCardList.tsx` | 558 | 6 | **1** | 0 | [weekly-report-builder_components_MilestoneCardList_tsx_index.md](weekly-report-builder_components_MilestoneCardList_tsx_index.md) |
+| `weekly-report-builder/components/ConversionFunnel.tsx` | 555 | 6 | **1** | 1 | [weekly-report-builder_components_ConversionFunnel_tsx_index.md](weekly-report-builder_components_ConversionFunnel_tsx_index.md) |
 | `scripts/extract_weekly_insights.py` | 522 | 7 | 0 | 0 | [scripts_extract_weekly_insights_py_index.md](scripts_extract_weekly_insights_py_index.md) |
 
 ## 未索引文件 (32 个)
@@ -55,16 +65,3 @@
 | `scripts/inspect_bitable.py` | 81 | 4 |
 | `scripts/cold_start_step1_list_groups.py` | 72 | 2 |
 | `scripts/debug_message_body.py` | 29 | 2 |
-
-## PRD 文档索引（docs/mod_*）
-
-> 自动生成于 2026-04-22，覆盖 6 个产品模块
-
-| 模块 | PRD 文件数 | 功能点数 | 索引文件 |
-|---|---|---|---|
-| `mod_activity` | 6 | 40 | [docs_mod_activity_index.md](docs_mod_activity_index.md) |
-| `mod_casino` | 7 | 28 | [docs_mod_casino_index.md](docs_mod_casino_index.md) |
-| `mod_customer_service` | 2 | 0 | [docs_mod_customer_service_index.md](docs_mod_customer_service_index.md) |
-| `mod_riskcontrol` | 2 | 10 | [docs_mod_riskcontrol_index.md](docs_mod_riskcontrol_index.md) |
-| `mod_settlement` | 7 | 33 | [docs_mod_settlement_index.md](docs_mod_settlement_index.md) |
-| `mod_unknown` | 1 | 0 | [docs_mod_unknown_index.md](docs_mod_unknown_index.md) |

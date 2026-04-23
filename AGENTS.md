@@ -54,6 +54,7 @@
 *   **project 模块规范**：[`.cursor/rules/project.md`](.cursor/rules/project.md) - project 模块的专属设计规范与 SOP。
 *   **handover 模块规范**：[`.cursor/rules/handover.md`](.cursor/rules/handover.md) - 任务交接文档规范，记录跨 Agent 上下文传递。
 *   **weekly_report_timeline 模块规范**：[`.cursor/rules/weekly_report_timeline.md`](.cursor/rules/weekly_report_timeline.md) - 周报时间线功能设计文档索引与触发机制规范。
+*   **weekly_report_builder 模块规范**：[`.cursor/rules/weekly_report_builder.md`](.cursor/rules/weekly_report_builder.md) - 周报构建器前端组件代码规范与设计决策。
 
 ## 5. 流程洞察索引 (Process Insights)
 
