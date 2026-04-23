@@ -1,6 +1,6 @@
 {
   "last_updated": "2026-04-21 21:29:49",
-  "project_name": "XP-BET 体育博彩产品及 sports-matcher-go 核心数据匹配服务",
+  "project_name": "XP-BET 体育博彩产品",
   "_milestone_policy": "【重要】里程碑必须由项目管理人员手动设定，禁止 AI 自动生成。\n设定格式：{ id, title, due_date, status, group_id, description }\nstatus 枚举：pending / in_progress / completed / overdue",
   "module_groups": [
     {
