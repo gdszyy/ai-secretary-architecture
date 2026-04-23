@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-21 21:29:49",
+  "last_updated": "2026-04-23 01:45:13",
   "project_name": "XP-BET 体育博彩产品",
   "_milestone_policy": "【重要】里程碑必须由项目管理人员手动设定，禁止 AI 自动生成。\n设定格式：{ id, title, due_date, status, group_id, description }\nstatus 枚举：pending / in_progress / completed / overdue",
   "module_groups": [
@@ -828,7 +828,24 @@
       ]
     }
   ],
-  "milestones": [],
+  "milestones": [
+    {
+      "id": "ms_2026_may_release",
+      "title": "XP-BET 5月份版本上线",
+      "due_date": "2026-05-31",
+      "status": "in_progress",
+      "group_id": null,
+      "description": "5月版本目标（跨团队）：\n【内容中心】完成 AIBET 版本进度，有活动，有数据；\n【体育专属活动】比赛详情页内容数据展示；\n【用户运营活动】0-0退赔/superodd/串关加赔；\n【体育数据】首存/VIP/通行证/日常留存/排行榜；\n【前端】LSports 对接完成；\n【游戏对接】UI优化版本完成，H5版本优化，提供 PWA 版本；\n【投放中心】全部完成；\n【活动中心】完成；\n【钱包/财务】国别系统适配，兼容多种流水计算配置。"
+    },
+    {
+      "id": "ms_2026_jun_release",
+      "title": "XP-BET 6月份版本上线",
+      "due_date": "2026-06-30",
+      "status": "pending",
+      "group_id": null,
+      "description": "6月版本目标（跨团队）：\n【内容中心】完成向 Superbet 看齐的版本进度；\n【体育专属活动】完成全部卡片和手动推荐，提供更丰富的体育数据/直播；\n【用户运营活动】客损反水/券码领取；\n【前端】固定 UI，提供暗色系，提供安卓版本；\n【游戏对接】完成 14-16 家；\n【代理中心】完成 Affiliate 系统对接，完成代理中心页面设计；\n【CRM】完成通道对接，完成三方对接。"
+    }
+  ],
   "kpi_metrics": {
     "health_score": {
       "value": 85,
