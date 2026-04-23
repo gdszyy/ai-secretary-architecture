@@ -54,7 +54,7 @@
 | **[manus-lark-skills](https://github.com/gdszyy/manus-lark-skills)** | **通用 Agent 技能库**<br>存放可跨项目复用的 Manus 技能定义与 Python 脚本（如 `lark-codesandbox`、`lark-md-import`），与业务逻辑完全解耦。 | 当执行「技能开发」、「Lark API 集成」或需要「引用现有通用技能」时，请读取此仓库。 |
 
 > **提示**: 原 `project-management-ai-secretary` 仓库现已降级为**历史归档库**，主要用于存放体积庞大的废弃测试数据（如海量 JSON）和过时的中间交付物。除非需要追溯极早期的原始数据，否则 Agent **无需读取**原仓库。
-| `mod_activity` | [自动化活动管理系统需求文档](docs/mod_activity/PRD_Unknown.md) | 构建一个高度可配置的活动管理平台，提升活动上线效率和运营管理能力 |
+| `mod_activity` | [自动化活动管理系统需求文档](docs/mod_activity/PRD_AutoActivity_Management.md) | 构建一个高度可配置的活动管理平台，提升活动上线效率和运营管理能力 |
 | `mod_casino` | [优化清单](docs/mod_casino/PRD_mod_casino_Optimization_List.md) | 提升游戏大厅及游戏相关功能的用户体验和管理效率 |
 | `mod_casino` | [产品设计文档 (PRD)](docs/mod_casino/PRD_Casino_BetBasket_Enhancement.md) | 提升投注篮的视觉吸引力和操作效率，优化PC端和移动端的交互体验。 |
 | `mod_casino` | [钱包有效流水系数](docs/mod_casino/PRD_Wallet_Flow_Coefficient.md) | 解决多币别配置问题及风控用户的钱包冻结机制，保障充提投行为的合规与安全 |
@@ -88,3 +88,11 @@
 | `mod_riskcontrol` | [KYC 三方身份验证配置与流程](docs/mod_riskcontrol/PRD_KYC_ThirdParty_Verification.md) | 为满足合规与风控要求，提供可配置的第三方 KYC 服务及前台动态展示与校验能力，限制未完成 KYC 用户的关键业务操作。 |
 | `mod_activity` | [站内信系统需求说明](docs/mod_activity/PRD_站内信系统需求说明.md) | 建立完整的站内信系统以提升用户信息接收效率与活动参与度 |
 | `mod_activity` | [站内信系统需求说明](docs/mod_activity/PRD_mod_activity_station_message.md) | 通过站内信系统向用户推送多样化消息，提升信息接收效率与活动参与度。 |
+| `mod_activity` | [自动化活动管理系统需求文档](docs/mod_activity/PRD_AutoActivity_Management.md) | 构建一个高度可配置的活动管理平台，提升活动上线效率和运营管理能力 |
+| `mod_activity` | [活动规则（券码阶梯加赠 v1）](docs/mod_activity/PRD_Activity_CouponCode_v1.md) | 通过优惠券码和阶梯加赠活动提升用户充值转化率和活跃度 |
+| `mod_activity` | [活动规则（券码阶梯加赠 v2）](docs/mod_activity/PRD_Activity_CouponCode_v2.md) | 通过阶梯式优惠券绑定和充值加赠活动，提升用户充值金额和活跃度。 |
+| `mod_activity` | [活动方案（VIP等级体系）](docs/mod_activity/PRD_Activity_VIP_System.md) | 通过VIP等级体系及奖励机制提升用户活跃度和忠诚度 |
+| `mod_activity` | [赛季通行证活动方案](docs/mod_activity/PRD_Activity_SeasonPass.md) | 通过完成任务获取经验值提升等级，解锁免费及高级奖励，提升用户活跃度和付费转化。 |
+| `mod_activity` | [活动方案（冠军盘）](docs/mod_activity/PRD_Activity_ChampionBet.md) | 通过轻量化前端页面展示活动并记录用户参与数据，提升用户参与度。 |
+| `mod_activity` | [活动方案（每日抽奖 Daily Draw）](docs/mod_activity/PRD_Activity_DailyDraw.md) | 通过多样化任务和抽奖机制提升用户活跃度和参与度，促进用户留存和转化。 |
+| `mod_activity` | [活动方案（排行榜与礼券模板）](docs/mod_activity/PRD_Activity_Leaderboard.md) | 通过配置多维度活动排名和限制规则，实现精准的活动管理和用户参与控制 |

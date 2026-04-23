@@ -15,6 +15,14 @@
 - [站内信系统需求说明](docs/mod_activity/PRD_mod_activity_station_message.md)
 - [代投配置与管理系统需求说明](docs/mod_activity/PRD_代投配置与管理系统.md)
 - [站内信系统需求说明](docs/mod_activity/PRD_站内信系统需求说明.md)
+- [自动化活动管理系统需求文档](docs/mod_activity/PRD_AutoActivity_Management.md)
+- [活动规则（券码阶梯加赠 v1）](docs/mod_activity/PRD_Activity_CouponCode_v1.md)
+- [活动规则（券码阶梯加赠 v2）](docs/mod_activity/PRD_Activity_CouponCode_v2.md)
+- [活动方案（VIP等级体系）](docs/mod_activity/PRD_Activity_VIP_System.md)
+- [赛季通行证活动方案](docs/mod_activity/PRD_Activity_SeasonPass.md)
+- [活动方案（冠军盘）](docs/mod_activity/PRD_Activity_ChampionBet.md)
+- [活动方案（每日抽奖 Daily Draw）](docs/mod_activity/PRD_Activity_DailyDraw.md)
+- [活动方案（排行榜与礼券模板）](docs/mod_activity/PRD_Activity_Leaderboard.md)
 
 ## 禁止行为
 
