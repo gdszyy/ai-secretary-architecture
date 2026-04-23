@@ -97,3 +97,16 @@
 
 > **Agent 读取路径**：`AGENTS.md` → 模块规范文件（`.cursor/rules/mod_*.md`）→ auto_index PRD 索引（精准定位 Feature ID 与行号）→ 具体 PRD 章节。
 > **更新规范**：每次通过 `prd-doc-ingestion` 新增文档后，需重新运行 `python3 /home/ubuntu/gen_prd_index.py` 更新索引。
+
+## 第 9 节：外部资料索引（三方文档 / 参考资料 / 竞品调研）
+
+> **读取入口**：[`.cursor/rules/refs_index.md`](.cursor/rules/refs_index.md)
+> **维护原则**：本节链接固定不变，新增资料只需更新飞书索引文档，无需修改仓库。
+
+| 类型 | 飞书索引文档 | 用途 |
+|---|---|---|
+| 三方集成文档 | [📚 三方集成文档索引](https://kjpp4yydjn38.jp.larksuite.com/wiki/WWMBwtJuWi7RE1kaPR0j9eaCpih) | 供应商 API / SDK 文档，按模块关联 |
+| 参考资料库 | [📖 参考资料库索引](https://kjpp4yydjn38.jp.larksuite.com/wiki/Wu8iwCPPFi6pK7k1EwtjfkkRp1b) | 行业报告、技术选型、标准规范 |
+| 竞品调研 | [🔍 竞品调研索引](https://kjpp4yydjn38.jp.larksuite.com/wiki/O3YxwzfGxidfHpk6Ygyjj3w4p8k) | 竞品功能对比矩阵 + 详细调研报告存档 |
+
+> **Agent 读取路径**：`AGENTS.md 第 9 节` → `.cursor/rules/refs_index.md`（获取 wiki_token）→ `lark-doc-reader` 读取飞书索引文档 → 按需跳转子文档。
