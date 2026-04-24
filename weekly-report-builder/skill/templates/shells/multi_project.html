@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{META_TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --sidebar-w: 240px;
+      --sidebar-bg: oklch(0.11 0.008 240 / 0.96);
+      --sidebar-active: oklch(0.58 0.22 255);
+      --card-bg: oklch(1 0 0 / 0.65);
+      --bg: oklch(0.975 0.003 240);
+      --high: oklch(0.58 0.22 25);
+      --mid: oklch(0.68 0.19 55);
+      --low: oklch(0.62 0.2 160);
+      --blue: oklch(0.58 0.22 255);
+      --text-primary: oklch(0.12 0.008 240);
+      --text-secondary: oklch(0.35 0.01 240);
+      --text-muted: oklch(0.52 0.012 240);
+      --shadow: 0 4px 24px -4px oklch(0 0 0 / 0.08);
+      --glass-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.55);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans SC', 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+    .bg-glow { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: -1; }
+    .bg-glow-1 { position: absolute; top: -160px; left: -160px; width: 600px; height: 600px; border-radius: 50%; background: oklch(0.88 0.06 255 / 0.35); filter: blur(80px); }
+    .bg-glow-2 { position: absolute; bottom: -160px; right: -160px; width: 600px; height: 600px; border-radius: 50%; background: oklch(0.88 0.06 295 / 0.25); filter: blur(80px); }
+    .bg-glow-3 { position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; background: oklch(0.92 0.04 200 / 0.20); filter: blur(60px); }
+    .sidebar { position: fixed; left: 0; top: 0; height: 100vh; width: var(--sidebar-w); background: var(--sidebar-bg); backdrop-filter: blur(20px) saturate(1.8); border-right: 1px solid oklch(1 0 0 / 0.10); box-shadow: inset 0 1px 0 0 oklch(1 0 0 / 0.12), 0 8px 32px -4px oklch(0 0 0 / 0.40); z-index: 40; display: flex; flex-direction: column; overflow-y: auto; }
+    .sidebar-header { padding: 24px 20px; border-bottom: 1px solid oklch(1 0 0 / 0.08); }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { width: 32px; height: 32px; border-radius: 10px; background: var(--blue); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px oklch(0.58 0.22 280 / 0.4); flex-shrink: 0; }
+    .logo-icon span { color: white; font-size: 13px; font-weight: 700; font-family: 'DM Sans', sans-serif; }
+    .logo-text { font-size: 13px; font-weight: 600; color: oklch(0.95 0.005 240); line-height: 1.3; }
+    .date-badge { margin-top: 10px; font-size: 11px; color: oklch(0.60 0.012 240); font-family: 'DM Sans', sans-serif; }
+    .sidebar-nav { padding: 16px 12px; flex: 1; }
+    .nav-section-title { padding: 0 8px; margin-bottom: 8px; margin-top: 12px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: oklch(0.45 0.012 240); }
+    .nav-section-title:first-child { margin-top: 0; }
+    .nav-link { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; color: oklch(0.65 0.012 240); cursor: pointer; transition: all 0.2s; text-decoration: none; font-size: 13px; border: 1px solid transparent; }
+    .nav-link:hover { background: oklch(1 0 0 / 0.08); color: oklch(0.90 0.005 240); }
+    .nav-link.active { background: oklch(0.58 0.22 255 / 0.20); backdrop-filter: blur(8px); border-color: oklch(0.58 0.22 255 / 0.30); box-shadow: inset 0 1px 0 0 oklch(1 0 0 / 0.20); color: oklch(0.95 0.005 240); font-weight: 500; }
+    .nav-icon { font-size: 15px; flex-shrink: 0; }
+    .nav-badge { margin-left: auto; font-size: 10px; padding: 2px 6px; border-radius: 999px; background: oklch(0.58 0.22 25 / 0.20); color: oklch(0.70 0.22 20); font-family: 'DM Sans', sans-serif; font-weight: 600; }
+    .nav-badge.mid { background: oklch(0.68 0.19 55 / 0.20); color: oklch(0.68 0.19 55); }
+    .nav-badge.ok { background: oklch(0.62 0.2 160 / 0.15); color: oklch(0.62 0.2 160); }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid oklch(1 0 0 / 0.08); }
+    .sidebar-footer p { font-size: 11px; color: oklch(0.45 0.012 240); font-family: 'DM Sans', sans-serif; }
+    .content { margin-left: var(--sidebar-w); min-height: 100vh; padding: 32px; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .page-title { font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .page-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; }
+    .card { background: var(--card-bg); backdrop-filter: blur(20px) saturate(1.5); border: 1px solid oklch(0 0 0 / 0.08); box-shadow: var(--glass-highlight), var(--shadow); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+    .card-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 16px; }
+    .highlight-banner { background: oklch(0.58 0.22 255 / 0.08); backdrop-filter: blur(20px); border: 1px solid oklch(0.58 0.22 255 / 0.25); box-shadow: inset 0 1px 0 0 oklch(1 0 0 / 0.55), 0 4px 24px -4px oklch(0 0 0 / 0.08); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+    .hb-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); margin-bottom: 10px; }
+    .hb-text { font-size: 14px; color: oklch(0.20 0.008 240); line-height: 1.7; }
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: var(--card-bg); backdrop-filter: blur(20px) saturate(1.5); border: 1px solid oklch(0 0 0 / 0.08); box-shadow: var(--glass-highlight), var(--shadow); border-radius: 16px; padding: 20px; transition: transform 0.25s, box-shadow 0.25s; }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: var(--glass-highlight), 0 12px 32px -4px oklch(0 0 0 / 0.14); }
+    .stat-bar { height: 2px; border-radius: 999px; margin-bottom: 16px; margin-top: -4px; }
+    .stat-bar.blue { background: var(--blue); }
+    .stat-bar.green { background: var(--low); }
+    .stat-bar.red { background: var(--high); }
+    .stat-bar.amber { background: var(--mid); }
+    .stat-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+    .stat-value { font-size: 30px; font-weight: 700; color: var(--text-primary); font-family: 'DM Sans', sans-serif; line-height: 1; }
+    .stat-desc { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+    .charts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 24px; }
+    .chart-card { background: var(--card-bg); backdrop-filter: blur(20px) saturate(1.5); border: 1px solid oklch(0 0 0 / 0.08); box-shadow: var(--glass-highlight), var(--shadow); border-radius: 16px; padding: 20px; }
+    .chart-wrap { height: 200px; position: relative; }
+    .chart-wrap-tall { height: 260px; position: relative; }
+    .achievement-list { list-style: none; }
+    .achievement-list li { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid oklch(0 0 0 / 0.05); font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .achievement-list li:last-child { border-bottom: none; }
+    .achievement-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 6px; }
+    .risk-list { display: flex; flex-direction: column; gap: 10px; }
+    .risk-item { display: flex; gap: 12px; padding: 12px; border-radius: 10px; }
+    .risk-item.high { background: oklch(0.58 0.22 25 / 0.06); border: 1px solid oklch(0.58 0.22 25 / 0.20); }
+    .risk-item.mid  { background: oklch(0.68 0.19 55 / 0.06); border: 1px solid oklch(0.68 0.19 55 / 0.20); }
+    .risk-item.low  { background: oklch(0.62 0.2 160 / 0.06); border: 1px solid oklch(0.62 0.2 160 / 0.20); }
+    .risk-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; flex-shrink: 0; height: fit-content; margin-top: 2px; }
+    .risk-badge.high { background: oklch(0.58 0.22 25 / 0.12); color: oklch(0.42 0.22 20); }
+    .risk-badge.mid  { background: oklch(0.68 0.19 55 / 0.12); color: oklch(0.42 0.18 55); }
+    .risk-badge.low  { background: oklch(0.62 0.2 160 / 0.12); color: oklch(0.38 0.18 160); }
+    .risk-title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .risk-desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before { content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: oklch(0 0 0 / 0.08); border-radius: 999px; }
+    .timeline-item { position: relative; padding-bottom: 20px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot { position: absolute; left: -20px; top: 4px; width: 14px; height: 14px; border-radius: 50%; }
+    .timeline-dot.done { background: var(--low); }
+    .timeline-dot.active { background: var(--blue); box-shadow: 0 0 0 3px oklch(0.58 0.22 255 / 0.25); }
+    .timeline-dot.risk { background: var(--high); box-shadow: 0 0 0 3px oklch(0.58 0.22 25 / 0.25); }
+    .timeline-dot.upcoming { background: oklch(0.52 0.012 240 / 0.40); }
+    .timeline-date { font-size: 11px; color: var(--text-muted); font-family: 'DM Sans', sans-serif; }
+    .timeline-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-top: 2px; }
+    .timeline-desc { font-size: 12px; color: var(--text-muted); margin-top: 3px; line-height: 1.5; }
+    .section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .detail-list { list-style: none; }
+    .detail-list li { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .detail-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 6px; }
+    .project-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid oklch(0 0 0 / 0.06); }
+    .project-icon { font-size: 32px; }
+    .project-name { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+    .project-meta { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .status-tag { padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+    .tag-progress { background: oklch(0.58 0.22 255 / 0.12); color: oklch(0.38 0.18 220); }
+    .tag-risk     { background: oklch(0.58 0.22 25 / 0.12);  color: oklch(0.42 0.22 20); }
+    .tag-done     { background: oklch(0.62 0.2 160 / 0.12);  color: oklch(0.38 0.18 160); }
+    .tag-pending  { background: oklch(0.52 0.012 240 / 0.10); color: oklch(0.35 0.01 240); }
+    .tag-mid      { background: oklch(0.68 0.19 55 / 0.12);  color: oklch(0.42 0.18 55); }
+    .progress-bar-wrap { background: oklch(0 0 0 / 0.06); border-radius: 999px; height: 6px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; border-radius: 999px; background: var(--blue); transition: width 0.6s ease; }
+    .accident-card { background: oklch(0.58 0.22 25 / 0.06); backdrop-filter: blur(20px); border: 1px solid oklch(0.58 0.22 25 / 0.25); box-shadow: inset 0 1px 0 0 oklch(1 0 0 / 0.30); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+    .ac-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: oklch(0.58 0.22 25); margin-bottom: 12px; }
+    .ac-row { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid oklch(0.58 0.22 25 / 0.12); }
+    .ac-row:last-child { border-bottom: none; }
+    .ac-label { font-size: 11px; font-weight: 600; color: var(--text-muted); width: 60px; flex-shrink: 0; }
+    .ac-value { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    .data-table { width: 100%; border-collapse: collapse; }
+    .data-table thead th { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: left; padding: 8px 12px; border-bottom: 1px solid oklch(0 0 0 / 0.08); }
+    .data-table tbody tr { border-bottom: 1px solid oklch(0 0 0 / 0.05); transition: background 0.15s; }
+    .data-table tbody tr:hover { background: oklch(0.58 0.22 255 / 0.04); }
+    .data-table tbody td { padding: 12px; font-size: 13px; color: var(--text-secondary); }
+    .priority-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+    .priority-badge.high { background: oklch(0.58 0.22 25 / 0.10); color: oklch(0.42 0.22 20); }
+    .priority-badge.mid  { background: oklch(0.68 0.19 55 / 0.10); color: oklch(0.42 0.18 55); }
+    .priority-badge.low  { background: oklch(0.62 0.2 160 / 0.10); color: oklch(0.38 0.18 160); }
+    .improve-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .improve-card { background: var(--card-bg); backdrop-filter: blur(20px) saturate(1.5); border: 1px solid oklch(0 0 0 / 0.08); box-shadow: var(--glass-highlight), var(--shadow); border-radius: 16px; padding: 20px; transition: transform 0.25s, box-shadow 0.25s; }
+    .improve-card:hover { transform: translateY(-4px); box-shadow: var(--glass-highlight), 0 12px 32px -4px oklch(0 0 0 / 0.14); }
+    .ic-icon { font-size: 24px; margin-bottom: 12px; }
+    .ic-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 10px; }
+    .ic-list { list-style: none; }
+    .ic-list li { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    .ic-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 6px; }
+    .root-cause-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .root-cause-card { padding: 16px; border-radius: 12px; }
+    .root-cause-card.high { background: oklch(0.58 0.22 25 / 0.06); border: 1px solid oklch(0.58 0.22 25 / 0.20); }
+    .root-cause-card.mid  { background: oklch(0.68 0.19 55 / 0.06); border: 1px solid oklch(0.68 0.19 55 / 0.20); }
+    .rc-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .rc-label.high { color: oklch(0.42 0.22 20); }
+    .rc-label.mid  { color: oklch(0.42 0.18 55); }
+    .rc-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+    .rc-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    @media (max-width: 1024px) {
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+      .charts-grid { grid-template-columns: 1fr; }
+      .section-grid { grid-template-columns: 1fr; }
+      .improve-grid { grid-template-columns: 1fr; }
+      .root-cause-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .content { margin-left: 0; padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    <div class="bg-glow-3"></div>
+  </div>
+
+  <!-- 侧边栏 -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon"><span>{{LOGO_CHAR}}</span></div>
+        <span class="logo-text">{{REPORT_TITLE}}</span>
+      </div>
+      <div class="date-badge">{{DATE_RANGE}}</div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="nav-section-title">总览</div>
+      <a class="nav-link active" onclick="showPage('home')">
+        <span class="nav-icon">🏠</span><span>首页总览</span>
+      </a>
+      <a class="nav-link" onclick="showPage('risk')">
+        <span class="nav-icon">⚠️</span><span>风险总览</span>
+        <span class="nav-badge">{{NAV_RISK_BADGE}}</span>
+      </a>
+      <a class="nav-link" onclick="showPage('plan')">
+        <span class="nav-icon">📅</span><span>下周计划</span>
+      </a>
+      <a class="nav-link" onclick="showPage('improve')">
+        <span class="nav-icon">🔧</span><span>改进措施</span>
+      </a>
+      <div class="nav-section-title">项目详情</div>
+      {{NAV_PROJECT_LINKS}}
+    </div>
+    <div class="sidebar-footer">
+      <p>{{FOOTER_TEXT}}</p>
+    </div>
+  </nav>
+
+  <!-- 主内容区 -->
+  <main class="content">
+
+    <!-- ══ 首页总览 ══ -->
+    <div id="home" class="page active">
+      <div class="page-title">首页总览</div>
+      <div class="page-subtitle">{{HOME_SUBTITLE}}</div>
+      <div class="highlight-banner">
+        <div class="hb-title">本周核心结论</div>
+        <div class="hb-text">{{HOME_BANNER_HTML}}</div>
+      </div>
+      <div class="stat-grid">
+        {{HOME_STAT_CARDS}}
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="card-title">项目状态分布</div>
+          <div class="chart-wrap"><canvas id="chartStatus"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="card-title">各项目本周完成度</div>
+          <div class="chart-wrap"><canvas id="chartCompletion"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="card-title">各项目风险等级</div>
+          <div class="chart-wrap"><canvas id="chartRisk"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="card-title">风险维度雷达</div>
+          <div class="chart-wrap"><canvas id="chartRadar"></canvas></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">本周核心成果</div>
+        <ul class="achievement-list">{{HOME_ACHIEVEMENTS}}</ul>
+      </div>
+      <div class="card">
+        <div class="card-title">核心风险 TOP 3</div>
+        <div class="risk-list">{{HOME_TOP_RISKS}}</div>
+      </div>
+    </div>
+
+    <!-- ══ 风险总览 ══ -->
+    <div id="risk" class="page">
+      <div class="page-title">风险总览</div>
+      <div class="page-subtitle">本周风险等级分布与各项目风险热力</div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="card-title">风险热力图</div>
+          <div class="chart-wrap-tall"><canvas id="chartHeatmap"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="card-title">风险类型雷达</div>
+          <div class="chart-wrap-tall"><canvas id="chartRiskType"></canvas></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">高风险项目详情</div>
+        <div class="risk-list">{{RISK_HIGH_ITEMS}}</div>
+      </div>
+      <div class="card">
+        <div class="card-title">中风险项目详情</div>
+        <div class="risk-list">{{RISK_MID_ITEMS}}</div>
+      </div>
+    </div>
+
+    <!-- ══ 下周计划 ══ -->
+    <div id="plan" class="page">
+      <div class="page-title">下周计划</div>
+      <div class="page-subtitle">{{PLAN_SUBTITLE}}</div>
+      <div class="card">
+        <div class="card-title">下周甘特图</div>
+        <div class="chart-wrap-tall"><canvas id="chartGantt"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-title">核心任务清单</div>
+        <table class="data-table">
+          <thead><tr><th>项目</th><th>核心任务</th><th>关键节点</th><th>优先级</th></tr></thead>
+          <tbody>{{PLAN_TABLE_ROWS}}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ 改进措施 ══ -->
+    <div id="improve" class="page">
+      <div class="page-title">改进措施</div>
+      <div class="page-subtitle">本周问题根因分析与行动计划</div>
+      <div class="card">
+        <div class="card-title">根因分析</div>
+        <div class="root-cause-grid">{{IMPROVE_ROOT_CAUSES}}</div>
+      </div>
+      <div class="card">
+        <div class="card-title">行动计划</div>
+        <div class="improve-grid">{{IMPROVE_ACTION_CARDS}}</div>
+      </div>
+    </div>
+
+    <!-- ══ 各项目详情页（动态注入）══ -->
+    {{PROJECT_PAGES}}
+
+  </main>
+
+  <script>
+    // ── 页面切换 ──
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      const page = document.getElementById(id);
+      if (page) page.classList.add('active');
+      document.querySelectorAll('.nav-link').forEach(l => {
+        if (l.getAttribute('onclick') && l.getAttribute('onclick').includes("'" + id + "'")) {
+          l.classList.add('active');
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── Chart.js 全局配置 ──
+    Chart.defaults.font.family = "'DM Sans', 'Noto Sans SC', sans-serif";
+    Chart.defaults.color = 'oklch(0.52 0.012 240)';
+    const BLUE   = 'oklch(0.58 0.22 255)';
+    const GREEN  = 'oklch(0.62 0.2 160)';
+    const RED    = 'oklch(0.58 0.22 25)';
+    const AMBER  = 'oklch(0.68 0.19 55)';
+    const PURPLE = 'oklch(0.62 0.22 280)';
+
+    // ── 图表数据（由 shell_injector.py 注入）──
+    // ⚠️ CHART_DATA_BEGIN
+    const CHART_DATA = {{CHART_DATA_JSON}};
+    // ⚠️ CHART_DATA_END
+
+    // ── 图表渲染 ──
+    function colorByRisk(level) {
+      if (level === 'high') return RED + ' / 0.8)'.replace(')', '');
+      if (level === 'mid')  return AMBER;
+      return GREEN;
+    }
+    function statusColor(s) {
+      const map = { '正常推进': GREEN, '有风险': AMBER, '高风险': RED, '阻塞': 'oklch(0.52 0.012 240 / 0.5)' };
+      return map[s] || BLUE;
+    }
+
+    // 项目状态分布（甜甜圈）
+    new Chart(document.getElementById('chartStatus'), {
+      type: 'doughnut',
+      data: {
+        labels: CHART_DATA.statusDist.labels,
+        datasets: [{ data: CHART_DATA.statusDist.data, backgroundColor: CHART_DATA.statusDist.labels.map(statusColor), borderWidth: 0 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } } }, cutout: '65%' }
+    });
+
+    // 各项目完成度（水平柱状图）
+    new Chart(document.getElementById('chartCompletion'), {
+      type: 'bar',
+      data: {
+        labels: CHART_DATA.completion.labels,
+        datasets: [{ label: '完成度 %', data: CHART_DATA.completion.data, backgroundColor: CHART_DATA.completion.colors, borderRadius: 4 }]
+      },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { max: 100, grid: { color: 'oklch(0 0 0 / 0.05)' }, ticks: { font: { size: 10 } } }, y: { grid: { display: false }, ticks: { font: { size: 11 } } } } }
+    });
+
+    // 各项目风险等级（堆叠柱状图）
+    new Chart(document.getElementById('chartRisk'), {
+      type: 'bar',
+      data: {
+        labels: CHART_DATA.riskLevel.labels,
+        datasets: [
+          { label: '高', data: CHART_DATA.riskLevel.high, backgroundColor: RED + ' / 0.8)', borderRadius: 3 },
+          { label: '中', data: CHART_DATA.riskLevel.mid,  backgroundColor: AMBER + ' / 0.8)', borderRadius: 3 },
+          { label: '低', data: CHART_DATA.riskLevel.low,  backgroundColor: GREEN + ' / 0.8)', borderRadius: 3 },
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } } }, scales: { x: { stacked: true, grid: { display: false }, ticks: { font: { size: 10 } } }, y: { stacked: true, grid: { color: 'oklch(0 0 0 / 0.05)' }, ticks: { stepSize: 1, font: { size: 10 } } } } }
+    });
+
+    // 风险维度雷达图
+    new Chart(document.getElementById('chartRadar'), {
+      type: 'radar',
+      data: {
+        labels: CHART_DATA.riskRadar.labels,
+        datasets: [{ label: '风险程度', data: CHART_DATA.riskRadar.data, backgroundColor: RED + ' / 0.12)', borderColor: RED + ' / 0.8)', pointBackgroundColor: RED, borderWidth: 2, pointRadius: 4 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { min: 0, max: 100, grid: { color: 'oklch(0 0 0 / 0.08)' }, angleLines: { color: 'oklch(0 0 0 / 0.08)' }, pointLabels: { font: { size: 11 } }, ticks: { stepSize: 25, font: { size: 9 }, backdropColor: 'transparent' } } } }
+    });
+
+    // 风险热力图
+    new Chart(document.getElementById('chartHeatmap'), {
+      type: 'bar',
+      data: {
+        labels: CHART_DATA.heatmap.labels,
+        datasets: [{ label: '风险指数', data: CHART_DATA.heatmap.data, backgroundColor: CHART_DATA.heatmap.colors, borderRadius: 4 }]
+      },
+      options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { max: 100, grid: { color: 'oklch(0 0 0 / 0.05)' }, ticks: { font: { size: 10 } } }, y: { grid: { display: false }, ticks: { font: { size: 11 } } } } }
+    });
+
+    // 风险类型雷达（风险总览页）
+    new Chart(document.getElementById('chartRiskType'), {
+      type: 'radar',
+      data: {
+        labels: CHART_DATA.riskRadar.labels,
+        datasets: [{ label: '本周风险', data: CHART_DATA.riskRadar.data, backgroundColor: RED + ' / 0.12)', borderColor: RED + ' / 0.8)', pointBackgroundColor: RED, borderWidth: 2, pointRadius: 4 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { r: { min: 0, max: 100, grid: { color: 'oklch(0 0 0 / 0.08)' }, angleLines: { color: 'oklch(0 0 0 / 0.08)' }, pointLabels: { font: { size: 11 } }, ticks: { stepSize: 25, font: { size: 9 }, backdropColor: 'transparent' } } } }
+    });
+
+    // 甘特图
+    new Chart(document.getElementById('chartGantt'), {
+      type: 'bar',
+      data: {
+        labels: CHART_DATA.gantt.labels,
+        datasets: [
+          { label: '开始偏移', data: CHART_DATA.gantt.offsets, backgroundColor: 'transparent', borderWidth: 0 },
+          { label: '持续天数', data: CHART_DATA.gantt.durations, backgroundColor: CHART_DATA.gantt.colors, borderRadius: 4 }
+        ]
+      },
+      options: {
+        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => ctx.datasetIndex === 1 ? ` 持续 ${ctx.parsed.x} 天` : null } } },
+        scales: {
+          x: { stacked: true, min: 0, max: 8, grid: { color: 'oklch(0 0 0 / 0.05)' }, ticks: { font: { size: 10 }, callback: (v) => ['周一','周二','周三','周四','周五','周六','周日',''][v] || '' } },
+          y: { stacked: true, grid: { display: false }, ticks: { font: { size: 11 } } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{META_TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --sidebar-w: 220px;
+      --sidebar-bg: oklch(0.10 0.010 270 / 0.96);
+      --accent: oklch(0.60 0.22 270);
+      --card-bg: oklch(1 0 0 / 0.65);
+      --bg: oklch(0.975 0.003 270);
+      --high: oklch(0.58 0.22 25);
+      --mid: oklch(0.68 0.19 55);
+      --low: oklch(0.62 0.2 160);
+      --text-primary: oklch(0.12 0.008 240);
+      --text-secondary: oklch(0.35 0.01 240);
+      --text-muted: oklch(0.52 0.012 240);
+      --shadow: 0 4px 24px -4px oklch(0 0 0 / 0.08);
+      --glass-highlight: inset 0 1px 0 0 oklch(1 0 0 / 0.55);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans SC', 'DM Sans', -apple-system, sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; }
+    .bg-glow { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: -1; }
+    .bg-glow-1 { position: absolute; top: -160px; left: -160px; width: 600px; height: 600px; border-radius: 50%; background: oklch(0.88 0.06 270 / 0.30); filter: blur(80px); }
+    .bg-glow-2 { position: absolute; bottom: -160px; right: -160px; width: 600px; height: 600px; border-radius: 50%; background: oklch(0.88 0.06 300 / 0.20); filter: blur(80px); }
+    .sidebar { position: fixed; left: 0; top: 0; height: 100vh; width: var(--sidebar-w); background: var(--sidebar-bg); backdrop-filter: blur(20px) saturate(1.8); border-right: 1px solid oklch(1 0 0 / 0.10); box-shadow: 0 8px 32px -4px oklch(0 0 0 / 0.40); z-index: 40; display: flex; flex-direction: column; overflow-y: auto; }
+    .sidebar-header { padding: 24px 20px; border-bottom: 1px solid oklch(1 0 0 / 0.08); }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo-icon { width: 32px; height: 32px; border-radius: 10px; background: var(--accent); display: flex; align-items: center; justify-content: center; }
+    .logo-icon span { color: white; font-size: 13px; font-weight: 700; }
+    .logo-text { font-size: 13px; font-weight: 600; color: oklch(0.95 0.005 240); line-height: 1.3; }
+    .date-badge { margin-top: 10px; font-size: 11px; color: oklch(0.60 0.012 240); }
+    .sidebar-nav { padding: 16px 12px; flex: 1; }
+    .nav-section-title { padding: 0 8px; margin: 12px 0 8px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: oklch(0.45 0.012 240); }
+    .nav-section-title:first-child { margin-top: 0; }
+    .nav-link { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; color: oklch(0.65 0.012 240); cursor: pointer; transition: all 0.2s; font-size: 13px; border: 1px solid transparent; }
+    .nav-link:hover { background: oklch(1 0 0 / 0.06); color: oklch(0.88 0.005 240); }
+    .nav-link.active { background: oklch(0.60 0.22 270 / 0.18); border-color: oklch(0.60 0.22 270 / 0.30); color: oklch(0.88 0.08 270); }
+    .content { margin-left: var(--sidebar-w); padding: 32px; min-height: 100vh; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .page-header { margin-bottom: 28px; }
+    .page-title { font-size: 24px; font-weight: 700; }
+    .page-subtitle { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+    .card { background: var(--card-bg); backdrop-filter: blur(20px) saturate(1.5); border: 1px solid oklch(0 0 0 / 0.08); box-shadow: var(--glass-highlight), var(--shadow); border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+    .section-title { font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .section-title::before { content: ''; width: 3px; height: 16px; background: var(--accent); border-radius: 2px; }
+    /* 统计卡 */
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid oklch(0 0 0 / 0.08); box-shadow: var(--glass-highlight), var(--shadow); border-radius: 16px; padding: 20px; position: relative; overflow: hidden; }
+    .stat-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .stat-bar.blue { background: var(--accent); }
+    .stat-bar.green { background: var(--low); }
+    .stat-bar.amber { background: var(--mid); }
+    .stat-bar.red { background: var(--high); }
+    .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+    .stat-value { font-size: 28px; font-weight: 700; font-family: 'DM Sans', sans-serif; margin: 4px 0; }
+    .stat-desc { font-size: 12px; color: var(--text-muted); }
+    /* 整体进度 */
+    .overall-progress-wrap { display: flex; align-items: center; gap: 24px; margin-bottom: 20px; }
+    .overall-pct { font-size: 64px; font-weight: 700; font-family: 'DM Sans', sans-serif; color: var(--accent); line-height: 1; }
+    .overall-bar-wrap { flex: 1; }
+    .overall-bar-track { height: 12px; background: oklch(0 0 0 / 0.08); border-radius: 999px; overflow: hidden; }
+    .overall-bar-fill { height: 100%; border-radius: 999px; background: var(--accent); transition: width 0.8s ease; }
+    .overall-target { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+    .overall-insight { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-top: 12px; padding: 12px; background: oklch(0.60 0.22 270 / 0.06); border-radius: 10px; border-left: 3px solid var(--accent); }
+    /* 健康度 */
+    .health-header { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+    .health-score-big { font-size: 56px; font-weight: 700; font-family: 'DM Sans', sans-serif; color: var(--accent); }
+    .health-summary { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+    .health-dim { margin-bottom: 16px; }
+    .health-dim-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 13px; font-weight: 500; }
+    .health-score { font-weight: 700; font-family: 'DM Sans', sans-serif; }
+    .health-score.green { color: var(--low); }
+    .health-score.amber { color: var(--mid); }
+    .health-score.red { color: var(--high); }
+    .health-score.blue { color: var(--accent); }
+    .health-bar-wrap { height: 6px; background: oklch(0 0 0 / 0.08); border-radius: 999px; overflow: hidden; margin-bottom: 4px; }
+    .health-bar-fill { height: 100%; border-radius: 999px; }
+    .health-bar-fill.green { background: var(--low); }
+    .health-bar-fill.amber { background: var(--mid); }
+    .health-bar-fill.red { background: var(--high); }
+    .health-bar-fill.blue { background: var(--accent); }
+    .health-comment { font-size: 11px; color: var(--text-muted); }
+    /* 模块进度 */
+    .module-row { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid oklch(0 0 0 / 0.08); box-shadow: var(--glass-highlight), var(--shadow); border-radius: 14px; padding: 18px; margin-bottom: 12px; display: grid; grid-template-columns: 140px 80px 1fr 200px 80px; gap: 16px; align-items: center; }
+    .mr-name { font-size: 14px; font-weight: 600; }
+    .mr-owner { font-size: 12px; color: var(--text-muted); }
+    .mr-progress-wrap { position: relative; height: 8px; background: oklch(0 0 0 / 0.08); border-radius: 999px; overflow: hidden; }
+    .mr-progress-fill { height: 100%; border-radius: 999px; background: var(--accent); }
+    .mr-progress-text { position: absolute; right: 0; top: -20px; font-size: 11px; font-weight: 700; color: var(--accent); font-family: 'DM Sans', sans-serif; }
+    .mr-focus { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    .status-tag { font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+    .tag-done { background: oklch(0.62 0.2 160 / 0.12); color: oklch(0.38 0.18 160); }
+    .tag-progress { background: oklch(0.60 0.22 270 / 0.12); color: oklch(0.38 0.18 270); }
+    .tag-mid { background: oklch(0.68 0.19 55 / 0.12); color: oklch(0.42 0.18 55); }
+    .tag-risk { background: oklch(0.58 0.22 25 / 0.12); color: oklch(0.42 0.22 20); }
+    /* 功能点清单 */
+    .feature-table { width: 100%; border-collapse: collapse; }
+    .feature-table thead th { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: left; padding: 8px 12px; border-bottom: 1px solid oklch(0 0 0 / 0.08); }
+    .feature-table tbody tr { border-bottom: 1px solid oklch(0 0 0 / 0.05); transition: background 0.15s; }
+    .feature-table tbody tr:hover { background: oklch(0.60 0.22 270 / 0.04); }
+    .feature-table tbody td { padding: 12px; font-size: 13px; color: var(--text-secondary); }
+    /* 研发指标卡 */
+    .dev-metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+    .dev-metric-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid oklch(0 0 0 / 0.08); box-shadow: var(--glass-highlight), var(--shadow); border-radius: 14px; padding: 16px; text-align: center; }
+    .dm-label { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+    .dm-value { font-size: 24px; font-weight: 700; font-family: 'DM Sans', sans-serif; color: var(--accent); }
+    .dm-trend { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+    /* 里程碑时间线 */
+    .timeline-item { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid oklch(0 0 0 / 0.06); }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .timeline-dot.done { background: var(--low); }
+    .timeline-dot.active { background: var(--accent); box-shadow: 0 0 0 3px oklch(0.60 0.22 270 / 0.20); }
+    .timeline-dot.upcoming { background: oklch(0 0 0 / 0.15); }
+    .timeline-dot.blocked { background: var(--high); }
+    .timeline-date { font-size: 11px; color: var(--text-muted); min-width: 70px; font-family: 'DM Sans', sans-serif; }
+    .timeline-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .timeline-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    /* 风险 */
+    .risk-item { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 12px; margin-bottom: 12px; }
+    .risk-item.high { background: oklch(0.58 0.22 25 / 0.06); border: 1px solid oklch(0.58 0.22 25 / 0.20); }
+    .risk-item.mid  { background: oklch(0.68 0.19 55 / 0.06); border: 1px solid oklch(0.68 0.19 55 / 0.20); }
+    .risk-item.low  { background: oklch(0.62 0.2 160 / 0.06); border: 1px solid oklch(0.62 0.2 160 / 0.20); }
+    .risk-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; flex-shrink: 0; margin-top: 2px; }
+    .risk-badge.high { background: oklch(0.58 0.22 25 / 0.12); color: oklch(0.42 0.22 20); }
+    .risk-badge.mid  { background: oklch(0.68 0.19 55 / 0.12); color: oklch(0.42 0.18 55); }
+    .risk-badge.low  { background: oklch(0.62 0.2 160 / 0.12); color: oklch(0.38 0.18 160); }
+    .risk-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .risk-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    /* 图表 */
+    .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .chart-card { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid oklch(0 0 0 / 0.08); box-shadow: var(--glass-highlight), var(--shadow); border-radius: 16px; padding: 20px; }
+    .chart-title { font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+    .chart-wrap { position: relative; height: 200px; }
+    @media (max-width: 1024px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } .dev-metrics-grid { grid-template-columns: repeat(2, 1fr); } .module-row { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .content { margin-left: 0; padding: 16px; } }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"><div class="bg-glow-1"></div><div class="bg-glow-2"></div></div>
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon"><span>D</span></div>
+        <span class="logo-text">{{REPORT_TITLE}}</span>
+      </div>
+      <div class="date-badge">{{DATE_RANGE}}</div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="nav-section-title">总览</div>
+      <a class="nav-link active" onclick="showPage('home')"><span>🏠</span><span>首页总览</span></a>
+      <a class="nav-link" onclick="showPage('progress')"><span>📈</span><span>整体进度</span></a>
+      <a class="nav-link" onclick="showPage('health')"><span>💊</span><span>研发健康度</span></a>
+      <div class="nav-section-title">研发详情</div>
+      <a class="nav-link" onclick="showPage('modules')"><span>🧩</span><span>模块进度</span></a>
+      <a class="nav-link" onclick="showPage('features')"><span>✅</span><span>功能点清单</span></a>
+      <a class="nav-link" onclick="showPage('milestones')"><span>🏁</span><span>里程碑</span></a>
+      <div class="nav-section-title">风险</div>
+      <a class="nav-link" onclick="showPage('risks')"><span>🚧</span><span>阻塞项</span></a>
+    </div>
+    <div style="padding:16px 20px;border-top:1px solid oklch(1 0 0 / 0.08);font-size:11px;color:oklch(0.40 0.012 240);">{{FOOTER_TEXT}}</div>
+  </nav>
+  <main class="content">
+    <!-- 首页 -->
+    <div id="page-home" class="page active">
+      <div class="page-header">
+        <div class="page-title">{{REPORT_TITLE}}</div>
+        <div class="page-subtitle">{{HOME_SUBTITLE}}</div>
+      </div>
+      <div class="stat-grid">{{HOME_STAT_CARDS}}</div>
+      <div class="card">{{HOME_BANNER_HTML}}</div>
+      <div class="dev-metrics-grid">{{DEV_METRIC_CARDS}}</div>
+      <div class="charts-grid">
+        <div class="chart-card"><div class="chart-title">模块完成率</div><div class="chart-wrap"><canvas id="chart-module-progress"></canvas></div></div>
+        <div class="chart-card"><div class="chart-title">研发健康度</div><div class="chart-wrap"><canvas id="chart-health-radar"></canvas></div></div>
+      </div>
+    </div>
+    <!-- 整体进度 -->
+    <div id="page-progress" class="page">
+      <div class="page-header"><div class="page-title">整体研发进度</div></div>
+      <div class="card">
+        <div class="overall-progress-wrap">
+          <div class="overall-pct">{{OVERALL_PROGRESS}}%</div>
+          <div class="overall-bar-wrap">
+            <div class="overall-bar-track"><div class="overall-bar-fill" style="width:{{OVERALL_PROGRESS}}%"></div></div>
+            <div class="overall-target">目标：{{OVERALL_TARGET}}%</div>
+          </div>
+        </div>
+        <div class="overall-insight">{{OVERALL_INSIGHT}}</div>
+      </div>
+    </div>
+    <!-- 健康度 -->
+    <div id="page-health" class="page">
+      <div class="page-header"><div class="page-title">研发健康度</div></div>
+      <div class="card">
+        <div class="health-header">
+          <div class="health-score-big">{{HEALTH_SCORE}}</div>
+          <div class="health-summary">{{HEALTH_SUMMARY}}</div>
+        </div>
+        {{HEALTH_DIMENSIONS}}
+      </div>
+    </div>
+    <!-- 模块进度 -->
+    <div id="page-modules" class="page">
+      <div class="page-header"><div class="page-title">模块开发详情</div></div>
+      {{MODULE_ROWS}}
+    </div>
+    <!-- 功能点清单 -->
+    <div id="page-features" class="page">
+      <div class="page-header"><div class="page-title">功能点清单</div></div>
+      <div class="card">
+        <table class="feature-table">
+          <thead><tr><th>模块</th><th>功能点</th><th>状态</th><th>负责人</th><th>预计完成</th></tr></thead>
+          <tbody>{{FEATURE_ROWS}}</tbody>
+        </table>
+      </div>
+    </div>
+    <!-- 里程碑 -->
+    <div id="page-milestones" class="page">
+      <div class="page-header"><div class="page-title">里程碑</div></div>
+      <div class="card">{{MILESTONE_CARDS}}</div>
+    </div>
+    <!-- 阻塞项 -->
+    <div id="page-risks" class="page">
+      <div class="page-header"><div class="page-title">阻塞项 / 风险</div></div>
+      <div class="card">{{RISK_ITEMS}}</div>
+    </div>
+  </main>
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      const el = document.getElementById('page-' + id);
+      if (el) el.classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+    const chartData = {{CHART_DATA_JSON}};
+    document.addEventListener('DOMContentLoaded', () => {
+      if (chartData.moduleProgress) {
+        new Chart(document.getElementById('chart-module-progress'), { type: 'bar', data: { labels: chartData.moduleProgress.labels, datasets: [{ data: chartData.moduleProgress.values, backgroundColor: 'oklch(0.60 0.22 270 / 0.7)' }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, scales: { x: { max: 100 } }, plugins: { legend: { display: false } } } });
+      }
+      if (chartData.healthRadar) {
+        new Chart(document.getElementById('chart-health-radar'), { type: 'radar', data: { labels: chartData.healthRadar.labels, datasets: [{ data: chartData.healthRadar.values, borderColor: 'oklch(0.60 0.22 270)', backgroundColor: 'oklch(0.60 0.22 270 / 0.15)' }] }, options: { responsive: true, maintainAspectRatio: false, scales: { r: { min: 0, max: 100 } }, plugins: { legend: { display: false } } } });
+      }
+    });
+  </script>
+</body>
+</html>

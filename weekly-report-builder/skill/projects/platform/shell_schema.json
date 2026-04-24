@@ -1,0 +1,221 @@
+{
+  "_comment": "多项目周报 Shell 注入 Schema。大模型只需输出此 JSON，shell_injector.py 负责渲染为完整 HTML。",
+  "_token_saving": "相比直接生成 HTML（~1600行），此 JSON 约 80-120 行，节省 Token 约 80%",
+
+  "meta": {
+    "_comment": "报告元信息",
+    "title":       "中台团队周报 · 2026年4月18日–4月24日",
+    "logoChar":    "中",
+    "reportTitle": "中台团队周报",
+    "dateRange":   "2026年4月18日 – 4月24日",
+    "period":      "2026-W17",
+    "footerText":  "中台团队 · 内部汇报"
+  },
+
+  "summary": {
+    "_comment": "首页总览数据",
+    "subtitle":   "2026年4月18日 – 4月24日 · 中台团队承接项目进展汇报",
+    "navRiskBadge": "1高",
+    "bannerHtml": "本周核心结论示例：<strong>PE 完成最终交付</strong>、<strong>PT 完成 EKS 架构升级</strong>；<span style='color: oklch(0.58 0.22 25); font-weight: 600;'>PT 架构升级期间服务短暂中断</span>，已恢复正常。",
+    "stats": [
+      { "color": "blue",  "label": "承接项目总数", "value": 10, "desc": "PA · PX · PT · PE · PV · Game · PB · TALA · XF · PO" },
+      { "color": "green", "label": "正常推进",     "value": 7,  "desc": "PE · PX · PV · TALA · XF · PO · Game" },
+      { "color": "red",   "label": "高风险项目",   "value": 1,  "desc": "PT（架构升级风险）" },
+      { "color": "amber", "label": "存在阻塞",     "value": 2,  "desc": "PA · PB" }
+    ],
+    "achievements": [
+      "PE：完成生产对接体验服，最终交付完成，项目收尾",
+      "PX：VIP 活动缺 KEY 问题已协调解决，完成二期活动排期",
+      "PT：EKS 集群升级完成，完成压测，架构稳定性显著提升",
+      "Game：Football/Score Plinko 上架 eluck 平台，无 P0/P1 问题",
+      "TALA：4.23 版本发布，新增新人转盘抽奖活动，充值活动上线"
+    ]
+  },
+
+  "projects": [
+    {
+      "_comment": "项目详情，每个项目对应一个侧边栏导航项和一个详情页",
+      "id":       "pe",
+      "name":     "PE · 支付系统",
+      "icon":     "💳",
+      "owner":    "PATO",
+      "phase":    "已交付",
+      "status":   "正常",
+      "navBadge": "完成",
+      "progress": 100,
+      "thisWeek": [
+        "4月20日：生产对接体验服，完成最终交付",
+        "4月21日：输出项目复盘文档",
+        "4月22日：项目正式收尾"
+      ],
+      "nextWeek": [
+        "持续跟进线上稳定性",
+        "输出技术债清单"
+      ],
+      "milestones": [
+        { "date": "4月13日", "title": "全量开发完成",      "dotClass": "done",     "desc": "完成全部功能开发" },
+        { "date": "4月16日", "title": "测试报告 & 演示",   "dotClass": "done",     "desc": "输出测试报告，完成功能演示" },
+        { "date": "4月20日", "title": "最终交付",          "dotClass": "done",     "desc": "生产对接体验服，项目收尾" }
+      ],
+      "risks": [
+        { "level": "low", "title": "线上稳定性持续观察", "desc": "交付后持续观察 7 天，无重大问题" }
+      ],
+      "riskScore": 20
+    },
+    {
+      "id":       "pt",
+      "name":     "PT · 直播平台",
+      "icon":     "📡",
+      "owner":    "PATO",
+      "phase":    "已上线",
+      "status":   "高风险",
+      "navBadge": "架构升级",
+      "progress": 80,
+      "thisWeek": [
+        "完成 EKS 集群升级，架构稳定性显著提升",
+        "完成压测，峰值 QPS 提升 3x",
+        "发布流程规范化：强制预发布环境验证已落地"
+      ],
+      "nextWeek": [
+        "世界杯前完成全量压测",
+        "完善监控告警配置",
+        "推进直播间管理功能开发"
+      ],
+      "milestones": [
+        { "date": "4月18日", "title": "EKS 集群升级开始", "dotClass": "done",     "desc": "开始架构升级" },
+        { "date": "4月22日", "title": "升级完成 & 压测",  "dotClass": "done",     "desc": "完成升级，压测通过" },
+        { "date": "5月前",   "title": "世界杯压测",       "dotClass": "upcoming", "desc": "世界杯前完成全量压测" }
+      ],
+      "risks": [
+        { "level": "high", "title": "架构升级期间服务短暂中断", "desc": "EKS 升级期间服务中断约 5 分钟，已恢复，需完善灰度发布方案" }
+      ],
+      "riskScore": 75,
+      "ganttDays": 7,
+      "ganttOffset": 0
+    }
+  ],
+
+  "risks": {
+    "_comment": "风险总览数据",
+    "top3": [
+      { "level": "high", "title": "【PT】EKS 升级期间服务中断",          "desc": "升级期间服务中断约 5 分钟，需完善灰度发布方案" },
+      { "level": "mid",  "title": "【PA】技术方案 AI 开发方案未完成",    "desc": "阻塞 AB 包提审进度，目标每周出一个 AB 包" },
+      { "level": "mid",  "title": "【PB】鉴权安全排期阻塞",              "desc": "人力不足，鉴权安全排期未确定，影响海外投放进度" }
+    ],
+    "all": [
+      { "level": "high", "title": "【PT】EKS 升级期间服务中断",          "desc": "升级期间服务中断约 5 分钟，需完善灰度发布方案" },
+      { "level": "mid",  "title": "【PA】技术方案 AI 开发方案未完成",    "desc": "阻塞 AB 包提审进度" },
+      { "level": "mid",  "title": "【PB】鉴权安全排期阻塞",              "desc": "人力不足，鉴权安全排期未确定" },
+      { "level": "mid",  "title": "【PX】依赖上海前端框架",              "desc": "VIP 活动缺 KEY 问题已协调，但外部依赖风险持续存在" }
+    ]
+  },
+
+  "plan": {
+    "_comment": "下周计划",
+    "subtitle": "2026年4月25日 – 5月1日 · 下周核心任务",
+    "rows": [
+      { "project": "PT",   "task": "世界杯前完成全量压测，完善监控告警", "milestone": "世界杯前压测完成", "priority": "high" },
+      { "project": "PA",   "task": "全 AI 游戏包提审，五一前完成 AI 游戏 UI/策划规范", "milestone": "五一前规范完成", "priority": "mid" },
+      { "project": "TALA", "task": "4.23 版本问题修复及发布，新人转盘抽奖活动", "milestone": "4.23 版本发布", "priority": "mid" },
+      { "project": "PV",   "task": "三方会审（PRD/原型图/技术方案）", "milestone": "4.21 三方会审", "priority": "mid" },
+      { "project": "XF",   "task": "AI 工具运行优化，推进 5.8 基础成型节点", "milestone": "5.8 基础成型", "priority": "mid" },
+      { "project": "PB",   "task": "完成鉴权安全功能规划，推进中台投放后台规划", "milestone": "完成鉴权规划", "priority": "low" }
+    ]
+  },
+
+  "improvements": {
+    "_comment": "改进措施",
+    "rootCauses": [
+      { "level": "high", "title": "PT 发布流程缺乏校验，导致 3 起线上事故", "desc": "无强制预发布环境验证，分支管理不规范；已落地上线审批机制" },
+      { "level": "high", "title": "服务架构单点，缺乏弹性扩容能力",         "desc": "EKS 升级已完成，峰值 QPS 提升 3x，世界杯前完成压测" },
+      { "level": "mid",  "title": "产品人力不足，推进能力欠缺",             "desc": "PO 新人培训完成后补充至各项目，建立产品人力储备计划" },
+      { "level": "mid",  "title": "外部依赖多，进度不可控",                 "desc": "建立外部依赖跟踪机制，PX 缺 KEY 问题已协调解决" }
+    ],
+    "actionCards": [
+      {
+        "icon": "🚀",
+        "title": "PT 发布流程规范化",
+        "items": [
+          "强制预发布环境全量验证，禁止夹带未测代码",
+          "建立上线审批机制，分支严格隔离",
+          "增加熔断、限流、监控告警配置",
+          "EKS 集群升级完成，世界杯前完成压测"
+        ]
+      },
+      {
+        "icon": "📋",
+        "title": "产品管理优化",
+        "items": [
+          "加强产品侧主动推进意识，减少等待",
+          "需求变更需走正式评审流程",
+          "建立产品人力储备计划",
+          "PO 新人培训完成后补充至各项目"
+        ]
+      },
+      {
+        "icon": "🖥️",
+        "title": "技术规范建设",
+        "items": [
+          "中台技术规范：前端、后端、美术规范本周基本完成",
+          "QA 规范待完成，建立 Bug 率考核指标",
+          "推进代码 Review 机制",
+          "PA 五一前完成 AI 游戏 UI/策划规范"
+        ]
+      },
+      {
+        "icon": "🔗",
+        "title": "外部依赖管理",
+        "items": [
+          "明确外部依赖交付时间节点，建立跟踪机制",
+          "PX 缺 KEY 问题已协调解决，持续跟进",
+          "Game 对接 eluck 提前沟通对接标准",
+          "PB 鉴权安全排期问题升级处理"
+        ]
+      }
+    ]
+  },
+
+  "charts": {
+    "_comment": "图表数据。如不提供则由 shell_injector.py 从 projects 自动推断。",
+    "statusDist": {
+      "labels": ["正常推进", "有风险", "高风险", "阻塞"],
+      "data":   [7, 1, 1, 1]
+    },
+    "riskRadar": {
+      "labels": ["发布流程", "架构稳定性", "外部依赖", "人力资源", "产品管理", "技术方案"],
+      "data":   [60, 50, 70, 65, 75, 60]
+    },
+    "heatmap": {
+      "labels": ["PT", "PB", "PA", "PX", "Game", "TALA", "PE", "XF", "PV", "PO"],
+      "data":   [75, 65, 60, 55, 45, 35, 20, 30, 25, 15],
+      "colors": [
+        "oklch(0.58 0.22 25 / 0.8)",
+        "oklch(0.68 0.19 55 / 0.8)",
+        "oklch(0.68 0.19 55 / 0.8)",
+        "oklch(0.68 0.19 55 / 0.8)",
+        "oklch(0.68 0.19 55 / 0.6)",
+        "oklch(0.62 0.2 160 / 0.7)",
+        "oklch(0.62 0.2 160 / 0.7)",
+        "oklch(0.62 0.2 160 / 0.7)",
+        "oklch(0.62 0.2 160 / 0.7)",
+        "oklch(0.62 0.2 160 / 0.5)"
+      ]
+    },
+    "gantt": {
+      "labels":    ["PE", "PT", "PX", "Game", "TALA", "PA", "XF", "PV", "PB"],
+      "offsets":   [0, 0, 0, 0, 0, 0, 0, 2, 0],
+      "durations": [1, 7, 6, 7, 7, 7, 7, 3, 7],
+      "colors": [
+        "oklch(0.62 0.2 160 / 0.7)",
+        "oklch(0.58 0.22 25 / 0.7)",
+        "oklch(0.68 0.19 55 / 0.7)",
+        "oklch(0.68 0.19 55 / 0.7)",
+        "oklch(0.58 0.22 255 / 0.7)",
+        "oklch(0.58 0.22 255 / 0.7)",
+        "oklch(0.58 0.22 255 / 0.7)",
+        "oklch(0.62 0.2 160 / 0.7)",
+        "oklch(0.52 0.012 240 / 0.5)"
+      ]
+    }
+  }
+}
