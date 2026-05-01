@@ -1,0 +1,423 @@
+domain,module,file,handler,interfaces,query_keys
+sports_match,(global/app/components),src/api/loaders/match.ts,matches,PostMatchRowBatchCountInterface,
+casino,(global/app/components),src/app/[locale]/(main)/(casino)/casino/game/[gameCode]/page.tsx,casino,"getTranslations } from 'next-intl/server';
+import { GetCasinoGamesInterface",
+casino,(global/app/components),src/app/[locale]/(main)/(casino)/casino/page.tsx,casino,"useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { GetCasinoGameLobbiesInterface",['casino'
+sports_match,(global/app/components),src/app/[locale]/(main)/(sports)/leagues/[tournament_id]/outright/page.tsx,matches,"getLocale, getTranslations } from 'next-intl/server';
+import { GetBreadcrumbInterface",
+sports_match,(global/app/components),src/app/[locale]/(main)/(sports)/leagues/[tournament_id]/page.tsx,matches,"getLocale, getTranslations } from 'next-intl/server';
+import { GetBreadcrumbInterface",
+sports_match,(global/app/components),src/app/[locale]/(main)/(sports)/matches/[match_id]/page.tsx,match,"getLocale, getTranslations } from 'next-intl/server';
+import { GetMatchInterface",
+sports_match,(global/app/components),src/app/[locale]/(main)/(sports)/sports/[sport_id]/page.tsx,matches,"getLocale, getTranslations } from 'next-intl/server';
+import { GetBreadcrumbInterface",
+account_balance,(global/app/components),src/app/[locale]/(main)/account/deposit/deposit-page-client.tsx,faq,"useQuery } from '@tanstack/react-query';
+import { useLocale, useTranslations } from 'next-intl';
+import { Accordion } from 'radix-ui';
+import { useEffect, useMemo, useState } from 'react';
+import { GetFrontFaqListInterface",['faq'
+account_balance,(global/app/components),src/app/[locale]/(main)/account/withdraw/withdraw-page-client.tsx,faq,"useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
+import { Accordion } from 'radix-ui';
+import { useEffect, useMemo, useState } from 'react';
+import { GetFrontFaqListInterface",['faq'
+casino,(global/app/components),src/components/footer/components/sitemap/index.tsx,casino,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { FunctionComponent } from 'react';
+import { GetCasinoGameLobbiesInterface, GetCasinoGameTagsInterface",['casino'
+platform_shell,(global/app/components),src/hooks/use-currency-limit.ts,merchant,"useQuery } from '@tanstack/react-query';
+
+import { GetMerchantAggregationLimitRangeInterface",generateQueryKey(ModuleKeys.MERCHANT
+auth,(global/app/components),src/hooks/use-logout.ts,passport,"useMutation } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { LogoutInterface",
+platform_shell,(global/app/components),src/hooks/use-password-setting-check.ts,user,"useQuery } from '@tanstack/react-query';
+import { GetUserPasswordCheckInterface",passwordSettingCheckKey()
+platform_shell,(global/app/components),src/hooks/use-report-analytics.ts,analytics,"useMutation } from '@tanstack/react-query';
+import { ReportAnalyticsInterface",
+sports_match,(global/app/components),src/hooks/use-sports.ts,menu,"create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { GetMenuSportsInterface, GetTopSportsInterface",
+account_balance,(global/app/components),src/hooks/use-wallet.ts,currency,"create } from 'zustand';
+import { GetListCurrencyInterface",
+account_balance,(global/app/components),src/hooks/use-wallet.ts,wallet,GetBalanceInterface,
+account_user_center,(global/app/components),src/mocks/handlers/user-center.handlers.ts,notification,"HttpResponse, http } from 'msw';
+import { SystemMessageListResponse",
+account_balance,balance,src/modules/balance/deposit/_hooks/use-deposit-polling.ts,deposit,"useMutation, useQueryClient } from '@tanstack/react-query';
+import { useInterval } from 'ahooks';
+import { useTranslations } from 'next-intl';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { GetDepositInterface",['first-recharge'
+account_balance,balance,src/modules/balance/deposit/home.tsx,deposit,"zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useDebounceFn } from 'ahooks';
+import { useTranslations } from 'next-intl';
+import { FC, useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import z from 'zod';
+import { CreateDepositInterface",['first-recharge'
+account_balance,balance,src/modules/balance/deposit/home.tsx,promotion,"GetFirstRechargeDefaultStatusInterface, GetFirstRechargeStatusInterface, isFirstRechargeCampaignActive, ValidatePromoCodeInterface",['first-recharge'
+account_balance,balance,src/modules/balance/withdraw/_hooks/use-list-transfer-instrument-type.ts,transfer-instrument,"useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+
+import { GetTransferInstrumentTypeInterface",generateQueryKey(ModuleKeys.WITHDRAW
+account_balance,balance,src/modules/balance/withdraw/_hooks/use-list-transfer-instrument.ts,transfer-instrument,"useMutation } from '@tanstack/react-query';
+import { GetListTransferInstrumentInterface",
+account_balance,balance,src/modules/balance/withdraw/_hooks/use-withdraw-polling.ts,withdraw,"useMutation } from '@tanstack/react-query';
+import { useInterval } from 'ahooks';
+import { useTranslations } from 'next-intl';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { GetWithdrawInterface",
+account_balance,balance,src/modules/balance/withdraw/add-account-modal.tsx,transfer-instrument,"zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { useBoolean } from 'ahooks';
+import { useTranslations } from 'next-intl';
+import { FC, useEffect, useMemo, useRef } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import z from 'zod';
+import { CreateTransferInstrumentInterface",
+account_balance,balance,src/modules/balance/withdraw/fund-account.tsx,transfer-instrument,"useMutation } from '@tanstack/react-query';
+import { useBoolean } from 'ahooks';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { FC, useState } from 'react';
+import { DeleteTransferInstrumentInterface",
+account_balance,balance,src/modules/balance/withdraw/stores/use-withdraw-store.ts,transfer-instrument,"create } from 'zustand';
+import { GetListTransferInstrumentInterface",
+account_balance,balance,src/modules/balance/withdraw/withdraw-form.tsx,withdraw,"zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { useBoolean } from 'ahooks';
+import { useTranslations } from 'next-intl';
+import { FC, useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import z from 'zod';
+import { CreateWithdrawInterface",
+bet_slip,bet-slip,src/modules/bet-slip/cart/parlay-footer.tsx,order,"useMutation } from '@tanstack/react-query';
+import { AnimatePresence, motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
+import { FC } from 'react';
+import { useState } from 'react';
+import { CreateOrderBody, CreateOrderInterface",
+bet_slip,bet-slip,src/modules/bet-slip/cart/single-footer.tsx,order,"useMutation } from '@tanstack/react-query';
+import { AnimatePresence, motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
+import { FC } from 'react';
+import { CreateOrderBet, CreateOrderBody, CreateOrderInterface",
+bet_slip,bet-slip,src/modules/bet-slip/slip/slip-settings.tsx,cart,"useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useDebounceFn } from 'ahooks';
+import { useTranslations } from 'next-intl';
+import { ChangeEvent, FC, RefObject } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { GetSlipSettingsInterface, UpdateSlipSettingsInterface",['cart-settings'] | ['cart-settings'] });
+bet_slip,bet-slip,src/modules/bet-slip/stores/internal/lifecycle.ts,match,"PostLocalCartInterface, SpecifierStatusCheckItem",
+bet_slip,bet-slip,src/modules/bet-slip/stores/slices/sync-slice.ts,cart,"GetCartInterface, PutCartItemInterface",
+bet_slip,bet-slip,src/modules/bet-slip/ticket/_hooks/use-orders.ts,order,"useInfiniteQuery } from '@tanstack/react-query';
+import { useMemo } from 'react';
+import { GetOrderListInterface",generateQueryKey(ModuleKeys.ORDER
+casino,casino,src/modules/casino/_components/game-card.tsx,casino,"useLocale, useTranslations } from 'next-intl';
+import { FC, memo, useCallback, useState } from 'react';
+import { LaunchGameInterface",
+casino,casino,src/modules/casino/game/game-detail-page.tsx,casino,"useQuery, useQueryClient } from '@tanstack/react-query';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { GetCasinoGamesInterface, LaunchGameInterface",['casino'
+casino,casino,src/modules/casino/home/components/merchant-filter.tsx,casino,"useQuery } from '@tanstack/react-query';
+import { FunctionComponent, useMemo } from 'react';
+import { GetCasinoGameMerchantsInterface",['casino'
+casino,casino,src/modules/casino/home/components/page-store.tsx,casino,"useQueries, useQuery } from '@tanstack/react-query';
+import { useDebounce } from 'ahooks';
+import { keyBy, uniqBy } from 'lodash-es';
+import { useSearchParams } from 'next/navigation';
+import {
+    ContextType, createContext, Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, useContext, useEffect, useMemo, useState, } from 'react';
+import {
+    GetCasinoGameLobbiesInterface, GetCasinoGameMerchantsInterface, GetCasinoGamesInterface, GetCasinoGameTagsInterface",['casino'
+casino,home,src/modules/home/_components/bottom-tab-bar.tsx,casino,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { FC, memo, useEffect, useMemo, useState } from 'react';
+import { GetCasinoGameLobbiesInterface",['casino'
+casino,home,src/modules/home/_components/navigation-bar.tsx,casino,"useQuery } from '@tanstack/react-query';
+import useEmblaCarousel from 'embla-carousel-react';
+import WheelGesturesPlugin from 'embla-carousel-wheel-gestures';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { FC, FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
+import { GetCasinoGameLobbiesInterface",['casino'
+account_user_center,home,src/modules/home/_hooks/use-kyc-tips.ts,user-kyc,"useQuery, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
+import { GetKycTipsInterface, KycTipKey",
+account_balance,marketing,src/modules/marketing/promotion/first-deposit-bonus/_components/hero-section.tsx,promotion,"useQuery } from '@tanstack/react-query';
+import { motion } from 'motion/react';
+import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
+import { FunctionComponent } from 'react';
+import { GetFirstRechargeDefaultStatusInterface, isFirstRechargeCampaignActive",['first-recharge'
+marketing,marketing,src/modules/marketing/promotion/list/index.tsx,promotion,"useQuery } from '@tanstack/react-query';
+import { useLocale, useTranslations } from 'next-intl';
+import { useMemo } from 'react';
+import { GetFirstRechargeDefaultStatusInterface, GetPromotionsInterface",['first-recharge' | ['promotions'
+sports_match,match,src/modules/match/_hooks/use-breadcrumb.ts,matches,"useQuery } from '@tanstack/react-query';
+import { GetBreadcrumbInterface",['breadcrumb'
+sports_match,match,src/modules/match/_hooks/use-odds-change-observer.ts,tournament,"useQueryClient } from '@tanstack/react-query';
+import { TournamentMarkets",key }).catch((error) => {
+sports_match,match,src/modules/match/detail/layout.tsx,match,"keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
+import { AnimatePresence, motion } from 'motion/react';
+import { useLocale, useTranslations } from 'next-intl';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { GetMatchInterface",['market-tabs' | ['statscore-event-id' | matchDetailKey
+sports_match,match,src/modules/match/detail/layout.tsx,matches,GetMarketTabsInterface,['market-tabs' | ['statscore-event-id' | matchDetailKey
+sports_match,match,src/modules/match/detail/layout.tsx,statscore,GetStatscoreEventIdInterface,['market-tabs' | ['statscore-event-id' | matchDetailKey
+sports_match,match,src/modules/match/home/hot-matches/layout.tsx,matches,"useTranslations } from 'next-intl';
+import { FC } from 'react';
+import { GetHotMatchesInterface",
+sports_match,match,src/modules/match/home/live-matches/layout.tsx,matches,"useTranslations } from 'next-intl';
+import { FC } from 'react';
+import { SearchMatchesInterface",
+sports_match,match,src/modules/match/home/match-filters/use-sport-live-counts.ts,matches,"useQueries } from '@tanstack/react-query';
+import { SearchMatchesInterface",['sport-live-count'
+sports_match,match,src/modules/match/list/match-list-content.tsx,matches,"useInfiniteQuery } from '@tanstack/react-query';
+import { useInViewport, useSize } from 'ahooks';
+import { AnimatePresence, motion } from 'motion/react';
+import { useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { SearchMatchesInterface",
+sports_match,match,src/modules/match/outright/outright-content.tsx,tournament,"keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { FC, useMemo } from 'react';
+import { GetOutrightMarketsInterface, TournamentMarkets",key
+sports_match,match,src/modules/match/sidebar/category-item.tsx,menu,"useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { FC, useEffect } from 'react';
+import { GetMenuHotTournamentsInterface, GetMenuTournamentsInterface",['menuTournaments'
+sports_match,match,src/modules/match/sidebar/sidebar.tsx,matches,"useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { FC } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { GetBreadcrumbInterface",
+sports_match,match,src/modules/match/sidebar/sport-item.tsx,menu,"useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { FC, memo, useEffect, useState } from 'react';
+import { GetMenuCategoriesInterface, GetMenuHotTournamentsInterface",['menuCategories' | ['menuTournaments'
+sports_match,match-info,src/modules/match-info/basketball/detail/_components/historical/_components/team-battle.tsx,match-basketball,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { ComponentProps, FunctionComponent, useState } from 'react';
+import { GetBasketballMatchAnalysisVsV2",generateQueryKey(ModuleKeys.MATCH_BASKETBALL
+sports_match,match-info,src/modules/match-info/basketball/detail/_components/historical/_components/team-performance.tsx,match-basketball,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { ComponentProps, FunctionComponent, useState } from 'react';
+import { GetBasketballMatchAnalysisRecentV2",generateQueryKey(ModuleKeys.MATCH_BASKETBALL
+sports_match,match-info,src/modules/match-info/basketball/detail/_components/lineup/_components/injured-list.tsx,match-basketball,"useTranslations } from 'next-intl';
+import { FunctionComponent } from 'react';
+import { GetBasketballMatchPlayersById",
+sports_match,match-info,src/modules/match-info/basketball/detail/_components/lineup/_components/presence-list.tsx,match-basketball,"useTranslations } from 'next-intl';
+import { FunctionComponent } from 'react';
+import { GetBasketballMatchPlayersById",
+sports_match,match-info,src/modules/match-info/basketball/detail/_components/lineup/lineup.tsx,match-basketball,"useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { FunctionComponent, useMemo } from 'react';
+import { GetBasketballMatchPlayersById",generateQueryKey(ModuleKeys.MATCH_BASKETBALL
+sports_match,match-info,src/modules/match-info/basketball/detail/_components/overview/_components/trend.tsx,match-basketball,"useQuery } from '@tanstack/react-query';
+import { range } from 'lodash-es';
+import { ComponentProps, FunctionComponent, useMemo } from 'react';
+import { GetBasketballMatchTrendById",generateQueryKey(ModuleKeys.MATCH_BASKETBALL
+sports_match,match-info,src/modules/match-info/basketball/detail/_components/page-store.tsx,match-basketball,"keepPreviousData, QueryObserverResult, useQuery } from '@tanstack/react-query';
+import {
+    ContextType, createContext, Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, useContext, useEffect, useState, } from 'react';
+import { GetBasketballMatchById",generateQueryKey(ModuleKeys.MATCH_BASKETBALL
+sports_match,match-info,src/modules/match-info/basketball/detail/components/Historical/components/TeamBattle/index.tsx,match-basketball,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { ComponentProps, FunctionComponent, useState } from 'react';
+import { GetBasketballMatchAnalysisVsV2",generateQueryKey(ModuleKeys.MATCH_BASKETBALL
+sports_match,match-info,src/modules/match-info/basketball/detail/components/Historical/components/TeamPerformance/index.tsx,match-basketball,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { ComponentProps, FunctionComponent, useState } from 'react';
+import { GetBasketballMatchAnalysisRecentV2",generateQueryKey(ModuleKeys.MATCH_BASKETBALL
+sports_match,match-info,src/modules/match-info/basketball/detail/components/Lineup/components/InjuredList/index.tsx,match-basketball,"useTranslations } from 'next-intl';
+import { FunctionComponent } from 'react';
+import { GetBasketballMatchPlayersById",
+sports_match,match-info,src/modules/match-info/basketball/detail/components/Lineup/components/PresenceList/index.tsx,match-basketball,"useTranslations } from 'next-intl';
+import { FunctionComponent } from 'react';
+import { GetBasketballMatchPlayersById",
+sports_match,match-info,src/modules/match-info/basketball/detail/components/Lineup/index.tsx,match-basketball,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { FunctionComponent, useMemo } from 'react';
+import { GetBasketballMatchPlayersById",generateQueryKey(ModuleKeys.MATCH_BASKETBALL
+sports_match,match-info,src/modules/match-info/basketball/detail/components/Overview/components/Trend/index.tsx,match-basketball,"useQuery } from '@tanstack/react-query';
+import { range } from 'lodash-es';
+import { ComponentProps, FunctionComponent, useMemo } from 'react';
+import { GetBasketballMatchTrendById",generateQueryKey(ModuleKeys.MATCH_BASKETBALL
+sports_match,match-info,src/modules/match-info/basketball/detail/components/PageStore/index.tsx,match-basketball,"keepPreviousData, QueryObserverResult, useQuery } from '@tanstack/react-query';
+import {
+    ContextType, createContext, Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, useContext, useEffect, useState, } from 'react';
+import { GetBasketballMatchById",generateQueryKey(ModuleKeys.MATCH_BASKETBALL
+sports_match,match-info,src/modules/match-info/basketball/detail/index.tsx,match-basketball,GetBasketballMatchById,
+sports_match,match-info,src/modules/match-info/football/detail/_components/historical/_components/team-battle.tsx,match-football,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { ComponentProps, FunctionComponent, useState } from 'react';
+import { GetFootballMatchAnalysisVsV2",generateQueryKey(ModuleKeys.MATCH_FOOTBALL
+sports_match,match-info,src/modules/match-info/football/detail/_components/historical/_components/team-performance.tsx,match-football,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { ComponentProps, FunctionComponent, useState } from 'react';
+import { GetFootballMatchAnalysisRecentV2",generateQueryKey(ModuleKeys.MATCH_FOOTBALL
+sports_match,match-info,src/modules/match-info/football/detail/_components/lineup1/_components/current-store.tsx,match-football,"useQuery } from '@tanstack/react-query';
+import { createContext, FunctionComponent, PropsWithChildren, useContext } from 'react';
+import { GetFootballMatchLineupById",generateQueryKey(ModuleKeys.MATCH_FOOTBALL
+sports_match,match-info,src/modules/match-info/football/detail/_components/lineup1/_components/substitute-lineup.tsx,match-football,"useTranslations } from 'next-intl';
+import { FC, FunctionComponent, ReactNode, useMemo } from 'react';
+import { GetFootballMatchLineupById",
+sports_match,match-info,src/modules/match-info/football/detail/_components/overview1/_components/trend1/trend.tsx,match-football,"useQuery } from '@tanstack/react-query';
+import { ComponentProps, FunctionComponent, useMemo } from 'react';
+import { GetFootballMatchTrendById",generateQueryKey(ModuleKeys.MATCH_FOOTBALL
+sports_match,match-info,src/modules/match-info/football/detail/_components/page-store.tsx,match-football,"keepPreviousData, QueryObserverResult, useQuery } from '@tanstack/react-query';
+import {
+    ContextType, createContext, Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, useContext, useEffect, useState, } from 'react';
+import { GetFootballMatchById",generateQueryKey(ModuleKeys.MATCH_FOOTBALL
+sports_match,match-info,src/modules/match-info/football/detail/components/Historical/components/TeamBattle/index.tsx,match-football,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { ComponentProps, FunctionComponent, useState } from 'react';
+import { GetFootballMatchAnalysisVsV2",generateQueryKey(ModuleKeys.MATCH_FOOTBALL
+sports_match,match-info,src/modules/match-info/football/detail/components/Historical/components/TeamPerformance/index.tsx,match-football,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { ComponentProps, FunctionComponent, useState } from 'react';
+import { GetFootballMatchAnalysisRecentV2",generateQueryKey(ModuleKeys.MATCH_FOOTBALL
+sports_match,match-info,src/modules/match-info/football/detail/components/Lineup/components/CurrentStore/index.tsx,match-football,"useQuery } from '@tanstack/react-query';
+import { createContext, FunctionComponent, PropsWithChildren, useContext } from 'react';
+import { GetFootballMatchLineupById",generateQueryKey(ModuleKeys.MATCH_FOOTBALL
+sports_match,match-info,src/modules/match-info/football/detail/components/Lineup/components/SubstituteLineup/index.tsx,match-football,"useTranslations } from 'next-intl';
+import { FC, FunctionComponent, ReactNode, useMemo } from 'react';
+import { GetFootballMatchLineupById",
+sports_match,match-info,src/modules/match-info/football/detail/components/Overview/components/Trend/index.tsx,match-football,"useQuery } from '@tanstack/react-query';
+import { ComponentProps, FunctionComponent, useMemo } from 'react';
+import { GetFootballMatchTrendById",generateQueryKey(ModuleKeys.MATCH_FOOTBALL
+sports_match,match-info,src/modules/match-info/football/detail/components/PageStore/index.tsx,match-football,"keepPreviousData, QueryObserverResult, useQuery } from '@tanstack/react-query';
+import {
+    ContextType, createContext, Dispatch, FunctionComponent, PropsWithChildren, SetStateAction, useContext, useEffect, useState, } from 'react';
+import { GetFootballMatchById",generateQueryKey(ModuleKeys.MATCH_FOOTBALL
+sports_match,match-info,src/modules/match-info/football/detail/index.tsx,match-football,GetFootballMatchById,
+account_user_center,security-center,src/modules/security-center/security-center.tsx,user,"useTranslations } from 'next-intl';
+import { FunctionComponent } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import {
+    SendUserPasswordCodeInterface, SendWalletPasswordCodeInterface, SetUserPasswordInterface, SetWalletPasswordInterface",
+transaction,transaction,src/modules/transaction/_hooks/use-transaction-queries.ts,transaction,"useQuery } from '@tanstack/react-query';
+import { GetMainEfficientBalanceInterface, GetTotalBetWinInterface",['transaction'
+account_balance,transaction,src/modules/transaction/balance/balance-list.tsx,transaction,"useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { FC, useCallback, useState } from 'react';
+import { GetBalanceListPageInterface, PostBonusWithdrawInterface",TransactionQueryKeys.balance.all }); | TransactionQueryKeys.balance.list(currencyId
+casino,transaction,src/modules/transaction/betHistory/bet-history-filter-row.tsx,casino,"useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { useMemo } from 'react';
+import { GetCasinoGameMerchantsInterface, GetCasinoGameTypesInterface",['casino'
+transaction,transaction,src/modules/transaction/betHistory/bet-history-list.tsx,transaction-bethistory,"useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useTimeZone, useTranslations } from 'next-intl';
+import { FC, useCallback, useMemo, useState } from 'react';
+import {
+    BetHistoryPageParams, GetCasinoBetHistoryInterface, GetGameReportInterface, GetSportReportInterface",getAllQueryKey( | getAllQueryKey(currencyId | getCasinoQueryKey(dateRangeKey | getSportQueryKey( | getSportQueryKey(currencyId
+transaction,transaction,src/modules/transaction/transactions/transactions-page.tsx,transaction,"useTranslations } from 'next-intl';
+import { FC } from 'react';
+import { GetTransactionsListPageInterface",TransactionQueryKeys.transactions.list(currencyId
+transaction,transaction,src/modules/transaction/transactions/transactions-scroll.tsx,transaction,"useInfiniteQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { FC, useMemo } from 'react';
+import { GetTransactionsListInterface",[...TransactionQueryKeys.transactions.list(currencyId
+transaction,transaction,src/modules/transaction/transferOrder/transfer-order.tsx,transaction,"useTranslations } from 'next-intl';
+import { FC, useCallback, useMemo, useState } from 'react';
+import { GetTransferOrderListInterface",['transfer-order'
+auth,user,src/modules/user/auth/_hooks/use-phone-form.ts,passport,"useMutation } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { useEffect, useRef, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { SendSmsCodeInterface",
+auth,user,src/modules/user/auth/_hooks/use-signin-form.ts,passport,"zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import z from 'zod';
+import { CheckNewUserInterface, LoginInterface, LoginType",
+account_user_center,user,src/modules/user/kyc/home.tsx,user-kyc,"useTranslations } from 'next-intl';
+import { FC, useEffect, useState } from 'react';
+import { GetKycEnabledInterface, GetWebKycUrl",
+account_user_center,user,src/modules/user/kyc/kyc-form.tsx,user-kyc,"zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
+import { FC, useMemo } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { CreateKycInterface",
+account_user_center,user-center,src/modules/user-center/affiliate/affiliate-faq.tsx,faq,"useQuery } from '@tanstack/react-query';
+import { useLocale, useTranslations } from 'next-intl';
+import { Accordion } from 'radix-ui';
+import { SVGProps, useMemo, useState } from 'react';
+import { GetFrontFaqListInterface",['faq'
+account_user_center,user-center,src/modules/user-center/faq/faq.tsx,faq,"useQuery } from '@tanstack/react-query';
+import { useLocale, useTranslations } from 'next-intl';
+import { Accordion } from 'radix-ui';
+import { useDeferredValue, useMemo, useState } from 'react';
+import { GetFrontFaqListInterface",['faq'
+account_user_center,user-center,src/modules/user-center/health-setting/home.tsx,health-setting,"useTranslations } from 'next-intl';
+import { FC, useState } from 'react';
+import { SetDepositLimitInterface, SetLossLimitInterface, SetRestTimeInterface",
+account_user_center,user-center,src/modules/user-center/health-setting/use-health-setting.ts,health-setting,"useQuery, useQueryClient } from '@tanstack/react-query';
+import { GetRGConfigInterface",healthSettingQueryKey() | healthSettingQueryKey() });
+account_user_center,user-center,src/modules/user-center/notification/announcements.tsx,notification,"useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { FC, useCallback, useEffect, useMemo } from 'react';
+import { SystemMessageListResponse",['announcements'] | ['unread-announcements'] });
+account_user_center,user-center,src/modules/user-center/notification/announcements.tsx,notification,"DeleteSystemMessagesInterface, GetAnnouncementsInterface, ReadSystemMessagesInterface",['announcements'] | ['unread-announcements'] });
+account_user_center,user-center,src/modules/user-center/notification/footer.tsx,notification,"useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { FC } from 'react';
+import { DeleteAllSystemMessagesInterface, ReadAllSystemMessagesInterface",['announcements'] }); | ['system-messages'] }); | ['unread-announcements'] }); | ['unread-messages'] });
+account_user_center,user-center,src/modules/user-center/notification/normal-messages.tsx,notification,"useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { FC, useCallback, useEffect, useMemo } from 'react';
+import { SystemMessageListResponse",['system-messages' | ['unread-messages'] });
+account_user_center,user-center,src/modules/user-center/notification/normal-messages.tsx,notification,"DeleteSystemMessagesInterface, GetSystemMessagesInterface, ReadSystemMessagesInterface",['system-messages' | ['unread-messages'] });
+account_user_center,user-center,src/modules/user-center/notification/use-unread-messages.ts,notification,"useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { create } from 'zustand';
+import { GetAnnouncementsInterface, GetSystemMessagesInterface",['unread-announcements'] | ['unread-messages'
+account_user_center,user-center,src/modules/user-center/support/home.tsx,support,"useQuery } from '@tanstack/react-query';
+import { StaticImageData } from 'next/image';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { FC } from 'react';
+import { useState } from 'react';
+import { GetSupportPhoneInterface",['support'
+account_user_center,user-center,src/modules/user-center/support/online.tsx,support,"useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { GetSupportPhoneInterface",['support'
+account_user_center,user-center,src/modules/user-center/support/support-faq.tsx,faq,"useQuery } from '@tanstack/react-query';
+import { useLocale, useTranslations } from 'next-intl';
+import { Accordion } from 'radix-ui';
+import { useMemo, useState } from 'react';
+import { GetFrontFaqListInterface",['faq'
+account_user_center,user-center,src/modules/user-center/support/vip.tsx,support,"useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+import { GetVipSupportListInterface",['vipSupportList']
+platform_shell,(global/app/components),src/replay/manager.ts,tournament,"FetchOptions, fetcher } from '@/api/client';
+import { TournamentMarkets",unknown[]): boolean =>
+platform_shell,(global/app/components),src/stores/app-info-store.ts,app,"transform } from 'lodash-es';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { GetMatchStatusInterface",
+auth,(global/app/components),src/stores/session-store.ts,passport,"create } from 'zustand';
+/**
+ * React Hook mimicking next-auth's useSession
+ */
+import { useShallow } from 'zustand/react/shallow';
+import { CheckLoginInterface",
+platform_shell,(global/app/components),src/stores/session-store.ts,user,GetProfileInterface,

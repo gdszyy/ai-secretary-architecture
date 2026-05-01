@@ -4,9 +4,16 @@
 
 本文档是 `match-pc` 前端包在本仓库内的轻量规则入口，目标是把一次性代码拆解结果沉淀为可复用的 **业务导向索引**。后续 Agent 处理 match-pc 前端问题时，应先从业务功能定位，再进入页面、模块、组件、接口与取数逻辑。
 
-> 主入口：[`docs/frontend/match-pc/README.md`](../../docs/frontend/match-pc/README.md)  
-> 强化索引：[`docs/frontend/match-pc/business_oriented_index.generated.md`](../../docs/frontend/match-pc/business_oriented_index.generated.md)  
-> 完整拆解：[`docs/frontend/match-pc/frontend_breakdown_report.md`](../../docs/frontend/match-pc/frontend_breakdown_report.md)
+> 主入口：[`repo-indexer/match-pc/INDEX.md`](../../repo-indexer/match-pc/INDEX.md)  
+> 强化索引：[`repo-indexer/match-pc/business_oriented_index.md`](../../repo-indexer/match-pc/business_oriented_index.md)  
+> 完整拆解：[`repo-indexer/match-pc/frontend_breakdown_report.md`](../../repo-indexer/match-pc/frontend_breakdown_report.md)
+
+
+## 强制触发条件
+
+当任务涉及 **用户体验、功能修改或前端修改** 时，必须先查询 match-pc 前端业务索引，禁止直接凭记忆或只读局部源码开工。触发场景包括页面交互、视觉与布局、导航、表单、弹窗、投注单、账户中心、接口取数、React Query key、WebSocket/SSE 同步、模块拆分与组件复用等。
+
+强制读取路径：`repo-indexer/match-pc/INDEX.md` → `repo-indexer/match-pc/business_oriented_index.md` → 按业务域进入功能行，再定位页面、模块、关键组件和取数接口。若任务只涉及非前端后端脚本，也应在判断“不涉及前端/用户体验”后再跳过。
 
 ## 三层读取路径
 

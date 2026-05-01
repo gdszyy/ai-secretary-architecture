@@ -2,6 +2,13 @@
 
 本文档是 `match-pc-test1.zip` 前端包在本仓库中的 **repo-indexer 风格入口**。它不替代源码，而是为后续 Agent、开发者和产品/架构协作提供高信噪比的业务导航：从业务功能出发，快速定位到页面路由、业务模块、关键组件、接口 handler 与取数逻辑。
 
+
+## 强制索引访问规则
+
+当任务涉及 **用户体验、功能修改或前端修改** 时，Agent 必须先访问并查询`/repo-indexer/match-pc` 目录的前端业务索引，再开始方案设计或代码修改。该规则适用于但不限于页面结构调整、交互流程变更、组件样式修改、接口取数调整、表单/弹窗/导航/投注单/账户中心等前端相关改动。
+
+推荐查询顺序为：`repo-indexer/match-pc/INDEX.md` → `repo-indexer/match-pc/business_oriented_index.md` → 按需进入 `repo-indexer/match-pc/frontend_breakdown_report.md`、`repo-indexer/match-pc/generated_frontend_index.md` 或 `repo-indexer/match-pc/data/*.csv`。如果变更影响路由、模块边界、功能归属、关键组件或取数逻辑，必须在同一提交中同步更新这些索引文件。
+
 ## 读取路径
 
 建议所有后续前端相关任务按以下顺序读取。首先阅读本入口，明确当前任务所属业务域；其次根据业务域进入 `business_oriented_index.generated.md` 的功能索引；最后再按需要进入完整拆解报告、自动路由索引或 CSV 数据文件。

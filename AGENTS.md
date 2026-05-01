@@ -107,9 +107,11 @@
 
 | 前端包 | 规则入口 | 业务索引 | 完整拆解 | 结构化数据 |
 |---|---|---|---|---|
-| `match-pc` | [`.cursor/rules/frontend_match_pc.md`](.cursor/rules/frontend_match_pc.md) | [`docs/frontend/match-pc/business_oriented_index.generated.md`](docs/frontend/match-pc/business_oriented_index.generated.md) | [`docs/frontend/match-pc/frontend_breakdown_report.md`](docs/frontend/match-pc/frontend_breakdown_report.md) | [`docs/frontend/match-pc/data/`](docs/frontend/match-pc/data/) |
+| `match-pc` | [`.cursor/rules/frontend_match_pc.md`](.cursor/rules/frontend_match_pc.md) | [`repo-indexer/match-pc/business_oriented_index.md`](repo-indexer/match-pc/business_oriented_index.md) | [`repo-indexer/match-pc/frontend_breakdown_report.md`](repo-indexer/match-pc/frontend_breakdown_report.md) | [`repo-indexer/match-pc/data/`](repo-indexer/match-pc/data/) |
 
-> **Agent 读取路径**：`AGENTS.md 第 9 节` → `.cursor/rules/frontend_match_pc.md` → `docs/frontend/match-pc/README.md` → 按业务域进入功能索引。
+> **Agent 读取路径**：`AGENTS.md 第 9 节` → `.cursor/rules/frontend_match_pc.md` → `repo-indexer/match-pc/INDEX.md` → 按业务域进入功能索引。
+
+> **强制规则**：凡涉及用户体验、功能修改或前端修改，Agent 必须先访问并查询 `repo-indexer/match-pc/INDEX.md` 与 `repo-indexer/match-pc/business_oriented_index.md`，再进行方案设计、代码定位或补丁修改。
 
 ## 第 10 节：外部资料索引（三方文档 / 参考资料 / 竞品调研）
 
