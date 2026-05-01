@@ -56,6 +56,7 @@
 *   **handover 模块规范**：[`.cursor/rules/handover.md`](.cursor/rules/handover.md) - 任务交接文档规范，记录跨 Agent 上下文传递。
 *   **weekly_report_timeline 模块规范**：[`.cursor/rules/weekly_report_timeline.md`](.cursor/rules/weekly_report_timeline.md) - 周报时间线功能设计文档索引与触发机制规范。
 *   **weekly_report_builder 模块规范**：[`.cursor/rules/weekly_report_builder.md`](.cursor/rules/weekly_report_builder.md) - 周报构建器前端组件代码规范与设计决策。
+*   **match-pc 前端业务索引规范**：[`.cursor/rules/frontend_match_pc.md`](.cursor/rules/frontend_match_pc.md) - match-pc 前端包的业务导向页面、模块、功能、组件与取数逻辑索引。
 
 ## 5. 流程洞察索引 (Process Insights)
 
@@ -100,7 +101,17 @@
 > **Agent 读取路径**：`AGENTS.md` → 模块规范文件（`.cursor/rules/mod_*.md`）→ auto_index PRD 索引（精准定位 Feature ID 与行号）→ 具体 PRD 章节。
 > **更新规范**：每次通过 `prd-doc-ingestion` 新增文档后，需重新运行 `python3 /home/ubuntu/gen_prd_index.py` 更新索引。
 
-## 第 9 节：外部资料索引（三方文档 / 参考资料 / 竞品调研）
+## 第 9 节：前端包业务索引（match-pc）
+
+本仓库额外沉淀了 `match-pc-test1.zip` 前端包的业务导向代码索引，用于从功能快速定位页面、模块、组件与取数逻辑。
+
+| 前端包 | 规则入口 | 业务索引 | 完整拆解 | 结构化数据 |
+|---|---|---|---|---|
+| `match-pc` | [`.cursor/rules/frontend_match_pc.md`](.cursor/rules/frontend_match_pc.md) | [`docs/frontend/match-pc/business_oriented_index.generated.md`](docs/frontend/match-pc/business_oriented_index.generated.md) | [`docs/frontend/match-pc/frontend_breakdown_report.md`](docs/frontend/match-pc/frontend_breakdown_report.md) | [`docs/frontend/match-pc/data/`](docs/frontend/match-pc/data/) |
+
+> **Agent 读取路径**：`AGENTS.md 第 9 节` → `.cursor/rules/frontend_match_pc.md` → `docs/frontend/match-pc/README.md` → 按业务域进入功能索引。
+
+## 第 10 节：外部资料索引（三方文档 / 参考资料 / 竞品调研）
 
 > **读取入口**：[`.cursor/rules/refs_index.md`](.cursor/rules/refs_index.md)
 > **维护原则**：本节链接固定不变，新增资料只需更新飞书索引文档，无需修改仓库。

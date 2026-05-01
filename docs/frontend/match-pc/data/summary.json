@@ -1,0 +1,69 @@
+{
+  "pages": 36,
+  "features": 19,
+  "modules": 12,
+  "api_usage_rows": 114,
+  "handlers": 28,
+  "top_api_handlers_by_usage": [
+    [
+      "match-basketball",
+      15
+    ],
+    [
+      "match-football",
+      13
+    ],
+    [
+      "matches",
+      11
+    ],
+    [
+      "casino",
+      10
+    ],
+    [
+      "notification",
+      7
+    ],
+    [
+      "faq",
+      5
+    ],
+    [
+      "transfer-instrument",
+      5
+    ],
+    [
+      "transaction",
+      5
+    ],
+    [
+      "passport",
+      4
+    ],
+    [
+      "match",
+      3
+    ],
+    [
+      "user",
+      3
+    ],
+    [
+      "menu",
+      3
+    ],
+    [
+      "promotion",
+      3
+    ],
+    [
+      "order",
+      3
+    ],
+    [
+      "user-kyc",
+      3
+    ]
+  ]
+}
