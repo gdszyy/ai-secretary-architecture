@@ -115,6 +115,11 @@ def main():
             "--hours", str(args.hours),
             *(["--dry-run"] if args.dry_run else []),
         ]),
+        ("requirement_followup", [
+            sys.executable,
+            str(SCRIPTS_DIR / "requirement_followup.py"),
+            *(["--dry-run"] if args.dry_run else []),
+        ]),
     ]
 
     # 周四额外执行：weekly_issue_reminder（风险项集中提醒）

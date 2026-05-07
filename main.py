@@ -72,6 +72,12 @@ from thread_separator import separate as separate_threads
 from lark_bitable_client import LarkBitableClient
 from lark_correction_handler import handle_correction, is_correction_command
 from lark_qa_handler import handle_qa, is_at_bot
+from requirement_tracker import (
+    handle as handle_requirement,
+    is_explicit_record_intent,
+    looks_like_query,
+    _find_active_requirement_for as find_active_requirement,
+)
 
 # ---------------------------------------------------------------------------
 # 日志配置
@@ -467,6 +473,46 @@ async def handle_message_event(msg_info: Dict) -> None:
         sender,
         text[:50],
     )
+
+    # @section:route_requirement - 需求记录路由
+    # 触发条件：消息 @ 机器人，且属于以下三种情况之一：
+    #   1) 私聊（chat_type == p2p）— 默认每次都视作需求登记，除非看起来是查询；
+    #   2) 群里 @ 机器人 + 显式「记录需求 / 需求：…」前缀；
+    #   3) 用户当前已有未确认的需求草稿（继续多轮澄清）。
+    if is_at_bot(msg_info):
+        chat_type_val = msg_info.get("chat_type", "")
+        text_val = msg_info.get("text", "")
+        sender_open_id = msg_info.get("sender_id", "")
+        active_draft = None
+        try:
+            active_draft = find_active_requirement(sender_open_id)
+        except Exception as e:
+            logger.warning("查询活跃需求失败: %s", e)
+
+        should_route_to_requirement = False
+        if active_draft is not None:
+            should_route_to_requirement = True
+        elif chat_type_val == "p2p" and not looks_like_query(text_val):
+            should_route_to_requirement = True
+        elif is_explicit_record_intent(text_val):
+            should_route_to_requirement = True
+
+        if should_route_to_requirement:
+            logger.info("路由至需求记录流程 (chat_type=%s, has_draft=%s)",
+                        chat_type_val, active_draft is not None)
+            try:
+                req_result = handle_requirement(msg_info)
+            except Exception as e:
+                logger.exception("需求记录处理异常: %s", e)
+                req_result = {"handled": False, "reply_text": ""}
+            if req_result.get("handled"):
+                reply = req_result.get("reply_text", "")
+                if reply:
+                    await send_lark_message(chat_id, reply)
+                if chat_id and message_id:
+                    update_cursor_record(chat_id, message_id)
+                return
+            # handled=False：LLM 判定非需求 → 落到下面的 QA 路由
 
     # @section:route_qa - @机器人 问答路由（优先级最高）
     if is_at_bot(msg_info):

@@ -16,3 +16,7 @@ python-dotenv==1.1.0
 
 # 数据处理
 python-dateutil==2.9.0.post0
+
+# Lark / Feishu 官方 SDK（v2 main，支持 IM / Bitable / Drive 等）
+# https://github.com/larksuite/oapi-sdk-python
+lark-oapi==1.6.0
