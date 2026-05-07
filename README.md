@@ -22,6 +22,7 @@
 | **模块一：看板系统** | [`docs/module1_kanban/`](./docs/module1_kanban/) | 包含看板模块设计、流程图、Meegle 集成方案与模块 SOP |
 | **模块二：缓冲池** | [`docs/module2_buffer/`](./docs/module2_buffer/) | 包含 Buffer 模块设计、反积压机制与信息生命周期说明 |
 | **模块三：信息源** | [`docs/module3_info_sources/`](./docs/module3_info_sources/) | 包含信息源治理与主计划文档 |
+| **模块四：知识库** | [`docs/module4_knowledge_base/`](./docs/module4_knowledge_base/) | 项目认知层：实时纠正、多源主动聚合、信源溯源 |
 | **体系结构评估** | [`docs/architecture/`](./docs/architecture/) | 体系结构相关辅助文档，如仓库拆分评估报告 |
 
 ### 3. 项目级上下文 (docs/)

@@ -49,6 +49,7 @@
 *   **module1_kanban 模块规范**：[`.cursor/rules/module1_kanban.md`](.cursor/rules/module1_kanban.md) - module1_kanban 模块的专属设计规范与 SOP。
 *   **module2_buffer 模块规范**：[`.cursor/rules/module2_buffer.md`](.cursor/rules/module2_buffer.md) - module2_buffer 模块的专属设计规范与 SOP。
 *   **module3_info_sources 模块规范**：[`.cursor/rules/module3_info_sources.md`](.cursor/rules/module3_info_sources.md) - module3_info_sources 模块的专属设计规范与 SOP。
+*   **module4_knowledge_base 模块规范**：[`.cursor/rules/module4_knowledge_base.md`](.cursor/rules/module4_knowledge_base.md) - 知识库模块（KB）的设计规范、三大红线与核心逻辑。
 *   **Meegle 深度集成方案**：[`docs/module3_info_sources/meegle_integration_deepening.md`](docs/module3_info_sources/meegle_integration_deepening.md) - Meegle 扩展能力与模块映射规范。
 *   **里程碑管理规范**：[`docs/project/milestone_policy.md`](docs/project/milestone_policy.md) - 人工设定里程碑的强制规范。
 *   **里程碑功能点 Checklist**：[`docs/project/milestone_checklists.md`](docs/project/milestone_checklists.md) - 5月/6月版本里程碑的功能点清单及当前研发状态（✅/🔄/📋/⏳/❌）。
